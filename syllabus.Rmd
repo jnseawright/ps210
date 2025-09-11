@@ -38,9 +38,9 @@ Class meets:
 
 -   Thursday, October 2nd: Asynchronous activity in lieu of class meeting.
 
--   October 10th: First homework due.
+-   October 9th: First homework due.
 
--   October 21st: Midterm.
+-   October 11th: Midterm.
 
 -   November 7th: Second homework due.
 
@@ -89,69 +89,27 @@ Homework due dates will be set throughout the quarter. Students are
 encouraged to form study groups and work together but must complete and
 submit their own homework.
 
-
-
-You are required to complete a research assignment that can include up
-to 4 hours of research study participation. These studies require that
-students set up an appointment to complete participation at a laboratory
-on campus (or via an on-line survey). You will learn how studies are
-conducted and will receive a synopsis at the conclusion of the quarter
-describing the study's goal, result, and relevance to the class. If you
-prefer not to participate in research as a subject, you may opt for an
-alternative that entails reading one chapter about political science
-research and writing a five page reaction paper. The typical chapter is
-about 20 pages and thus reading it and writing a five page paper should
-take approximately four hours.
-
-During the first week of the quarter, you will receive an e-mail asking
-you whether you prefer study participation or the alternative
-assignment. The e-mail will also include details on how to complete
-either requirement. Failure to complete the requirement during the
-quarter will result in an incomplete. Failure to complete the
-requirement during the following quarter will result in a failing grade
-for the class. Note that if you are enrolled in multiple classes that
-require participation, you only need to satisfy the requirement one
-time. Also, if you already completed the requirement in another course
-in a previous quarter, you are excused from the requirement.
+Late work will be accepted but with a grade penalty equivalent to 5% per day. Late exams will not be accepted without prior communication with the instructors or an overriding exemption due to university policy.
 
 While some of the tools discussed in this course are based in
 sophisticated mathematical reasoning, our discussion of them will be
 posed at a primarily conceptual level. Hence, no particular mathematical
 or statistical background is expected for this course.
 
-One choice for the textbook for this course is *The Fundamentals of
-Political Science Research*, 3rd edition, written by Paul M. Kellstedt
-and Guy D. Whitten. A second option, available online, is *Empirical
+The textbook for this course, available for free online, is *Empirical
 Methods in Political Science: An introduction*, edited by Jean
 Clipperton. That text can be found at [the library's
-github](https://nulib-oer.github.io/empirical-methods-polisci/). These
-textbooks will be supplemented as needed with other readings available
-electronically, either linked in this syllabus or found in the Readings
-folder of the course Canvas site. You are free to read these materials
-either before or after class, as works best for your study process,
-unless we ask you otherwise in special preparation for a particular
-class session.
+github](https://nulib-oer.github.io/empirical-methods-polisci/). The
+textbook will be supplemented as needed with other readings available
+electronically.
 
+# Research Study Participation Requirement
 
+Students enrolled in this course are required to complete a research participation assignment. This will involve taking part in studies conducted by students and faculty from the Department of Political Science, and will include up to 4 hours of research study participation. This will primarily require completing on-line surveys, and in some cases in-person studies at Scott Hall. Students will be able to see how political science studies are conducted and can request information about the studies at the end of the quarter. Students who prefer not to participate in research may opt for an alternative that entails reading a book chapter about political science research and writing a five page reaction paper. The typical chapter is about 20 pages and thus reading it and writing a five-page paper should take approximately four hours. In order to opt for the 5-page paper alternative, please email the lab manager, Jacob Fortier at jacobfortier2027@u.northwestern.edu.
 
-# Academic Integrity
+# Northwestern University Syllabus Standards
 
-Suspected violations of academic integrity will be reported to the
-Dean's Office. For more information on Northwestern's academic integrity
-policies, see
-<http://www.weinberg.northwestern.edu/undergraduate/courses-registration-grades/integrity/>.
-All student work in this class may be analyzed electronically for
-violations of the University's academic integrity policy and may also be
-included in a database for the purpose of testing for plagiarized
-content.
-
-# Note
-
-Any student requesting accommodations related to a disability or other
-condition is required to register with AccessibleNU
-(accessiblenu@northwestern.edu; 847-467-5530) and provide professors
-with an accommodation notification from AccessibleNU, preferably within
-the first two weeks of class. All information will remain confidential.
+This course follows the [Northwestern University Syllabus Standards](https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html). Students are responsible for familiarizing themselves with this information.
 
 # Course Schedule and Readings
 
@@ -159,97 +117,66 @@ This schedule is subject to changes (minor or major) depending on how
 long each topic actually takes us to cover, as well as on the needs of
 the class.
 
-Sept. 19: *Introduction, conceptualization and measurement.*
+Sept. 16: *Asking social science questions.*
 
-Kellstedt and Whitten, Chapters 1 and 2.
+Clipperton, ed., Chapter 1.
 
-Optional: Clipperton, ed., Chapter 1.
+Sept. 18: *Data.*
 
-Sept. 21: *Describing data.*
+Clipperton, ed., Chapter 4.
 
-Kellstedt and Whitten, Chapter 5.
+Sept. 21: *Causation.*
 
-Recommended: [Jason Cohen, "Avoiding common data-interpretation errors."
-A Smart
-Bear](https://blog.asmartbear.com/data-interpretation-mistakes.html)
+Clipperton, ed., Chapter 2.
 
-Optional: Clipperton, ed., Chapter 4.
+Sept. 23: *Causal inference in action.*
 
-Sept. 26: *Criteria for causality.*
+Morral, Andrew R., and Rosanna Smart. "Concealed Carry Laws and Violence in America." Annual Review of Criminology 9 (2025). [https://doi.org/10.1146/annurev-criminol-032924-013352](https://doi.org/10.1146/annurev-criminol-032924-013352)
 
-Kellstedt and Whitten, Chapters 3 and 4.
+View video [here](https://urldefense.com/v3/__https://northwestern.zoom.us/rec/share/h91aa7o_PXyqyQXVfbjaAJoZ3IOW0TkiivlHBBKAa2sr3O7KLFvtUJSL7gKXtm_9.dsbEVCuebM7VNzFe__;!!Dq0X2DkFhyF93HkjWTBQKhk!VUc6kKKl03NSPVFsWl6M_feW9iCX369lrYINOEgMB8zxE8FTmn7-ABAr64j5grroucYEt3mo5znuyxHERiCLrkFC7VQ$).
 
-Optional: Clipperton, ed., Chapter 2.
+Please remember to email Professor Seawright with your answer to the questions asked at the end of the video before the next class!
 
-Sept. 28: *Causal inference.*
+Sept. 25: *Sampling and survey research.*
 
-[David A. Freedman. "Statistical Models and Shoe Leather," Sociological
-Methodology 21 (1991):
-291-313.](https://www.jstor.org/stable/pdf/270939.pdf)
+Clipperton, ed., Chapter 6.
 
-Oct. 3: *Sampling and survey research.*
+Sept. 30: *Experiments.*
 
-Kellstedt and Whitten, Chapter 6.
+Clipperton, ed., Chapter 7.
 
-Optional: Clipperton, ed., Chapter 6.
-
-Oct. 5: *Writing survey questions.*
-
-Floyd J. Fowler, Jr. *Improving Survey Questions: Design and
-Evaluation*, (Thousand Oaks: Sage), pp. 1-6 AND 78-103.
-
-"Survey Questions 101: Do You Make any of These 7 Question Writing
-Mistakes?" http://www.qualtrics.com/blog/writing-survey-questions/
-
-Oct. 10: *Experimentation.*
-
-Kellstedt and Whitten, Chapter 7.
-
-Optional: Clipperton, ed., Chapter 7.
-
-Oct. 12: *Political science experiments.*
+Oct. 2: *Applied experiments.*
 
 [Wladimir G. Gramacho and Mathieu Turgeon, "When politics collides with
 public health: COVID-19 vaccine country of origin and vaccination
 acceptance in Brazil," Vaccine 39 (2021):
 2608-12.](https://doi.org/10.1016/j.vaccine.2021.03.080)
 
-Recommended: [BOS, L., SCHEMER, C., CORBU, N., HAMELEERS, M., ANDREADIS,
+[BOS, L., SCHEMER, C., CORBU, N., HAMELEERS, M., ANDREADIS,
 I., SCHULZ, A., SCHMUCK, D., REINEMANN, C. and FAWZI, N. (2020), The
 effects of populism as a social identity frame on persuasion and
 mobilisation: Evidence from a 15-country experiment. European Journal of
 Political Research, 59: 3-24.](https://doi.org/10.1111/1475-6765.12334)
 
-Oct. 17: *Analyzing experimental data.*
+Activity: for a research question in the social sciences that interests you, suggest a design for an experiment that could be done as an honors thesis project. (You don't have to actually intend to do it, etc., but it has to be the kind of thing that could hypothetically be done.) Explain why you find the topic interesting and how your design helps answer your question. Evaluate the strengths and weaknesses of your design in comparison with the example experiments linked above.
 
-No reading for this session.
+Please email your responses to the activity (which shouldn't be more than a couple of pages double-spaced) to Professor Seawright!
 
-Oct. 19: *Class session skipped to provide time for midterm.*
+Oct. 7: *Confidence intervals and significance tests.*
 
-No reading for this session.
+Clipperton, ed., Chapter 5.
 
-Oct. 24: *Confidence intervals and significance tests I.*
+Oct. 9: *Correlation and regression.*
 
-Freedman, Pisani, and Purves Chapters 5, 20, and 21.
+Clipperton, ed., Chapter 8.
 
-Optional: Clipperton, ed., Chapter 5.
+Oct. 14: *Statistical computing in political science I.*
 
-Oct. 26: *Confidence intervals and significance tests II.*
+Oct. 16: Midterm
 
-Freedman, Pisani, and Purves Chapters 26, 27, and 29.
+Oct. 21: *Statistical computing in political science II.*
 
-Oct. 31: *Correlation and regression.*
-
-Kellstedt and Whitten, Chapter 8.
-
-Optional: Clipperton, ed., Chapter 8.
-
-Recommended: Kellstedt and Whitten, Chapter 9.
-
-Recommended: John DiNardo, "Interesting Questions in Freakonomics."
-http://www-personal.umich.edu/ jdinardo/Freak/revisionfinale.pdf
-
-Nov. 2: *Quantitative political science research examples.*
+Oct. 23: *Quantitative political science research examples.*
 
 [Kirk Bansak, Jens Hainmueller, and Dominik Hangartner, "How economic,
 humanitarian, and religious concerns shape European attitudes toward
@@ -261,21 +188,23 @@ Teaches Us about the Impact of Racial Threat on Political Behavior."
 American Journal of Political Science 60 (January 2016):
 123--142.](https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12156)
 
-Nov. 7: *Text methods and AI in social science.*
+Oct. 28: *Machine learning.*
+
+Clipperton, ed., Chapter 12.
+
+Oct. 30: *Statistical computing in political science III.*
+
+Nov. 4: *Applied text methods and AI in social science.*
 
 [Erin L. Rossiter, "Measuring Agenda Setting in Interactive Political
 Communication." American Journal of Political Science 66 (April 2022):
 337-51.](https://doi.org/10.1111/ajps.12653)
 
-Nov. 9: *The qualitative comparative method.*
+Nov. 6: *The qualitative comparative method.*
 
-[David Collier, "Understanding Process Tracing." PS: Political Science
-and Politics 44 (Oct. 2011):
-823-30.](https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/understanding-process-tracing/183A057AD6A36783E678CB37440346D1)
+Clipperton, ed., Chapter 9.
 
-Optional: Clipperton, ed., Chapter 9.
-
-Nov. 14: *Qualitative political science research examples.*
+Nov. 11: *Qualitative political science research examples.*
 
 [Edward L. Gibson, "Boundary Control: Subnational Authoritarianism in
 Democratic Countries," World Politics 58 (Oct. 2005):
@@ -286,7 +215,9 @@ State: Advocacy Groups and Access to Government Homeownership Programs,
 1934--1954," Studies in American Political Development 29 (Oct. 2015):
 250-67.](https://doi.org/10.1017/S0898588X15000097)
 
-Nov. 16: *Ethics and Normative Concerns in Political Science.*
+Oct. 13: *Qualitative computing tools in political science.*
+
+Nov. 18: *Ethics and Normative Concerns in Political Science.*
 
 Ron Iphofen, *Ethical Decision-Making in Social Research: A Practical
 Guide*. 2009. New York: Palgrave Macmillan. Chapter 1.
@@ -296,7 +227,7 @@ Science: Data Access and Research Transparency," PS: Political Science &
 Politics 47 (Jan. 2014):
 19-42.](https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/openness-in-political-science-data-access-and-research-transparency/0B189FC1097A4D062E57F805E8F07BD0)
 
-Nov. 21: *Summary, review, and looking forward.*
+Nov. 20: *Summary, review, and looking forward.*
 
 [Joe Soss, Meghan Condon, Matthew Holleque, and Amber Wichowsky. 2006.
 "The Illusion of Technique: How Method‐Driven Research Leads Welfare

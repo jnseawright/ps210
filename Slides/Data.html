@@ -52,189 +52,921 @@ Let's look at the [Global Terrorism Database](https://www.start.umd.edu/data-too
 
 ---
 
-::: frame
-### How Many Americans are "On the Left?"
+In order to look at the data, I'm going to use a statistical analysis environment called R.
 
-1.  Conceptualization
+---
 
-2.  Operationalization
+You can use R for free without installing anything at [Posit Cloud](https://posit.cloud/).
 
-3.  Measurement
-:::
+---
 
-::: frame
-![image](leftsurveyquestion.png){height="0.9in"}
-:::
+``` r
+head(usterrorism)
+```
 
-::: frame
-### Types of Measures
+```
+##        eventid iyear imonth iday approxdate extended resolution country
+## 1 197001010002  1970      1    1                   0                217
+## 2 197001020002  1970      1    2                   0                217
+## 3 197001020003  1970      1    2                   0                217
+## 4 197001030001  1970      1    3                   0                217
+## 5 197001050001  1970      1    1                   0                217
+## 6 197001060001  1970      1    6                   0                217
+##     country_txt region    region_txt  provstate    city latitude  longitude
+## 1 United States      1 North America   Illinois   Cairo 37.00511  -89.17627
+## 2 United States      1 North America California Oakland 37.79193 -122.22591
+## 3 United States      1 North America  Wisconsin Madison 43.07659  -89.41249
+## 4 United States      1 North America  Wisconsin Madison 43.07295  -89.38669
+## 5 United States      1 North America  Wisconsin Baraboo 43.46850  -89.74430
+## 6 United States      1 North America   Colorado  Denver 39.75897 -104.87631
+##   specificity vicinity        location
+## 1           1        0                
+## 2           1        0 Edes Substation
+## 3           1        0                
+## 4           1        0                
+## 5           1        0                
+## 6           1        0                
+##                                                                                                                                                                                                                                                                                                                                                                                                                          summary
+## 1                                                                         1/1/1970: Unknown African American assailants fired several bullets at police headquarters in Cairo, Illinois, United States. There were no casualties, however, one bullet narrowly missed several police officers. This attack took place during heightened racial tensions, including a Black boycott of White-owned businesses, in Cairo Illinois.
+## 2                                                                                                                                                                            1/2/1970: Unknown perpetrators detonated explosives at the Pacific Gas &amp; Electric Company Edes substation in Oakland, California, United States. Three transformers were damaged costing an estimated $20,000 to $25,000. There were no casualties.
+## 3                                                                                                                                     1/2/1970: Karl Armstrong, a member of the New Years Gang, threw a firebomb at R.O.T.C. offices located within the Old Red Gym at the University of Wisconsin in Madison, Wisconsin, United States. There were no casualties but the fire caused around $60,000 in damages to the building.
+## 4 1/3/1970: Karl Armstrong, a member of the New Years Gang, broke into the University of Wisconsin's Primate Lab and set a fire on the first floor of the building. Armstrong intended to set fire to the Madison, Wisconsin, United States, Selective Service Headquarters across the street but mistakenly confused the building with the Primate Lab. The fire caused slight damages and was extinguished almost immediately.
+## 5                                                                                                                                                                                                                                                                                                                                                                                                                               
+## 6                                                                                                                                                                                                                        1/6/1970: Unknown perpetrators threw a Molotov cocktail into an Army Recruiting Station in Denver, Colorado, United States. There were no casualties but damages to the station were estimated at $305.
+##   crit1 crit2 crit3 doubtterr alternative            alternative_txt multiple
+## 1     1     1     1         0          NA                                   0
+## 2     1     1     1         1           2           Other Crime Type        0
+## 3     1     1     1         0          NA                                   0
+## 4     1     1     1         0          NA                                   0
+## 5     1     1     0         1           1 Insurgency/Guerilla Action        0
+## 6     1     1     1         1           2           Other Crime Type        0
+##   success suicide attacktype1                attacktype1_txt attacktype2
+## 1       1       0           2                  Armed Assault          NA
+## 2       1       0           3              Bombing/Explosion          NA
+## 3       1       0           7 Facility/Infrastructure Attack          NA
+## 4       1       0           7 Facility/Infrastructure Attack          NA
+## 5       0       0           3              Bombing/Explosion          NA
+## 6       1       0           7 Facility/Infrastructure Attack          NA
+##   attacktype2_txt attacktype3 attacktype3_txt targtype1        targtype1_txt
+## 1                          NA                         3               Police
+## 2                          NA                        21            Utilities
+## 3                          NA                         4             Military
+## 4                          NA                         2 Government (General)
+## 5                          NA                         4             Military
+## 6                          NA                         4             Military
+##   targsubtype1                                targsubtype1_txt
+## 1           22 Police Building (headquarters, station, school)
+## 2          107                                     Electricity
+## 3           28             Military Recruiting Station/Academy
+## 4           21             Government Building/Facility/Office
+## 5           27   Military Barracks/Base/Headquarters/Checkpost
+## 6           28             Military Recruiting Station/Academy
+##                            corp1
+## 1        Cairo Police Department
+## 2 Pacific Gas &amp; Electric Company
+## 3                       R.O.T.C.
+## 4              Selective Service
+## 5                               
+## 6        Army Recruiting Station
+##                                                target1 natlty1   natlty1_txt
+## 1                            Cairo Police Headquarters     217 United States
+## 2                                      Edes Substation     217 United States
+## 3 R.O.T.C. offices at University of Wisconsin, Madison     217 United States
+## 4  Selective Service Headquarters in Madison Wisconsin     217 United States
+## 5                              Badger Army ammo depot.     217 United States
+## 6             Army Recruiting Station, Denver Colorado     217 United States
+##   targtype2 targtype2_txt targsubtype2 targsubtype2_txt corp2 target2 natlty2
+## 1        NA                         NA                                     NA
+## 2        NA                         NA                                     NA
+## 3        NA                         NA                                     NA
+## 4        NA                         NA                                     NA
+## 5        NA                         NA                                     NA
+## 6        NA                         NA                                     NA
+##   natlty2_txt targtype3 targtype3_txt targsubtype3 targsubtype3_txt corp3
+## 1                    NA                         NA                       
+## 2                    NA                         NA                       
+## 3                    NA                         NA                       
+## 4                    NA                         NA                       
+## 5                    NA                         NA                       
+## 6                    NA                         NA                       
+##   target3 natlty3 natlty3_txt                           gname gsubname gname2
+## 1              NA                          Black Nationalists                
+## 2              NA                                     Unknown                
+## 3              NA                             New Year's Gang                
+## 4              NA                             New Year's Gang                
+## 5              NA             Weather Underground, Weathermen                
+## 6              NA                         Left-Wing Militants                
+##   gsubname2 gname3 gsubname3                                         motive
+## 1                         NA To protest the Cairo Illinois Police Deparment
+## 2                         NA                                               
+## 3                         NA    To protest the War in Vietnam and the draft
+## 4                         NA    To protest the War in Vietnam and the draft
+## 5                         NA                                               
+## 6                         NA              Protest the draft and Vietnam War
+##   guncertain1 guncertain2 guncertain3 individual nperps nperpcap claimed
+## 1           0          NA          NA          0    -99      -99       0
+## 2           0          NA          NA          0    -99      -99       0
+## 3           0          NA          NA          0      1        1       1
+## 4           0          NA          NA          0      1        1       0
+## 5           0          NA          NA          0     NA       NA      NA
+## 6           0          NA          NA          0    -99      -99       0
+##   claimmode claimmode_txt claim2 claimmode2 claimmode2_txt claim3 claimmode3
+## 1        NA                   NA         NA                    NA         NA
+## 2        NA                   NA         NA                    NA         NA
+## 3         1        Letter     NA         NA                    NA         NA
+## 4        NA                   NA         NA                    NA         NA
+## 5        NA                   NA         NA                    NA         NA
+## 6        NA                   NA         NA                    NA         NA
+##   claimmode3_txt compclaim weaptype1 weaptype1_txt weapsubtype1
+## 1                       NA         5      Firearms            5
+## 2                       NA         6    Explosives           16
+## 3                       NA         8    Incendiary           19
+## 4                       NA         8    Incendiary           20
+## 5                       NA         6    Explosives           16
+## 6                       NA         8    Incendiary           19
+##               weapsubtype1_txt weaptype2 weaptype2_txt weapsubtype2
+## 1             Unknown Gun Type        NA                         NA
+## 2       Unknown Explosive Type        NA                         NA
+## 3 Molotov Cocktail/Petrol Bomb        NA                         NA
+## 4          Gasoline or Alcohol        NA                         NA
+## 5       Unknown Explosive Type        NA                         NA
+## 6 Molotov Cocktail/Petrol Bomb        NA                         NA
+##   weapsubtype2_txt weaptype3 weaptype3_txt weapsubtype3 weapsubtype3_txt
+## 1                         NA                         NA                 
+## 2                         NA                         NA                 
+## 3                         NA                         NA                 
+## 4                         NA                         NA                 
+## 5                         NA                         NA                 
+## 6                         NA                         NA                 
+##   weaptype4 weaptype4_txt weapsubtype4 weapsubtype4_txt
+## 1        NA            NA           NA               NA
+## 2        NA            NA           NA               NA
+## 3        NA            NA           NA               NA
+## 4        NA            NA           NA               NA
+## 5        NA            NA           NA               NA
+## 6        NA            NA           NA               NA
+##                                             weapdetail nkill nkillus nkillter
+## 1                         Several gunshots were fired.     0       0        0
+## 2                                                          0       0        0
+## 3                      Firebomb consisting of gasoline     0       0        0
+## 4 Poured gasoline on the floor and lit it with a match     0       0        0
+## 5                                            Explosive     0      NA       NA
+## 6                                     Molotov cocktail     0       0        0
+##   nwound nwoundus nwoundte property propextent              propextent_txt
+## 1      0        0        0        1          3 Minor (likely &lt; $1 million)
+## 2      0        0        0        1          3 Minor (likely &lt; $1 million)
+## 3      0        0        0        1          3 Minor (likely &lt; $1 million)
+## 4      0        0        0        1          3 Minor (likely &lt; $1 million)
+## 5      0       NA       NA        0          3 Minor (likely &lt; $1 million)
+## 6      0        0        0        1          3 Minor (likely &lt; $1 million)
+##   propvalue
+## 1        NA
+## 2     22500
+## 3     60000
+## 4        NA
+## 5         0
+## 6       305
+##                                                                                       propcomment
+## 1                                                                                                
+## 2                                                                Three transformers were damaged.
+## 3 Basketball courts, weight room, swimming pool, gymnastic equipment, and lockers were destroyed.
+## 4                                                                                   Slight damage
+## 5                                                                                                
+## 6                                                                                                
+##   ishostkid nhostkid nhostkidus nhours ndays divert kidhijcountry ransom
+## 1         0       NA         NA     NA    NA                           0
+## 2         0       NA         NA     NA    NA                           0
+## 3         0       NA         NA     NA    NA                           0
+## 4         0       NA         NA     NA    NA                           0
+## 5         0       NA         NA     NA    NA                           0
+## 6         0       NA         NA     NA    NA                           0
+##   ransomamt ransomamtus ransompaid ransompaidus ransomnote hostkidoutcome
+## 1        NA          NA         NA           NA                        NA
+## 2        NA          NA         NA           NA                        NA
+## 3        NA          NA         NA           NA                        NA
+## 4        NA          NA         NA           NA                        NA
+## 5        NA          NA         NA           NA                        NA
+## 6        NA          NA         NA           NA                        NA
+##   hostkidoutcome_txt nreleased
+## 1                           NA
+## 2                           NA
+## 3                           NA
+## 4                           NA
+## 5                           NA
+## 6                           NA
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    addnotes
+## 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          The Cairo Chief of Police, William Petersen, resigned as a result of the attack.
+## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Damages were estimated to be between $20,000-$25,000.
+## 3 The New Years Gang issue a communiqué to a local paper claiming that they perpetrated this attack.  The New Years Gang  previously attempted to firebomb the R.O.T.C. building a week earlier.  As a result of the attack, police increased their presence in Madison.  Karl Armstrong's girlfriend, Lynn Schultz, drove him to and from the Old Red Gym.  The next day Armstrong would attempt to set a fire in the Selective Service offices in Madison. (197001030001)  Karl Armstrong would be captured after participating in the deadly bombing of Sterling Hall at the University of Wisconsin on August 24, 1970.  (197008240001)
+## 4                                                                                                                                                                                                                                                                              Karl Armstrong's girlfriend, Lynn Schultz, drove him to and from the Primate Lab.  A day earlier Armstrong would firebomb the R.O.T.C. offices at the University of Wisconsin. (197001020003)  Karl Armstrong would be captured after participating in the deadly bombing of Sterling Hall at the University of Wisconsin on August 24, 1970. (197008240001)
+## 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+## 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+##                                                                                                                                                  scite1
+## 1                                                                                               "Police Chief Quits," Washington Post, January 2, 1970.
+## 2     Committee on Government Operations United States Senate, "Riots, Civil, and Criminal Disorders," U.S. Government Printing Office, August 6, 1970.
+## 3 Tom Bates, "Rads: The 1970 Bombing of the Army Math Research Center at the University of Wisconsin and Its Aftermath," HarperCollinsPublishing, 1992.
+## 4     Committee on Government Operations United States Senate, "Riots, Civil, and Criminal Disorders," U.S. Government Printing Office, August 6, 1970.
+## 5                                                                                                                                                      
+## 6     Committee on Government Operations United States Senate, "Riots, Civil, and Criminal Disorders," U.S. Government Printing Office, August 6, 1970.
+##                                                                                                                                                               scite2
+## 1                                                                            "Cairo Police Chief Quits; Decries Local 'Militants'," Afro-American, January 10, 1970.
+## 2                                      Christopher Hewitt, "Political Violence and Terrorism in Modern America: A Chronology," Praeger Security International, 2005.
+## 3 David Newman, Sandra Sutherland, and Jon Stewart, "The Madison Bomb Story: The Death the FBI Saw, Heard and Won't Talk About," Mother Jones, February-March, 1979.
+## 4              Tom Bates, "Rads: The 1970 Bombing of the Army Math Research Center at the University of Wisconsin and Its Aftermath," HarperCollinsPublishing, 1992.
+## 5                                                                                                                                                                   
+## 6                                      Christopher Hewitt, "Political Violence and Terrorism in Modern America: A Chronology," Praeger Security International, 2005.
+##                                                                                                                                                               scite3
+## 1                                      Christopher Hewitt, "Political Violence and Terrorism in Modern America: A Chronology," Praeger Security International, 2005.
+## 2                                                                                                                                                                   
+## 3                                   The Wisconsin Cartographers' Guild, "Wisconsin's Past and Present: A Historical Atlas," The University of Wisconsin Press, 2002.
+## 4 David Newman, Sandra Sutherland, and Jon Stewart, "The Madison Bomb Story: The Death the FBI Saw, Heard and Won't Talk About," Mother Jones, February-March, 1979.
+## 5                                                                                                                                                                   
+## 6                                                                                                                                                                   
+##         dbsource INT_LOG INT_IDEO INT_MISC INT_ANY related
+## 1 Hewitt Project      -9       -9        0      -9        
+## 2 Hewitt Project      -9       -9        0      -9        
+## 3 Hewitt Project       0        0        0       0        
+## 4 Hewitt Project       0        0        0       0        
+## 5           PGIS       0        0        0       0        
+## 6 Hewitt Project      -9       -9        0      -9
+```
 
-1.  Nominal
-:::
+---
 
-::: frame
-In politics people sometimes talk of left and right. Would you say you
-are on the right, on the left, on the center, or none of the above?
-:::
+``` r
+table(usterrorism$nkill)
+```
 
-::: frame
-### Types of Measures
+```
+## 
+##    0    1    2    3    4    5    6    7    8    9   10   11   13   15   16   17 
+## 2726  224   52   10    8    4    2    2    3    1    3    2    1    2    1    1 
+##   23   24   44   50   60  168  190 1385 
+##    1    1    1    1    1    1    1    2
+```
 
-1.  Nominal
+---
 
-2.  Ordinal
-:::
+``` r
+usterrorism %&gt;% filter(nkill==1385)
+```
 
-::: frame
-In politics people sometimes talk of left and right. Would you say you
-are strongly on the left, somewhat on the left, on the center, somewhat
-on the right, strongly on the right, or none of the above?
-:::
+```
+##        eventid iyear imonth iday approxdate extended resolution country
+## 1 200109110004  2001      9   11                   0                217
+## 2 200109110005  2001      9   11                   0                217
+##     country_txt region    region_txt provstate          city latitude longitude
+## 1 United States      1 North America  New York New York City 40.69713 -73.93135
+## 2 United States      1 North America  New York New York City 40.69713 -73.93135
+##   specificity vicinity location
+## 1           1        0         
+## 2           1        0         
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            summary
+## 1                                                                                                                09/11/2001: This was one of four related attacks that occurred in the United States that are known collectively as the 9/11 Attacks. In the first attack, which occurred at 8:46 am local time, American Airlines Flight 11 crashed into the North Tower of the World Trade Center Complex in New York City, New York. Five hijackers belonging to Al-Qaida took control of the Boeing 767 aircraft on a flight originating from Logan International Airport in Boston, Massachusetts, and destined for Los Angeles International Airport. There were 76 passengers, 11 crew members and five hijackers on the plane, all of whom died upon impact. The North Tower collapsed at 10:28 a.m. local time after the South Tower had collapsed at 9:59 a.m. local time. At least 2,770 people died as a result of the attacks in New York City, including 10 hijackers as well as responders who contracted cancer and respiratory illnesses at the attack site and passed away years later. More than 21,000 others were injured, according to information reported by the September 11th Victims Compensation Fund. Al-Qaida leaders including Osama bin Laden and Khalid Shaikh Mohammed claimed responsibility for the attacks in multiple videotaped interviews.
+## 2 09/11/2001: This was one of four related attacks that occurred in the United States that are known collectively as the 9/11 Attacks. In the second of these attacks, which occurred at 9:03 a.m. local time, United Airlines Flight 175 crashed into the South Tower of the World Trade Center Complex in New York City, New York. Five hijackers belonging to Al-Qaida hijacked the Boeing 767 aircraft on a flight originating from Logan International Airport in Boston, Massachusetts, and destined for Los Angeles International Airport. There were 56 passengers, nine crew members and five hijackers on the plane, all of whom died upon impact. The South Tower collapsed at 9:59 a.m. local time, killing all who were trapped inside or located nearby. The North Tower collapsed, after having been struck by American Airlines Flight 11, at 10:28 a.m. local time. At least 2,770 people died as a result of the attacks in New York City, including 10 hijackers as well as responders who contracted cancer and respiratory illnesses at the attack site and passed away years later. More than 21,000 others were injured, according to information reported by the September 11th Victims Compensation Fund. Al-Qaida leaders including Osama bin Laden and Khalid Shaikh Mohammed claimed responsibility for the attacks in multiple videotaped interviews.
+##   crit1 crit2 crit3 doubtterr alternative alternative_txt multiple success
+## 1     1     1     1         0          NA                        1       1
+## 2     1     1     1         0          NA                        1       1
+##   suicide attacktype1 attacktype1_txt attacktype2 attacktype2_txt attacktype3
+## 1       1           4       Hijacking           2   Armed Assault          NA
+## 2       1           4       Hijacking           2   Armed Assault          NA
+##   attacktype3_txt targtype1               targtype1_txt targsubtype1
+## 1                        14 Private Citizens &amp; Property           67
+## 2                        14 Private Citizens &amp; Property           67
+##               targsubtype1_txt     corp1
+## 1 Unnamed Civilian/Unspecified Civilians
+## 2 Unnamed Civilian/Unspecified Civilians
+##                                                                                                                                           target1
+## 1 Passengers and crew members on American Airlines Flight 11 and the people working in the North Tower of the World Trade Center in New York City
+## 2  Passengers and crew members on United Airlines Flight 175 and the people working in the South Tower of the World Trade Center in New York City
+##   natlty1   natlty1_txt targtype2 targtype2_txt targsubtype2 targsubtype2_txt
+## 1     999 Multinational         1      Business            3    Bank/Commerce
+## 2     999 Multinational         1      Business            3    Bank/Commerce
+##                        corp2                                     target2
+## 1 World Trade Center Complex Businesses operating inside the Twin Towers
+## 2 World Trade Center Complex Businesses operating inside the Twin Towers
+##   natlty2   natlty2_txt targtype3       targtype3_txt targsubtype3
+## 1     217 United States         6 Airports &amp; Aircraft           42
+## 2     217 United States         6 Airports &amp; Aircraft           42
+##               targsubtype3_txt             corp3
+## 1 Aircraft (not at an airport) American Airlines
+## 2 Aircraft (not at an airport)   United Airlines
+##                                                     target3 natlty3
+## 1 American Airlines-owned Boeing 767 passenger jet aircraft     217
+## 2   United Airlines-owned Boeing 767 passenger jet aircraft     217
+##     natlty3_txt    gname gsubname gname2 gsubname2 gname3 gsubname3  motive
+## 1 United States Al-Qaida                                         NA Unknown
+## 2 United States Al-Qaida                                         NA Unknown
+##   guncertain1 guncertain2 guncertain3 individual nperps nperpcap claimed
+## 1           0          NA          NA          0      5        0       1
+## 2           0          NA          NA          0      5        0       1
+##   claimmode claimmode_txt claim2 claimmode2 claimmode2_txt claim3 claimmode3
+## 1         6         Video     NA         NA                    NA         NA
+## 2         6         Video     NA         NA                    NA         NA
+##   claimmode3_txt compclaim weaptype1
+## 1                       -9        10
+## 2                       -9        10
+##                                                                 weaptype1_txt
+## 1 Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)
+## 2 Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)
+##   weapsubtype1 weapsubtype1_txt weaptype2 weaptype2_txt weapsubtype2
+## 1           NA                          8    Incendiary           20
+## 2           NA                          8    Incendiary           20
+##      weapsubtype2_txt weaptype3 weaptype3_txt weapsubtype3
+## 1 Gasoline or Alcohol         9         Melee           23
+## 2 Gasoline or Alcohol         9         Melee           23
+##              weapsubtype3_txt weaptype4 weaptype4_txt weapsubtype4
+## 1 Knife or Other Sharp Object        NA            NA           NA
+## 2 Knife or Other Sharp Object        NA            NA           NA
+##   weapsubtype4_txt
+## 1               NA
+## 2               NA
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                        weapdetail
+## 1 The attackers reportedly gained control of the plane using sharp objects resembling knives or other sharpened metal objects. The attackers turned the airplane into a missile when flying it into the North Tower of the World Trade Center Complex. The airplane's jet fuel ignited the building and resulted in a massive fire that contributed to the collapse of the North Tower. Mace may have also been used in subduing the passengers and crew members.
+## 2 The attackers reportedly gained control of the plane using sharp objects resembling knives or other sharpened metal objects. The attackers turned the airplane into a missile when flying it into the South Tower of the World Trade Center Complex. The airplane's jet fuel ignited the building and resulted in a massive fire that contributed to the collapse of the South Tower. Mace may have also been used in subduing the passengers and crew members.
+##   nkill nkillus nkillter nwound nwoundus nwoundte property propextent
+## 1  1385    1361        5  10878       NA        0        1          1
+## 2  1385    1327        5  10878       NA        0        1          1
+##                        propextent_txt propvalue
+## 1 Catastrophic (likely &gt;= $1 billion)        NA
+## 2 Catastrophic (likely &gt;= $1 billion)        NA
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               propcomment
+## 1 The crash resulted in the destruction of an American Airlines Boeing 767 aircraft. All personal belongings stowed on the plane were destroyed as well. Also destroyed was the North Tower of the World Trade Center complex in New York City, which collapsed as a result of the impact and subsequent fire. The building's collapse undoubtedly damaged the foundation of nearby buildings, though the South Tower had already fallen. Businesses located in the North Tower suffered massive economic losses. Air travel was restricted or prevented in the United States for several months following the attacks. Total losses to the United States Airline industry are unknown, but extremely high. Several major United States airlines were nearly bankrupted in the aftermath of the attacks. The attacks had a negative impact on the U.S. and world economy.
+## 2                    The crash resulted in the destruction of an United Airlines Boeing 767 aircraft. All personal belongings stowed on the plane were destroyed as well. Also destroyed was the South Tower of the World Trade Center Complex in New York City, which collapsed as a result of the impact and subsequent fire. The building's collapse undoubtedly damaged the foundation of nearby buildings, including the North Tower. Businesses located in the South Tower suffered massive economic losses. Air travel was restricted or prevented in the United States for several months following the attacks. Total losses to the United States Airline industry are unknown, but extremely high. Several major United States airlines were nearly bankrupted in the aftermath of the attacks. The attacks had a massive impact on the U.S. and world economy.
+##   ishostkid nhostkid nhostkidus nhours ndays divert kidhijcountry ransom
+## 1         1       88         86      1    NA                           0
+## 2         1       59         54      1    NA                           0
+##   ransomamt ransomamtus ransompaid ransompaidus ransomnote hostkidoutcome
+## 1        NA          NA         NA           NA                         4
+## 2        NA          NA         NA           NA                         4
+##                              hostkidoutcome_txt nreleased
+## 1 Hostage(s) killed (not during rescue attempt)         0
+## 2 Hostage(s) killed (not during rescue attempt)         0
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           addnotes
+## 1                                                                                                                                                                                                                                                                                                                                      This attack was one of four related incidents (cf. 200109110004-07). Three people including two attendants, Karen Martin and Barbara Arestegui, were stabbed or had their throats slashed by the hijackers. American Airlines Flight 11 departed from Boston's Logan International Airport at 7:59 am local time. The 9/11 Commission estimated that the hijacking began at 8:14 am. Since the aircraft crashed into the North Tower at 8:46 am, the hijacking lasted 32 minutes. Details on the number of people wounded in the attacks are very difficult to confirm The numbers reported in the GTD are conservative estimates for immediate casualties, first responders, and residents, based on documentation for the September 11th Victims Compensation Fund (VCF).
+## 2 This attack was one of four related incidents (cf. 200109110004-07). Flight attendant, Robert Fangman, called a United Airlines office in San Francisco and spoke with Marc Policastro. He reported the hijacking and said that both pilots had been killed. He also reported that a flight attendant was stabbed and said that the hijackers were flying the plane. United Flight 175 departed from Boston's Logan International Airport at 8:14 am local time. At 8:47 am, air traffic control received the first indications that the plane was hijacked. Since the airplane impacted the South Tower at 9:03 am, the length of the hijacking was at least 16 minutes. The second aircraft seized was United Airlines flight 175, which was scheduled to depart from Logan at 8:00 and fly directly to Los Angeles. Details on the number of people wounded in the attacks are very difficult to confirm The numbers reported in the GTD are conservative estimates for immediate casualties, first responders, and residents, based on documentation for the September 11th Victims Compensation Fund (VCF).
+##                                                                                                                                                                                         scite1
+## 1 United States Government, The 9/11 Commission Report: Final Report of the National Commission on Terrorist Attacks Upon the United States. Washington, DC: Government Printing Office, 2004.
+## 2 United States Government, The 9/11 Commission Report: Final Report of the National Commission on Terrorist Attacks Upon the United States. Washington, DC: Government Printing Office, 2004.
+##                                                                                                                                                                                                                          scite2
+## 1 Lindsay Kines, “United States on high alert after thousands feared dead: Airlines initially blame hijackers for attacks on the Pentagon in Washington, New York's World Trade Center,” The Vancouver Sun, September 11, 2001.
+## 2 Lindsay Kines, “United States on high alert after thousands feared dead: Airlines initially blame hijackers for attacks on the Pentagon in Washington, New York's World Trade Center,” The Vancouver Sun, September 11, 2001.
+##                                                                                                                                                                                                               scite3
+## 1 Joe Frolick, “Hijackers Ram Two Airliners Into World Trade Center, Third Plane Slams Into Pentagon, Fourth Crashes Near Pittsburgh; Thousands Die; Bush Vows Swift Revenge,” The Plain Dealer, September 12, 2001.
+## 2 Joe Frolick, “Hijackers Ram Two Airliners Into World Trade Center, Third Plane Slams Into Pentagon, Fourth Crashes Near Pittsburgh; Thousands Die; Bush Vows Swift Revenge,” The Plain Dealer, September 12, 2001.
+##   dbsource INT_LOG INT_IDEO INT_MISC INT_ANY
+## 1    CETIS       0        1        1       1
+## 2    CETIS       0        1        1       1
+##                                                  related
+## 1 200109110004, 200109110005, 200109110006, 200109110007
+## 2 200109110004, 200109110005, 200109110006, 200109110007
+```
 
-::: frame
-### Types of Measures
+---
 
-1.  Nominal
+``` r
+ggplot(usterrorism, aes(x = factor(iyear), y = nkill)) +
+    geom_boxplot(fill = "grey", outlier.color = "black", outlier.shape = 1) +
+    scale_y_continuous(trans = "log1p") +  # This transforms the y-axis to log1p scale
+    labs(
+        title = "Distribution of Deaths per Terrorism Incident by Year (Log Scale)",
+        x = "Year",
+        y = "Number of Deaths (Log Scale)"
+    ) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
 
-2.  Ordinal
+```
+## Warning: Removed 70 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).
+```
 
-3.  Interval
-:::
+&lt;img src="Data_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-::: frame
-![image](leftsurveyquestion.png){height="0.9in"}
-:::
+---
 
-::: frame
-### Measure of Central Tendency
+```
+## Warning: Removed 70 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).
+```
 
-1.  Nominal `\(\rightarrow\)` Mode, Bar chart
+&lt;img src="Data_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
-2.  Ordinal `\(\rightarrow\)` Median
+---
 
-3.  Interval `\(\rightarrow\)` Median, Mean
-:::
+``` r
+table(usterrorism$gname)
+```
 
-::: frame
-### Measure of Spread
+```
+## 
+##                                                             Action Squad 
+##                                                                        1 
+##                                              African-American extremists 
+##                                                                        1 
+##                                                                 Al-Qaida 
+##                                                                        4 
+##                                 Al-Qaida in the Arabian Peninsula (AQAP) 
+##                                                                        2 
+##                                                 American Indian Movement 
+##                                                                        6 
+##                                        American Servicemen's Union (ASU) 
+##                                                                        3 
+##                        Americans for a Competent Federal Judicial System 
+##                                                                        5 
+##                                                    Americans for Justice 
+##                                                                        2 
+##                                                               Anarchists 
+##                                                                        3 
+##                                            Animal Liberation Front (ALF) 
+##                                                                       76 
+##                                                 Animal Rights extremists 
+##                                                                        6 
+##                                                 Anti-Abortion extremists 
+##                                                                      234 
+##                                                     Anti-Arab extremists 
+##                                                                        2 
+##                                                      Anti-Castro Command 
+##                                                                        1 
+##                                                        Anti-Castro Group 
+##                                                                        3 
+##                                                Anti-Christian extremists 
+##                                                                        1 
+##                                        Anti-Communist Viets Organization 
+##                                                                        1 
+##                                                   Anti-Environmentalists 
+##                                                                        4 
+##                                                   Anti-Fascist Activists 
+##                                                                        2 
+##                                            Anti-globalization extremists 
+##                                                                        1 
+##                                               Anti-Government extremists 
+##                                                                       46 
+##                                                    Anti-Government Group 
+##                                                                        6 
+##                                              Anti-Gun Control extremists 
+##                                                                        3 
+##                                                Anti-Immigrant extremists 
+##                                                                        5 
+##                                                  Anti-Israeli extremists 
+##                                                                        1 
+##                                              Anti-Kim Jong-il extremists 
+##                                                                        1 
+##                                                     Anti-LGBT extremists 
+##                                                                        7 
+##                                                  Anti-Liberal extremists 
+##                                                                        1 
+##                                                   Anti-Muslim extremists 
+##                                                                       52 
+##                                                  Anti-Nuclear extremists 
+##                                                                        1 
+##                                                   Anti-Police extremists 
+##                                                                       17 
+##                                                 Anti-Religion extremists 
+##                                                                        3 
+##                                               Anti-Republican extremists 
+##                                                                        3 
+##                                                  Anti-Semitic extremists 
+##                                                                       27 
+##                                                     Anti-Sikh extremists 
+##                                                                        1 
+##                                               Anti-Technology extremists 
+##                                                                       14 
+##                                                    Anti-Trump extremists 
+##                                                                        7 
+##                                                    Anti-White extremists 
+##                                                                       17 
+##                                                        Anti Shah of Iran 
+##                                                                        1 
+##                                Antonia Martinez Student Commandos (AMSC) 
+##                                                                        1 
+##                                                                    Arabs 
+##                                                                        1 
+##                                            Armed Commandos of Liberation 
+##                                                                       13 
+##                                  Armed Commandos of Student Self Defense 
+##                                                                        1 
+##                                Armed Forces of Popular Resistance (FARP) 
+##                                                                        3 
+##                         Armed Revolutionary Independence Movement (MIRA) 
+##                                                                       30 
+##                                                           Armenian Group 
+##                                                                        2 
+##                       Armenian Secret Army for the Liberation of Armenia 
+##                                                                        7 
+##                                                                Armenians 
+##                                                                        1 
+##                                                              Army of God 
+##                                                                       23 
+##                                                             Aryan Nation 
+##                                                                        6 
+##                                                    Aryan Republican Army 
+##                                                                       16 
+##                                                              BAY Bombers 
+##                                                                        1 
+##                                             Black Afro Militant Movement 
+##                                                                        4 
+##                                                   Black American Moslems 
+##                                                                        2 
+##                                            Black Brigade (United States) 
+##                                                                        1 
+##                                                  Black Hebrew Israelites 
+##                                                                        3 
+##                                                    Black Liberation Army 
+##                                                                       36 
+##                                                            Black Muslims 
+##                                                                        6 
+##                                                       Black Nationalists 
+##                                                                       83 
+##                                                           Black Panthers 
+##                                                                       24 
+##                                         Black Revolutionary Assault Team 
+##                                                                        3 
+##                                                          Black September 
+##                                                                       10 
+##                                                        Boogaloo movement 
+##                                                                        5 
+##                                              Boricua Revolutionary Front 
+##                                                                        1 
+##                                                 Chicano Liberation Front 
+##                                                                       31 
+##                                                         Chicano Radicals 
+##                                                                       10 
+##                                                Christian Liberation Army 
+##                                                                        2 
+##                                      Citizens for Constitutional Freedom 
+##                                                                        1 
+##                                    Coalition to Save the Preserves (CSP) 
+##                                                                        8 
+##                                                         Comrades in Arms 
+##                                                                        1 
+##                                                                   Condor 
+##                                                                        1 
+##                                             Conspiracy theory extremists 
+##                                                                       16 
+##                                           Continental Revolutionary Army 
+##                                                                        2 
+##             Coordination of the United Revolutionary Organization (CORU) 
+##                                                                        2 
+##                                                  Court Reform extremists 
+##                                                                        1 
+##                            Covenant, Sword and the Arm of the Lord (CSA) 
+##                                                                        4 
+##                                                Croatian Freedom Fighters 
+##                                                                        5 
+##                                                 Croatian Liberation Army 
+##                                                                        1 
+##                                                    Croatian Nationalists 
+##                                                                       12 
+##                                                             Cuban Action 
+##                                                                       12 
+##                                                       Cuban C-4 Movement 
+##                                                                        1 
+##                                                             Cuban Exiles 
+##                                                                       21 
+##                                                         Cuban extremists 
+##                                                                        1 
+##                                                        Cuban Secret Army 
+##                                                                        1 
+##                                                                  Cypriot 
+##                                                                        1 
+##                                                             Earth First! 
+##                                                                        3 
+##                                             Earth Liberation Front (ELF) 
+##                                                                       66 
+##                                                 Earth Night Action Group 
+##                                                                        1 
+##                                               East Side Action Committee 
+##                                                                        1 
+##                              El Movimiento Revolucionario Independinista 
+##                                                                        1 
+##                                                 Environmental Life Force 
+##                                                                        2 
+##                                                        Environmentalists 
+##                                                                        8 
+##              Evan Mecham Eco-Terrorist International Conspiracy (EMETIC) 
+##                                                                        5 
+##                                       Farm Animal Revenge Militia (FARM) 
+##                                                                        2 
+##                                                   Fourth Reich Skinheads 
+##                                                                        1 
+##                                 Fred Hampton Unit of the People's Forces 
+##                                                                        5 
+##                         Front for the National Liberation of Puerto Rico 
+##                                                                        3 
+##                            Fuerzas Armadas de Liberacion Nacional (FALN) 
+##                                                                      120 
+##                                                     Gay Liberation Front 
+##                                                                        2 
+##                                                   George Jackson Brigade 
+##                                                                       20 
+##                                                           Grupo Estrella 
+##                                                                        4 
+##                                          Guerrilla Forces for Liberation 
+##                                                                        7 
+##                                                           Hanafi Muslims 
+##                                                                        3 
+##                                          Hatikvah Leumi or National Hope 
+##                                                                        1 
+##                                                      Hawaiian extremists 
+##                                                                        1 
+##                                  Imperial Iranian Patriotic Organization 
+##                                                                        1 
+##                                                         Incel extremists 
+##                                                                        6 
+##                         Independent Armed Revolutionary Commandos (CRIA) 
+##                                                                       19 
+##                                   International Committee Against Nazism 
+##                                                                        5 
+##                                                       Iranian extremists 
+##                                                                        2 
+##                                                         Iraqi extremists 
+##                                                                        1 
+##                                              Irish Republican Army (IRA) 
+##                                                                        2 
+##                                                      Islamist extremists 
+##                                                                        1 
+##                                                          Jamaat-al-Fuqra 
+##                                                                        5 
+##                                                  Jewish Armed Resistance 
+##                                                                       17 
+##                                              Jewish Committee of Concern 
+##                                                                        3 
+##                                                         Jewish Defenders 
+##                                                                        1 
+##                                              Jewish Defense League (JDL) 
+##                                                                       74 
+##                                                     Jewish Direct Action 
+##                                                                        1 
+##                                                        Jewish Extremists 
+##                                                                        8 
+##                                               Jihadi-inspired extremists 
+##                                                                       41 
+##                                                 Jonathan Jackson Brigade 
+##                                                                        1 
+##                              Justice Commandos for the Armenian Genocide 
+##                                                                        8 
+##                                                              Kahane Chai 
+##                                                                        1 
+##                                                             Ku Klux Klan 
+##                                                                       27 
+##                                Latin America Anti-Communist Army (LAACA) 
+##                                                                        4 
+##                                                             Lebanese Man 
+##                                                                        1 
+##                                                     Left-wing extremists 
+##                                                                        5 
+##                                                      Left-Wing Militants 
+##                                                                      169 
+##                                                          Libyan Students 
+##                                                                        1 
+##                            Lolita Lebron Puerto Rican Liberation Command 
+##                                                                        1 
+##                                                    Luis Boitel Commandos 
+##                                                                        9 
+##                                                                      M-7 
+##                                                                        2 
+##                                   Maccabee Squad and the Shield of David 
+##                                                                        2 
+##                                                               Macheteros 
+##                                                                       37 
+##                                                        Male supremacists 
+##                                                                        4 
+##                      May 15 Organization for the Liberation of Palestine 
+##                                                                        1 
+##                                                   May 19 Communist Order 
+##                                                                       20 
+##                                                     Medellin Drug Cartel 
+##                                                                        1 
+##                                           Mexican Revolutionary Movement 
+##                                                                        1 
+##                                               Minutemen American Defense 
+##                                                                        1 
+##                                                         Mormon Extremist 
+##                                                                        1 
+##                                Movement for Cuban Justice (Pragmatistas) 
+##                                                                        1 
+##                                                  Mujahedin-e Khalq (MEK) 
+##                                                                        2 
+##                                                        Muslim extremists 
+##                                                                       12 
+##                                     National Committee to Combat Fascism 
+##                                                                        2 
+##                         National Front for the Liberation of Cuba (FLNC) 
+##                                                                       12 
+##                                         National Integration Front (FIN) 
+##                                                                        4 
+##                                      National Socialist Liberation Front 
+##                                                                        1 
+##                                                      Neo-Nazi extremists 
+##                                                                       13 
+##                                                New Jewish Defense League 
+##                                                                        4 
+##                                        New World Liberation Front (NWLF) 
+##                                                                       86 
+##                                                          New Year's Gang 
+##                                                                        4 
+##                                               Ninth of June Organization 
+##                                                                        2 
+##                                                 Nuclear Liberation Front 
+##                                                                        1 
+##                                                                  Omega-7 
+##                                                                       54 
+##                                                         Organization 544 
+##                                                                        1 
+##                             Organization Alliance of Cuban Intransigence 
+##                                                                        1 
+##               Organization of Volunteers for the Puerto Rican Revolution 
+##                                                                       15 
+##                                                                    Otpor 
+##                                                                        3 
+##                                  Palestine Liberation Organization (PLO) 
+##                                                                        1 
+##                                                             Palestinians 
+##                                                                        2 
+##                                 Pedro Albizu Campos Revolutionary Forces 
+##                                                                        7 
+##                            People's Brigade For A Healthy Genetic Future 
+##                                                                        1 
+##                                 People's Liberation Army (United States) 
+##                                                                        1 
+##                                             People's Revolutionary Party 
+##                                                                        1 
+##                                                       Phineas Priesthood 
+##                                                                        4 
+##                     Popular Front for the Liberation of Palestine (PFLP) 
+##                                                                        1 
+##                                    Popular Liberation Army (Puerto Rico) 
+##                                                                        4 
+##                                                          Posse Comitatus 
+##                                                                        1 
+##                                                    Pro-choice extremists 
+##                                                                        3 
+##                                               Pro-LGBT Rights extremists 
+##                                                                        2 
+##                                                     Pro-Trump extremists 
+##                                                                       17 
+##              Provisional Coordinating Committee for the Defense of Labor 
+##                                                                        4 
+##                                            Puerto Rican Armed Resistance 
+##                                                                        5 
+##                                            Puerto Rican Liberation Front 
+##                                                                        2 
+##                                                Puerto Rican Nationalists 
+##                                                                       26 
+##                                         Puerto Rican Resistance Movement 
+##                                                                        3 
+##                                      Puerto Rican Revolutionary Movement 
+##                                                                        5 
+##                                                        Qaddafi loyalists 
+##                                                                        2 
+##                                                      Quartermoon Society 
+##                                                                        2 
+##                                                              Rajneeshees 
+##                                                                        4 
+##                                                      Red Guerilla Family 
+##                                                                        5 
+##                                                               Regulators 
+##                                                                        1 
+##                                                   Republic of New Afrika 
+##                                                                        2 
+##                                                        Republic of Texas 
+##                                                                        1 
+##                                                     Revenge of the Trees 
+##                                                                        1 
+##                                               Revolutionary Action Party 
+##                                                                        3 
+##                            Revolutionary Cells-Animal Liberation Brigade 
+##                                                                        2 
+##                              Revolutionary Commandos of the People (CRP) 
+##                                                                       15 
+##                             Revolutionary Communist Youth Brigade (RCYB) 
+##                                                                        1 
+##                                                   Revolutionary Force 26 
+##                                                                        2 
+##                                                    Revolutionary Force 9 
+##                                                                        3 
+##                                                Revolutionary Force Seven 
+##                                                                        5 
+##                                            Revolutionary Labor Commandos 
+##                                                                        1 
+##                                                    Right-wing extremists 
+##                                                                        4 
+##                                                      ROSADO-SOTO Command 
+##                                                                        1 
+##                                                     Save Our Israel Land 
+##                                                                        3 
+##                                                 Seattle Liberation Front 
+##                                                                        1 
+##                                                 Secret Army Organization 
+##                                                                        2 
+##                                                  Secret Cuban Government 
+##                                                                        8 
+##                                                 Secret Organization Zero 
+##                                                                        2 
+##                                                     Serbian Nationalists 
+##                                                                        1 
+##                                                Shield Wall Network (SWN) 
+##                                                                        1 
+##                                                     Shooters of the Nest 
+##                                                                        1 
+##                                                          Sons of Liberty 
+##                                                                        2 
+##                                                      Sons of the Gestapo 
+##                                                                        1 
+##                                                        Sovereign Citizen 
+##                                                                        2 
+##                                                   Stop the War Coalition 
+##                                                                        1 
+##                                                                 Strikers 
+##                                                                       23 
+##                                                         Student Radicals 
+##                                                                       71 
+##                                        Students for a Democratic Society 
+##                                                                        2 
+##                                                Students For Insurrection 
+##                                                                        1 
+##                                             Supporters of Charles Manson 
+##                                                                        1 
+##                                         Symbionese Liberation Army (SLA) 
+##                                                                        7 
+##                                          Tehrik-i-Taliban Pakistan (TTP) 
+##                                                                        1 
+##                                        The Jewish Execution with Silence 
+##                                                                        1 
+##                                                   The Justice Department 
+##                                                                       14 
+##                                           The Order (Silent Brotherhood) 
+##                                                                        8 
+##                          The Order II (Bruder Schweigen Strike Force II) 
+##                                                                        3 
+##                                                             The Scorpion 
+##                                                                        2 
+##                       The World United Formosans for Independence (WUFI) 
+##                                                                        1 
+##                                                          Thunder of Zion 
+##                                                                        1 
+##                                                         Tontons Macoutes 
+##                                                                        3 
+##                                                             Tribal Thumb 
+##                                                                        1 
+##                                                      United Aryan Empire 
+##                                                                        1 
+##                                           United Constitutional Patriots 
+##                                                                        1 
+##                                               United Freedom Front (UFF) 
+##                                                                       29 
+##                                                United Jewish Underground 
+##                                                                        1 
+##                              Universal Proutist Revolutionary Federation 
+##                                                                        2 
+##                                                                  Unknown 
+##                                                                      606 
+##                                                          Up the IRS, Inc 
+##                                                                        8 
+##                              Veterans United for Non-Religious Memorials 
+##                                                                        2 
+## Vietnamese Organization to Exterminate Communists and Restore the Nation 
+##                                                                        3 
+##                                                      Vietnamese Refugees 
+##                                                                        2 
+##                                          Weather Underground, Weathermen 
+##                                                                       46 
+##                                                      White Panther Party 
+##                                                                        1 
+##     White Rabbit Three Percent Illinois Patriot Freedom Fighters Militia 
+##                                                                        2 
+##                                          White supremacists/nationalists 
+##                                                                      131 
+##                                              World Church of the Creator 
+##                                                                        7 
+##                               Worldwide Organization of Native Taiwanese 
+##                                                                        1 
+##                                                               Young Cuba 
+##                                                                        1 
+##                                                        Youth of the Star 
+##                                                                        1 
+##                                                            Zebra killers 
+##                                                                       20
+```
 
-1.  Nominal `\(\rightarrow\)` Entropy (Don't worry about the details)
+---
 
-2.  Ordinal `\(\rightarrow\)` Interquartile Range
+What is the [Phineas Priesthood](https://www.splcenter.org/resources/extremist-files/phineas-priesthood/)?
 
-3.  Interval `\(\rightarrow\)` Interquartile Range, Variance, Standard
-    Deviation
-:::
+---
 
-::: frame
-![image](leftsurveyresults.png){height="3in"}
-:::
+What about [White Rabbit Three Percent Illinois Patriot Freedom Fighters Militia](https://www.cdse.edu/Portals/124/Documents/casestudies/case-study-emily-hari.pdf)?
 
-::: frame
-![image](leftsurveystats.png){height="1.5in"}
-:::
+---
+### Conclusions
 
-::: frame
-![image](leftsurveyplot.png){height="3in"}
-:::
+1. Consider the perspective and limitations of data sources.
 
-::: frame
-### Describing a Dichotomy
+2. Quantitative data are often easier to work with than qualitative data, but may be less rewarding.
 
--   Just report the percentage
-:::
-
-::: frame
-![image](bidendemapprove.png)
-:::
-
-::: frame
-### Describing a Nominal Variable
-
--   Pie Chart
-
--   Bar Chart
-
--   Line Chart
-:::
-
-::: frame
-![image](incarcerationpiechart.png)
-:::
-
-::: frame
-Polarization in US House Districts
-
-![image](housepolarization.png)
-:::
-
-::: frame
-![image](partyissuestime.png)
-:::
-
-::: frame
-Descriptive Statistics
-:::
-
-::: frame
-### Bivariate and Multivariate Description
-:::
-
-::: frame
-![image](cubafood.png)
-:::
-
-::: frame
-![image](gdpdemocracy.jpg)
-:::
-
-::: frame
-![image](mediacongress.png)
-:::
-
-::: frame
-![image](povertyrace.png)
-:::
-
-::: frame
-![image](lifemedicalcost.png)
-:::
-
-::: frame
-![image](anscombe.jpg){width=".9\\textwidth"}
-:::
-
-::: frame
-![image](averages.jpg){width=".9\\textwidth"}
-:::
-
-::: frame
-![image](validityreliability.jpg){width=".9\\textwidth"}
-:::
-
-::: frame
-### Where Are the Cancers?
-
-![image](cancers1.pdf){height="3in"}
-:::
-
-::: frame
-### Where Are the Cancers?
-
-![image](cancers2.pdf){height="3in"}
-:::
-
-::: frame
-### Good Description\...
-
--   Carefully matches data with the population.
-
--   Worries about selection bias.
-
--   Pays attention to baseline rates.
-
--   Worries about randomness and alternative interpretations.
-:::
+3. With enough work, it's usually possible to find or create data to learn an answer to your question.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

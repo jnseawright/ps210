@@ -54,6 +54,9 @@ style_mono_accent(
   code_font_google   = google_font("Fira Mono"),
   text_font_size = "1.6rem"
 )
+
+usterrorism <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/usterrorism.csv")
+
 ```
 ### A perennially newsworthy question: how much political violence is there in the U.S., and what are its sources?
 
@@ -63,186 +66,85 @@ Let's look at the [Global Terrorism Database](https://www.start.umd.edu/data-too
 
 ---
 
-::: frame
-### How Many Americans are "On the Left?"
+In order to look at the data, I'm going to use a statistical analysis environment called R.
 
-1.  Conceptualization
+---
 
-2.  Operationalization
+You can use R for free without installing anything at [Posit Cloud](https://posit.cloud/).
 
-3.  Measurement
-:::
+---
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
 
-::: frame
-![image](leftsurveyquestion.png){height="0.9in"}
-:::
+head(usterrorism)
 
-::: frame
-### Types of Measures
+```
 
-1.  Nominal
-:::
+---
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
 
-::: frame
-In politics people sometimes talk of left and right. Would you say you
-are on the right, on the left, on the center, or none of the above?
-:::
+table(usterrorism$nkill)
 
-::: frame
-### Types of Measures
+```
 
-1.  Nominal
+---
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
 
-2.  Ordinal
-:::
+usterrorism %>% filter(nkill==1385)
 
-::: frame
-In politics people sometimes talk of left and right. Would you say you
-are strongly on the left, somewhat on the left, on the center, somewhat
-on the right, strongly on the right, or none of the above?
-:::
+```
 
-::: frame
-### Types of Measures
+---
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
 
-1.  Nominal
+ggplot(usterrorism, aes(x = factor(iyear), y = nkill)) +
+    geom_boxplot(fill = "grey", outlier.color = "black", outlier.shape = 1) +
+    scale_y_continuous(trans = "log1p") +  # This transforms the y-axis to log1p scale
+    labs(
+        title = "Distribution of Deaths per Terrorism Incident by Year (Log Scale)",
+        x = "Year",
+        y = "Number of Deaths (Log Scale)"
+    ) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-2.  Ordinal
+```
 
-3.  Interval
-:::
+---
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
 
-::: frame
-![image](leftsurveyquestion.png){height="0.9in"}
-:::
+ggplot(usterrorism, aes(x = factor(iyear), y = nkill)) +
+    geom_boxplot(fill = "grey", outlier.color = "black", outlier.shape = 1) +
+    scale_y_continuous(trans = "log1p") +  # This transforms the y-axis to log1p scale
+    labs(
+        title = "Distribution of Deaths per Terrorism Incident by Year (Log Scale)",
+        x = "Year",
+        y = "Number of Deaths (Log Scale)"
+    ) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-::: frame
-### Measure of Central Tendency
+```
 
-1.  Nominal $\rightarrow$ Mode, Bar chart
+---
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
 
-2.  Ordinal $\rightarrow$ Median
+table(usterrorism$gname)
 
-3.  Interval $\rightarrow$ Median, Mean
-:::
+```
 
-::: frame
-### Measure of Spread
+---
 
-1.  Nominal $\rightarrow$ Entropy (Don't worry about the details)
+What is the [Phineas Priesthood](https://www.splcenter.org/resources/extremist-files/phineas-priesthood/)?
 
-2.  Ordinal $\rightarrow$ Interquartile Range
+---
 
-3.  Interval $\rightarrow$ Interquartile Range, Variance, Standard
-    Deviation
-:::
+What about [White Rabbit Three Percent Illinois Patriot Freedom Fighters Militia](https://www.cdse.edu/Portals/124/Documents/casestudies/case-study-emily-hari.pdf)?
 
-::: frame
-![image](leftsurveyresults.png){height="3in"}
-:::
+---
+### Conclusions
 
-::: frame
-![image](leftsurveystats.png){height="1.5in"}
-:::
+1. Consider the perspective and limitations of data sources.
 
-::: frame
-![image](leftsurveyplot.png){height="3in"}
-:::
+2. Quantitative data are often easier to work with than qualitative data, but may be less rewarding.
 
-::: frame
-### Describing a Dichotomy
-
--   Just report the percentage
-:::
-
-::: frame
-![image](bidendemapprove.png)
-:::
-
-::: frame
-### Describing a Nominal Variable
-
--   Pie Chart
-
--   Bar Chart
-
--   Line Chart
-:::
-
-::: frame
-![image](incarcerationpiechart.png)
-:::
-
-::: frame
-Polarization in US House Districts
-
-![image](housepolarization.png)
-:::
-
-::: frame
-![image](partyissuestime.png)
-:::
-
-::: frame
-Descriptive Statistics
-:::
-
-::: frame
-### Bivariate and Multivariate Description
-:::
-
-::: frame
-![image](cubafood.png)
-:::
-
-::: frame
-![image](gdpdemocracy.jpg)
-:::
-
-::: frame
-![image](mediacongress.png)
-:::
-
-::: frame
-![image](povertyrace.png)
-:::
-
-::: frame
-![image](lifemedicalcost.png)
-:::
-
-::: frame
-![image](anscombe.jpg){width=".9\\textwidth"}
-:::
-
-::: frame
-![image](averages.jpg){width=".9\\textwidth"}
-:::
-
-::: frame
-![image](validityreliability.jpg){width=".9\\textwidth"}
-:::
-
-::: frame
-### Where Are the Cancers?
-
-![image](cancers1.pdf){height="3in"}
-:::
-
-::: frame
-### Where Are the Cancers?
-
-![image](cancers2.pdf){height="3in"}
-:::
-
-::: frame
-### Good Description\...
-
--   Carefully matches data with the population.
-
--   Worries about selection bias.
-
--   Pays attention to baseline rates.
-
--   Worries about randomness and alternative interpretations.
-:::
+3. With enough work, it's usually possible to find or create data to learn an answer to your question.
