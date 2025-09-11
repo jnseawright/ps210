@@ -1,0 +1,248 @@
+---
+title: "2: Data"
+subtitle: "Empirical Methods"
+author: "<large>J. Seawright</large>"
+institute: "<small>Northwestern Political Science</small>" 
+date: "Sept. 18, 2025"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+  
+---
+class: center, middle
+
+```{css, echo=FALSE}
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+```
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes
+library(RefManageR)
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(nlme)
+library(jtools)
+library(hrbrthemes)
+library(mice)
+library(knitr)
+
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer,MnSymbol)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.6rem"
+)
+```
+### A perennially newsworthy question: how much political violence is there in the U.S., and what are its sources?
+
+---
+
+Let's look at the [Global Terrorism Database](https://www.start.umd.edu/data-tools/GTD).
+
+---
+
+::: frame
+### How Many Americans are "On the Left?"
+
+1.  Conceptualization
+
+2.  Operationalization
+
+3.  Measurement
+:::
+
+::: frame
+![image](leftsurveyquestion.png){height="0.9in"}
+:::
+
+::: frame
+### Types of Measures
+
+1.  Nominal
+:::
+
+::: frame
+In politics people sometimes talk of left and right. Would you say you
+are on the right, on the left, on the center, or none of the above?
+:::
+
+::: frame
+### Types of Measures
+
+1.  Nominal
+
+2.  Ordinal
+:::
+
+::: frame
+In politics people sometimes talk of left and right. Would you say you
+are strongly on the left, somewhat on the left, on the center, somewhat
+on the right, strongly on the right, or none of the above?
+:::
+
+::: frame
+### Types of Measures
+
+1.  Nominal
+
+2.  Ordinal
+
+3.  Interval
+:::
+
+::: frame
+![image](leftsurveyquestion.png){height="0.9in"}
+:::
+
+::: frame
+### Measure of Central Tendency
+
+1.  Nominal $\rightarrow$ Mode, Bar chart
+
+2.  Ordinal $\rightarrow$ Median
+
+3.  Interval $\rightarrow$ Median, Mean
+:::
+
+::: frame
+### Measure of Spread
+
+1.  Nominal $\rightarrow$ Entropy (Don't worry about the details)
+
+2.  Ordinal $\rightarrow$ Interquartile Range
+
+3.  Interval $\rightarrow$ Interquartile Range, Variance, Standard
+    Deviation
+:::
+
+::: frame
+![image](leftsurveyresults.png){height="3in"}
+:::
+
+::: frame
+![image](leftsurveystats.png){height="1.5in"}
+:::
+
+::: frame
+![image](leftsurveyplot.png){height="3in"}
+:::
+
+::: frame
+### Describing a Dichotomy
+
+-   Just report the percentage
+:::
+
+::: frame
+![image](bidendemapprove.png)
+:::
+
+::: frame
+### Describing a Nominal Variable
+
+-   Pie Chart
+
+-   Bar Chart
+
+-   Line Chart
+:::
+
+::: frame
+![image](incarcerationpiechart.png)
+:::
+
+::: frame
+Polarization in US House Districts
+
+![image](housepolarization.png)
+:::
+
+::: frame
+![image](partyissuestime.png)
+:::
+
+::: frame
+Descriptive Statistics
+:::
+
+::: frame
+### Bivariate and Multivariate Description
+:::
+
+::: frame
+![image](cubafood.png)
+:::
+
+::: frame
+![image](gdpdemocracy.jpg)
+:::
+
+::: frame
+![image](mediacongress.png)
+:::
+
+::: frame
+![image](povertyrace.png)
+:::
+
+::: frame
+![image](lifemedicalcost.png)
+:::
+
+::: frame
+![image](anscombe.jpg){width=".9\\textwidth"}
+:::
+
+::: frame
+![image](averages.jpg){width=".9\\textwidth"}
+:::
+
+::: frame
+![image](validityreliability.jpg){width=".9\\textwidth"}
+:::
+
+::: frame
+### Where Are the Cancers?
+
+![image](cancers1.pdf){height="3in"}
+:::
+
+::: frame
+### Where Are the Cancers?
+
+![image](cancers2.pdf){height="3in"}
+:::
+
+::: frame
+### Good Description\...
+
+-   Carefully matches data with the population.
+
+-   Worries about selection bias.
+
+-   Pays attention to baseline rates.
+
+-   Worries about randomness and alternative interpretations.
+:::

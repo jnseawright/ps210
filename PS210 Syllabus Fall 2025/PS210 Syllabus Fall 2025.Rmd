@@ -1,0 +1,94 @@
+
+---
+####################
+## TAs            ##
+####################
+ta: Frodo Baggins
+ta-email: frodo.baggins@graduateinstitute.ch
+ta-office-hours: By appointment
+
+####################
+## Course         ##
+####################
+description: |
+  This course teaches everything you ever wanted
+  to know about the Fellowship of the Ring. You will learn
+  how to melt rings in volcanoes, evade Nazgûls, and not to trust Saruman.
+aims: |
+  This course has two main purposes.
+  First, it provides a deeper understanding of resisting the Power of the Ring.
+  Second, it applies these insights through practical exercises.
+structure: |
+  Extraordinarily, due to the novel coronavirus pandemic, 
+  we will be moving this course online for the remainder of the semester.
+materials: |
+  There is no required textbook for this course.
+  All materials can be found on Moodle.
+evaluation: |
+  Evaluation is by a combination of participation, term papers, and exam.
+  
+  **Participation (10%)**: This is about participation.
+  
+  **Papers (40%)**: This is about the term papers.
+  
+  **Exam (50%)**: This is about the exam.
+policies: |
+  *Auditing* is possible. Please contact me.
+  
+  *Grading* is according to the Swiss 1-6 scale.
+  
+  *Plagiarism* is not tolerated at the Graduate Institute. 
+  If you are unsure, please contact the TA.
+bibimport: |
+  Are you using a bibliography manager like Zotero or Mendeley to manage your
+  PDFs?
+  [Click here](https://raw.githubusercontent.com/jhollway/iheiddown/main/inst/rmarkdown/templates/syllabus/skeleton/references.bib) to get the `.bib` file of this course to
+  import it into your software of choice!
+
+
+##########################
+## Define Knit function ##
+##########################
+knit: syllabus_pdf
+
+#####################
+## Output Options  ##
+#####################
+output: syllabus_pdf
+# Set to true if you want anchors to the rendered bibliography
+link-citations: false 
+draft: true
+documentclass: article
+---
+
+```{r, echo = FALSE}
+startdate <- as.Date("2020-09-14")
+```
+
+## `r advdate(startdate, 1)`: Inheriting a Ring
+
+Inheriting a ring can lead to a great adventure!
+
+*Required readings*
+
+@Darwin1859
+
+[*Additional readings*]{color="gray"}
+
+[@iheiddown2020]{color="gray"}
+
+\newpage
+
+##  `r advdate(startdate, 2)`: Escaping the Shire
+
+*Required readings*
+
+@Satchell2009
+
+##  `r advdate(startdate, 3)`: Fleeing from the Nazgûl
+
+##  `r advdate(startdate, 4)`: Meeting Strider
+
+##  `r advdate(startdate, 5)`: Arrival in Rivendell
+
+##  `r advdate(startdate, 6)`: On the road to Mordor
