@@ -1,6 +1,6 @@
 ## PS 210 Introduction to Empirical Methods in Political Science
 
-<img src="images/linearitydiagnostic.jpg" width="400">
+<img src="Slides/images/electiondenialpod.png" width="800">
 
 [Syllabus](https://jnseawright.github.io/ps210/syllabus.html)
 
