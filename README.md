@@ -12,12 +12,9 @@
     NOTE: In place of attending class in person on Sept. 23, please read carefully, review the slides, watch the video at the following link, and contact Prof. Seawright and/or your TA with any relevant follow-up comments or questions! [https://northwestern.zoom.us/rec/share/Q3kWcjscgQ3fimzNfRoWnOa3rOKADBBlKiyGO8ZFH1nSRsaultN4gTRdPRs4LaKU.Q-qeQC3Cr8yDNS89](https://northwestern.zoom.us/rec/share/Q3kWcjscgQ3fimzNfRoWnOa3rOKADBBlKiyGO8ZFH1nSRsaultN4gTRdPRs4LaKU.Q-qeQC3Cr8yDNS89)
 * Thursday, Sept. 23: Causal Inference in Action
   
-### Data
+### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
 
 ### Other Resources
 
 ### Homework Assignments
 
-* [Lab 1: Due April 11](https://jnseawright.github.io/PS312/Lab1.html)
-* [Lab 2: Due April 18](https://jnseawright.github.io/PS312/Lab2.html) 
-* [Lab 3: Due April 25](https://jnseawright.github.io/PS312/Lab3.html)
