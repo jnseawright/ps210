@@ -125,21 +125,13 @@ Sept. 18: *Data.*
 
 Clipperton, ed., Chapter 4.
 
-Sept. 21: *Causation.*
+Sept. 23: *Causation.*
 
 Clipperton, ed., Chapter 2.
 
-Sept. 23: *Causal inference in action.*
+Sept. 25: *Causal inference in action.*
 
 Morral, Andrew R., and Rosanna Smart. "Concealed Carry Laws and Violence in America." Annual Review of Criminology 9 (2025). [https://doi.org/10.1146/annurev-criminol-032924-013352](https://doi.org/10.1146/annurev-criminol-032924-013352)
-
-View video [here](https://urldefense.com/v3/__https://northwestern.zoom.us/rec/share/h91aa7o_PXyqyQXVfbjaAJoZ3IOW0TkiivlHBBKAa2sr3O7KLFvtUJSL7gKXtm_9.dsbEVCuebM7VNzFe__;!!Dq0X2DkFhyF93HkjWTBQKhk!VUc6kKKl03NSPVFsWl6M_feW9iCX369lrYINOEgMB8zxE8FTmn7-ABAr64j5grroucYEt3mo5znuyxHERiCLrkFC7VQ$).
-
-Please remember to email Professor Seawright with your answer to the questions asked at the end of the video before the next class!
-
-Sept. 25: *Sampling and survey research.*
-
-Clipperton, ed., Chapter 6.
 
 Sept. 30: *Experiments.*
 
@@ -162,19 +154,21 @@ Activity: for a research question in the social sciences that interests you, sug
 
 Please email your responses to the activity (which shouldn't be more than a couple of pages double-spaced) to Professor Seawright!
 
-Oct. 7: *Confidence intervals and significance tests.*
+Oct. 7: *Sampling and survey research.*
+
+Clipperton, ed., Chapter 6.
+
+Oct. 9: *Confidence intervals and significance tests.*
 
 Clipperton, ed., Chapter 5.
 
-Oct. 9: *Correlation and regression.*
+Oct. 14: *Correlation and regression.*
 
 Clipperton, ed., Chapter 8.
 
-Oct. 14: *Statistical computing in political science I.*
-
 Oct. 16: Midterm
 
-Oct. 21: *Statistical computing in political science II.*
+Oct. 21: *Statistical computing in political science I.*
 
 Oct. 23: *Quantitative political science research examples.*
 
@@ -192,7 +186,7 @@ Oct. 28: *Machine learning.*
 
 Clipperton, ed., Chapter 12.
 
-Oct. 30: *Statistical computing in political science III.*
+Oct. 30: *Statistical computing in political science II.*
 
 Nov. 4: *Applied text methods and AI in social science.*
 
@@ -215,7 +209,7 @@ State: Advocacy Groups and Access to Government Homeownership Programs,
 1934--1954," Studies in American Political Development 29 (Oct. 2015):
 250-67.](https://doi.org/10.1017/S0898588X15000097)
 
-Oct. 13: *Qualitative computing tools in political science.*
+Nov. 13: *Qualitative computing tools in political science.*
 
 Nov. 18: *Ethics and Normative Concerns in Political Science.*
 
