@@ -10,7 +10,12 @@
 * [Thursday, Sept. 18: Data](https://jnseawright.github.io/ps210/Slides/Data.html#1)
 * [Tuesday, Sept. 23: Causation](https://jnseawright.github.io/ps210/Slides/Causation.html#1)
     NOTE: In place of attending class in person on Sept. 23, please read carefully, review the slides, watch the video at the following link, and contact Prof. Seawright and/or your TA with any relevant follow-up comments or questions! [https://northwestern.zoom.us/rec/share/Q3kWcjscgQ3fimzNfRoWnOa3rOKADBBlKiyGO8ZFH1nSRsaultN4gTRdPRs4LaKU.Q-qeQC3Cr8yDNS89](https://northwestern.zoom.us/rec/share/Q3kWcjscgQ3fimzNfRoWnOa3rOKADBBlKiyGO8ZFH1nSRsaultN4gTRdPRs4LaKU.Q-qeQC3Cr8yDNS89)
-* Thursday, Sept. 25: Causal Inference in Action. Please read the article listed in the syllabus for this day before our class meeting: Morral, Andrew R., and Rosanna Smart. "Concealed Carry Laws and Violence in America." Annual Review of Criminology 9 (2025). [https://doi.org/10.1146/annurev-criminol-032924-013352](https://doi.org/10.1146/annurev-criminol-032924-013352). 
+* Thursday, Sept. 25: Causal Inference in Action. Please read the article listed in the syllabus for this day before our class meeting: Morral, Andrew R., and Rosanna Smart. "Concealed Carry Laws and Violence in America." Annual Review of Criminology 9 (2025). [https://doi.org/10.1146/annurev-criminol-032924-013352](https://doi.org/10.1146/annurev-criminol-032924-013352).
+* [Tuesday, Sept. 30: Experiments](https://jnseawright.github.io/ps210/Slides/Experiments.html#1)
+* Thursday, Oct. 2: On your own or in a group of up to four, read the following two experiments:
+    [https://doi.org/10.1016/j.vaccine.2021.03.080](https://doi.org/10.1016/j.vaccine.2021.03.080)
+    [https://doi.org/10.1111/1475-6765.12334](https://doi.org/10.1111/1475-6765.12334)
+  For a research question in the social sciences that interests you, suggest a design for an experiment that could be done as an honors thesis project. (You don't have to actually intend to do it, etc., but it has to be the kind of thing that could hypothetically be done.) Explain why you find the topic interesting and how your design helps answer your question. Evaluate the strengths and weaknesses of your design in comparison with the example experiments linked above. Please email your responses to the activity (which shouldn't be more than a couple of pages double-spaced) to Professor Seawright!
   
 ### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
 
