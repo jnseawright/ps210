@@ -16,5 +16,10 @@
 
 ### Other Resources
 
+* [Textbook: Jean Clipperton et al. 2022, Empirical Methods in Political Science: An Introduction](https://nulib-oer.github.io/empirical-methods-polisci/)
+* Jaye Seawright: Office 316 Scott Hall, 3-5pm Tuesdays, email j-seawright@northwestern.edu
+
 ### Homework Assignments
+
+* [First Homework, Due Oct. 9](https://jnseawright.github.io/ps210/Homework/HW1.html)
 
