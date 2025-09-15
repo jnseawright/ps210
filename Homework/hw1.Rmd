@@ -1,0 +1,12 @@
+####################
+## Homework 1     ##
+####################
+
+There has been a great deal of discussion from Americans and others worldwide about
+the patterns of immigration arrests carried out by ICE during 2025. In this assignment,
+we will look at some data about these arrests, collected by the [Deportation Data Project](https://deportationdata.org/).
+
+####################
+## Problem 1      ##
+####################
+
