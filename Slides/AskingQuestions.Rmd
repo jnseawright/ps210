@@ -34,6 +34,7 @@ library(jtools)
 library(hrbrthemes)
 library(mice)
 library(knitr)
+library(renderthis)
 
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear", # Bibliography style
