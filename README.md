@@ -16,8 +16,11 @@
     [https://doi.org/10.1016/j.vaccine.2021.03.080](https://doi.org/10.1016/j.vaccine.2021.03.080)
     [https://doi.org/10.1111/1475-6765.12334](https://doi.org/10.1111/1475-6765.12334)
   For a research question in the social sciences that interests you, suggest a design for an experiment that could be done as an honors thesis project. (You don't have to actually intend to do it, etc., but it has to be the kind of thing that could hypothetically be done.) Explain why you find the topic interesting and how your design helps answer your question. Evaluate the strengths and weaknesses of your design in comparison with the example experiments linked above. Please email your responses to the activity (which shouldn't be more than a couple of pages double-spaced) to Professor Seawright!
+* [Tuesday, Oct. 7: Sampling and Survey Research](https://jnseawright.github.io/ps210/Slides/Surveys.html#1)
   
 ### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
+
+### [PDF Versions of Class Slides](https://github.com/jnseawright/ps210/tree/main/Slides/PDFs/)
 
 ### Other Resources
 
@@ -26,5 +29,5 @@
 
 ### Homework Assignments
 
-* [First Homework, Due Oct. 9](https://jnseawright.github.io/ps210/Homework/HW1.html)
+* [First Homework, Due Oct. 9](https://jnseawright.github.io/ps210/Homework/hw1.html)
 
