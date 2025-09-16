@@ -20,6 +20,8 @@
   
 ### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
 
+### [PDF Versions of Class Slides](https://github.com/jnseawright/ps210/tree/main/Slides/PDFs/)
+
 ### Other Resources
 
 * [Textbook: Jean Clipperton et al. 2022, Empirical Methods in Political Science: An Introduction](https://nulib-oer.github.io/empirical-methods-polisci/)
