@@ -363,6 +363,10 @@ display: none;
 worldwide about the patterns of immigration arrests carried out by ICE
 during 2025. In this assignment, we will look at some data about these
 arrests, collected by the <a href="https://deportationdata.org/">Deportation Data Project</a>.</p>
+<p>For this assignment, you are free to work individually or in groups.
+If you choose to work collaboratively, please include your name and the
+names of the people you worked with on your submitted assignment. You
+will not be penalized for collaborating.</p>
 </div>
 <div id="section-2" class="section level20">
 <p class="heading"></p>
@@ -372,6 +376,140 @@ arrests, collected by the <a href="https://deportationdata.org/">Deportation Dat
 <h2>Problem 1</h2>
 <div id="section-3" class="section level20">
 <p class="heading"></p>
+<p>Let’s figure out whether there have been equal numbers of arrests in
+states with Democratic and Republican governors. We have a dataset
+pulled from Wikipedia that lists details about governors, and the
+deportation data. Let’s start by getting both of these loaded into our R
+workspace.</p>
+<pre class="r"><code>governor_data &lt;- read.csv(&quot;https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/stategovs.csv&quot;)
+
+ice_arrests &lt;- read.csv(&quot;https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/icearrests.csv&quot;)</code></pre>
+<p>Now what we want to do is create a new variable in the ICE data that
+records the partisanship of the state governor where the arrest
+happens.</p>
+<pre class="r"><code>#This command creates a new empty variable called Party.
+ice_arrests$Party &lt;- NA
+
+#This block of commands is going to loop through the ice_arrests database and 
+#check the relevant partisanship of the governor for each arrest
+for (i in 1:nrow(ice_arrests)){
+  #This command is checking if a given arrest happened in one of the 50 states.
+  #Some arrests have no recorded location, some happen in international travel,
+  #some happen on military bases, etc. For those, we&#39;ll record the party as
+  #missing.
+  if (!ice_arrests$State[i] %in% levels(as.factor(governor_data$State)))
+    ice_arrests$Party[i] &lt;- NA
+    #When the party isn&#39;t missing, we&#39;ll set it from the governor data.
+    else ice_arrests$Party[i] &lt;- governor_data$Party[governor_data$State==ice_arrests$State[i]]
+}</code></pre>
+<p>We can now ask where arrests are actually happening.</p>
+<pre class="r"><code>table(ice_arrests$Party)</code></pre>
+<p>What does this tell us? Explain in your own words what we learn from
+this about partisanship and ICE arrest patterns. What conclusions can we
+draw, and what further information do you want before we start
+interpreting these results?</p>
+</div>
+<div id="section-4" class="section level20">
+<p class="heading"></p>
+</div>
+</div>
+<div id="problem-2" class="section level2">
+<h2>Problem 2</h2>
+<div id="section-5" class="section level20">
+<p class="heading"></p>
+<p>Are there any challenges involved in interpreting the relationship
+between partisanship and ICE arrests as a causal relationship? In
+answering, please work through the four questions for causal inference
+discussed in class.</p>
+<p>Propose at least three possible confounding variables that you’d like
+to see explored, and explain why you believe each of these variables
+would meet the criteria for a confounding variable.</p>
+</div>
+<div id="section-6" class="section level20">
+<p class="heading"></p>
+</div>
+</div>
+<div id="problem-3" class="section level2">
+<h2>Problem 3</h2>
+<div id="section-7" class="section level20">
+<p class="heading"></p>
+<p>Let’s add one additional variable to the analysis. We’ll look at
+state populations, partisanship, and ICE arrests all at once. Let’s
+start by adding data on population to our ice_arrests dataset.</p>
+<pre class="r"><code>state_pops &lt;- read.csv(&quot;https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/statepops.csv&quot;)</code></pre>
+<p>Now we can use a version of our code from above that copies in state
+populations instead of partisanship.</p>
+<pre class="r"><code>#This command creates a new empty variable called Population.
+ice_arrests$Population &lt;- NA
+
+#This block of commands is going to loop through the ice_arrests database and 
+#check the relevant population of the state for each arrest
+for (i in 1:nrow(ice_arrests)){
+  #This command is checking if a given arrest happened in one of the 50 states.
+  #Some arrests have no recorded location, some happen in international travel,
+  #some happen on military bases, etc. For those, we&#39;ll record the population as
+  #missing.
+  if (!ice_arrests$State[i] %in% levels(as.factor(state_pops$State)))
+    ice_arrests$Population[i] &lt;- NA
+    #When the population isn&#39;t missing, we&#39;ll set it from the state population data.
+    else ice_arrests$Population[i] &lt;-   
+        state_pops$Population2024[state_pops$State==ice_arrests$State[i]]
+}
+
+#This variable often reads in with commas and gets treated as text, so we&#39;ll 
+#make sure to convert it to an actual number.
+ice_arrests$Population &lt;- parse_number(ice_arrests$Population)</code></pre>
+<pre class="r"><code>#Run the following three commands once if you haven&#39;t before, without the hashtag:
+#install.packages(&quot;tidyverse&quot;)
+#install.packages(&quot;ggplot2&quot;)
+#install.packages(&quot;hrbrthemes&quot;)
+
+#Load libraries
+library(tidyverse)
+library(ggplot2)
+library(hrbrthemes)
+
+#Group the states into population categories.
+ice_arrests %&gt;% mutate(Population_group = cut(Population, 
+                                              breaks = quantile(Population, 
+                                                                probs = seq(0, 1, 0.2), 
+
+                                                                na.rm = TRUE),
+                                                                                                                                                            labels = c(&quot;Very Small&quot;, 
+                                                                  &quot;Small&quot;, &quot;Medium&quot;,
+                                                                  &quot;Large&quot;, 
+                                                                  &quot;Very Large&quot;),
+                                                       include.lowest = TRUE)) %&gt;% 
+#Plot the relationship between arrests, population, and party.
+  ggplot(aes(x = Population_group, fill = Party)) +
+  geom_bar(position = &quot;dodge&quot;) +
+  labs(x = &quot;Population&quot;, y = &quot;Number of Arrests&quot;, 
+       title = &quot;Number of Arrests by Population and Party&quot;) +
+  scale_fill_manual(values = c(&quot;blue&quot;, &quot;red&quot;)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_minimal()</code></pre>
+<p>What do you see? What does adding information about population do to
+the relationship between party and numbers of arrests? (You might
+consider answering that this additional information <em>eliminates</em>
+the previous relationship, <em>reverses</em> it, leaves it
+<em>unchanged</em>, or <em>complicates</em> it in other ways you
+explain.) Explain your reasoning.</p>
+</div>
+<div id="section-8" class="section level20">
+<p class="heading"></p>
+</div>
+</div>
+<div id="problem-4" class="section level2">
+<h2>Problem 4</h2>
+<div id="section-9" class="section level20">
+<p class="heading"></p>
+<p>Is this an area of research where a social-science experiment makes
+sense as a research tool? If so, suggest an example of an experiment
+that you think would help illuminate the questions at work here. If not,
+explain your reasoning for why this is a poor area for using
+experiments.</p>
+<p>Please submit your completed assignment at:</p>
+<p><a href="https://canvas.northwestern.edu/courses/235934/assignments/1648222">https://canvas.northwestern.edu/courses/235934/assignments/1648222</a></p>
 </div>
 </div>
 
