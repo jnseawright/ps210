@@ -1,0 +1,270 @@
+---
+title: "9: Correlation and Regression"
+subtitle: "Empirical Methods"
+author: "<large>J. Seawright</large>"
+institute: "<small>Northwestern Political Science</small>" 
+date: "Oct. 14, 2025"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+  
+---
+class: center, middle
+
+```{css, echo=FALSE}
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+```
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes
+library(RefManageR)
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(nlme)
+library(jtools)
+library(hrbrthemes)
+library(mice)
+library(knitr)
+library(DiagrammeR)
+
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer,MnSymbol)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.6rem"
+)
+
+```
+---
+### Regression Analysis
+
+-   Regression analysis is a tool that fits a line to a scatter plot.
+
+ definition
+The algebraic formula for a line is: $Y = mX + b$.
+
+
+
+---
+### Regression Analysis
+
+-   How do we get numbers for $m$ and $b$ in regression analysis?
+
+-   Calculus
+
+
+---
+### Regression Analysis
+
+When we pivot from geometry to regression, two important changes!
+
+1.  Instead of $m$ usually call the slope $\beta$ or $b$, and instead of
+    $b$ we usually call the intercept $\alpha$, $a$, or sometimes
+    $\beta_0$.
+
+2.  We add a term at the end of the equation for error/noise above and
+    below the line. This term is called $e_i$ or $\epsilon_i$.
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Measures of Uncertainty in Regression
+
+-   It sometimes turns out to be reasonable to assume that the sampling
+    distribution for estimates of slopes from regression analysis is the
+    normal distribution.
+
+-   Computer software that does regression analysis for us will also
+    spit out standard errors for the slopes.
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Confounding Variables in Regression
+
+
+---
+### Confounding Variables in Regression
+
+Suppose I know in advance that being a Republican causes people to be 2
+points more pro-business/anti-environmental-regulation than being a
+Democrat. Can I use that knowledge to get rid of partisanship as a
+confounder?
+
+
+---
+$BusEnv_i - b_2 Partisanship_i = a + b_1 TransRights_i + e_i$
+
+
+---
+$BusEnv_i  = a + b_1 TransRights_i + b_2 Partisanship_i + e_i$
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### Trans Rights, Greens, and Business
+
+
+---
+### So\...
+
+-   If some assumptions are reasonable and the number of cases is large,
+    we can compute a confidence interval around the regression slope.
+
+-   Under just the right circumstances, we can deal with confounding
+    variables by adding them to an analysis.
+
+
+---
+### Regression for Prediction
+
+
+---
+### Regression for Prediction
+
+-   If we know a case's scores on all the independent variables in a
+    regression, we can make a prediction:
+
+    -   Multiply each score by its variable's coefficient estimate.
+
+    -   Add all of the products together.
+
+    -   Don't forget to add in the intercept.
+
+
+---
+### Tall People Have Higher Incomes
+
+
+---
+### Does Democracy Prevent Murder?
+
+
+---
+
+
+---
+
+
+---
+-   The mean homicide rate is 4.1.
+
+-   The S.D. of homicide rates is 7.2.
+
+-   The U.S. homicide rate in 2016 was 6.8.
+
+
+---
+
+
+---
+
+
+---
+
+
+---
+
+
+---
+![image](goodcontrol.jpg){width="4.5in"}
+
+
+---
+![image](irrelevantcontrol1.jpg){width="4.5in"}
+
+
+---
+![image](harmfulcontrol1.jpg){width="4.5in"}
+
+
+---
+![image](harmfulcontrol2.jpg){width="4.5in"}
+
+
+---
+![image](harmfulcontrol3.jpg){width="4.5in"}
+
+
+---
+![image](luputitleauthor.jpg){width="4in"}
+
+
+---
+![image](lupu1.jpg){width="4in"}
+
+
+---
+![image](lupu2.jpg){width="4in"}
+
+
+---
+![image](lupu3.jpg){width="4in"}
+
+
+---
+![image](lupu4.jpg){width="3in"}
+

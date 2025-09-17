@@ -1,9 +1,9 @@
 ---
-title: "7: Sampling and survey research"
+title: "8: Confidence Intervals and Significance Tests"
 subtitle: "Empirical Methods"
 author: "<large>J. Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
-date: "Oct. 7, 2025"
+date: "Oct. 9, 2025"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -61,7 +61,7 @@ style_mono_accent(
 ---
 ### Attitudes about Violence
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
 include_graphics("images/demrepviolence.png")
 ```
 
@@ -125,41 +125,22 @@ observational studies.
 
 
 ---
-### Political Violence as Large-N
-
-
----
-### A Research Sequence
-
--   Define a parameter, which is the characteristic (of the population
-    or of the world) that we're trying to find out about.
-
--   Produce an estimate of the parameter. Parameter estimates are also
-    called statistics.
-
--   Come up with some measure of how much the estimate would vary if we
-    were to carry out this entire procedure many, many times.
-
+### Large-N Approaches to Political Violence
 
 ---
-### An Example
 
--   There are about 330,000,000 people in the United States.
-
--   If we could interview all of those people, we'd be able to compute
-    the mean age of everyone in the US.
-
--   Just to save words, let's call the mean age of everyone in the US
-    $\mu$.
-
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/Piazza1.png")
+```
 
 ---
-### An Example
 
--   According to the Census Bureau, which basically does interview all
-    of those people, the mean age is about 39 years old.
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/Piazza2.png")
+```
 
--   Can you think of a more cost-effective way to estimate $\mu$?
+---
 
--   $m$, $\mu$, bias, and precision.
-
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/Piazza3.png")
+```
