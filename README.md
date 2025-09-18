@@ -28,6 +28,7 @@
 
 * [Textbook: Jean Clipperton et al. 2022, Empirical Methods in Political Science: An Introduction](https://nulib-oer.github.io/empirical-methods-polisci/)
 * Jaye Seawright: Office 316 Scott Hall, 3-5pm Tuesdays, email j-seawright@northwestern.edu
+* Lucas Marín Llanes: 11:30am-1:30pm Tuesdays, email l.marinl@u.northwestern.edu
 
 ### Homework Assignments
 
