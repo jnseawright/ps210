@@ -1,0 +1,19 @@
+---
+title: "In-Class Discussion Resources"
+author: "Jaye Seawright"
+date: "2025-09-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Links to Documents for Reference During Class
+
+[John Lott discussing More Guns, Less Crime](https://youtu.be/xMfCx6Iidyc?si=C2EUmaOnCiU1VKtn)
+
+[Lott and Mustard 1997](https://www.journals.uchicago.edu/doi/abs/10.1086/467988)
+
+[Schell, Smart, and Morral 2022](https://www.rand.org/content/dam/rand/pubs/research_reports/RRA200/RRA243-1/RAND_RRA243-1.pdf)
+
