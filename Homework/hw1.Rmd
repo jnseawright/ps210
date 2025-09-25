@@ -107,15 +107,13 @@ ice_arrests$Population <- parse_number(ice_arrests$Population)
 ```
 
 ```{r, eval=FALSE}
-#Run the following three commands once if you haven't before, without the hashtag:
+#Run the following two commands once if you haven't before, without the hashtag:
 #install.packages("tidyverse")
 #install.packages("ggplot2")
-#install.packages("hrbrthemes")
 
 #Load libraries
 library(tidyverse)
 library(ggplot2)
-library(hrbrthemes)
 
 #Group the states into population categories.
 ice_arrests %>% mutate(Population_group = cut(Population, 

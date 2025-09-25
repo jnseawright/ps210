@@ -459,15 +459,13 @@ for (i in 1:nrow(ice_arrests)){
 #This variable often reads in with commas and gets treated as text, so we&#39;ll 
 #make sure to convert it to an actual number.
 ice_arrests$Population &lt;- parse_number(ice_arrests$Population)</code></pre>
-<pre class="r"><code>#Run the following three commands once if you haven&#39;t before, without the hashtag:
+<pre class="r"><code>#Run the following two commands once if you haven&#39;t before, without the hashtag:
 #install.packages(&quot;tidyverse&quot;)
 #install.packages(&quot;ggplot2&quot;)
-#install.packages(&quot;hrbrthemes&quot;)
 
 #Load libraries
 library(tidyverse)
 library(ggplot2)
-library(hrbrthemes)
 
 #Group the states into population categories.
 ice_arrests %&gt;% mutate(Population_group = cut(Population, 
