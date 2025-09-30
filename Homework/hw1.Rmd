@@ -84,6 +84,14 @@ Now we can use a version of our code from above that copies in state populations
 instead of partisanship.
 
 ```{r, eval=FALSE}
+#Run the following two commands once if you haven't before, without the hashtag:
+#install.packages("tidyverse")
+#install.packages("ggplot2")
+
+#Load libraries
+library(tidyverse)
+library(ggplot2)
+
 #This command creates a new empty variable called Population.
 ice_arrests$Population <- NA
 
@@ -107,14 +115,6 @@ ice_arrests$Population <- parse_number(ice_arrests$Population)
 ```
 
 ```{r, eval=FALSE}
-#Run the following two commands once if you haven't before, without the hashtag:
-#install.packages("tidyverse")
-#install.packages("ggplot2")
-
-#Load libraries
-library(tidyverse)
-library(ggplot2)
-
 #Group the states into population categories.
 ice_arrests %>% mutate(Population_group = cut(Population, 
                                               breaks = quantile(Population, 
