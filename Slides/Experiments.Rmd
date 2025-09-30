@@ -58,7 +58,6 @@ style_mono_accent(
 
 ```
 
----
 ### Experiments
 
 -   The fundamental problem of causal inference is that we can't compare
@@ -94,21 +93,21 @@ style_mono_accent(
 ### Example: Do Media Retractions Work?
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Freitag1.png")
+include_graphics("images/Freitag1.PNG")
 ```
 
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Freitag2.png")
+include_graphics("images/Freitag2.PNG")
 ```
 
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Freitag3.png")
+include_graphics("images/Freitag3.PNG")
 ```
 
 
@@ -190,22 +189,22 @@ the population of interest), ask:
 
 ---
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Laterzo1.png")
+include_graphics("images/Laterzo1.PNG")
 ```
 
 ---
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Laterzo2.png")
+include_graphics("images/Laterzo2.PNG")
 ```
 
 ---
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Laterzo3.png")
+include_graphics("images/Laterzo3.PNG")
 ```
 
 ---
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Laterzo4.png")
+include_graphics("images/Laterzo4.PNG")
 ```
 
 ---
@@ -214,22 +213,22 @@ D. Hangartner, G. Gennaro, S. Alasiri, N. Bahrich, A. Bornhoft, J. Boucher, B.B.
 
 ---
 ```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Hangartner1.png")
+include_graphics("images/Hangartner1.PNG")
 ```
 
 ---
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Hangartner2.png")
+include_graphics("images/Hangartner2.PNG")
 ```
 
 ---
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Hangartner3.png")
+include_graphics("images/Hangartner3.PNG")
 ```
 
 ---
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Hangartner4.png")
+include_graphics("images/Hangartner4.PNG")
 ```
 
 ---
