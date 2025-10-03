@@ -116,13 +116,13 @@ from each party's voting rolls in all 50 states."
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/oreillypoll.jpg")
+include_graphics("images/oreillypoll.JPG")
 ```
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/trumpvoterfraud.jpg")
+include_graphics("images/trumpvoterfraud.JPG")
 ```
 
 ---
@@ -130,7 +130,7 @@ But, oops, O'Reilly never actually hired anyone to do a giant telephone
 survey.
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/oreillywebpoll.jpg")
+include_graphics("images/oreillywebpoll.JPG")
 ```
 
 ---
@@ -191,7 +191,7 @@ Response rates have basically collapsed in surveys in much of the world.
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/govtsurveyresponserates.jpg")
+include_graphics("images/govtsurveyresponserates.JPG")
 ```
 
 ---
@@ -203,31 +203,31 @@ include_graphics("images/privatesectorresponserates.png")
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/nonresponsecorrelations.jpg")
+include_graphics("images/nonresponsecorrelations.JPG")
 ```
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Stantcheva1.png")
+include_graphics("images/Stantcheva1.PNG")
 ```
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Stantcheva2.png")
+include_graphics("images/Stantcheva2.PNG")
 ```
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Stantcheva3.png")
+include_graphics("images/Stantcheva3.PNG")
 ```
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Stantcheva4.png")
+include_graphics("images/Stantcheva4.PNG")
 ```
 
 ---
@@ -317,13 +317,13 @@ How much does question wording matter?
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Bruinsma1.png")
+include_graphics("images/Bruinsma1.PNG")
 ```
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Bruinsma2.png")
+include_graphics("images/Bruinsma2.PNG")
 ```
 
 ---
