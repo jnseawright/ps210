@@ -58,11 +58,10 @@ style_mono_accent(
 
 ```
 
----
 ### Attitudes about Violence
 
 ```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
-include_graphics("images/demrepviolence.png")
+include_graphics("images/demrepviolence.PNG")
 ```
 
 ---
@@ -130,17 +129,17 @@ observational studies.
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Piazza1.png")
+include_graphics("images/Piazza1.PNG")
 ```
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Piazza2.png")
+include_graphics("images/Piazza2.PNG")
 ```
 
 ---
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/Piazza3.png")
+include_graphics("images/Piazza3.PNG")
 ```
