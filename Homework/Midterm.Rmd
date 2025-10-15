@@ -1,0 +1,45 @@
+####################
+## Midterm        ##
+####################
+
+For each of the following questions, please provide a short answer of not more than a few sentences (and maybe less if you don't need that much). The goal is to demonstrate your understanding of the ideas in question, not to explain every technical detail.
+
+Answer on a document of your own, referencing each question as you answer it. Please do your own work. The exam is open-book and open-notes, but using any language copied directly from any source without attribution (including the internet or an AI) will be regarded as an academic integrity issue.
+
+If you find that there is ambiguity in a question, please know that it is not a trick and not intentional. Adopt a reading that could resolve the ambiguity, explain your decision, and proceed.
+
+####################
+## Question 1     ##
+####################
+
+Social scientists often talk about independent, dependent, and confounding variables. What do these terms mean?
+
+####################
+## Question 2     ##
+####################
+
+In everyday speech, people use the word ``experiment'' in loose ways, but social scientists have a specific meaning in mind. How do we define experiments?
+
+####################
+## Question 3     ##
+####################
+
+What makes experiments a special category of research design in social science? You can briefly mention both advantages and disadvantages, if any.
+
+####################
+## Question 4     ##
+####################
+
+What are the differences between a random sample, a quota sample, and a convenience sample?
+
+####################
+## Question 5     ##
+####################
+
+Dehua Sun, a Ph.D. student in Political Science at the University of Rochester, is interested in ways we might reduce polarization in the U.S. He thinks that encouraging people to interact across political lines might help: ``Intergroup contact is a promising and practical remedy, but it rarely occurs without intervention. By taking advantage of college housing assignments, this study investigates the effects of contact between American undergraduates who naturally interact on campus. The results find that liberal students with outgroup (moderate and conservative) roommates displayed greater favorability toward conservative students while showing little ideological shift, compared to those with ingroup (liberal) roommates.'' 
+
+What further information would you want to know in order to adequately evaluate the credibility of the causal inferences Sun is making here? Answer in 2-4 paragraphs.
+
+Please submit your completed exam at:
+
+[https://canvas.northwestern.edu/courses/235934/assignments/1660082](https://canvas.northwestern.edu/courses/235934/assignments/1660082)
