@@ -4,6 +4,10 @@
 
 [Syllabus](https://jnseawright.github.io/ps210/syllabus.html)
 
+### Midterm
+
+* [Thursday, Oct. 16: Midterm](https://jnseawright.github.io/ps210/Homework/Midterm.html)
+
 ### Class Materials
 
 * [Tuesday, Sept. 16: Asking Social Science Questions](https://jnseawright.github.io/ps210/Slides/AskingQuestions.html#1)
