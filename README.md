@@ -23,6 +23,7 @@
 * [Tuesday, Oct. 7: Sampling and Survey Research](https://jnseawright.github.io/ps210/Slides/Surveys.html#1)
 * [Thursday, Oct. 9: Confidence Intervals and Significance Tests](https://jnseawright.github.io/ps210/Slides/ConfidenceIntervals.html#1)
 * [Tuesday, Oct. 14: Correlation and Regression](https://jnseawright.github.io/ps210/Slides/Regression.html#1)
+* [Tuesday, Oct. 21: Statistical computing in political science I](https://jnseawright.github.io/ps210/Slides/StatisticalComputing1.html#1)
   
 ### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
 
