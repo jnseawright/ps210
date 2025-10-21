@@ -39,4 +39,16 @@ with(qogsmall[qogsmall$year>2010,],
   
 democlm.1 <- lm(democracy ~ year + I(year>2015) + year:I(year>2015), data=qogsmall[qogsmall$year>2010,])
 
+summary(democlm.1)
+
 democlm.2 <- lm(democracy ~ year, data=qogsmall)
+
+summary(democlm.2)
+
+install.packages("modelsummary")
+
+library(modelsummary)
+
+modelsummary(democlm.1, statistic = c("p.value"))
+
+modelsummary(democlm.2, statistic = c("p.value"))
