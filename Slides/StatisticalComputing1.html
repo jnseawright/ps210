@@ -357,28 +357,50 @@ display: none;
 </div>
 
 
-<p>qogsmall &lt;- read.csv(“<a href="https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/qogsmall.csv" class="uri">https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/qogsmall.csv</a>”)</p>
-<p>head(qogsmall)</p>
-<p>summary(qogsmall)</p>
-<p>library(tidyverse)</p>
-<p>avg_democ &lt;- qogsmall %&gt;% group_by(year) %&gt;%
-summarise(avg_value = mean(democracy, na.rm = TRUE))</p>
-<p>library(ggplot2)</p>
-<p>ggplot(avg_democ, aes(x = year, y = avg_value)) + geom_line() +
-geom_point() + labs(title = “Average Level of Democracy Over Time”, x =
-“Time”, y = “Average Democracy”) + theme_minimal()</p>
-<p>with(qogsmall, t.test(democracy ~ (year&gt;2015)))</p>
-<p>with(qogsmall[qogsmall$year&gt;2010,], t.test(democracy ~
-(year&gt;2015)))</p>
-<p>democlm.1 &lt;- lm(democracy ~ year + I(year&gt;2015) +
-year:I(year&gt;2015), data=qogsmall[qogsmall$year&gt;2010,])</p>
-<p>summary(democlm.1)</p>
-<p>democlm.2 &lt;- lm(democracy ~ year, data=qogsmall)</p>
-<p>summary(democlm.2)</p>
-<p>install.packages(“modelsummary”)</p>
-<p>library(modelsummary)</p>
-<p>modelsummary(democlm.1, statistic = c(“p.value”))</p>
-<p>modelsummary(democlm.2, statistic = c(“p.value”))</p>
+<pre class="r"><code>prop.test(c(580,670),c(1000,1000))
+qogsmall &lt;- read.csv(&quot;https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/qogsmall.csv&quot;)
+
+head(qogsmall)
+
+summary(qogsmall)
+
+library(tidyverse)
+
+avg_democ &lt;- qogsmall %&gt;%
+  group_by(year) %&gt;%
+  summarise(avg_value = mean(democracy, na.rm = TRUE))
+
+library(ggplot2)
+
+ggplot(avg_democ, aes(x = year, y = avg_value)) +
+  geom_line() +
+  geom_point() +
+  labs(title = &quot;Average Level of Democracy Over Time&quot;,
+       x = &quot;Time&quot;,
+       y = &quot;Average Democracy&quot;) +
+  theme_minimal()
+  
+with(qogsmall,
+  t.test(democracy ~ (year&gt;2015)))
+
+with(qogsmall[qogsmall$year&gt;2010,],
+  t.test(democracy ~ (year&gt;2015)))
+  
+democlm.1 &lt;- lm(democracy ~ year + I(year&gt;2015) + year:I(year&gt;2015), data=qogsmall[qogsmall$year&gt;2010,])
+
+summary(democlm.1)
+
+democlm.2 &lt;- lm(democracy ~ year, data=qogsmall)
+
+summary(democlm.2)
+
+install.packages(&quot;modelsummary&quot;)
+
+library(modelsummary)
+
+modelsummary(democlm.1, statistic = c(&quot;p.value&quot;))
+
+modelsummary(democlm.2, statistic = c(&quot;p.value&quot;))</code></pre>
 
 
 

@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r, echo=TRUE,eval=FALSE}
+prop.test(c(580,670),c(1000,1000))
 qogsmall <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/qogsmall.csv")
 
 head(qogsmall)
@@ -52,3 +54,4 @@ library(modelsummary)
 modelsummary(democlm.1, statistic = c("p.value"))
 
 modelsummary(democlm.2, statistic = c("p.value"))
+```
