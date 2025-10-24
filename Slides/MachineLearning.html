@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Machine Learning</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="J. Seawright" />
+    <meta name="date" content="2025-10-28" />
+    <script src="MachineLearning_files/header-attrs-2.25/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Machine Learning
+]
+.subtitle[
+## Empirical Methods
+]
+.author[
+### <large>J. Seawright</large>
+]
+.institute[
+### <small>Northwestern Political Science</small>
+]
+.date[
+### Oct. 28, 2025
+]
+
+---
+
+class: center, middle
+
+&lt;style type="text/css"&gt;
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+&lt;/style&gt;
+
+
+
+
+### A (Quick) Historical Journey
+
+A lot of social science works with statistical models that assume the whole shape of the equation they work with, like regression did.
+
+---
+
+```r
+democplot.1 &lt;- ggplot(qogsmall, aes(x=year, y=democracy)) +
+  geom_point() +
+  geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE) +
+  theme_minimal()
+```
+
+---
+
+```r
+democplot.1
+```
+
+&lt;img src="MachineLearning_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+But it turns out that we can learn a lot more from the data, if we're flexible.
+
+---
+
+```r
+democplot.2 &lt;- ggplot(qogsmall, aes(x=year, y=democracy)) +
+  geom_point() +
+  geom_smooth(method=loess , color="red", fill="#69b3a2", se=TRUE) +
+  theme_minimal()
+```
+---
+
+```r
+democplot.2
+```
+
+&lt;img src="MachineLearning_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+What if we take this approach of learning flexibly from the data and push it as far as we can?
+
+---
+### CART
+
+Optimally predicting `\(Y\)` based on `\(\mathbb{X}\)`, without assumptions of
+additivity, linearity, etc.
+
+---
+### CART
+
+1.  Start with the set of all cases, i.e., the root node.
+
+2.  Search all values of each variable in `\(\mathbb{X}\)` for the binary
+    split that maximizes homogeneity of `\(Y\)` for cases on each side of
+    the split.
+
+3.  If homogeneity of `\(Y\)` is sufficient or if the remaining sets of
+    cases as the new final nodes are too small, stop. Otherwise, repeat
+    step 2 for each of the current last-generation nodes.
+
+---
+### An Example
+
+&lt;embed src="images/experimentcart.pdf" width="90%" style="display: block; margin: auto;" type="application/pdf" /&gt;
+
+---
+
+```r
+library(rpart)
+```
+
+---
+
+```r
+dem.cart &lt;- rpart(democracy ~ corruption+genderequity+percapitagdp+refugees+centralbankindependence+imports+ecologicalfootprint+globalization, data=qogsmall, na.action=na.omit)
+```
+
+---
+
+```r
+plot(dem.cart)
+text(dem.cart, use.n=TRUE)
+```
+
+&lt;img src="MachineLearning_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+### Random Forests
+
+1.  Sample randomly from the entire data.
+2.  Run CART, selecting a random subset of datapoints and variables at each decision node.
+3.  Repeat several times, and find a way to average the results
+    together.
+
+---
+
+```r
+library(randomForest)
+```
+
+---
+
+```r
+dem.rf &lt;- randomForest(democracy ~ corruption+genderequity+percapitagdp+refugees+centralbankindependence+imports+ecologicalfootprint+globalization, data=qogsmall, na.action=na.omit)
+
+dem.rf
+```
+
+```
+## 
+## Call:
+##  randomForest(formula = democracy ~ corruption + genderequity +      percapitagdp + refugees + centralbankindependence + imports +      ecologicalfootprint + globalization, data = qogsmall, na.action = na.omit) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 2
+## 
+##           Mean of squared residuals: 0.001378415
+##                     % Var explained: 98.31
+```
+
+---
+
+```r
+library(randomForestExplainer)
+```
+
+---
+
+```r
+dem.mindepth &lt;- min_depth_distribution(dem.rf)
+plot_min_depth_distribution(dem.mindepth)
+```
+
+&lt;img src="MachineLearning_files/figure-html/unnamed-chunk-13-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+```r
+plot_min_depth_interactions(dem.rf)
+```
+
+```
+## [1] "Warning: your forest does not contain information on local importance so 'mse_increase' measure cannot be extracted. To add it regrow the forest with the option localImp = TRUE and run this function again."
+```
+
+&lt;img src="MachineLearning_files/figure-html/unnamed-chunk-14-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+### LASSO
+
+Estimate a regression, as usual (minimizing the sum of squared errors), but subject to the added penalty term:
+
+`$$\lambda \sum_{j=1}^{p}|\beta_{j}|$$`
+
+---
+
+```r
+qogtrim &lt;- qogsmall %&gt;% filter(year &gt; 1979) 
+qogtrim.imp &lt;- mice(qogtrim, method = "cart")
+```
+
+```
+## 
+##  iter imp variable
+##   1   1  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   1   2  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   1   3  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   1   4  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   1   5  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   2   1  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   2   2  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   2   3  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   2   4  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   2   5  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   3   1  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   3   2  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   3   3  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   3   4  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   3   5  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   4   1  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   4   2  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   4   3  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   4   4  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   4   5  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   5   1  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   5   2  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   5   3  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   5   4  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+##   5   5  democracy  corruption  genderequity  percapitagdp  refugees  centralbankindependence  imports  ecologicalfootprint  globalization
+```
+---
+
+```r
+qogimputed1 &lt;- mice::complete(qogtrim.imp)
+```
+
+---
+
+```r
+library(hdm)
+```
+
+
+---
+
+```r
+dem.lasso &lt;- rlasso(democracy ~ year + corruption+genderequity+percapitagdp+refugees+centralbankindependence+imports+ecologicalfootprint+globalization, data=qogimputed1)
+```
+
+---
+
+```r
+dem.lasso
+```
+
+```
+## 
+## Call:
+## rlasso.formula(formula = democracy ~ year + corruption + genderequity + 
+##     percapitagdp + refugees + centralbankindependence + imports + 
+##     ecologicalfootprint + globalization, data = qogimputed1)
+## 
+## Coefficients:
+##             (Intercept)                     year               corruption  
+##               7.029e+00               -3.652e-03               -1.897e-03  
+##            genderequity             percapitagdp                 refugees  
+##               7.974e-01                1.386e-06                0.000e+00  
+## centralbankindependence                  imports      ecologicalfootprint  
+##               9.828e-02                0.000e+00                0.000e+00  
+##           globalization  
+##               2.999e-03
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
