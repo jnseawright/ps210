@@ -1,0 +1,65 @@
+---
+title: "Statistical Computing 2"
+author: "Jaye Seawright"
+date: "2025-10-30"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=TRUE,eval=FALSE}
+anessmall <- data.frame(politicalattention=anes2024$V241004,
+                        wrongtrack=anes2024$V241117,
+                        hopeful=anes2024$V241118,
+                        afraid=anes2024$V241119,
+                        outraged=anes2024$V241120,
+                        angry=anes2024$V241121,
+                        happy=anes2024$V241122,
+                        worried=anes2024$V241123,
+                        proud=anes2024$V241124,
+                        irritated=anes2024$V241125,
+                        nervous=anes2024$V241126,
+                        congressapproval=anes2024$V241129x,
+                        supremecourtapproval=anes2024$V241133x,
+                        feelingsaboutharris=anes2024$V241156,
+                        feelingsabouttrump=anes2024$V241157,
+                        libcon=anes2024$V241177,
+                        demrep=anes2024$V241227x,
+                        trustgovernment=anes2024$V241229,
+                        corruption=anes2024$V241233,
+                        abortion=anes2024$V241248,
+                        defensespending=anes2024$V241242,
+                        socialsecurity=anes2024$V241263x,
+                        bordersecurity=anes2024$V241269x,
+                        crime=anes2024$V241272x,
+                        collegesapproval=anes2024$V241287x,
+                        economytrend=anes2024$V241294x,
+                        electiontrust=anes2024$V241315,
+                        bibledivine=anes2024$V241421,
+                        presvote=anes2024$V242067
+                        )
+
+anessmall <- anessmall %>% mutate(across(where(is.numeric), ~ ifelse(. < 0, NA, .)))
+
+anessmall$presvote[anessmall$presvote>2] <- NA
+
+library(randomForest)
+
+votechoice.rf <- randomForest(as.factor(presvote) ~ . - presvote, data=anessmall, na.action=na.omit)
+
+votechoice.rf
+
+library(randomForestExplainer)
+
+vote.mindepth <- min_depth_distribution(votechoice.rf)
+
+plot_min_depth_distribution(vote.mindepth)
+
+library(hdm)
+
+votechoice.lasso <- rlasso(presvote ~ . - presvote, data=anessmall)
+
+summary(votechoice.lasso)
+```

@@ -1,0 +1,67 @@
+---
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+
+*Rubric for Problem 1*
+
+Assign points as follows, up to a total of 15.
+
+- [ ] Connects independent variables with causes, predictors, treatments, etc. *5 points*
+- [ ] Connects dependent variables with outcomes, things to be predicted, effects, etc. *5 points*
+- [ ] Discusses confounding variables as (possible) causes of both the independent and the dependent variables, and therefore a source of distortion. *5 points*
+- [ ] Leaves out one element from the idea of a confounding variable in the previous entry. *3 points*
+- [ ] Leaves out two elements from the idea of a confounding variable in the previous entry. *2 points*
+- [ ] Confuses independent and dependent variables but otherwise gets them right. *5 points*
+- [ ] Makes a good-faith effort at independent and dependent variables but shows some fundamental confusion about the central ideas. *3 points*
+
+*Rubric for Problem 2*
+
+Assign points as follows, up to a total of 15.
+
+- [ ] Connects experiments with treatment assignment. *5 points*
+- [ ] Connects experiments with randomization. *5 points*
+- [ ] Discusses the role of experiments in eliminating confounding variables. *3 points*
+- [ ] Discusses the importance of a large, defined sample. *5 points*
+
+*Rubric for Problem 3*
+
+Assign points as follows, up to a total of 20.
+
+- [ ] Discusses approximate equivalence of treatment and control groups given random assignment and a large sample. *5 points*
+- [ ] Discusses that experiments help rule out confounding variables. *5 points*
+- [ ] Discusses that experiments help rule out reverse causation. *5 points*
+- [ ] Discusses some issues of realism in experiments. *5 points*
+- [ ] Discusses problems of sampling in many experiments. *5 points*
+- [ ] Discusses measurement concerns for experiments. *5 points*
+
+*Rubric for Problem 4*
+
+Assign points as follows, up to a total of 15.
+
+- [ ] Discusses random samples as samples that give all cases a fixed, known probability of selection. *5 points*
+- [ ] Gives a definition of random samples that is close but not quite right. *3 points*
+- [ ] Gives a definition of random samples that shows an effort but clearly misses the mark. *2 points*
+- [ ] Discusses quota samples as non-random samples that try to match population distributions on some defined traits. *5 points*
+- [ ] Gives a definition of quota samples that is close but not quite right. *3 points*
+- [ ] Gives a definition of quota samples that shows an effort but clearly misses the mark. *2 points*
+- [ ] Discusses convenience samples as purely nonrandom samples that involve finding cases that are easily at hand. *5 points*
+- [ ] Gives a definition of convenience samples that is close but not quite right. *3 points*
+- [ ] Gives a definition of convenience samples that shows an effort but clearly misses the mark. *2 points*
+
+*Rubric for Problem 5*
+
+Assign points as follows, up to a total of 40.
+
+- [ ] Uses the four questions for causal inference. *15 points*
+- [ ] Talks about finding out how roommates are assigned. *10 points*
+- [ ] Worries about selection bias and people possibly opting out. *5 points*
+- [ ] Thinks about measurement. *5 points*
+- [ ] Discusses reverse causation in a useful way. *5 points*
+- [ ] Says something interesting about causal pathways. *5 points*
+- [ ] Talks about the evidence that would show whether there is a relationship. *5 points*
+- [ ] Talks about external validity. *10 points*
+- [ ] Raises other interesting and accurate points using tools from the class. *5 points*
