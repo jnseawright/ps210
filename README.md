@@ -25,6 +25,7 @@
 * [Tuesday, Oct. 14: Correlation and Regression](https://jnseawright.github.io/ps210/Slides/Regression.html#1)
 * [Tuesday, Oct. 21: Statistical computing in political science I](https://jnseawright.github.io/ps210/Slides/StatisticalComputing1.html#1)
 * [Tuesday, Oct. 28: Machine Learning](https://jnseawright.github.io/ps210/Slides/MachineLearning.html#1)
+* [Thursday, Oct. 30: Statistical computing in political science II](https://jnseawright.github.io/ps210/Slides/StatisticalComputing2.html#1)
   
 ### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
 
