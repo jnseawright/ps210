@@ -1,5 +1,5 @@
 ####################
-## Homework 1     ##
+## Homework 2     ##
 ####################
 
 The 2024 US presidential election was, no doubt, a consequential moment in history. In this assignment, we will look at some data about voter decision-making in that election, collected as part of the American National Election Studies. The codebook and survey questions for these data can be found at the [ANES website](https://electionstudies.org/wp-content/uploads/2025/08/anes_timeseries_2024_userguidecodebook_20250808.pdf).
