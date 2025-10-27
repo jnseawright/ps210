@@ -10,6 +10,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, echo=TRUE,eval=FALSE}
+library(tidyverse)
+
+anes2024 <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
+
 anessmall <- data.frame(politicalattention=anes2024$V241004,
                         wrongtrack=anes2024$V241117,
                         hopeful=anes2024$V241118,
