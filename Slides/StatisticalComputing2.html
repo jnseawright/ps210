@@ -357,7 +357,11 @@ display: none;
 </div>
 
 
-<pre class="r"><code>anessmall &lt;- data.frame(politicalattention=anes2024$V241004,
+<pre class="r"><code>library(tidyverse)
+
+anes2024 &lt;- read.csv(&quot;https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv&quot;)
+
+anessmall &lt;- data.frame(politicalattention=anes2024$V241004,
                         wrongtrack=anes2024$V241117,
                         hopeful=anes2024$V241118,
                         afraid=anes2024$V241119,
