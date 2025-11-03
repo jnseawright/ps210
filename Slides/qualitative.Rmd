@@ -1,0 +1,253 @@
+---
+title: "15: Qualitative Methods"
+subtitle: "Empirical Methods"
+author: "<large>J. Seawright</large>"
+institute: "<small>Northwestern Political Science</small>" 
+date: "Sept. 23, 2025"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+  
+---
+class: center, middle
+
+```{css, echo=FALSE}
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+```
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes
+library(RefManageR)
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(nlme)
+library(jtools)
+library(hrbrthemes)
+library(mice)
+library(knitr)
+library(DiagrammeR)
+
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer,MnSymbol)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.6rem"
+)
+```
+
+```{r, echo=FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+quant_graph <- create_graph() %>%
+    add_node(label="State Weakness") %>%
+    add_node(label="Rural Poverty") %>%
+    add_node(label="Revolution") %>%
+    add_edge(from = 1, to = 2) %>%
+    add_edge(from = 1, to = 3) %>%
+    add_edge(from = 2, to = 3)
+ 
+render_graph(quant_graph, layout="nicely")
+```
+
+---
+
+```{r, echo=FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+elab_graph <- create_graph() %>%
+    add_node(label="State Weakness") %>%
+    add_node(label="Rural Poverty") %>%
+    add_node(label="Landlord Conflict") %>%
+    add_node(label="Revolution") %>%
+    add_edge(from = 1, to = 2) %>%
+    add_edge(from = 1, to = 4) %>%
+    add_edge(from = 2, to = 3) %>%
+    add_edge(from = 3, to = 4)
+    
+render_graph(elab_graph, layout="nicely")
+```
+
+
+---
+### Even More Elaboration
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+include_graphics("images/mahoneyskocpol.png")
+```
+
+---
+### Qualitative Data Collection
+
+-   Historical methods
+
+-   In-depth interviews
+
+-   Focus groups
+
+-   Participant observation
+
+
+---
+### Looking Directly at Counterfactuals
+
+
+---
+![image](images/miamiboatlift.jpg)
+
+
+---
+![image](images/mariel1.jpg)
+
+
+---
+![image](images/mariel2.jpg)
+
+
+---
+![image](images/marielcomparison.jpg)
+
+
+---
+![image](images/marielcomparison2.jpg)
+
+
+---
+![image](images/marielconclusions.jpg)
+
+
+---
+### Process-Tracing I: Theory-Testing
+
+---
+![image](images/pt1.png)
+
+
+---
+![image](images/pt2.png)
+
+---
+![image](images/pt3.png)
+---
+![image](images/pt4.png)
+
+
+---
+![image](images/pt5.png)
+---
+### Process Tracing 2: Theory-Building
+
+---
+![image](images/theorybuildingpt.png)
+
+---
+### Example: Prasad on Reagan
+
+Were Reagan's spending cuts based on economic analysis, conservative
+ideology, or pragmatism?
+
+
+---
+![image](images/omb1.jpg)
+
+
+---
+![image](images/omb2.jpg)
+
+
+---
+![image](images/omb3.jpg)
+
+
+---
+![image](images/omb4.jpg)
+
+
+---
+### The Method of Difference
+
+> If an instance in which the phenomenon under investigation occurs, and
+> an instance in which it does not occur, have every circumstance in
+> common save one, that one occurring only in the former; the
+> circumstance in which alone the two instances differ is the effect, or
+> the cause, or an indispensable part of the cause, of the phenomenon.
+> (Mill 1843/2002)
+
+
+---
+![image](images/modtitle.jpg)
+
+
+---
+![image](images/modabstract.jpg)
+
+
+---
+![image](images/methodofdiff.jpg)
+
+
+---
+### The Method of Difference
+
+Debunking the Method of Difference
+
+
+---
+
+<div style="display: flex; gap: 10px;">
+  <img src="images/davidkoch.jpg" style="width:40%;" />
+  <img src="images/johnmenardjr.jpg" style="width:40%;" />
+</div>
+
+---
+
+<div style="display: flex; gap: 10px;">
+  <img src="images/davidkoch.jpg" style="width:40%;" />
+  <img src="images/johnmenardjr.jpg" style="width:40%;" />
+</div>
+
+<div style="display: flex; gap: 10px;">
+  <img src="images/kochindustries.jpg" style="width:40%;" />
+  <img src="images/menardsstore.png" style="width:40%;" />
+</div>
+
+---
+
+<div style="display: flex; gap: 10px;">
+  <img src="images/davidkoch.jpg" style="width:40%;" />
+  <img src="images/johnmenardjr.jpg" style="width:40%;" />
+</div>
+
+<div style="display: flex; gap: 10px;">
+  <img src="images/kochresidence.jpg" style="width:40%;" />
+  <img src="images/menardhouse.jpg" style="width:40%;" />
+</div>
+
+
+---
+
+<div style="display: flex; gap: 10px;">
+  <img src="images/davidkoch.jpg" style="width:40%;" />
+  <img src="images/johnmenardjr.jpg" style="width:40%;" />
+</div>
+
+<div style="display: flex; gap: 10px;">
+  <img src="images/kochtheater.jpg" style="width:40%;" />
+  <img src="images/menardracing.jpg" style="width:40%;" />
+</div>
