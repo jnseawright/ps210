@@ -3,7 +3,7 @@ title: "15: Qualitative Methods"
 subtitle: "Empirical Methods"
 author: "<large>J. Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
-date: "Sept. 23, 2025"
+date: "Nov. 6, 2025"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css
