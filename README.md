@@ -26,6 +26,7 @@
 * [Tuesday, Oct. 21: Statistical computing in political science I](https://jnseawright.github.io/ps210/Slides/StatisticalComputing1.html#1)
 * [Tuesday, Oct. 28: Machine Learning](https://jnseawright.github.io/ps210/Slides/MachineLearning.html#1)
 * [Thursday, Oct. 30: Statistical computing in political science II](https://jnseawright.github.io/ps210/Slides/StatisticalComputing2.html#1)
+* [Tuesday, Nov. 4: Applied text methods and AI in social science](https://jnseawright.github.io/ps210/Slides/TextasData.html#1)
   
 ### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
 
