@@ -1,152 +1,33 @@
 ####################
-## Homework 2     ##
+## Homework 3     ##
 ####################
 
-The 2024 US presidential election was, no doubt, a consequential moment in history. In this assignment, we will look at some data about voter decision-making in that election, collected as part of the American National Election Studies. The codebook and survey questions for these data can be found at the [ANES website](https://electionstudies.org/wp-content/uploads/2025/08/anes_timeseries_2024_userguidecodebook_20250808.pdf).
+The local, national, and world news have been full of stories about protests in Chicagoland regarding ICE activities, and about complex dynamics between protesters, local governments, federal law enforcement, and the government. In this assignment, I will ask you to use qualitative methods to explore these relationships. The evidence you will use is a collection of news stories from the last three months describing protest activity, government statements, and law enforcement responses in Chicagoland, found on [the class website](https://github.com/jnseawright/ps210/tree/main/Homework/HW3%20Documents).
 
 For this assignment, you are free to work individually or in groups. If you choose
 to work collaboratively, please include your name and the names of the people you
 worked with on your submitted assignment. You will not be penalized for collaborating.
 
-Before starting the problem sets, please load and configure the relevant data in your R software:
-
-```{r, eval=FALSE}
-anes2024 <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
-
-
-aneshw <- data.frame(politicalattention=anes2024$V241004,
-                        wrongtrack=anes2024$V241117,
-                        hopeful=anes2024$V241118,
-                        afraid=anes2024$V241119,
-                        outraged=anes2024$V241120,
-                        angry=anes2024$V241121,
-                        happy=anes2024$V241122,
-                        worried=anes2024$V241123,
-                        proud=anes2024$V241124,
-                        irritated=anes2024$V241125,
-                        nervous=anes2024$V241126,
-                        congressapproval=anes2024$V241129x,
-                        supremecourtapproval=anes2024$V241133x,
-                        feelingsaboutharris=anes2024$V241156,
-                        feelingsabouttrump=anes2024$V241157,
-                        libcon=anes2024$V241177,
-                        demrep=anes2024$V241227x,
-                        trustgovernment=anes2024$V241229,
-                        corruption=anes2024$V241233,
-                        abortion=anes2024$V241248,
-                        defensespending=anes2024$V241242,
-                        socialsecurity=anes2024$V241263x,
-                        bordersecurity=anes2024$V241269x,
-                        crime=anes2024$V241272x,
-                        collegesapproval=anes2024$V241287x,
-                        economytrend=anes2024$V241294x,
-                        electiontrust=anes2024$V241315,
-                        bibledivine=anes2024$V241421,
-                        presvote=anes2024$V242067,
-                        gender=anes2024$V241551,
-                        trumphonest=anes2024$V241208,
-                        harrishonest=anes2024$V241203,
-                        environmentvbusiness=anes2024$V241258,
-                        dei=anes2024$V241290x,
-                        isolationism=anes2024$V241312x,
-                        bidencorruption=anes2024$V241344x,
-                        climatechange=anes2024$V241366x,
-                        birthrightcitizenship=anes2024$V241389x,
-                        borderwall=anes2024$V241395x,
-                        ukraineassistance=anes2024$V241400x,
-                        israelassistance=anes2024$V241403x,
-                        progazaprotests=anes2024$V241412x,
-                        religiousattendance=anes2024$V241440
-                      
-                        )
-
-
-
-aneshw <- aneshw %>% mutate(across(where(is.numeric), ~ ifelse(. < 0, NA, .)))
-
-aneshw$presvote[aneshw$presvote>2] <- NA
-```
-
 ####################
 ## Problem 1      ##
 ####################
 
-Let's look at whether concerns about corruption played a role in people's vote choice in the 2024 election. We have a treatment variable, ``corruption,'' which records people's answer to the following survey question:
-
-``How many of the people running the government are corrupt?''
-
-Possible responses run from a score of 1 for ``all'' to a value of 5 for ``none.''
-
-The following command shows the distribution of scores on the corruption variable in our data. Describe the results.
-
-```{r, eval=FALSE}
-table(aneshw$corruption)
-```
-We also have an outcome variable, ``presvote,'' which records responses to the survey question:
-
-``Who did you vote for? [ Kamala Harris (Democrat), Donald Trump
-(Republican) / Donald Trump (Republican), Kamala Harris
-(Democrat)], Cornel West (Independent), Jill Stein (Green), or
-someone else?''
-
-Answers other than the two major party candidates are set to be missing, and votes for Harris are coded as a 1 while votes for Trump are coded as a 2. Check the distribution with the command below; what conclusions can we reach?
-
-```{r, eval=FALSE}
-table(aneshw$presvote)
-```
-
-Let's run a regression, predicting vote choice based on corruption and some control variables. We will add in controls for partisanship and how much attention the respondent pays to politics. Do these two variables make sense as possible confounders, in your view? Why, or why not?
-
-Now, use the following commands to run the regression. What do the results tell us about the relationship between concerns about corruption and vote choice in the 2024 election?
-
-```{r, eval=FALSE}
-install.packages("modelsummary")
-library(modelsummary)
-votechoice.lm1 <- lm(presvote ~ corruption + demrep + politicalattention, data=aneshw)
-modelsummary(votechoice.lm1, statistic = c("p.value"))
-
-#if the modelsummary doesn't work, the alternative is:
-
-summary(votechoice.lm1)
-```
+Before you start working with the data, please spell out your theory of how Trump's immigration enforcement initiative this fall may have changed the size, scope, and kind of protests that Chicagoland is experiencing. Do your best to spell out the theory with multiple testable implications, in the way that we discussed in class, possibly with a box chart linking steps to show your thinking.
 
 ####################
 ## Problem 2      ##
 ####################
 
-I'm worried that we may have still missed some confounding variables. One that occurs to me is trust in government. Let's check whether that has the kind of empirical pattern consistent with an important confounding relationship. We will run the regression from Problem 1, adding trust in government to the end as an additional control, and we will check whether there is a meaningful change in the size of the slope for the corruption variable compared to the previous regression.
+On the class website, you will find about 22 news stories from the last few months. Look through these and select some that seem relevant. Load them into Taguette and systematically code them, searching for evidence that confirms or defeats your theory as well as other interesting findings. When you are finished, screenshot your list of codes, as well as the summary of tagged text for one of your most interesting codes. 
 
-Run this new regression:
-
-```{r, eval=FALSE}
-votechoice.lm2 <- lm(presvote ~ corruption + demrep + politicalattention + trustgovernment, data=aneshw)
-modelsummary(votechoice.lm2, statistic = c("p.value"))
-
-#if the modelsummary doesn't work, the alternative is:
-
-summary(votechoice.lm2)
-```
-
-Directly compare the slope for corruption here to the slope for corruption in Problem 1. Are they similar or different? If different, does that suggest that trust in government might be a meaningful confounder?
+You should expect to identify at least ten codes, each of which applies to a minimum of two highlights. Your most frequently used codes should probably apply to many more.
 
 ####################
 ## Problem 3      ##
 ####################
 
-I'm still worried that there might be additional confounders. There are so many variables! Let's use machine learning to search through more of them. As in class, let's use lasso regresssion to explore a long list of possible variables and let the algorithm zero out the irrelevant ones:
-
-```{r, eval=FALSE}
-library(hdm)
-
-votechoice.lasso <- rlasso(presvote ~ . - presvote, data=aneshw)
-
-summary(votechoice.lasso)
-```
-
-What do we learn from these results? Summarize the findings, and explain what they mean for understanding the 2024 election.
-
-On the basis of what you just learned, run a new regression, either using corruption as a main treatment variable and incorporating new control variables, or choosing a new treatment variable. Report your code and interpret your results. Feel free to copy and modify the regression code in Problem 2.
+Using the text you highlighted in Problem 2, evaluate which components of your theory from Problem 1 are supported by evidence, which components do not have evidence, and which components perhaps face contradictory evidence. Taken as a whole, does the process-tracing data support, contradict, or simply not decide about your theory? Explain your reasoning.
 
 Please submit your completed assignment at:
 
-[https://canvas.northwestern.edu/courses/235934/assignments/1663168](https://canvas.northwestern.edu/courses/235934/assignments/1663168)
+[https://canvas.northwestern.edu/courses/235934/assignments/1666300](https://canvas.northwestern.edu/courses/235934/assignments/1666300)
