@@ -30,6 +30,7 @@
 * [Thursday, Nov. 6: Qualitative methods](https://jnseawright.github.io/ps210/Slides/qualitative.html#1)
 * [Tuesday, Nov. 11: Qualitative examples](https://jnseawright.github.io/ps210/Slides/qualitativeexamples.html#1)
 * [Thursday, Nov. 13: Computer-Aided Qualitative Coding](https://jnseawright.github.io/ps210/Slides/qualitativecomputing.html#1)
+* [Thursday, Nov. 18: Ethics](https://jnseawright.github.io/ps210/Slides/ethics.html#1)
   
 ### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
 
