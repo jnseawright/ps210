@@ -109,27 +109,27 @@ include_graphics("images/mahoneyskocpol.png")
 
 
 ---
-![image](images/miamiboatlift.jpg)
+![image](images/miamiboatlift.JPG)
 
 
 ---
-![image](images/mariel1.jpg)
+![image](images/mariel1.JPG)
 
 
 ---
-![image](images/mariel2.jpg)
+![image](images/mariel2.JPG)
 
 
 ---
-![image](images/marielcomparison.jpg)
+![image](images/marielcomparison.JPG)
 
 
 ---
-![image](images/marielcomparison2.jpg)
+![image](images/marielcomparison2.JPG)
 
 
 ---
-![image](images/marielconclusions.jpg)
+![image](images/marielconclusions.JPG)
 
 
 ---
@@ -164,19 +164,19 @@ ideology, or pragmatism?
 
 
 ---
-![image](images/omb1.jpg)
+![image](images/omb1.JPG)
 
 
 ---
-![image](images/omb2.jpg)
+![image](images/omb2.JPG)
 
 
 ---
-![image](images/omb3.jpg)
+![image](images/omb3.JPG)
 
 
 ---
-![image](images/omb4.jpg)
+![image](images/omb4.JPG)
 
 
 ---
