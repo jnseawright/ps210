@@ -1,0 +1,181 @@
+---
+title: "18: Ethics and Normative Concerns"
+subtitle: "Empirical Methods"
+author: "<large>J. Seawright</large>"
+institute: "<small>Northwestern Political Science</small>" 
+date: "Nov. 18, 2025"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+  
+---
+class: center, middle
+
+```{css, echo=FALSE}
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+```
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes
+library(RefManageR)
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(nlme)
+library(jtools)
+library(hrbrthemes)
+library(mice)
+library(knitr)
+library(DiagrammeR)
+
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer,MnSymbol)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.6rem"
+)
+```
+What is research?
+
+What is a human subject?
+
+What makes research ethical?
+
+---
+
+![image](images/nuirb1.png)
+
+---
+
+![image](images/whatishumansubjects.png)
+
+---
+
+![image](images/grievancehoax.png)
+
+---
+
+![image](images/grievancehoax2.png)
+
+---
+
+![image](images/grievancehoax4.png)
+
+---
+
+![image](images/grievancehoax3.png)
+
+---
+
+If an IRB approves of our research, does that mean we are ethically all
+set?
+
+---
+
+![image](images/montana1.png)
+
+---
+
+![image](images/montana1-5.png)
+
+---
+
+![image](images/montana2.png)
+
+---
+
+![image](images/montana3.png)
+
+---
+### Fabrication
+
+Inventing research data or analytic results from scratch, and
+distributing them in some way.
+
+---
+
+![image](images/lacour1.png)
+
+---
+
+![image](images/lacour2.png)
+
+---
+
+![image](images/lacour3.png)
+
+---
+
+![image](images/lacour4.png)
+
+---
+
+![image](images/lacour5.png)
+
+---
+
+![image](images/lacour6.png)
+
+---
+
+![image](images/goffman1.png)
+
+
+---
+
+![image](images/goffman2.png)
+
+
+---
+
+![image](images/goffman3.png)
+
+
+---
+
+![image](images/goffman4.png)
+
+
+---
+
+![image](images/goffman5.png)
+
+
+---
+
+![image](images/goffman6.png)
+
+
+---
+
+![image](images/goffman7.png)
+
+---
+
+![image](images/transparency1.png)
+
+---
+
+![image](images/transparency2.png)
+
