@@ -1,0 +1,65 @@
+#######################
+## Homework 2 Rubric ##
+#######################
+
+*Rubric for Problem 1*
+
+Assign points as follows, up to a total of 25.
+
+- [ ] Reports most respondents believe there is some corruption in the government, with only a relative handful at the two extreme points. *5 points*
+- [ ] Reports that about four times as many people believe everyone in government is corrupt as believe nobody in government is corrupt. *5 points*
+- [ ] Reports the correct numbers for corruption concerns but misinterprets them in some way. *3 points*
+- [ ] Reports incorrect numbers for corruption concerns but interprets the incorrect numbers reasonably. *3 points*
+- [ ] Reports that there are somewhat more Harris voters than Trump voters in the data (2015 versus 1588). *5 points*
+- [ ] Notes that the results suggest that our sample overrepresents Harris voters. *5 points*
+- [ ] Reports the correct numbers of voters but misinterprets them in some way. *3 points*
+- [ ] Reports incorrect numbers for voters but interprets the incorrect numbers reasonably. *3 points*
+- [ ] Engages with the question about control variables by offering arguments about possible links to both the treatment variable (corruption concerns) and the outcome variable (vote choice). *5 points*
+- [ ] Engages with the question about control variables by offering arguments about possible links to one or the other, but not both, of the treatment variable (corruption concerns) and the outcome variable (vote choice). *3 points*
+- [ ] Offers an interpretation of the slope for corruption concerns in discussing the regression. *5 points*
+- [ ] Explains that the slope of corruption concerns measures the relationship between that variable and vote choice. *5 points*
+- [ ] Explains that the negative slope of corruption concerns indicate that voters who are less worried about corruption in the government tend to favor Harris while voters who are more worried about corruption in the government tend to favor Trump. *5 points*
+- [ ] Discusses the low p value as suggesting a meaningful weight of evidence that the relationship was not just random, etc. *5 points*
+- [ ] Interprets the confidence interval for the corruption slope in a way that fits the numbers. *5 points*
+- [ ] Uses ideas or concepts from class to make some other creative and/or reasonable point about the overall picture of these results. *5 points*
+
+
+*Rubric for Problem 2*
+
+Assign points as follows, up to a total of 25.
+
+- [ ] Reports that the slope got closer to zero. *10 points*
+- [ ] Reports that the slope declined by about a third. *5 points*
+- [ ] Interprets the reported change in slope as evidence for or against the idea that trust in government might have been a meaningful confounder *15 points*
+- [ ] Reports incorrect numbers for the change in slope but interprets the incorrect numbers reasonably. *5 points*
+- [ ] Fails to compare across the regressions but interprets the new regression in a reasonable way and discusses reasons why trust in government might or might not be a confounder. *15 points*
+- [ ] Fails to compare across the regressions but interprets the new regression in a reasonable way but neglects the issue of whether trust in government might or might not be a confounder. *10 points*
+- [ ] Fails to compare across the regressions and interprets the new regression in a way that features clear misconceptions. *5 points*
+- [ ] Discusses the p value, confidence interval, etc. from the new regression in a way that makes sense. *5 points*
+- [ ] Focuses on the change in p values, confidence intervals, etc. between regressions in a way that may be less justified. *3 points*
+
+*Rubric for Problem 3*
+
+Assign points as follows, up to a total of 50.
+
+- [ ] Reports lasso results. *5 points*
+- [ ] Interprets the zero and non-zero coefficients as variable selection. *10 points*
+- [ ] Provides a list of specific variables that may be of interest (likely feelings about Trump and Harris, Harris's honesty, approval of the Supreme Court, the respondent's partisanship, the trend of the economy, and opinion about building a border wall). *15 points*
+- [ ] Offers arguments for one or more of the reported variables about whether they meet the causal structure for a confounder. *10 points*
+- [ ] Reports a modified regression model. *10 points*
+- [ ] Reports the direction of the change in slope for corruption concerns relative to Problem 2. *10 points*
+- [ ] Reports the magnitude of the change in slope for corruption concerns relative to Problem 2. *5 points*
+- [ ] Interprets the reported change in slope as evidence for or against the idea that the newly introduced variables might have been a meaningful confounders *15 points*
+- [ ] Reports incorrect numbers for the change in slope but interprets the incorrect numbers reasonably. *5 points*
+- [ ] Fails to compare across the regressions but interprets the new regression in a reasonable way and discusses reasons why trust in government might or might not be a confounder. *15 points*
+- [ ] Fails to compare across the regressions but interprets the new regression in a reasonable way but neglects the issue of whether trust in government might or might not be a confounder. *10 points*
+- [ ] Fails to compare across the regressions and interprets the new regression in a way that features clear misconceptions. *5 points*
+- [ ] Explains the reasoning for changing to a new treatment variable. *10 points*
+- [ ] Provides a regression featuring a new treatment variable without a full explanation. *5 points*
+- [ ] Interprets slope for the new treatment variable correctly. *15 points*
+- [ ] Interprets slope for the new treatment variable in a way that reflects some understanding but makes one or more important mistakes. *10 points*
+- [ ] Interprets slope for the new treatment variable in a way that shows fundamental misunderstandings. *5 points*
+- [ ] Discusses the p value, confidence interval, etc. from the new regression in a way that makes sense. *5 points*
+- [ ] Reports the R code for the regression. *5 points*
+- [ ] Focuses on the change in p values, confidence intervals, etc. between regressions in a way that may be less justified. *3 points*
+- [ ] Uses ideas or concepts from class to make some other creative and/or reasonable point about the overall picture of these results. *5 points*

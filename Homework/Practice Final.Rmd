@@ -1,0 +1,42 @@
+####################
+## Practice Final ##
+####################
+
+For each of the following questions, please provide a short answer of not more than a few paragraphs (and maybe less if you don't need that much). The goal is to demonstrate your understanding of the ideas in question, not to explain every technical detail.
+
+Answer on a document of your own, referencing each question as you answer it. Please do your own work. The exam is open-book and open-notes, but using any language copied directly from any source without attribution (including the internet or an AI) will be regarded as an academic integrity issue.
+
+If you find that there is ambiguity in a question, please know that it is not a trick and not intentional. Adopt a reading that could resolve the ambiguity, explain your decision, and proceed.
+
+####################
+## Question 1     ##
+####################
+
+Many political scientists are interested in learning whether electoral rules (e.g., majority-rule voting vs. proportional representation) affect the size of the welfare state. The idea is that different kinds of electoral rules might push the middle class to usually ally with poor and working class voters, on the one hand, or with wealthy voters, on the other, with predictable consequences for welfare policy.
+
+In this framework, what is the independent variable? What is the dependent variable? Is there a hypothesis about the causal pathway? If so, what?
+
+####################
+## Question 2     ##
+####################
+
+Based on ideas from our class, suggest three very different research designs that scholars might be able to use to study the ideas proposed in Question 1.
+
+####################
+## Question 3     ##
+####################
+
+Out of the three designs you proposed in Question 2, which do you think is best? Why? Explain the strengths and weaknesses of your proposed design in terms of description and causal inference.
+
+####################
+## Question 4     ##
+####################
+
+If a scholar was going to carry out your proposed design from Question 3, would they need to go through IRB review? Why, or why not? What other steps would you suggest to ensure that the project was as ethical as possible?
+
+####################
+## Question 5     ##
+####################
+
+What are the differences between regression and machine learning?
+

@@ -1,0 +1,63 @@
+###########################
+## Practice Final Rubric ##
+###########################
+
+*Rubric for Problem 1*
+
+Assign points as follows, up to a total of 15.
+
+- [ ] Identifies electoral rules as the independent variable (note that throughout, synonyms like, treatment, cause, etc. are fine). *5 points*
+- [ ] Identifies welfare as the dependent variable. *5 points*
+- [ ] Identifies class politics as the causal pathway. *5 points*
+- [ ] Misidentifies electoral rules as the dependent variable. *3 points*
+- [ ] Misidentifies welfare as the independent variable. *3 points*
+- [ ] Misidentifies class politics as the independent or dependent variable. *3 points*
+- [ ] Answers the question in a way that reveals a fundamental confusion but a good-faith effort regardless. *5 points*
+
+*Rubric for Problem 2*
+
+Assign points as follows, up to a total of 30.
+
+- [ ] Offers an experimental design. *10 points*
+- [ ] Offers a survey design. *10 points*
+- [ ] Offers a regression-based design looking at observational data. *10 points*
+- [ ] Offers a machine-learning-based design looking at observational data. *10 points*
+- [ ] Offers a qualitative design. *10 points*
+- [ ] Offers some other design using ideas from the class. *10 points each*
+- [ ] Offers a coherent and reasonable design but one that does not draw on ideas from class. *5 points each*
+
+*Rubric for Problem 3*
+
+Assign points as follows, up to a total of 35.
+
+- [ ] Uses the four-question framework to evaluate strengths and weaknesses of the design. *10 points*
+- [ ] Offers a well-reasoned argument for a view on the question of reverse causation. *5 points*
+- [ ] Offers a well-reasoned argument for a view on the question of a causal mechanism. *5 points*
+- [ ] Offers a well-reasoned argument for a view on the question of confounding variables. *5 points*
+- [ ] Offers a well-reasoned argument for how the design can show whether a relationship exists. *5 points*
+- [ ] Offers an acceptable position, although with some mistakes or inaccuracies, for one of the above issues. *3 points each*
+- [ ] Discusses sampling in a coherent and thoughtful way. *5 points*
+- [ ] Discusses sampling in an acceptable way, although with some mistakes or inaccuracies. *3 points*
+- [ ] Discusses measurement in a coherent and thoughtful way. *5 points*
+- [ ] Discusses measurement in an acceptable way, although with some mistakes or inaccuracies. *3 points*
+- [ ] Discusses external validity in a coherent and thoughtful way. *5 points*
+- [ ] Discusses external validity in an acceptable way, although with some mistakes or inaccuracies. *3 points*
+
+*Rubric for Problem 4*
+
+Assign points as follows, up to a total of 10.
+
+- [ ] Accurately evaluates whether the study qualifies officially as research. *3 points*
+- [ ] Accurately evaluates whether the study qualifies officially as dealing with human subjects. *3 points*
+- [ ] Determines correctly whether or not an IRB review is needed. *3 points*
+- [ ] Points out other appropriate transparency steps that would fit with the project in question. *3 points each*
+
+*Rubric for Problem 5*
+
+Assign points as follows, up to a total of 10.
+
+- [ ] Associates regression with testing prespecified models. *5 points*
+- [ ] Associates machine learning with open-ended discovery. *5 points*
+- [ ] Associates machine learning with larger numbers of variables than regression. *5 points*
+- [ ] Associates machine learning with more complex results than regression. *5 points*
+- [ ] Offers other appropriate and accurate comparisons drawing on course material. *5 points*
