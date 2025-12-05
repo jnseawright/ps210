@@ -4,6 +4,10 @@
 
 [Syllabus](https://jnseawright.github.io/ps210/syllabus.html)
 
+### Final
+
+* [Monday, December 8th: Final](https://jnseawright.github.io/ps210/Homework/Final.html)
+
 ### Midterm
 
 * [Thursday, Oct. 16: Midterm](https://jnseawright.github.io/ps210/Homework/Midterm.html)
