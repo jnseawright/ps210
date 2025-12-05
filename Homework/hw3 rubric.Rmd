@@ -1,0 +1,38 @@
+#######################
+## Homework 3 Rubric ##
+#######################
+
+*Rubric for Problem 1*
+
+Assign points as follows, up to a total of 15.
+
+- [ ] Offers a theory with a cause related to the ICE enforcement action and an outcome related to protests. *5 points*
+- [ ] Proposes a causal pathway with at least one step connecting the cause to the effect. *5 points*
+- [ ] Hypothesizes more than one step in a causal pathway connecting a cause to the effect. *5 points*
+- [ ] Hypothesizes more than one causal pathway that might connect the cause to the effect. *5 points*
+- [ ] Explains the specific observable implications of the theory. *5 points*
+- [ ] Presents specific observable implications instead of a theory. *half off the points that would otherwise apply*
+
+
+*Rubric for Problem 2*
+
+Assign points as follows, up to a total of 25.
+
+- [ ] The screenshot shows that real coding work was done. *10 points*
+- [ ] The tags used make substantive sense. *5 points*
+- [ ] There are at least five tags visible. *5 points*
+- [ ] There are at least ten tags visible. *5 points*
+- [ ] The screenshot shows one quote that fits the tag. *3 points*
+- [ ] The screenshot shows two or more quotes that fits the tag. *5 points*
+
+*Rubric for Problem 3*
+
+Assign points as follows, up to a total of 60.
+
+- [ ] Uses quotes and other evidence from the coding exercise. *15 points*
+- [ ] Considers every step in the process-tracing framework. *15 points*
+- [ ] Offers a reasonable argument regarding the availability or absence of evidence for each observable implication identified in Problem 1. *30 points*
+- [ ] Offers a reasonable argument regarding the availability or absence of evidence for some but not all of the observable implications identified in Problem 1. *20 points*
+- [ ] Discusses weaknesses in the available evidence. *10 points*
+- [ ] Uses the four questions to consider the strength of the causal inference. *10 points*
+- [ ] Uses ideas or concepts from class to make some other creative and/or reasonable point about the overall picture of these results. *10 points*
