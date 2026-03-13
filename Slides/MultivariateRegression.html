@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>10: Multivariate Regression</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jaye Seawright" />
+    <meta name="date" content="2025-10-16" />
+    <script src="MultivariateRegression_files/header-attrs-2.30/header-attrs.js"></script>
+    <link href="MultivariateRegression_files/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+    <script src="MultivariateRegression_files/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+    <script src="MultivariateRegression_files/viz-1.8.2/viz.js"></script>
+    <link href="MultivariateRegression_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="MultivariateRegression_files/grViz-binding-1.0.11/grViz.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# 10: Multivariate Regression
+]
+.subtitle[
+## Empirical Methods
+]
+.author[
+### <large>Jaye Seawright</large>
+]
+.institute[
+### <small>Northwestern Political Science</small>
+]
+.date[
+### Oct. 16, 2025
+]
+
+---
+
+class: center, middle
+
+&lt;style type="text/css"&gt;
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+&lt;/style&gt;
+
+
+
+
+---
+
+### Recall from Last Time
+
+We found a positive association between support for transgender bathroom laws (transbathroom) and opposition to carbon regulations (carbonregulations):
+
+$$ \scriptsize CarbonRegulations_i = 1.02 + 0.37 \times TransBathroom_i $$
+
+But we know that **partisanship** might be driving both attitudes.
+
+---
+
+### The Problem of Confounding
+
+What are some possible *confounding variables* for this relationship?
+
+- Partisanship
+- Ideology
+- Religious beliefs
+- Education
+- ...
+
+Today we'll add a control for **party identification** and see how the relationship changes.
+
+---
+
+### Multivariate Regression
+
+We extend the bivariate model to include additional predictors:
+
+`$$\scriptsize CarbonRegulations_i = \alpha + \beta_1 TransBathroom_i + \beta_2 PartyID_i + \epsilon_i$$`
+
+Now `\(\beta_1\)` is the effect of TransBathroom *subtracting off the relationship with party identification*.
+
+---
+
+### Measuring Party Identification
+
+
+``` r
+anes2024 &lt;- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
+
+anes2024$transbathroom &lt;- ifelse(anes2024$V241372x &lt; 0, NA, anes2024$V241372x)
+anes2024$carbonregulations &lt;- ifelse(anes2024$V242324x &lt; 0, NA, anes2024$V242324x)
+
+anes2024$partyid &lt;- ifelse(anes2024$V241227x &lt; 0, NA, anes2024$V241227x)
+
+table(anes2024$partyid)
+```
+
+```
+## 
+##    1    2    3    4    5    6    7 
+## 1314  616  714  380  716  577 1166
+```
+
+Party ID is coded 1 = Strong Democrat, 7 = Strong Republican.
+
+---
+
+### Running the Multivariate Regression
+
+
+``` r
+transcarbonlm2 &lt;- lm(carbonregulations ~ transbathroom + partyid, data = anes2024)
+
+summary(transcarbonlm2)
+```
+
+```
+## 
+## Call:
+## lm(formula = carbonregulations ~ transbathroom + partyid, data = anes2024)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.1742 -0.9916 -0.1910  0.8090  5.8090 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    0.69378    0.05454   12.72   &lt;2e-16 ***
+## transbathroom  0.20156    0.01245   16.19   &lt;2e-16 ***
+## partyid        0.29565    0.01234   23.97   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.571 on 4658 degrees of freedom
+##   (860 observations deleted due to missingness)
+## Multiple R-squared:  0.2932,	Adjusted R-squared:  0.2929 
+## F-statistic: 966.3 on 2 and 4658 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+
+### Interpreting the Results
+
+- **transbathroom coefficient** = 0.12 (down from 0.24 in the bivariate model). The relationship is weaker after controlling for party.
+- **partyid coefficient** = 0.21: each step toward stronger Republican identification is associated with 0.21 units more opposition to carbon regulation.
+- Both variables are statistically significant.
+
+**What happened?** Partisanship was a confounder: Republicans tend to be more conservative on both issues, so part of the original association was spurious.
+
+---
+
+### How Do We Choose Controls?
+
+Not every variable should be included in a regression. We can classify controls into three types:
+
+---
+
+1\. **Good controls**: Variables that are potential confounders (like partisanship). They help isolate the causal effect.
+
+---
+
+2\. **Irrelevant controls**: Variables that are unrelated to both the treatment and the outcome. They don't harm much but don't help either.
+
+---
+
+3\. **Harmful controls**: Variables that introduce bias—for example, *colliders* (variables caused by both the treatment and the outcome) or *post-treatment* variables (affected by the treatment).
+
+---
+
+### Good Control
+
+&lt;img src="images/goodcontrol.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+A good control is a common cause of both the treatment and the outcome. Including it blocks a backdoor path.
+
+---
+
+### Irrelevant Control
+
+&lt;img src="images/irrelevantcontrol1.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+An irrelevant control is unrelated to the treatment or the outcome. It doesn't bias the estimate, but it may reduce precision. Adding unnecessary control variables uses up information we could otherwise use for productive purposes.
+
+---
+
+### Harmful Control: Collider
+
+&lt;img src="images/harmfulcontrol3.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+A collider is a variable caused by both the treatment and the outcome. Conditioning on it can create a spurious association.
+
+---
+
+### Harmful Control: Post-Treatment
+
+&lt;img src="images/harmfulcontrol2.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+A post-treatment variable is affected by the treatment. 
+
+---
+### Post-Treatment Bias
+
+When we control for a variable that is *caused by the treatment*, we can block part of the causal path and introduce bias.
+
+---
+
+<div class="grViz html-widget html-fill-item" id="htmlwidget-99121f88b8933a50c34d" style="width:432px;height:288px;"></div>
+<script type="application/json" data-for="htmlwidget-99121f88b8933a50c34d">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Treatment\n(Trans Bathroom)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.498683690565642,-0.287915163040788!\"] \n  \"2\" [label = \"Post-Treatment\n(Mediator)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.498683690611046,-0.287915162804862!\"] \n  \"3\" [label = \"Outcome\n(Carbon Regs)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-4.54040138819778e-11,0.575830325845649!\"] \n  \"1\"->\"2\" \n  \"1\"->\"3\" \n  \"2\"->\"3\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+---
+
+- The **total causal effect** of Treatment on Outcome is the sum of the direct path (1→3) and the indirect path through the Post-Treatment variable (1→2→3).
+- If we **control for the Post-Treatment variable** (e.g., include it in a regression), we block the indirect path and only estimate the direct effect.
+- This can severely understate the total effect and, if the post-treatment variable is also affected by confounders, introduce collider bias.
+
+---
+
+**Example**: In our transgender bathroom example, suppose we controlled for "support for Trump" after measuring treatment. But support for Trump might be *caused* in part by the bathroom attitude itself. If so, controlling for it would remove part of the effect we want to measure.
+
+We would be asking: 'What's the effect of bathroom attitudes on carbon opinions among people with the same level of Trump support?' But if bathroom attitudes shape Trump support, that's the wrong question! We're conditioning away part of the causal effect we care about.
+
+---
+
+### Summary: Multivariate Regression
+
+- Allows us to control for confounders and get closer to causal estimates.
+- The coefficient for a treatment variable changes when we add relevant controls.
+- But not all controls are beneficial—some can introduce bias.
+
+**Key takeaway**: Choosing controls requires *theoretical reasoning* about the causal structure, not just throwing in every variable you have.
+
+---
+
+### Next Steps
+
+- In the next class, we'll look at examples of quantitative political science research that use these techniques.
+- Then we'll move on to machine learning, which takes a different approach to handling many variables.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

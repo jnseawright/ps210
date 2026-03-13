@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>9: Correlation and Bivariate Regression</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jaye Seawright" />
+    <meta name="date" content="2025-10-14" />
+    <script src="BivariateRegression_files/header-attrs-2.30/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# 9: Correlation and Bivariate Regression
+]
+.subtitle[
+## Empirical Methods
+]
+.author[
+### <large>Jaye Seawright</large>
+]
+.institute[
+### <small>Northwestern Political Science</small>
+]
+.date[
+### Oct. 14, 2025
+]
+
+---
+
+class: center, middle
+
+&lt;style type="text/css"&gt;
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+&lt;/style&gt;
+
+
+
+
+
+### Recall where we left off
+
+We learned how to test whether a difference between two groups is statistically significant.
+
+But what if our independent variable is **quantitative**, not a simple group membership?
+
+And what if we need to account for **multiple variables** at once?
+
+---
+
+### Today: Bivariate Regression
+
+- The simplest case: one quantitative independent variable, one quantitative dependent variable.
+- We'll learn how to fit a line to data and interpret its slope.
+
+---
+
+### Regression Analysis
+
+-   Regression analysis is a tool that fits a line to a scatter plot.
+
+---
+
+Remember from your studies that the algebraic formula for a line is: `\(Y = mX + b\)`.
+
+---
+
+### Regression Analysis
+
+When we pivot from geometry to regression, two important changes:
+
+1.  Instead of `\(m\)`, we usually call the slope `\(\beta\)` or `\(b\)`, and instead of `\(b\)`, we usually call the intercept `\(\alpha\)`, `\(a\)`, or sometimes `\(\beta_0\)`.
+
+2.  We add a term at the end of the equation for error/noise above and below the line. This term is called `\(e_i\)` or `\(\epsilon_i\)`.
+
+---
+
+-   How do we get numbers for `\(\alpha\)` and `\(\beta\)` in regression analysis?
+
+-   Data plus calculus! The line is chosen to minimize the sum of squared vertical distances from the points to the line (ordinary least squares).
+
+---
+
+### Example: Attitudes and Policy Preferences
+
+We'll use data from the 2024 American National Election Studies (ANES).
+
+Let's look at two variables:
+
+- **transbathroom**: Support for laws requiring transgender individuals to use bathrooms matching their sex assigned at birth (1 = favor a great deal, 5 = oppose a great deal; lower = more conservative on this issue).
+- **carbonregulations**: Support for government regulation of carbon emissions (1 = favor a great deal, 5 = oppose a great deal; lower = more supportive of regulation).
+
+
+``` r
+anes2024 &lt;- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
+
+anes2024$transbathroom &lt;- ifelse(anes2024$V241372x &lt; 0, NA, anes2024$V241372x)
+
+table(anes2024$transbathroom)
+```
+
+```
+## 
+##    1    2    3    4    5    6    7 
+##  779  459  131 1317  102  383 2059
+```
+
+---
+
+
+``` r
+anes2024$carbonregulations &lt;- ifelse(anes2024$V242324x &lt; 0, NA, anes2024$V242324x)
+
+table(anes2024$carbonregulations)
+```
+
+```
+## 
+##    1    2    3    4    5    6    7 
+## 1738  928  200 1182   89  263  306
+```
+
+---
+
+### Visualizing the Relationship
+
+
+``` r
+library(ggplot2)
+
+transcarbonplot &lt;- anes2024 %&gt;% 
+  ggplot(aes(x = transbathroom, y = carbonregulations)) + 
+  geom_point(color = "#69b3a2") +
+  theme_minimal()
+```
+
+---
+
+
+``` r
+transcarbonplot
+```
+
+&lt;img src="BivariateRegression_files/figure-html/unnamed-chunk-5-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+The points overlap a lot because both variables are discrete. Let's jitter them.
+
+---
+
+
+``` r
+transcarbonjitterplot &lt;- anes2024 %&gt;% 
+  ggplot(aes(x = transbathroom, y = carbonregulations)) + 
+  geom_point(color = "#69b3a2") +
+  geom_jitter() +
+  theme_minimal()
+```
+
+---
+
+
+``` r
+transcarbonjitterplot
+```
+
+&lt;img src="BivariateRegression_files/figure-html/unnamed-chunk-7-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+### Correlation: Quantifying the Relationship
+
+Before we fit a line, let's measure the strength and direction of the relationship.
+
+**Correlation coefficient** (`\(r\)`):
+- Ranges from -1 to +1
+- Positive `\(r\)` = as X increases, Y tends to increase
+- Negative `\(r\)` = as X increases, Y tends to decrease
+- `\(r = 0\)` = no linear relationship
+- Closer to ±1 = stronger relationship
+
+---
+
+
+``` r
+# Calculate the correlation between transbathroom and carbonregulations
+cor(anes2024$transbathroom, anes2024$carbonregulations, use = "complete.obs")
+```
+
+```
+## [1] 0.454604
+```
+
+The correlation is about **0.45**, which is a pretty strong positive relationship for individual-level survey data.
+
+---
+
+### Visualizing Correlation
+
+
+``` r
+# Install if needed: install.packages("GGally")
+library(GGally)
+
+# Create a scatterplot with correlation displayed
+corplot &lt;- anes2024 %&gt;% 
+  select(transbathroom, carbonregulations) %&gt;%
+  ggpairs(
+   lower = list(
+      continuous = wrap("points", position = position_jitter(width = 0.2, height = 0.2), alpha = 0.5)
+   )
+  ) +
+  theme_minimal()
+```
+
+---
+
+&lt;img src="BivariateRegression_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Correlation vs. Regression
+
+**Correlation** tells us the strength and direction of a linear relationship.
+
+**Regression** will give us a line that predicts Y from X, with a slope we can interpret substantively.
+
+Correlation provides a quick summary, and regression provides an often more useful descriptive, analytic, and forecasting tool.
+
+* The slope in a bivariate regression is related to the correlation: `\(\beta = r * \frac{s_Y}{s_X}\)`.
+
+---
+
+### The Bivariate Regression Model
+
+`\(\scriptsize CarbonRegulations_{i} = \alpha + \beta TransBathroom_{i} + \epsilon_{i}\)`
+
+We estimate `\(\alpha\)` and `\(\beta\)` using `lm()` in R.
+
+---
+
+
+``` r
+transcarbonlm &lt;- lm(carbonregulations ~ transbathroom, data = anes2024)
+
+summary(transcarbonlm)
+```
+
+```
+## 
+## Call:
+## lm(formula = carbonregulations ~ transbathroom, data = anes2024)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.6524 -1.5278 -0.4033  0.7225  5.5967 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    1.02846    0.05579   18.43   &lt;2e-16 ***
+## transbathroom  0.37484    0.01074   34.89   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.665 on 4674 degrees of freedom
+##   (845 observations deleted due to missingness)
+## Multiple R-squared:  0.2067,	Adjusted R-squared:  0.2065 
+## F-statistic:  1218 on 1 and 4674 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+
+### Interpreting the Output
+
+- The intercept (`\(\alpha\)`) ≈ 1.02: the predicted carbon regulations support when transbathroom = 0 (a value one step below the bottom of the scale, but necessary to structure the geometry).
+- The slope (`\(\beta\)`) ≈ 0.37: for each one-unit increase in support for bathroom laws (i.e., moving one step toward opposition), predicted support for carbon regulations *increases* by 0.37 units.
+
+---
+
+### Interpreting the Output
+
+- The relationship is positive: people who are more conservative on transgender bathroom laws also tend to be less supportive of carbon regulation (higher values = more opposition).
+- The p-value for transbathroom is very small (&lt;2e-16), so the relationship is statistically significant.
+- This means that if the true slope were zero, we would virtually never see a slope this large just by random chance.
+
+---
+
+### Visualizing the Regression Line
+
+
+``` r
+transcarbonlmplot &lt;- anes2024 %&gt;% 
+  ggplot(aes(x = transbathroom, y = carbonregulations)) + 
+  geom_point(color = "#69b3a2") +
+  geom_jitter() +
+  geom_smooth(method = lm, color = "red", se = TRUE) +  
+  theme_minimal()
+```
+
+---
+
+
+``` r
+transcarbonlmplot
+```
+
+&lt;img src="BivariateRegression_files/figure-html/unnamed-chunk-13-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+The red line is the best-fit line; the shaded band is the 95% confidence interval for the line.
+
+---
+
+### Summary: Bivariate Regression
+
+- We can now quantify the relationship between two quantitative variables.
+- The slope tells us the direction and strength of the association.
+- We can test whether the slope is significantly different from zero.
+
+**But**—this is just an association. It doesn't account for other variables that might be confounders.
+
+Next time: **Multivariate Regression**—adding control variables to get closer to causal estimates.
+
+---
+
+### What's Next?
+
+We saw that attitudes on transgender bathroom laws correlate with attitudes on carbon regulation.
+
+But is that relationship **causal**, or does it reflect something else—like partisanship?
+
+In the next session, we'll add a control variable (party identification) and see what happens.
+
+We'll also learn when adding a control is **good**, **irrelevant**, or actually **harmful**.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

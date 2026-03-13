@@ -1,0 +1,410 @@
+---
+title: "Lab 1: Preparing for Homework 1"
+subtitle: "Empirical Methods"
+author: "<large>Jaye Seawright</large>"
+institute: "<small>Northwestern Political Science</small>"
+date: "Oct. 21, 2025"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+class: center, middle
+
+```{css, echo=FALSE}
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.6rem"
+)
+```
+
+class: inverse, center, middle
+
+# Lab 1: Getting Ready for Homework 1
+
+## Today's Goals
+
+- Get comfortable with basic R operations
+- Learn to work with two datasets at once
+- Create variables and visualizations
+- Connect these skills directly to Homework 1
+
+---
+class: inverse, center, middle
+
+# Part 1: R Basics
+
+---
+### Getting Oriented
+
+**R** does the calculations. **RStudio** is where we write and run code.
+
+Four panes:
+- **Source** (top left): where you write scripts
+- **Console** (bottom left): where code runs
+- **Environment** (top right): shows your data
+- **Files/Plots/Help** (bottom right): where plots appear
+
+---
+### Loading Data with `read.csv()`
+
+```{r, eval=TRUE}
+# Read data from a URL
+qog_small <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/qogsmall.csv")
+
+# Read data from your computer (after downloading)
+# local_data <- read.csv("path/to/your/file.csv")
+```
+
+**Key points:**
+- `<-` is the assignment operator (saves data to a name)
+- File paths matter! Use forward slashes `/` even on Windows
+
+---
+### Examining Data
+
+```{r, eval=TRUE}
+# Look at the first few rows
+head(qog_small)
+```
+
+---
+### Examining Data
+
+```{r, eval=TRUE}# Look at the last few rows
+tail(qog_small)
+```
+
+---
+### Examining Data
+
+```{r, eval=TRUE}
+# Get summary statistics for all variables
+summary(qog_small)
+```
+
+---
+### Examining Data
+
+```{r, eval=TRUE}
+# See the structure (variable types)
+str(qog_small)
+
+# Open in spreadsheet view (capital V!)
+#View(qog_small)
+```
+
+---
+### Installing and Loading Packages
+
+Packages extend R's capabilities.
+
+```{r, eval=FALSE}
+# Install a package (only need to do this once)
+install.packages("tidyverse")
+install.packages("ggplot2")
+
+# Load a package (need to do this every session)
+library(tidyverse)
+library(ggplot2)
+```
+
+**Remember:** Install once, load every time!
+
+---
+### Quick Practice
+
+With a neighbor, discuss:
+1. What's the difference between `head()` and `summary()`?
+2. Why do we need to load packages even after installing them?
+3. What would happen if you run `summary(example_data)` before loading the data?
+
+---
+class: inverse, center, middle
+
+# Part 2: Working with Two Datasets
+
+---
+### Today's Example Data
+
+We'll use data about democracy from the QOG data that we loaded above, and also data about :
+
+```{r, eval=FALSE}
+# Right-wing violence data (each row is one incident)
+rtv <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/rtv.csv")
+```
+
+---
+### Look at Both Datasets
+
+```{r, eval=FALSE}
+head(rtv)
+```
+
+---
+### Look at Both Datasets
+```{r, eval=FALSE}
+head(qog_small)
+```
+
+**Questions:**
+- What variables does `rtv` have?
+- What variables does `qog_small` have?
+- How are they connected? (What common variable could we use to match them?)
+
+---
+### Merging Datasets: The Loop Approach
+
+Homework 1 uses a loop. Let's understand a slightly modified version:
+
+```{r, eval=FALSE}
+# Create variable with zero in it as defaul
+qog_to_merge <- qog_small
+
+qog_to_merge$rightwingviolence <- 0
+
+# Loop through each act of violence
+for (i in 1:nrow(rtv)) {
+  # Find which country this act of violence happened in
+  this_country <- rtv$country_name[i]
+  this_year <- rtv$year[i]
+  
+  # Find the row(s) in qog_small that match this event's country and year
+  target_rows <- qog_to_merge$cname == this_country & qog_to_merge$year == this_year
+
+  # Increase the count for those rows by 1
+  qog_to_merge$rightwingviolence[target_rows] <- qog_to_merge$rightwingviolence[target_rows] + 1
+}
+
+  #Our dataset only covers some countries.
+qog_plus_rtv <- qog_to_merge %>% filter(cname %in% rtv$country_name)
+qog_to_merge <- NULL
+```
+
+---
+### A Faster and Shorter Alternative
+
+The `tidyverse` gives us a speedier and less error-prone way:
+
+```{r, eval=TRUE}
+# Step 1: Count events per country-year from the events dataset
+event_counts <- rtv %>%
+  group_by(country_name, year) %>%
+  summarise(rightwingviolence = n(), .groups = "drop")
+
+# Step 2: Join these counts to the full QoG panel
+qog_plus_rtv <- left_join(qog_small, event_counts, 
+                          by = c("cname" = "country_name", "year" = "year"))
+
+# Step 3: Replace NA counts with 0 (countries/years with no events)
+qog_plus_rtv$rightwingviolence <- ifelse(is.na(qog_plus_rtv$rightwingviolence), 0, 
+                                          qog_plus_rtv$rightwingviolence)
+
+# Step 4: Filter countries not in both datasets.
+qog_plus_rtv <- qog_plus_rtv %>% filter(cname %in% rtv$country_name)
+```
+
+---
+### A Faster and Shorter Alternative
+
+This does the same thing as the loop, but it will execute much more quickly!
+
+---
+### Check Your Work
+
+```{r, eval=TRUE}
+# See what we have now
+head(qog_plus_rtv)
+```
+
+---
+### Check Your Work
+
+```{r, eval=TRUE}
+# How much violence?
+# Load ggplot2
+library(ggplot2)
+
+# Create a histogram of violence per country-year
+qog_plus_rtv %>% ggplot(aes(x = rightwingviolence)) +
+  geom_histogram(bins = 10,           # number of bins (adjust as needed)
+                 fill = "skyblue",    # bar fill color
+                 color = "white") +   # bar outline color
+  labs(title = "Distribution of Right-Wing Violence",
+       x = "Violence Per Country-Year",
+       y = "Count") +
+  theme_minimal()                     # clean theme
+```
+
+---
+### Creating New Variables
+
+We can create new variables based on existing ones:
+
+```{r, eval=TRUE}
+# Create a variable indicating large states
+qog_plus_rtv$loggedrightwingviolence <- log(qog_plus_rtv$rightwingviolence + 1)
+
+qog_plus_rtv %>% ggplot(aes(x = loggedrightwingviolence)) +
+  geom_histogram(bins = 10,           # number of bins (adjust as needed)
+                 fill = "skyblue",    # bar fill color
+                 color = "white") +   # bar outline color
+  labs(title = "Distribution of Logged Right-Wing Violence",
+       x = "Logged Violence Per Country-Year",
+       y = "Count") +
+  theme_minimal()                     # clean theme
+```
+
+---
+
+```{r, eval=TRUE}
+# Create a categorical variable from a numeric one
+qog_plus_rtv$violence_cat <- cut(qog_plus_rtv$rightwingviolence,
+                           breaks = c(-1, 0, 5, 10, Inf),
+                           labels = c("None", "Little", "Some", "Much"))
+table(qog_plus_rtv$violence_cat)
+```
+
+---
+### Your Turn (with a neighbor)
+
+Given what we've seen:
+1. Why might we prefer the tidyverse approach over writing a loop?
+2. What could go wrong if the country (or state?) names don't match exactly?
+3. How would you check if the merge worked correctly?
+
+---
+class: inverse, center, middle
+
+# Part 3: Visualization
+
+---
+### Scatter Plot of Democracy Level by Violence
+
+```{r, eval=FALSE}
+qog_plus_rtv %>% ggplot(aes(x = rightwingviolence, y = democracy)) +
+  geom_point() +
+  labs(title = "Level of Democracy by Right-Wing Violence",
+       x = "Right-Wing Violence",
+       y = "Level of Democracy") +
+  theme_minimal()
+```
+
+
+---
+### What Does This Plot Tell Us?
+
+Look at the plot and discuss:
+
+- What is the relationship between right-wing violence and democracy?
+- What are the *limitations* of this plot?
+
+---
+### Visualizing Logged Violence Instead
+
+Maybe we don't like the stretched distribution of violence, so let's use the log:
+
+```{r, eval=FALSE}
+qog_plus_rtv %>% ggplot(aes(x = log(1+ rightwingviolence), y = democracy)) +
+  geom_point() +
+  labs(title = "Logged Level of Democracy by Right-Wing Violence",
+       x = "Logged Acts of Right-Wing Violence",
+       y = "Level of Democracy") +
+  theme_minimal()
+```
+
+---
+### Does this help?
+
+Look at the plot and discuss:
+
+- Does the log transformation make the relationship easier or harder to see?
+- What are the *advantages* and *disadvantages* of this version of the plot?
+
+---
+class: inverse, center, middle
+
+# Part 4: Your Turn (20 min)
+
+*Now you'll practice with a different dataset. Open the `Lab1_Practice.Rmd` file and follow the instructions. We'll circulate to help.*
+
+---
+class: inverse, center, middle
+
+# Part 5: Connecting to Homework 1 
+
+---
+### How Today's Lab Maps to Homework 1
+
+| Lab Skill | Homework 1 Problem |
+|-----------|-------------------|
+| Loading data with `read.csv()` | Problem 1: Load governor and ICE data |
+| Examining data with `head()`, `summary()` | Problem 1: Understand what's in each dataset |
+| Combining two datasets` | Problem 1: Add party variable to ICE data |
+| Creating variables with `mutate()` and `cut()` | Problem 3: Create population groups |
+| Bar plots with `ggplot()` | Problem 3: Visualize arrests by party and population |
+| Interpreting limitations | Problems 2 and 4: Causal inference, experiment feasibility |
+
+---
+### Key Differences to Notice
+
+| Today's Lab | Homework 1 |
+|-------------|------------|
+| Democracy and violence | ICE arrests data |
+| tidyverse (faster) | Loop (more explicit) |
+| Party from `states` dataset | Party from `governor_data` |
+| Population groups with quintiles | Same approach! |
+
+The *logic* is the same even if the code differs slightly.
+
+---
+### Where to Find Help in Homework 1
+
+- **Problem 1:** The loop code is already provided—you just need to run it and interpret the results
+- **Problem 2:** Use the four questions from lecture (relationship, reverse causation, pathway, confounders)
+- **Problem 3:** The code for population groups is provided—focus on interpreting the plot
+- **Problem 4:** Think about what an experiment would require (random assignment, manipulation)
+
+---
+### Before You Leave
+
+**Check that you can:**
+- [ ] Load a CSV file into R
+- [ ] Examine data with `head()` and `summary()`
+- [ ] Merge two datasets using `left_join()`
+- [ ] Create a new categorical variable with `cut()`
+- [ ] Make a bar plot with `ggplot()`
+- [ ] Explain what the plot shows and its limitations
+
+---
+### Questions?
+
+- TAs will be available in lab and office hours
+- Get in touch by email or reach out to fellow students
+- Don't wait until the night before!

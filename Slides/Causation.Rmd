@@ -1,7 +1,7 @@
 ---
 title: "3: Causation"
 subtitle: "Empirical Methods"
-author: "<large>J. Seawright</large>"
+author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
 date: "Sept. 23, 2025"
 output: 
@@ -31,7 +31,6 @@ library(dplyr)
 library(readr)
 library(nlme)
 library(jtools)
-library(hrbrthemes)
 library(mice)
 library(knitr)
 library(DiagrammeR)
@@ -141,7 +140,7 @@ render_graph(posttreat_graph, layout="nicely")
 
 ---
 
-### Instrument
+### Instrument (More Advanced)
 
 ```{r, echo=FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
 instrument_graph <-
@@ -207,6 +206,14 @@ include_graphics("images/Chiopris3.png")
 In our study, not too much; there isn't that much data about how people translated views about the policy into decisions.
 
 ---
+
+A different scholar with a different agenda might have tried to study the causal pathways in the Chiopris et al. article by, e.g,
+
+* Interviewing policymakers about their decision-making regarding policies that (might have) helped undermine the rule of law
+* Analyzing the text of legislative debates about proposed laws that might enable, prevent, or accelerate democratic backsliding
+* Exploring the history of politics within one or a few districts where citizen support for incumbents changed, to see if that shift led to differences over time in locally-elected politicians' defense of democratic norms
+
+---
 ### The Four Questions
 
 1.  Is there a relationship between the treatment and the outcome?
@@ -259,21 +266,9 @@ include_graphics("images/maskexp2.jpg")
 include_graphics("images/maskexp3.jpg")
 ```
 
-
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
-include_graphics("images/masknews1.jpg")
-```
+### Let's ask the four questions
 
----
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
-include_graphics("images/masknews2.jpg")
-```
-
----
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/maskcases.jpg")
-```
 
 ---
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
@@ -291,17 +286,4 @@ include_graphics("images/healthaffairs3.jpg")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/cepr1.jpg")
-```
-
----
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/cepr2.jpg")
-```
-
----
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
-include_graphics("images/cepr3.jpg")
-```
-
+### Again, the four questions!

@@ -3,9 +3,9 @@
   <head>
     <title>8: Confidence Intervals and Significance Tests</title>
     <meta charset="utf-8" />
-    <meta name="author" content="J. Seawright" />
+    <meta name="author" content="Jaye Seawright" />
     <meta name="date" content="2025-10-09" />
-    <script src="ConfidenceIntervals_files/header-attrs-2.29/header-attrs.js"></script>
+    <script src="ConfidenceIntervals_files/header-attrs-2.30/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 ## Empirical Methods
 ]
 .author[
-### <large>J. Seawright</large>
+### <large>Jaye Seawright</large>
 ]
 .institute[
 ### <small>Northwestern Political Science</small>
@@ -66,6 +66,10 @@ this big if the true underlying difference was zero?
 
 ---
 
+![](ConfidenceIntervals_files/figure-html/sampling-distribution-1.png)&lt;!-- --&gt;
+
+---
+
 
 ``` r
 prop.test(c(580,670),c(1000,1000))
@@ -93,6 +97,11 @@ the same opinion in June of 2025?
 
 ---
 
+![](ConfidenceIntervals_files/figure-html/sampling-distribution_2-1.png)&lt;!-- --&gt;
+
+
+---
+
 
 ``` r
 prop.test(c(440,670),c(1000,1000))
@@ -111,6 +120,10 @@ prop.test(c(440,670),c(1000,1000))
 ## prop 1 prop 2 
 ##   0.44   0.67
 ```
+
+---
+
+The tests we've been doing are most useful when we have two very similar samples with *no confounding.* What do we do when our research design can't guarantee that?
 
 ---
 
@@ -138,6 +151,7 @@ what happens in the normal course of events.
 **Large-N methods** are the statistical approach to analyzing
 observational studies.
 
+The core idea: use many cases and statistical techniques to approximate the logic of comparison that experiments achieve through randomization by deliberately and carefully balancing groups.
 
 ---
 ### Large-N Approaches to Political Violence
@@ -153,6 +167,10 @@ observational studies.
 ---
 
 &lt;img src="images/Piazza3.PNG" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+The Piazza study isn't comparing two neatly defined groups like 'Democrats' and 'Republicans.' It's asking whether countries with more polarization have more political violence. Polarization is *continuous*, not binary. And there are many other differences between countries that might matter. We need methods that can handle multiple variables at once and control for confounders.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

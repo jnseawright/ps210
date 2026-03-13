@@ -1,7 +1,7 @@
 ---
 title: "7: Sampling and survey research"
 subtitle: "Empirical Methods"
-author: "<large>J. Seawright</large>"
+author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
 date: "Oct. 7, 2025"
 output: 
@@ -31,7 +31,6 @@ library(dplyr)
 library(readr)
 library(nlme)
 library(jtools)
-library(hrbrthemes)
 library(mice)
 library(knitr)
 library(DiagrammeR)
@@ -132,6 +131,107 @@ survey.
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
 include_graphics("images/oreillywebpoll.JPG")
 ```
+
+---
+
+How much do we actually learn from unstructured online convenience samples like this?
+
+---
+### But are convenience samples *always* useless?
+
+No—but it depends on what you're trying to learn.
+
+Researchers often face tradeoffs:
+- Representative samples are expensive and difficult to obtain
+- Convenience samples are cheaper and faster
+- The question is: *do convenience samples give us the wrong answers?*
+
+---
+
+### A Direct Test: Ellis, Savchenko, and Messer (2023)
+
+**Research question:** Do people's purchasing decisions differ between a non-representative convenience sample and a representative sample?
+
+**The setup:**
+- Both studies used the *same experiment* about consumer attitudes toward food produced with recycled water
+- One sample: in-person convenience sample (314 adults recruited at DMV, farmer's market, mall)
+- One sample: online representative sample (546 adults matched to US mid-Atlantic demographics)
+
+---
+
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/ellis_figure1.png")
+```
+
+---
+
+### What Did They Find?
+
+**The key result:** No meaningful differences in the *key behaviors of interest* between the two samples.
+
+- Both samples showed the same pattern: products made with recycled water were less likely to be purchased
+- Both samples showed that passing recycled water through an aquifer removed the stigma
+- Both samples showed that products higher in the food chain (meat, cheese) were less stigmatized than plants or water
+
+---
+
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/ellis_figure2.png")
+```
+
+*Source: Ellis et al. 2023, Figure 2. Regression-estimated probability of purchasing by trophic level and water type. The samples overlap statistically.*
+
+---
+
+### Where Did They Find Differences?
+
+Only two small differences emerged:
+
+1. **Trophic level one (plants):** The stigma-reducing effect of moving from water to plants was weaker in the in-person sample—suggesting this effect may be small and tenuous.
+
+2. **Perishable products:** In-person participants were less likely to purchase fresh lamb and cheese, perhaps because carrying perishables around a mall or DMV is inconvenient. Online participants knew products would be shipped on ice.
+
+---
+
+### What Does This Tell Us?
+
+**Convenience samples can be useful when:**
+
+- You're studying behaviors that aren't highly sensitive to context
+- You're testing *relationships between variables* rather than precise population estimates
+- You're in the early stages of research, testing whether an effect exists at all
+
+---
+
+### What Does This Tell Us?
+
+**Convenience samples come with risks:**
+- Logistical factors (like carrying perishables) can distort choices
+- You can't reliably estimate population averages (like "what percentage of Americans would buy this?")
+
+---
+
+### The Tradeoff
+
+| Sample Type | Cost | Difficulty | External Validity | When to Use |
+|-------------|------|------------|-------------------|-------------|
+| Representative | High | High | High | When you need precise population estimates |
+| Convenience | Low | Low | Moderate | When testing relationships, mechanisms, or theories |
+
+Ellis et al.'s conclusion:
+
+> "Requiring every study to have a representative sample could create unnecessary barriers to research that stifles scientific progress. These tradeoffs should be kept in mind when considering sample selection."
+
+---
+
+### Back to O'Reilly
+
+The problem with O'Reilly's "poll" wasn't just that it used a convenience sample, although it was self-selected in ways that made it relatively uninformative. It was that people *misrepresented* it as something it wasn't.
+
+- The claim was that he hired graduate students to call 250 people from each party's voting rolls
+- In reality, he ran a self-selected online poll and then other people passed it off as scientific
+
+**The lesson:** Convenience samples can be useful tools, but *honesty about what they are* is non-negotiable.
 
 ---
 ### Quota Sampling

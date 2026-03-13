@@ -31,7 +31,6 @@ library(dplyr)
 library(readr)
 library(nlme)
 library(jtools)
-library(hrbrthemes)
 library(mice)
 library(knitr)
 library(DiagrammeR)
@@ -232,5 +231,31 @@ include_graphics("images/Hangartner4.PNG")
 ```
 
 ---
+### Three Types of Experiments
+
+1.  Lab Experiment: Carefully controlled, structured environment in which treatments and outcomes are administered usually in person
+2.  Field Experiment: Real-world intervention in which a treatment is administered at random to treatment and control groups
+3.  Survey Experiment: Experiments in which treatments are administered usually through digital devices as part of a survey 
+
+---
 ### Oct. 2 Class 
 
+For a research question in the social sciences that interests you, suggest a design for an experiment that could be done as an honors thesis project. (You don't have to actually intend to do it, etc., but it has to be the kind of thing that could hypothetically be done.) Explain why you find the topic interesting and how your design helps answer your question. Evaluate the strengths and weaknesses of your design in comparison with the example experiments in the syllabus.
+
+---
+
+What an experimental design includes:
+
+* Treatment
+* Outcome
+* Sample
+* Lab/field/survey?
+* Any other clever design features (e.g., manipulation checks, attention filters, placebo treatments)
+
+---
+
+Your response might be structured as:
+
+1-2 paragraphs of justification for why the topic is interesting and how your experiment contributes
+1-2 paragraphs explaining the design details from the previous slide
+1-2 paragraphs comparing strengths and weaknesses in terms of internal and external validity relative to the example experiments

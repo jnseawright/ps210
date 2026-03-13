@@ -1,0 +1,242 @@
+---
+title: "10: Multivariate Regression"
+subtitle: "Empirical Methods"
+author: "<large>Jaye Seawright</large>"
+institute: "<small>Northwestern Political Science</small>" 
+date: "Oct. 16, 2025"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+  
+---
+class: center, middle
+
+```{css, echo=FALSE}
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+```
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes
+library(RefManageR)
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(nlme)
+library(jtools)
+library(mice)
+library(knitr)
+library(DiagrammeR)
+library(extrafont)
+loadfonts(device="win")
+
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer,MnSymbol)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.6rem"
+)
+
+```
+
+---
+
+### Recall from Last Time
+
+We found a positive association between support for transgender bathroom laws (transbathroom) and opposition to carbon regulations (carbonregulations):
+
+$$ \scriptsize CarbonRegulations_i = 1.02 + 0.37 \times TransBathroom_i $$
+
+But we know that **partisanship** might be driving both attitudes.
+
+---
+
+### The Problem of Confounding
+
+What are some possible *confounding variables* for this relationship?
+
+- Partisanship
+- Ideology
+- Religious beliefs
+- Education
+- ...
+
+Today we'll add a control for **party identification** and see how the relationship changes.
+
+---
+
+### Multivariate Regression
+
+We extend the bivariate model to include additional predictors:
+
+$$\scriptsize CarbonRegulations_i = \alpha + \beta_1 TransBathroom_i + \beta_2 PartyID_i + \epsilon_i$$
+
+Now $\beta_1$ is the effect of TransBathroom *subtracting off the relationship with party identification*.
+
+---
+
+### Measuring Party Identification
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+anes2024 <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
+
+anes2024$transbathroom <- ifelse(anes2024$V241372x < 0, NA, anes2024$V241372x)
+anes2024$carbonregulations <- ifelse(anes2024$V242324x < 0, NA, anes2024$V242324x)
+
+anes2024$partyid <- ifelse(anes2024$V241227x < 0, NA, anes2024$V241227x)
+
+table(anes2024$partyid)
+```
+
+Party ID is coded 1 = Strong Democrat, 7 = Strong Republican.
+
+---
+
+### Running the Multivariate Regression
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+transcarbonlm2 <- lm(carbonregulations ~ transbathroom + partyid, data = anes2024)
+
+summary(transcarbonlm2)
+```
+
+---
+
+### Interpreting the Results
+
+- **transbathroom coefficient** = 0.12 (down from 0.24 in the bivariate model). The relationship is weaker after controlling for party.
+- **partyid coefficient** = 0.21: each step toward stronger Republican identification is associated with 0.21 units more opposition to carbon regulation.
+- Both variables are statistically significant.
+
+**What happened?** Partisanship was a confounder: Republicans tend to be more conservative on both issues, so part of the original association was spurious.
+
+---
+
+### How Do We Choose Controls?
+
+Not every variable should be included in a regression. We can classify controls into three types:
+
+---
+
+1\. **Good controls**: Variables that are potential confounders (like partisanship). They help isolate the causal effect.
+
+---
+
+2\. **Irrelevant controls**: Variables that are unrelated to both the treatment and the outcome. They don't harm much but don't help either.
+
+---
+
+3\. **Harmful controls**: Variables that introduce bias—for example, *colliders* (variables caused by both the treatment and the outcome) or *post-treatment* variables (affected by the treatment).
+
+---
+
+### Good Control
+
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+include_graphics("images/goodcontrol.jpg")
+```
+
+A good control is a common cause of both the treatment and the outcome. Including it blocks a backdoor path.
+
+---
+
+### Irrelevant Control
+
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+include_graphics("images/irrelevantcontrol1.jpg")
+```
+
+An irrelevant control is unrelated to the treatment or the outcome. It doesn't bias the estimate, but it may reduce precision. Adding unnecessary control variables uses up information we could otherwise use for productive purposes.
+
+---
+
+### Harmful Control: Collider
+
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+include_graphics("images/harmfulcontrol3.jpg")
+```
+
+A collider is a variable caused by both the treatment and the outcome. Conditioning on it can create a spurious association.
+
+---
+
+### Harmful Control: Post-Treatment
+
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+include_graphics("images/harmfulcontrol2.jpg")
+```
+
+A post-treatment variable is affected by the treatment. 
+
+---
+### Post-Treatment Bias
+
+When we control for a variable that is *caused by the treatment*, we can block part of the causal path and introduce bias.
+
+---
+
+```{r posttreatment-dag, echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+library(DiagrammeR)
+
+# Create a simple DAG for post-treatment bias
+posttreat_dag <- 
+  create_graph() %>%
+  add_node(label = "Treatment\n(Trans Bathroom)") %>%
+  add_node(label = "Post-Treatment\n(Mediator)") %>%
+  add_node(label = "Outcome\n(Carbon Regs)") %>%
+  add_edge(from = 1, to = 2) %>%   # Treatment -> Post-Treatment
+  add_edge(from = 1, to = 3) %>%   # Treatment -> Outcome (direct)
+  add_edge(from = 2, to = 3)       # Post-Treatment -> Outcome (indirect)
+
+# Render the graph
+render_graph(posttreat_dag, layout = "nicely")
+```
+
+---
+
+- The **total causal effect** of Treatment on Outcome is the sum of the direct path (1→3) and the indirect path through the Post-Treatment variable (1→2→3).
+- If we **control for the Post-Treatment variable** (e.g., include it in a regression), we block the indirect path and only estimate the direct effect.
+- This can severely understate the total effect and, if the post-treatment variable is also affected by confounders, introduce collider bias.
+
+---
+
+**Example**: In our transgender bathroom example, suppose we controlled for "support for Trump" after measuring treatment. But support for Trump might be *caused* in part by the bathroom attitude itself. If so, controlling for it would remove part of the effect we want to measure.
+
+We would be asking: 'What's the effect of bathroom attitudes on carbon opinions among people with the same level of Trump support?' But if bathroom attitudes shape Trump support, that's the wrong question! We're conditioning away part of the causal effect we care about.
+
+---
+
+### Summary: Multivariate Regression
+
+- Allows us to control for confounders and get closer to causal estimates.
+- The coefficient for a treatment variable changes when we add relevant controls.
+- But not all controls are beneficial—some can introduce bias.
+
+**Key takeaway**: Choosing controls requires *theoretical reasoning* about the causal structure, not just throwing in every variable you have.
+
+---
+
+### Next Steps
+
+- In the next class, we'll look at examples of quantitative political science research that use these techniques.
+- Then we'll move on to machine learning, which takes a different approach to handling many variables.

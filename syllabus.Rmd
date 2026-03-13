@@ -89,6 +89,14 @@ Homework due dates will be set throughout the quarter. Students are
 encouraged to form study groups and work together but must complete and
 submit their own homework.
 
+Participation (10%) – Your participation grade has three components:
+
+* Reading Check-Ins (4%): Brief quizzes at the start of several classes to verify you've completed the reading. Your two lowest scores will be dropped.
+
+* Weekly "Muddiest Point" Posts (3%): Each Wednesday by 9:00 PM, post one sentence on Canvas identifying something from the week's materials you found confusing. Full credit for any good-faith submission.
+
+* Engagement (3%): Active, constructive participation in class discussions, group work, and the October 2nd asynchronous activity.
+
 Late work will be accepted but with a grade penalty equivalent to 5% per day. Late exams will not be accepted without prior communication with the instructors or an overriding exemption due to university policy.
 
 While some of the tools discussed in this course are based in
@@ -164,13 +172,17 @@ Oct. 9: *Confidence intervals and significance tests.*
 
 Clipperton, ed., Chapter 5.
 
-Oct. 14: *Correlation and regression.*
+Oct. 14: *Correlation and bivariate regression.*
 
 Clipperton, ed., Chapter 8.
 
-Oct. 16: Midterm
+Oct. 16: *Multivariate regression.*
 
-Oct. 21: *Statistical computing in political science I.*
+Oct. 21: Midterm review and Questions
+
+Oct. 23: Midterm
+
+Oct. 21: *Statistical Computing Lab I: Introduction to R for Descriptive Statistics and Visualization.*
 
 Oct. 23: *Quantitative political science research examples.*
 
@@ -184,13 +196,13 @@ Teaches Us about the Impact of Racial Threat on Political Behavior."
 American Journal of Political Science 60 (January 2016):
 123--142.](https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12156)
 
-Oct. 28: *Machine learning.*
+Oct. 28: *Statistical Computing I: Machine learning.*
 
 Clipperton, ed., Chapter 12.
 
-Oct. 30: *Statistical computing in political science II.*
+Oct. 30: *Statistical Computing Lab II: Introduction to R for Basic Regression.*
 
-Nov. 4: *Applied text methods and AI in social science.*
+Nov. 4: *Statistical Computing II: Applied text methods, LLMs, and AI in social science.*
 
 [Erin L. Rossiter, "Measuring Agenda Setting in Interactive Political
 Communication." American Journal of Political Science 66 (April 2022):

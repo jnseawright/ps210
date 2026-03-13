@@ -1,0 +1,301 @@
+---
+title: "9: Correlation and Bivariate Regression"
+subtitle: "Empirical Methods"
+author: "<large>Jaye Seawright</large>"
+institute: "<small>Northwestern Political Science</small>" 
+date: "Oct. 14, 2025"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+  
+---
+class: center, middle
+
+```{css, echo=FALSE}
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+```
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes
+library(RefManageR)
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(nlme)
+library(jtools)
+library(mice)
+library(knitr)
+library(DiagrammeR)
+library(extrafont)
+loadfonts(device="win")
+
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer,MnSymbol)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.6rem"
+)
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+### Recall where we left off
+
+We learned how to test whether a difference between two groups is statistically significant.
+
+But what if our independent variable is **quantitative**, not a simple group membership?
+
+And what if we need to account for **multiple variables** at once?
+
+---
+
+### Today: Bivariate Regression
+
+- The simplest case: one quantitative independent variable, one quantitative dependent variable.
+- We'll learn how to fit a line to data and interpret its slope.
+
+---
+
+### Regression Analysis
+
+-   Regression analysis is a tool that fits a line to a scatter plot.
+
+---
+
+Remember from your studies that the algebraic formula for a line is: $Y = mX + b$.
+
+---
+
+### Regression Analysis
+
+When we pivot from geometry to regression, two important changes:
+
+1.  Instead of $m$, we usually call the slope $\beta$ or $b$, and instead of $b$, we usually call the intercept $\alpha$, $a$, or sometimes $\beta_0$.
+
+2.  We add a term at the end of the equation for error/noise above and below the line. This term is called $e_i$ or $\epsilon_i$.
+
+---
+
+-   How do we get numbers for $\alpha$ and $\beta$ in regression analysis?
+
+-   Data plus calculus! The line is chosen to minimize the sum of squared vertical distances from the points to the line (ordinary least squares).
+
+---
+
+### Example: Attitudes and Policy Preferences
+
+We'll use data from the 2024 American National Election Studies (ANES).
+
+Let's look at two variables:
+
+- **transbathroom**: Support for laws requiring transgender individuals to use bathrooms matching their sex assigned at birth (1 = favor a great deal, 5 = oppose a great deal; lower = more conservative on this issue).
+- **carbonregulations**: Support for government regulation of carbon emissions (1 = favor a great deal, 5 = oppose a great deal; lower = more supportive of regulation).
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+anes2024 <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
+
+anes2024$transbathroom <- ifelse(anes2024$V241372x < 0, NA, anes2024$V241372x)
+
+table(anes2024$transbathroom)
+```
+
+---
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+anes2024$carbonregulations <- ifelse(anes2024$V242324x < 0, NA, anes2024$V242324x)
+
+table(anes2024$carbonregulations)
+```
+
+---
+
+### Visualizing the Relationship
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+library(ggplot2)
+
+transcarbonplot <- anes2024 %>% 
+  ggplot(aes(x = transbathroom, y = carbonregulations)) + 
+  geom_point(color = "#69b3a2") +
+  theme_minimal()
+```
+
+---
+
+```{r, echo = TRUE, out.width="55%", fig.retina = 1, fig.align='center'}
+transcarbonplot
+```
+
+The points overlap a lot because both variables are discrete. Let's jitter them.
+
+---
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+transcarbonjitterplot <- anes2024 %>% 
+  ggplot(aes(x = transbathroom, y = carbonregulations)) + 
+  geom_point(color = "#69b3a2") +
+  geom_jitter() +
+  theme_minimal()
+```
+
+---
+
+```{r, echo = TRUE, out.width="55%", fig.retina = 1, fig.align='center'}
+transcarbonjitterplot
+```
+
+---
+### Correlation: Quantifying the Relationship
+
+Before we fit a line, let's measure the strength and direction of the relationship.
+
+**Correlation coefficient** ($r$):
+- Ranges from -1 to +1
+- Positive $r$ = as X increases, Y tends to increase
+- Negative $r$ = as X increases, Y tends to decrease
+- $r = 0$ = no linear relationship
+- Closer to ±1 = stronger relationship
+
+---
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+# Calculate the correlation between transbathroom and carbonregulations
+cor(anes2024$transbathroom, anes2024$carbonregulations, use = "complete.obs")
+```
+
+The correlation is about **0.45**, which is a pretty strong positive relationship for individual-level survey data.
+
+---
+
+### Visualizing Correlation
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+# Install if needed: install.packages("GGally")
+library(GGally)
+
+# Create a scatterplot with correlation displayed
+corplot <- anes2024 %>% 
+  select(transbathroom, carbonregulations) %>%
+  ggpairs(
+   lower = list(
+      continuous = wrap("points", position = position_jitter(width = 0.2, height = 0.2), alpha = 0.5)
+   )
+  ) +
+  theme_minimal()
+```
+
+---
+
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+corplot
+```
+
+---
+
+### Correlation vs. Regression
+
+**Correlation** tells us the strength and direction of a linear relationship.
+
+**Regression** will give us a line that predicts Y from X, with a slope we can interpret substantively.
+
+Correlation provides a quick summary, and regression provides an often more useful descriptive, analytic, and forecasting tool.
+
+* The slope in a bivariate regression is related to the correlation: $\beta = r * \frac{s_Y}{s_X}$.
+
+---
+
+### The Bivariate Regression Model
+
+$\scriptsize CarbonRegulations_{i} = \alpha + \beta TransBathroom_{i} + \epsilon_{i}$
+
+We estimate $\alpha$ and $\beta$ using `lm()` in R.
+
+---
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+transcarbonlm <- lm(carbonregulations ~ transbathroom, data = anes2024)
+
+summary(transcarbonlm)
+```
+
+---
+
+### Interpreting the Output
+
+- The intercept ($\alpha$) ≈ 1.02: the predicted carbon regulations support when transbathroom = 0 (a value one step below the bottom of the scale, but necessary to structure the geometry).
+- The slope ($\beta$) ≈ 0.37: for each one-unit increase in support for bathroom laws (i.e., moving one step toward opposition), predicted support for carbon regulations *increases* by 0.37 units.
+
+---
+
+### Interpreting the Output
+
+- The relationship is positive: people who are more conservative on transgender bathroom laws also tend to be less supportive of carbon regulation (higher values = more opposition).
+- The p-value for transbathroom is very small (<2e-16), so the relationship is statistically significant.
+- This means that if the true slope were zero, we would virtually never see a slope this large just by random chance.
+
+---
+
+### Visualizing the Regression Line
+
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+transcarbonlmplot <- anes2024 %>% 
+  ggplot(aes(x = transbathroom, y = carbonregulations)) + 
+  geom_point(color = "#69b3a2") +
+  geom_jitter() +
+  geom_smooth(method = lm, color = "red", se = TRUE) +  
+  theme_minimal()
+```
+
+---
+
+```{r, echo = TRUE, out.width="55%", fig.retina = 1, fig.align='center', warning=FALSE, message=FALSE}
+transcarbonlmplot
+```
+
+The red line is the best-fit line; the shaded band is the 95% confidence interval for the line.
+
+---
+
+### Summary: Bivariate Regression
+
+- We can now quantify the relationship between two quantitative variables.
+- The slope tells us the direction and strength of the association.
+- We can test whether the slope is significantly different from zero.
+
+**But**—this is just an association. It doesn't account for other variables that might be confounders.
+
+Next time: **Multivariate Regression**—adding control variables to get closer to causal estimates.
+
+---
+
+### What's Next?
+
+We saw that attitudes on transgender bathroom laws correlate with attitudes on carbon regulation.
+
+But is that relationship **causal**, or does it reflect something else—like partisanship?
+
+In the next session, we'll add a control variable (party identification) and see what happens.
+
+We'll also learn when adding a control is **good**, **irrelevant**, or actually **harmful**.

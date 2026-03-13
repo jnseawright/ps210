@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lab 1: Preparing for Homework 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jaye Seawright" />
+    <meta name="date" content="2025-10-21" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lab 1: Preparing for Homework 1
+]
+.subtitle[
+## Empirical Methods
+]
+.author[
+### <large>Jaye Seawright</large>
+]
+.institute[
+### <small>Northwestern Political Science</small>
+]
+.date[
+### Oct. 21, 2025
+]
+
+---
+
+class: center, middle
+
+&lt;style type="text/css"&gt;
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Lab 1: Getting Ready for Homework 1
+
+## Today's Goals
+
+- Get comfortable with basic R operations
+- Learn to work with two datasets at once
+- Create variables and visualizations
+- Connect these skills directly to Homework 1
+
+---
+class: inverse, center, middle
+
+# Part 1: R Basics
+
+---
+### Getting Oriented
+
+**R** does the calculations. **RStudio** is where we write and run code.
+
+Four panes:
+- **Source** (top left): where you write scripts
+- **Console** (bottom left): where code runs
+- **Environment** (top right): shows your data
+- **Files/Plots/Help** (bottom right): where plots appear
+
+---
+### Loading Data with `read.csv()`
+
+
+``` r
+# Read data from a URL
+qog_small &lt;- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/qogsmall.csv")
+
+# Read data from your computer (after downloading)
+# local_data &lt;- read.csv("path/to/your/file.csv")
+```
+
+**Key points:**
+- `&lt;-` is the assignment operator (saves data to a name)
+- File paths matter! Use forward slashes `/` even on Windows
+
+---
+### Examining Data
+
+
+``` r
+# Look at the first few rows
+head(qog_small)
+```
+
+```
+##   X       cname year democracy corruption genderequity percapitagdp refugees
+## 1 1 Afghanistan 1946     0.059         NA        0.142           NA       NA
+## 2 2 Afghanistan 1947     0.060         NA        0.142           NA       NA
+## 3 3 Afghanistan 1948     0.060         NA        0.142           NA       NA
+## 4 4 Afghanistan 1949     0.060         NA        0.142           NA       NA
+## 5 5 Afghanistan 1950     0.061         NA        0.143           NA       NA
+## 6 6 Afghanistan 1951     0.061         NA        0.143           NA       NA
+##   centralbankindependence imports ecologicalfootprint globalization
+## 1                      NA      NA                  NA            NA
+## 2                      NA      NA                  NA            NA
+## 3                      NA      NA                  NA            NA
+## 4                      NA      NA                  NA            NA
+## 5                      NA    8958                  NA            NA
+## 6                      NA    9093                  NA            NA
+```
+
+``` r
+# Look at the last few rows
+tail(qog_small)
+```
+
+```
+##           X          cname year democracy corruption genderequity percapitagdp
+## 12842 12842 Vietnam, South 1971     0.197         NA        0.386           NA
+## 12843 12843 Vietnam, South 1972     0.197         NA        0.386           NA
+## 12844 12844 Vietnam, South 1973     0.197         NA        0.386           NA
+## 12845 12845 Vietnam, South 1974     0.197         NA        0.386           NA
+## 12846 12846 Vietnam, South 1975     0.196         NA        0.386           NA
+## 12847 12847 Vietnam, South 1976        NA         NA           NA           NA
+##       refugees centralbankindependence imports ecologicalfootprint
+## 12842       NA                      NA   18810                  NA
+## 12843       NA                      NA   19086                  NA
+## 12844       NA                      NA   19367                  NA
+## 12845       NA                      NA   19652                  NA
+## 12846       NA                      NA   19941                  NA
+## 12847       NA                      NA      NA                  NA
+##       globalization
+## 12842            NA
+## 12843            NA
+## 12844            NA
+## 12845            NA
+## 12846            NA
+## 12847            NA
+```
+
+---
+### Examining Data
+
+
+``` r
+# Get summary statistics for all variables
+summary(qog_small)
+```
+
+```
+##        X            cname                year        democracy     
+##  Min.   :    1   Length:12847       Min.   :1946   Min.   :0.0050  
+##  1st Qu.: 3212   Class :character   1st Qu.:1973   1st Qu.:0.0880  
+##  Median : 6424   Mode  :character   Median :1992   Median :0.2190  
+##  Mean   : 6424                      Mean   :1990   Mean   :0.3274  
+##  3rd Qu.: 9636                      3rd Qu.:2008   3rd Qu.:0.5640  
+##  Max.   :12847                      Max.   :2024   Max.   :0.8970  
+##                                                    NA's   :1542    
+##    corruption      genderequity     percapitagdp         refugees      
+##  Min.   :-5.631   Min.   :0.0260   Min.   :   122.5   Min.   :      5  
+##  1st Qu.:35.441   1st Qu.:0.3820   1st Qu.:  1211.3   1st Qu.:   1000  
+##  Median :52.701   Median :0.5930   Median :  3521.1   Median :   9782  
+##  Mean   :47.621   Mean   :0.5794   Mean   : 10701.4   Mean   : 124177  
+##  3rd Qu.:62.134   3rd Qu.:0.7870   3rd Qu.: 12340.8   3rd Qu.:  95121  
+##  Max.   :78.942   Max.   :0.9610   Max.   :228667.9   Max.   :4404995  
+##  NA's   :6293     NA's   :1676     NA's   :2552       NA's   :5663     
+##  centralbankindependence    imports        ecologicalfootprint globalization  
+##  Min.   :0.011           Min.   :      6   Min.   :  0.2725    Min.   :14.45  
+##  1st Qu.:0.351           1st Qu.:   1846   1st Qu.:  1.2918    1st Qu.:37.86  
+##  Median :0.463           Median :   6506   Median :  2.1682    Median :47.85  
+##  Mean   :0.493           Mean   :  28898   Mean   :  3.3386    Mean   :50.19  
+##  3rd Qu.:0.641           3rd Qu.:  18574   3rd Qu.:  4.1422    3rd Qu.:61.86  
+##  Max.   :0.979           Max.   :1324353   Max.   :165.6880    Max.   :89.81  
+##  NA's   :4344            NA's   :3065      NA's   :2489        NA's   :3486
+```
+
+---
+### Examining Data
+
+
+``` r
+# See the structure (variable types)
+str(qog_small)
+```
+
+```
+## 'data.frame':	12847 obs. of  12 variables:
+##  $ X                      : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ cname                  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
+##  $ year                   : int  1946 1947 1948 1949 1950 1951 1952 1953 1954 1955 ...
+##  $ democracy              : num  0.059 0.06 0.06 0.06 0.061 0.061 0.059 0.06 0.059 0.059 ...
+##  $ corruption             : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ genderequity           : num  0.142 0.142 0.142 0.142 0.143 0.143 0.143 0.143 0.143 0.143 ...
+##  $ percapitagdp           : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ refugees               : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ centralbankindependence: num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ imports                : num  NA NA NA NA 8958 ...
+##  $ ecologicalfootprint    : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ globalization          : num  NA NA NA NA NA NA NA NA NA NA ...
+```
+
+``` r
+# Open in spreadsheet view (capital V!)
+View(qog_small)
+```
+
+---
+### Installing and Loading Packages
+
+Packages extend R's capabilities.
+
+
+``` r
+# Install a package (only need to do this once)
+install.packages("tidyverse")
+install.packages("ggplot2")
+
+# Load a package (need to do this every session)
+library(tidyverse)
+library(ggplot2)
+```
+
+**Remember:** Install once, load every time!
+
+---
+### Quick Practice
+
+With a neighbor, discuss:
+1. What's the difference between `head()` and `summary()`?
+2. Why do we need to load packages even after installing them?
+3. What would happen if you run `summary(example_data)` before loading the data?
+
+---
+class: inverse, center, middle
+
+# Part 2: Working with Two Datasets (20 min)
+
+---
+### Today's Example Data
+
+We'll use fake data about immigration arrests (similar to Homework 1, but different):
+
+
+``` r
+# Arrests data (each row is one arrest)
+arrests &lt;- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/lab1_arrests.csv")
+
+# State data (characteristics of each state)
+states &lt;- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/lab1_states.csv")
+```
+
+---
+### Look at Both Datasets
+
+
+``` r
+head(arrests)
+head(states)
+```
+
+**Questions:**
+- What variables does `arrests` have?
+- What variables does `states` have?
+- How are they connected? (What common variable could we use to match them?)
+
+---
+### Merging Datasets: The Loop Approach
+
+Homework 1 uses a loop. Let's understand what it does:
+
+
+``` r
+# Create empty variable
+arrests$Party &lt;- NA
+
+# Loop through each arrest
+for (i in 1:nrow(arrests)) {
+  # Find which state this arrest happened in
+  this_state &lt;- arrests$state[i]
+  
+  # Look up that state's party in the states dataset
+  party_value &lt;- states$party[states$state == this_state]
+  
+  # Assign it to the arrest
+  arrests$Party[i] &lt;- party_value
+}
+```
+
+---
+### A Simpler Alternative: `left_join()`
+
+The `tidyverse` gives us a cleaner way:
+
+
+``` r
+arrests &lt;- left_join(arrests, states, by = "state")
+```
+
+This does the same thing as the loop, but in one line!
+
+- Takes `arrests`, adds variables from `states`
+- Matches rows where the `state` column is the same
+- Keeps all rows in `arrests` (even if no match)
+
+---
+### Check Your Work
+
+
+``` r
+# See what we have now
+head(arrests)
+
+# How many arrests by party?
+table(arrests$Party)
+```
+
+---
+### Creating New Variables
+
+We can create new variables based on existing ones:
+
+
+``` r
+# Create a variable indicating large states
+arrests$large_state &lt;- arrests$population &gt; 5000000
+
+# Create a categorical variable from a numeric one
+arrests$pop_category &lt;- cut(arrests$population,
+                           breaks = c(0, 1000000, 5000000, 10000000, Inf),
+                           labels = c("Very Small", "Small", "Medium", "Large"))
+```
+
+---
+### Your Turn (with a neighbor)
+
+Given what we've seen:
+1. Why might we prefer `left_join()` over writing a loop?
+2. What could go wrong if the state names don't match exactly?
+3. How would you check if the merge worked correctly?
+
+---
+class: inverse, center, middle
+
+# Part 3: Visualization (15 min)
+
+---
+### Bar Plot of Arrests by Party
+
+
+``` r
+# Simple count by party
+ggplot(arrests, aes(x = Party)) +
+  geom_bar() +
+  labs(title = "ICE Arrests by Governor's Party",
+       x = "Party of Governor",
+       y = "Number of Arrests") +
+  theme_minimal()
+```
+
+---
+### Bar Plot with Two Variables
+
+To show arrests by party *and* population category:
+
+
+``` r
+# First, create population categories
+arrests &lt;- arrests %&gt;%
+  mutate(pop_group = cut(population,
+                        breaks = quantile(population, probs = seq(0, 1, 0.2), na.rm = TRUE),
+                        labels = c("Very Small", "Small", "Medium", "Large", "Very Large"),
+                        include.lowest = TRUE))
+
+# Now plot
+ggplot(arrests, aes(x = pop_group, fill = Party)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Arrests by State Population and Governor's Party",
+       x = "State Population Group",
+       y = "Number of Arrests",
+       fill = "Party") +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+---
+### What Does This Plot Tell Us?
+
+Look at the plot and discuss:
+
+- In which population groups are arrests more common?
+- Does the party difference look the same across all groups?
+- What are the *limitations* of this plot?
+
+**Limitations to discuss:**
+- Raw counts, not rates per capita
+- Doesn't account for other state differences
+- Can't tell us about cause and effect
+
+---
+### Visualizing Rates Instead of Counts
+
+Sometimes a rate is more informative:
+
+
+``` r
+# Calculate arrests per 100,000 residents
+arrests &lt;- arrests %&gt;%
+  mutate(arrest_rate = 100000 / population)
+
+# Now we'd need to aggregate by state first...
+# (More complex—we'll save this for later)
+```
+
+---
+class: inverse, center, middle
+
+# Part 4: Your Turn (20 min)
+
+*Now you'll practice with a different dataset. Open the `Lab1_Practice.Rmd` file and follow the instructions. We'll circulate to help.*
+
+---
+class: inverse, center, middle
+
+# Part 5: Connecting to Homework 1 (10 min)
+
+---
+### How Today's Lab Maps to Homework 1
+
+| Lab Skill | Homework 1 Problem |
+|-----------|-------------------|
+| Loading data with `read.csv()` | Problem 1: Load governor and ICE data |
+| Examining data with `head()`, `summary()` | Problem 1: Understand what's in each dataset |
+| Merging with `left_join()` | Problem 1: Add party variable to ICE data |
+| Creating variables with `mutate()` and `cut()` | Problem 3: Create population groups |
+| Bar plots with `ggplot()` | Problem 3: Visualize arrests by party and population |
+| Interpreting limitations | Problems 2 and 4: Causal inference, experiment feasibility |
+
+---
+### Key Differences to Notice
+
+| Today's Lab | Homework 1 |
+|-------------|------------|
+| Fake example data | Real ICE arrests data |
+| `left_join()` (simpler) | Loop (more explicit) |
+| Party from `states` dataset | Party from `governor_data` |
+| Population groups with quintiles | Same approach! |
+
+The *logic* is the same even if the code differs slightly.
+
+---
+### Where to Find Help in Homework 1
+
+- **Problem 1:** The loop code is already provided—you just need to run it and interpret the results
+- **Problem 2:** Use the four questions from lecture (relationship, reverse causation, pathway, confounders)
+- **Problem 3:** The code for population groups is provided—focus on interpreting the plot
+- **Problem 4:** Think about what an experiment would require (random assignment, manipulation)
+
+---
+### Before You Leave
+
+**Check that you can:**
+- [ ] Load a CSV file into R
+- [ ] Examine data with `head()` and `summary()`
+- [ ] Merge two datasets using `left_join()`
+- [ ] Create a new categorical variable with `cut()`
+- [ ] Make a bar plot with `ggplot()`
+- [ ] Explain what the plot shows and its limitations
+
+---
+### Questions?
+
+- TAs will be available in lab and office hours
+- Post questions on the discussion board
+- Start Homework 1 early—don't wait until the night before!
+
+---
+class: center, middle
+
+# Good luck with Homework 1!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
