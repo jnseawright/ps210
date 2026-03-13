@@ -44,8 +44,6 @@ style_mono_accent(
 )
 ```
 
-class: inverse, center, middle
-
 # Lab 1: Getting Ready for Homework 1
 
 ## Today's Goals
@@ -97,7 +95,8 @@ head(qog_small)
 ---
 ### Examining Data
 
-```{r, eval=TRUE}# Look at the last few rows
+```{r, eval=TRUE}
+# Look at the last few rows
 tail(qog_small)
 ```
 
@@ -125,10 +124,10 @@ str(qog_small)
 
 Packages extend R's capabilities.
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 # Install a package (only need to do this once)
-install.packages("tidyverse")
-install.packages("ggplot2")
+#install.packages("tidyverse")
+#install.packages("ggplot2")
 
 # Load a package (need to do this every session)
 library(tidyverse)
@@ -155,7 +154,7 @@ class: inverse, center, middle
 
 We'll use data about democracy from the QOG data that we loaded above, and also data about :
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 # Right-wing violence data (each row is one incident)
 rtv <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/rtv.csv")
 ```
@@ -163,15 +162,17 @@ rtv <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/r
 ---
 ### Look at Both Datasets
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 head(rtv)
 ```
 
 ---
 ### Look at Both Datasets
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 head(qog_small)
 ```
+
+---
 
 **Questions:**
 - What variables does `rtv` have?
@@ -183,7 +184,7 @@ head(qog_small)
 
 Homework 1 uses a loop. Let's understand a slightly modified version:
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 # Create variable with zero in it as defaul
 qog_to_merge <- qog_small
 
@@ -252,7 +253,7 @@ head(qog_plus_rtv)
 library(ggplot2)
 
 # Create a histogram of violence per country-year
-qog_plus_rtv %>% ggplot(aes(x = rightwingviolence)) +
+rwhist <- qog_plus_rtv %>% ggplot(aes(x = rightwingviolence)) +
   geom_histogram(bins = 10,           # number of bins (adjust as needed)
                  fill = "skyblue",    # bar fill color
                  color = "white") +   # bar outline color
@@ -260,6 +261,12 @@ qog_plus_rtv %>% ggplot(aes(x = rightwingviolence)) +
        x = "Violence Per Country-Year",
        y = "Count") +
   theme_minimal()                     # clean theme
+```
+
+---
+
+```{r, eval=TRUE}
+rwhist
 ```
 
 ---
@@ -271,7 +278,7 @@ We can create new variables based on existing ones:
 # Create a variable indicating large states
 qog_plus_rtv$loggedrightwingviolence <- log(qog_plus_rtv$rightwingviolence + 1)
 
-qog_plus_rtv %>% ggplot(aes(x = loggedrightwingviolence)) +
+rwloghist <- qog_plus_rtv %>% ggplot(aes(x = loggedrightwingviolence)) +
   geom_histogram(bins = 10,           # number of bins (adjust as needed)
                  fill = "skyblue",    # bar fill color
                  color = "white") +   # bar outline color
@@ -279,6 +286,12 @@ qog_plus_rtv %>% ggplot(aes(x = loggedrightwingviolence)) +
        x = "Logged Violence Per Country-Year",
        y = "Count") +
   theme_minimal()                     # clean theme
+```
+
+---
+
+```{r, eval=TRUE}
+rwloghist
 ```
 
 ---
@@ -307,8 +320,8 @@ class: inverse, center, middle
 ---
 ### Scatter Plot of Democracy Level by Violence
 
-```{r, eval=FALSE}
-qog_plus_rtv %>% ggplot(aes(x = rightwingviolence, y = democracy)) +
+```{r, eval=TRUE}
+rwscatter <- qog_plus_rtv %>% ggplot(aes(x = rightwingviolence, y = democracy)) +
   geom_point() +
   labs(title = "Level of Democracy by Right-Wing Violence",
        x = "Right-Wing Violence",
@@ -316,6 +329,12 @@ qog_plus_rtv %>% ggplot(aes(x = rightwingviolence, y = democracy)) +
   theme_minimal()
 ```
 
+
+---
+
+```{r, eval=TRUE}
+rwscatter
+```
 
 ---
 ### What Does This Plot Tell Us?
@@ -330,13 +349,19 @@ Look at the plot and discuss:
 
 Maybe we don't like the stretched distribution of violence, so let's use the log:
 
-```{r, eval=FALSE}
-qog_plus_rtv %>% ggplot(aes(x = log(1+ rightwingviolence), y = democracy)) +
+```{r, eval=TRUE}
+rwlogscatter <- qog_plus_rtv %>% ggplot(aes(x = log(1+ rightwingviolence), y = democracy)) +
   geom_point() +
   labs(title = "Logged Level of Democracy by Right-Wing Violence",
        x = "Logged Acts of Right-Wing Violence",
        y = "Level of Democracy") +
   theme_minimal()
+```
+
+---
+
+```{r, eval=TRUE}
+rwlogscatter
 ```
 
 ---
@@ -352,7 +377,7 @@ class: inverse, center, middle
 
 # Part 4: Your Turn (20 min)
 
-*Now you'll practice with a different dataset. Open the `Lab1_Practice.Rmd` file and follow the instructions. We'll circulate to help.*
+*Now you'll practice with a different dataset. Open the Lab1_Practice.Rmd file and follow the instructions. We'll circulate to help.*
 
 ---
 class: inverse, center, middle
@@ -366,7 +391,13 @@ class: inverse, center, middle
 |-----------|-------------------|
 | Loading data with `read.csv()` | Problem 1: Load governor and ICE data |
 | Examining data with `head()`, `summary()` | Problem 1: Understand what's in each dataset |
-| Combining two datasets` | Problem 1: Add party variable to ICE data |
+| Combining two datasets | Problem 1: Add party variable to ICE data |
+
+---
+### How Today's Lab Maps to Homework 1
+
+| Lab Skill | Homework 1 Problem |
+|-----------|-------------------|
 | Creating variables with `mutate()` and `cut()` | Problem 3: Create population groups |
 | Bar plots with `ggplot()` | Problem 3: Visualize arrests by party and population |
 | Interpreting limitations | Problems 2 and 4: Causal inference, experiment feasibility |
