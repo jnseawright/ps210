@@ -1,7 +1,7 @@
 ---
 title: "16: Applied Qualitative Examples"
 subtitle: "Empirical Methods"
-author: "<large>J. Seawright</large>"
+author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
 date: "Nov. 11, 2025"
 output: 
@@ -31,7 +31,6 @@ library(dplyr)
 library(readr)
 library(nlme)
 library(jtools)
-library(hrbrthemes)
 library(mice)
 library(knitr)
 library(DiagrammeR)
@@ -100,10 +99,17 @@ include_graphics("images/gibsonboundary.png")
 
 -   What is the *evidence*?
 
+    *   Primary sources? (documents, interviews)
+
+    *   Secondary sources? (news accounts, prior scholarship)
+
+    *   Quantitative data? (descriptive statistics)
+
+-   How does the author use this evidence to support their argument?
+
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
-include_graphics("images/pt3.png")
-```
+
+-   Which kind(s) of *process-tracing design* did Gibson use?
 
 ---
 
@@ -141,9 +147,20 @@ include_graphics("images/thurstondv.png")
 
 
 ---
-### Thurston Article
 
 -   What is the *evidence*?
+
+    *   Primary sources? (documents, interviews)
+
+    *   Secondary sources? (news accounts, prior scholarship)
+
+    *   Quantitative data? (descriptive statistics)
+
+-   How does the author use this evidence to support their argument?
+
+---
+
+-   Which kind(s) of *process-tracing design* did Thurston use?
 
 ---
 
@@ -198,3 +215,37 @@ include_graphics("images/Gerzsoquote6.png")
 ```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
 include_graphics("images/Gerzsoquote7.png")
 ```
+
+---
+
+-   What is the *evidence*?
+
+    *   Primary sources? (documents, interviews)
+
+    *   Secondary sources? (news accounts, prior scholarship)
+
+    *   Quantitative data? (descriptive statistics)
+
+-   How does the author use this evidence to support their argument?
+
+---
+
+-   Which kind(s) of *process-tracing design* did Gerzso use?
+
+---
+### What We've Learned from These Examples
+
+| Study | Evidence | Design | Takeaway |
+|-------|----------|--------|----------|
+| **Gibson** | Historical documents, interviews | Theory-building | Subnational authoritarianism requires active "boundary control" |
+| **Thurston** | Archives, advocacy records | Theory-testing | Policy feedback shapes how advocacy groups strategize 
+---
+### What We've Learned from These Examples
+
+| Study | Evidence | Design | Takeaway |
+|-------|----------|--------|----------|
+| **Gerzso** | Interviews | Theory-building or testing? | Judicial resistance to authoritarianism requires networks among judges |
+
+**What unites them:** Multiple evidence types + process-tracing + attention to *how* and *why*
+
+When you read, always ask: *What's the evidence? What kind of design? What would strengthen it?*

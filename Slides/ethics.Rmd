@@ -1,7 +1,7 @@
 ---
 title: "18: Ethics and Normative Concerns"
 subtitle: "Empirical Methods"
-author: "<large>J. Seawright</large>"
+author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
 date: "Nov. 18, 2025"
 output: 
@@ -31,7 +31,6 @@ library(dplyr)
 library(readr)
 library(nlme)
 library(jtools)
-library(hrbrthemes)
 library(mice)
 library(knitr)
 library(DiagrammeR)
@@ -64,6 +63,10 @@ What makes research ethical?
 
 ---
 
+After a quarter spent analyzing tools used to study society, in this session, we will ask about our obligations to society when using those tools.
+
+---
+
 ![image](images/nuirb1.png)
 
 ---
@@ -77,6 +80,13 @@ What makes research ethical?
 ---
 
 ![image](images/grievancehoax2.png)
+
+---
+
+A group of scholars submitted fake, absurd papers to academic journals to expose what they saw as low standards in certain fields. The hoax revealed ethical gray areas: Is it acceptable to deceive editors to make a point?
+
+* Was this *fabricating research*?
+* Was this *unapproved human-subjects research*?
 
 ---
 
@@ -172,10 +182,48 @@ distributing them in some way.
 ![image](images/goffman7.png)
 
 ---
+### Questions to Consider
+
+* Did Goffman do anything illegal?
+
+* Did she violate sociological norms about researcher distance?
+
+* Did her presence put her subjects at risk?
+
+* Could she have studied the same question differently?
+
+* What would you have done?
+
+---
 
 ![image](images/transparency1.png)
 
 ---
 
 ![image](images/transparency2.png)
+---
+### Transparency in Practice
 
+* Posting replication data and code
+
+* Pre-registering study designs
+
+* Disclosing funding sources
+
+* Sharing materials for peer review
+
+---
+
+So, what makes research ethical?
+
+* Institutional approval (IRB) is necessary but not sufficient
+
+* Honesty in design, data collection, analysis, and reporting
+
+* Respect for subjects' well-being and communities
+
+* Transparency so others can build on your work
+
+---
+
+Ethics isn't a one-time checklist. It's about how we live our relationships with the communities of which we're part.

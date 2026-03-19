@@ -3,9 +3,9 @@
   <head>
     <title>15: Text as Data</title>
     <meta charset="utf-8" />
-    <meta name="author" content="J. Seawright" />
+    <meta name="author" content="Jaye Seawright" />
     <meta name="date" content="2025-11-04" />
-    <script src="TextasData_files/header-attrs-2.29/header-attrs.js"></script>
+    <script src="TextasData_files/header-attrs-2.30/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 ## Empirical Methods
 ]
 .author[
-### <large>J. Seawright</large>
+### <large>Jaye Seawright</large>
 ]
 .institute[
 ### <small>Northwestern Political Science</small>
@@ -46,13 +46,54 @@ pre[class] {
 
 
 
-A lot of the things we care about in politics naturally come in the form of text, not numbers.
+### A lot of the things we care about in politics naturally come in the form of text, not numbers.
+
+- Party platforms
+- Legislative speeches
+- Social media posts
+- News articles
+- Podcast transcripts
+- Government documents
 
 ---
 ### Quantitative Text Methods
 
 -   We can use large pools of text to summarize themes and topics, then generate data
 -   We can use pre-trained AI models to analyze texts and code them, generating data
+
+---
+### Four Approaches to Text as Data
+
+**1. Dictionary Methods**
+- Count words in pre-defined categories (e.g., "negative emotion," "economic concern")
+- Pros: Simple, transparent, replicable
+- Cons: Misses context, requires careful dictionary design
+
+---
+### Four Approaches to Text as Data
+
+**2. Topic Models** (unsupervised)
+- Let statistical patterns reveal latent themes
+- Pros: Data-driven, no prior coding needed
+- Cons: Topics need interpretation, can be unstable
+
+---
+
+### Four Approaches to Text as Data
+
+**3. Word Embeddings**
+- Represent words as vectors in semantic space
+- Capture relationships: "king" - "man" + "woman" ≈ "queen"
+- Pros: Powerful for measuring similarity, change over time
+- Cons: Requires large corpora, "black box" interpretation
+
+---
+### Four Approaches to Text as Data
+
+**4. Large Language Models** (supervised or few-shot)
+- Use pre-trained models (GPT, BERT, etc.) to classify or generate text
+- Pros: Flexible, captures context, can be "few-shot"
+- Cons: Expensive, validation challenges, bias concerns
 
 ---
 ### Identifying Topics
@@ -162,6 +203,41 @@ um we're also planning on um coming up going to a board of trustees member from 
 -   We can feed an LLM or other similar model a hand-coded sample of texts, or a carefully written codebook, and then ask it to code a large body of texts for us
 
 ---
+### What Are Large Language Models?
+
+- Trained on massive text corpora (much of the public internet)
+- Learn statistical patterns of language—which words follow which
+- Can be "fine-tuned" for specific tasks with relatively little data
+
+**Key capability for social science:** They can classify text according to complex conceptual schemas with minimal training.
+
+---
+
+### How Researchers Use LLMs for Content Analysis
+
+**Approach 1: Zero-shot classification**
+- Provide a prompt describing the categories
+- Ask the model to assign each text to a category
+- No project-specific training data needed, but results may need to be checked
+
+---
+
+### How Researchers Use LLMs for Content Analysis
+
+**Approach 2: Few-shot classification**
+- Provide a handful of hand-coded examples
+- Model learns the pattern and applies to the rest
+- Often performs nearly as well as fully supervised models
+
+---
+
+### How Researchers Use LLMs for Content Analysis
+
+**Approach 3: Fine-tuning**
+- Train the model on hundreds or thousands of hand-coded examples
+- Most accurate, but requires more labeled data and compute
+
+---
 
 &lt;img src="images/llmcontentanalysis1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
@@ -179,7 +255,128 @@ um we're also planning on um coming up going to a board of trustees member from 
 
 ---
 
-After reading through the Rossiter article, which tools did she use? What did she do that you liked, what maybe that you didn't like, and what that you'd like to learn more about?
+### Rossiter (2022): Measuring Agenda Setting in Interactive Political Communication
+
+**Research question:** How do members of Congress shape the agenda during committee hearings? Do they ask questions that force witnesses to address their preferred topics?
+
+**Data:** Transcripts of 137 House committee hearings (2011–2016)
+
+---
+
+### Rossiter (2022): Measuring Agenda Setting in Interactive Political Communication
+
+**Method:** Supervised machine learning (not LLMs, but similar logic)
+- Hand-coded a sample of question–answer pairs
+- Trained a classifier to identify which questions were "agenda-setting"
+- Applied to all hearings to measure variation across members, committees, and topics
+
+---
+
+### What Rossiter Did
+
+* Hand-coded 2,500 question–answer pairs for whether the question was "agenda-setting" (i.e., introduced a new topic rather than following up)
+
+* Trained a classifier (support vector machine) using n-grams and other text features
+
+* Validated the model against held-out hand-coded data
+
+* Applied to all 20,000+ exchanges in the corpus
+
+* Analyzed variation across committees, party control, and individual members
+
+---
+
+### Why This Approach?
+
+* Manual coding of 20,000+ exchanges would be impossible
+
+* Simple keyword searches would miss the complexity of "agenda-setting"
+
+* Supervised learning captures the concept rather than just word counts
+
+This is the same logic as using LLMs today, but with older statistical techniques.
+
+---
+
+### Validation: How Do We Know It Worked?
+
+Rossiter reports:
+
+  * Precision: When the model said "agenda-setting," how often was it right? (0.72)
+
+  * Recall: Of all truly agenda-setting questions, how many did the model catch? (0.70)
+
+  * A more technical result, F1 score: Harmonic mean of precision and recall (0.71)
+
+These are strong results for text classification—comparable to human coder reliability.
+
+---
+
+&lt;img src="images/rossiter_figure4.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+Your Turn: Reflecting on Rossiter
+
+After reading the Rossiter article, consider:
+
+  * What tools did she use? (What kind of text analysis is this?)
+
+  * What did she do that you liked? (What made the research convincing?)
+
+  * What did she do that you didn't like? (Any limitations or concerns?)
+
+  * What would you like to learn more about? (What questions does this raise for you?)
+  
+---
+### How Do We Know If Our Text Analysis Is Working?
+
+**For unsupervised methods (topic models):**
+- Do the topics make substantive sense?
+- Are they stable across different model specifications?
+- Can you validate against external measures?
+
+---
+### How Do We Know If Our Text Analysis Is Working?
+
+**For supervised methods (including LLMs):**
+- Hold out a test set. Don't evaluate on training data
+- Report precision, recall, F1 (like Rossiter)
+- Check for bias: does the model perform equally well across subgroups?
+
+---
+
+### Common Pitfalls
+
+**Overinterpreting topics**
+- Topic 7 is labeled "healthcare" but includes words about insurance, doctors, *and* budgets
+- Is it really about healthcare, or about government spending?
+
+---
+
+### Common Pitfalls
+
+**Ignoring model uncertainty**
+- A text assigned to Topic 3 with 0.51 probability is *barely* in that topic
+- Sensitivity analyses matter
+
+---
+
+### Common Pitfalls
+
+**LLM-specific concerns**
+- Reproducibility (models change, APIs update)
+- Cost (scaling to millions of documents can be expensive)
+- Bias (LLMs inherit biases from training data)
+
+---
+### Text as Data: Key Takeaways
+
+- Text is everywhere in politics, and it's a rich source of evidence
+- The toolkit has expanded dramatically: from dictionaries to topic models to LLMs
+- Your choice of method depends on your research question and resources
+- All methods require validation. Don't just trust your computer!
+- The same conceptual challenges (measurement, validity, inference) apply to text data as to any other data
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

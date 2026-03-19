@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="J. Seawright" />
     <meta name="date" content="2025-10-28" />
-    <script src="MachineLearning_files/header-attrs-2.25/header-attrs.js"></script>
+    <script src="MachineLearning_files/header-attrs-2.30/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -52,7 +52,7 @@ A lot of social science works with statistical models that assume the whole shap
 
 ---
 
-```r
+``` r
 democplot.1 &lt;- ggplot(qogsmall, aes(x=year, y=democracy)) +
   geom_point() +
   geom_smooth(method=lm , color="red", fill="#69b3a2", se=TRUE) +
@@ -61,7 +61,7 @@ democplot.1 &lt;- ggplot(qogsmall, aes(x=year, y=democracy)) +
 
 ---
 
-```r
+``` r
 democplot.1
 ```
 
@@ -73,7 +73,7 @@ But it turns out that we can learn a lot more from the data, if we're flexible.
 
 ---
 
-```r
+``` r
 democplot.2 &lt;- ggplot(qogsmall, aes(x=year, y=democracy)) +
   geom_point() +
   geom_smooth(method=loess , color="red", fill="#69b3a2", se=TRUE) +
@@ -81,7 +81,7 @@ democplot.2 &lt;- ggplot(qogsmall, aes(x=year, y=democracy)) +
 ```
 ---
 
-```r
+``` r
 democplot.2
 ```
 
@@ -117,19 +117,19 @@ additivity, linearity, etc.
 
 ---
 
-```r
+``` r
 library(rpart)
 ```
 
 ---
 
-```r
+``` r
 dem.cart &lt;- rpart(democracy ~ corruption+genderequity+percapitagdp+refugees+centralbankindependence+imports+ecologicalfootprint+globalization, data=qogsmall, na.action=na.omit)
 ```
 
 ---
 
-```r
+``` r
 plot(dem.cart)
 text(dem.cart, use.n=TRUE)
 ```
@@ -146,13 +146,13 @@ text(dem.cart, use.n=TRUE)
 
 ---
 
-```r
+``` r
 library(randomForest)
 ```
 
 ---
 
-```r
+``` r
 dem.rf &lt;- randomForest(democracy ~ corruption+genderequity+percapitagdp+refugees+centralbankindependence+imports+ecologicalfootprint+globalization, data=qogsmall, na.action=na.omit)
 
 dem.rf
@@ -166,19 +166,19 @@ dem.rf
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 2
 ## 
-##           Mean of squared residuals: 0.001378415
-##                     % Var explained: 98.31
+##           Mean of squared residuals: 0.001363698
+##                     % Var explained: 98.33
 ```
 
 ---
 
-```r
+``` r
 library(randomForestExplainer)
 ```
 
 ---
 
-```r
+``` r
 dem.mindepth &lt;- min_depth_distribution(dem.rf)
 plot_min_depth_distribution(dem.mindepth)
 ```
@@ -187,7 +187,7 @@ plot_min_depth_distribution(dem.mindepth)
 
 ---
 
-```r
+``` r
 plot_min_depth_interactions(dem.rf)
 ```
 
@@ -207,7 +207,7 @@ Estimate a regression, as usual (minimizing the sum of squared errors), but subj
 
 ---
 
-```r
+``` r
 qogtrim &lt;- qogsmall %&gt;% filter(year &gt; 1979) 
 qogtrim.imp &lt;- mice(qogtrim, method = "cart")
 ```
@@ -243,26 +243,26 @@ qogtrim.imp &lt;- mice(qogtrim, method = "cart")
 ```
 ---
 
-```r
+``` r
 qogimputed1 &lt;- mice::complete(qogtrim.imp)
 ```
 
 ---
 
-```r
+``` r
 library(hdm)
 ```
 
 
 ---
 
-```r
+``` r
 dem.lasso &lt;- rlasso(democracy ~ year + corruption+genderequity+percapitagdp+refugees+centralbankindependence+imports+ecologicalfootprint+globalization, data=qogimputed1)
 ```
 
 ---
 
-```r
+``` r
 dem.lasso
 ```
 
@@ -275,13 +275,13 @@ dem.lasso
 ## 
 ## Coefficients:
 ##             (Intercept)                     year               corruption  
-##               7.029e+00               -3.652e-03               -1.897e-03  
+##               6.528e+00               -3.390e-03               -2.206e-03  
 ##            genderequity             percapitagdp                 refugees  
-##               7.974e-01                1.386e-06                0.000e+00  
+##               7.933e-01                1.231e-06                0.000e+00  
 ## centralbankindependence                  imports      ecologicalfootprint  
-##               9.828e-02                0.000e+00                0.000e+00  
+##               1.007e-01                0.000e+00                0.000e+00  
 ##           globalization  
-##               2.999e-03
+##               2.873e-03
 ```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

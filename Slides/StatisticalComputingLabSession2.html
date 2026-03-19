@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lab 2: Introduction to Regression in R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jaye Seawright" />
+    <meta name="date" content="2025-10-30" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lab 2: Introduction to Regression in R
+]
+.subtitle[
+## Empirical Methods
+]
+.author[
+### <large>Jaye Seawright</large>
+]
+.institute[
+### <small>Northwestern Political Science</small>
+]
+.date[
+### Oct. 30, 2025
+]
+
+---
+
+class: center, middle
+
+&lt;style type="text/css"&gt;
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+&lt;/style&gt;
+
+
+
+
+
+# Lab 2: Introduction to Regression in R
+
+## Today's Goals
+
+- Load and combine the QOG and right‑wing violence (RTV) datasets
+- Create a country‑year dataset with democracy scores and violence counts
+- Fit and interpret a **bivariate regression** (violence → democracy)
+
+---
+
+## Today's Goals
+
+- Add a control variable and fit a **multivariate regression**
+- Visualize the results and discuss limitations
+- Connect these skills to Homework 2
+
+---
+class: inverse, center, middle
+
+# Part 1: Quick Recap – Merging Datasets
+
+---
+### Load the Data
+
+
+``` r
+# QOG dataset (country‑year level)
+qog_small &lt;- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/qogsmall.csv")
+
+# Right-wing violence incidents (event-level)
+rtv &lt;- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/rtv.csv")
+```
+
+---
+### Examine the Data
+
+
+``` r
+head(qog_small)
+```
+
+```
+##   X       cname year democracy corruption genderequity percapitagdp refugees
+## 1 1 Afghanistan 1946     0.059         NA        0.142           NA       NA
+## 2 2 Afghanistan 1947     0.060         NA        0.142           NA       NA
+## 3 3 Afghanistan 1948     0.060         NA        0.142           NA       NA
+## 4 4 Afghanistan 1949     0.060         NA        0.142           NA       NA
+## 5 5 Afghanistan 1950     0.061         NA        0.143           NA       NA
+## 6 6 Afghanistan 1951     0.061         NA        0.143           NA       NA
+##   centralbankindependence imports ecologicalfootprint globalization
+## 1                      NA      NA                  NA            NA
+## 2                      NA      NA                  NA            NA
+## 3                      NA      NA                  NA            NA
+## 4                      NA      NA                  NA            NA
+## 5                      NA    8958                  NA            NA
+## 6                      NA    9093                  NA            NA
+```
+
+---
+### Examine the Data
+
+
+``` r
+head(rtv)
+```
+
+```
+##     case_id year month day country_id iso3 country_name          region
+## 1  1990-0-0 1990     0   0         17  SWE       Sweden Västra Götaland
+## 2  1990-3-4 1990     3   4         14  NOR       Norway            Oslo
+## 3 1990-4-21 1990     4  21         14  NOR       Norway           Agder
+## 4  1990-5-0 1990     5   0         17  SWE       Sweden    Södermanland
+## 5 1990-5-26 1990     5  26         17  SWE       Sweden    Östergötland
+## 6 1990-5-30 1990     5  30         17  SWE       Sweden Västra Götaland
+##         city location location_latitude location_longitude location_accuracy
+## 1 Gothenburg                                                                
+## 2       Oslo                                                                
+## 3      Fevik                                                                
+## 4    Mellösa                                                                
+## 5     Motala                                                                
+## 6 Gothenburg                                                                
+##   incident_type perpetrator_type      organizational_affiliation
+## 1             1               99                                
+## 2             1                8         Arisk Front (suspected)
+## 3             1                1 Folkebevegelsen mot innvandring
+## 4             1                5                                
+## 5             1               99                                
+## 6             1                5                                
+##   organizational_affiliation_2 loneactor_id target_group
+## 1                                        NA          200
+## 2                                        NA          200
+## 3                    Boot Boys           NA          200
+## 4                                        NA          104
+## 5                                        NA          102
+## 6                                        NA          102
+##          grouped_target_group target_group_2 grouped_target_group_2 weapon_type
+## 1         Political opponents             NA                                101
+## 2         Political opponents             NA                                802
+## 3         Political opponents             NA                                500
+## 4 Ethnic/religious minorities             NA                                200
+## 5 Ethnic/religious minorities             NA                                806
+## 6 Ethnic/religious minorities             NA                                201
+##   grouped_weapon_type weapon_type_2 grouped_weapon_type_2
+## 1          Explosives            NA                      
+## 2               Other            NA                      
+## 3   Blunt instruments           600       Beating/kicking
+## 4      Arson/firebomb            NA                      
+## 5               Other            NA                      
+## 6      Arson/firebomb            NA                      
+##                         weapon_description fatal n_killed n_wounded
+## 1                              Letter bomb     0        0         m
+## 2                                   CS-gas     0        0         m
+## 3 Sticks, chains, bats and beating/kicking     0        0         5
+## 4                                    Arson     0        0         m
+## 5                               Smoke bomb     0        0        11
+## 6                    Two Molotov cocktails     0        0         m
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      description
+## 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   A letter bomb was sent to a well known anti-racist in Gothenburg. The incident is likely connected to CaseID 1990-6-8 and CaseID 1991-12-30.
+## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Unknown perpetrators threw a military grenade with teargas into the left-wing collective 'Blitzhuset' where 150 people had gathered for a concert. Many people strapped on gas masks (stored in case of razzia by the police) , but there weren't enough for everyone. One person was injured when she jumped down from the second floor, falling more than 3 meters and hitting the concrete. No arrests were made, but suspicions were directed towards Arisk Front (Aryan Front) also known as Elitegruppa (The elite group).
+## 3 The attack known as 'Fevik-slaget' occurred when 40-50 demonstrators travelled to Fevik (Grimstad) to hold an appeal against a meeting held by Folkebevegelsen mot innvandring (FMI) [People's Movement Against Immigration]. The protest was arranged by SOS-Racism and was aimed to be a peaceful demonstration to show dismay with FMIs movement. A person got out of the bus and headed towards the leader of FMI who then attacked him when the person asked if the leader was drunk. He was hit in the back of the head and recieved seven stitches. Other members of FMI were also armed with sticks and attacked other protesters. In total, five people were taken to the hospital. FMI later claimed that they suspected that the demonstrators had weapons with them. There were no weapons and the bus contained men, women and children. The police chief was clear that FMI had initiated the violence. The leader was sentenced to seven months imprisonment in 1992. Two other men, belonging to Boot Boys, were also charged.
+## 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           After provoking a fight with a Roma family in Mellösa, two young men set fire to their house. The fire caused severe material damage. There is limited information about this case. 
+## 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       11 refugees were taken to the hospital after a smoke-bomb was thrown in the building they slept in. There is limited information about this case. Motive not explicitly stated, but sufficently evident to be included. 
+## 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Two young men threw Molotov cocktails at the refugee hostel in Partille. The same perpetrators were involved in CaseID: 1991-10-0. There is limited information about this case. 
+##   plot_type plot_targeting plot_operational_planning version
+## 1        NA             NA                        NA    2016
+## 2        NA             NA                        NA    2016
+## 3        NA             NA                        NA    2021
+## 4        NA             NA                        NA    2016
+## 5        NA             NA                        NA    2020
+## 6        NA             NA                        NA    2016
+```
+
+---
+
+**Questions:**
+- What variables does each dataset have?
+- How can we connect them? (country, year)
+
+---
+### Merge and Count (Tidyverse Version)
+
+
+``` r
+# Count incidents per country‑year
+event_counts &lt;- rtv %&gt;%
+  group_by(country_name, year) %&gt;%
+  summarise(violence_count = n(), .groups = "drop")
+
+# Join to QOG
+qog_merged &lt;- left_join(qog_small, event_counts,
+                        by = c("cname" = "country_name", "year" = "year"))
+
+# Replace NA with 0 (no violence)
+qog_merged$violence_count[is.na(qog_merged$violence_count)] &lt;- 0
+
+# Keep only countries that appear in RTV (optional)
+qog_merged &lt;- qog_merged %&gt;% filter(cname %in% rtv$country_name)
+```
+
+---
+### Check the Result
+
+
+``` r
+head(qog_merged)
+```
+
+```
+##     X   cname year democracy corruption genderequity percapitagdp refugees
+## 1 583 Austria 1955     0.625         NA        0.595           NA       NA
+## 2 584 Austria 1956     0.690         NA        0.641           NA       NA
+## 3 585 Austria 1957     0.683         NA        0.641           NA       NA
+## 4 586 Austria 1958     0.683         NA        0.641           NA       NA
+## 5 587 Austria 1959     0.683         NA        0.646           NA       NA
+## 6 588 Austria 1960     0.690         NA        0.646     11960.96    39000
+##   centralbankindependence imports ecologicalfootprint globalization
+## 1                      NA 6945.79                  NA            NA
+## 2                      NA 6951.26                  NA            NA
+## 3                      NA 6964.76                  NA            NA
+## 4                      NA 6986.26                  NA            NA
+## 5                      NA 7013.22                  NA            NA
+## 6                      NA 7046.33                  NA            NA
+##   violence_count
+## 1              0
+## 2              0
+## 3              0
+## 4              0
+## 5              0
+## 6              0
+```
+
+---
+### Check the Result
+
+
+``` r
+summary(qog_merged$violence_count)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.000   0.000   0.000   1.628   0.000  94.000
+```
+
+Now we have a dataset ready for regression: democracy scores and violence counts for each country‑year.
+
+---
+class: inverse, center, middle
+
+# Part 2: Bivariate Regression
+
+---
+### Research Question
+
+Does right‑wing violence affect the level of democracy?
+
+**Hypothesis:** Countries with more right‑wing violence have lower democracy scores.
+
+---
+### Visualize the Relationship
+
+
+``` r
+bivarplot &lt;- ggplot(qog_merged, aes(x = violence_count, y = democracy)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Democracy by Right-Wing Violence",
+       x = "Number of violent incidents",
+       y = "Democracy score") +
+  theme_minimal()
+```
+
+---
+
+
+``` r
+bivarplot
+```
+
+![](StatisticalComputingLabSession2_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+---
+
+**Discuss:** What do you see? Any issues? (Skew, outliers)
+
+---
+### Log Transformation
+
+Because violence is highly skewed, we often use `log(1 + violence)`.
+
+
+``` r
+qog_merged &lt;- qog_merged %&gt;%
+  mutate(log_violence = log(1 + violence_count))
+
+logbivarplot &lt;- ggplot(qog_merged, aes(x = log_violence, y = democracy)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Democracy by Logged Right-Wing Violence",
+       x = "Log(1 + violence)",
+       y = "Democracy score") +
+  theme_minimal()
+```
+
+---
+
+
+``` r
+logbivarplot
+```
+
+![](StatisticalComputingLabSession2_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+### Fit the Bivariate Regression
+
+
+``` r
+model1 &lt;- lm(democracy ~ log_violence, data = qog_merged)
+summary(model1)
+```
+
+```
+## 
+## Call:
+## lm(formula = democracy ~ log_violence, data = qog_merged)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.64368 -0.03068  0.06332  0.09932  0.19032 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.704683   0.005579  126.31   &lt;2e-16 ***
+## log_violence 0.055452   0.006425    8.63   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.183 on 1293 degrees of freedom
+##   (17 observations deleted due to missingness)
+## Multiple R-squared:  0.05447,	Adjusted R-squared:  0.05373 
+## F-statistic: 74.48 on 1 and 1293 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+
+**Interpretation:**
+- Intercept: predicted democracy when violence = 0 (log = 0)
+- Slope: for a 1‑unit increase in log_violence, democracy changes by ______
+- Is the slope statistically significant?
+
+---
+### Better Regression Table
+
+
+``` r
+modelsummary(list("Bivariate Regression" = model1),
+             output = "gt") %&gt;%
+  gt::gtsave(filename = "images\\regression_table.png")
+```
+
+---
+
+&lt;img src="images/regression_table.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+This is easier to read is recommended for Homework 2.
+
+---
+class: inverse, center, middle
+
+# Part 3: Multivariate Regression
+
+---
+### The Problem of Confounding
+
+Violence might be correlated with other factors that also affect democracy, e.g., **economic development** (per capita GDP).
+
+Let's add `percapitagdp` as a control.
+
+---
+### Check the Control Variable
+
+
+``` r
+summary(qog_merged$percapitagdp)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##    3135   18533   29057   33764   43284  112418     234
+```
+
+Some missing values. We'll need to handle them. For now, `lm()` will drop rows with NA in any predictor.
+
+---
+### Fit the Multivariate Model
+
+
+``` r
+model2 &lt;- lm(democracy ~ log_violence + I(log(percapitagdp)), data = qog_merged)
+summary(model2)
+```
+
+```
+## 
+## Call:
+## lm(formula = democracy ~ log_violence + I(log(percapitagdp)), 
+##     data = qog_merged)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.57616 -0.03378  0.02121  0.06741  0.20824 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          -0.762860   0.063414 -12.030  &lt; 2e-16 ***
+## log_violence          0.015789   0.004662   3.387 0.000732 ***
+## I(log(percapitagdp))  0.147556   0.006222  23.715  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1269 on 1075 degrees of freedom
+##   (234 observations deleted due to missingness)
+## Multiple R-squared:  0.373,	Adjusted R-squared:  0.3718 
+## F-statistic: 319.7 on 2 and 1075 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+### Compare Models
+
+
+``` r
+modelsummary(list("Bivariate" = model1, "Multivariate" = model2),
+             statistic = "p.value", output = "gt") %&gt;%
+  gt::gtsave(filename = "images\\regression_comparison_table.png")
+```
+
+---
+
+&lt;img src="images/regression_comparison_table.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+**Discuss:**
+- How did the coefficient for `log_violence` change after adding GDP?
+- What does this tell us about confounding?
+
+---
+### Visualizing the Multivariate Relationship
+
+We can't easily plot 3 dimensions, but we can look at partial effects.
+
+For now, we'll rely on the regression table.
+
+---
+class: inverse, center, middle
+
+# Part 4: Your Turn (20 min)
+
+*Now open the Lab2_Practice.Rmd file and work through the exercises. We'll circulate to help.*
+
+---
+class: inverse, center, middle
+
+# Part 5: Connecting to Homework 2
+
+---
+### How Today's Lab Maps to Homework 2
+
+| Lab Skill | Homework 2 Task |
+|-----------|-----------------|
+| Merging datasets and creating counts | Problem 1: Combine grants and election data |
+| Visualizing relationship | Problem 1: Scatter plot of funding vs. Trump vote |
+| Bivariate regression | Problem 1: Interpret slope and significance |
+
+---
+### How Today's Lab Maps to Homework 2
+
+| Lab Skill | Homework 2 Task |
+|-----------|-----------------|
+| Adding a control variable | Problem 2: Add population as control, compare coefficients |
+| Using `modelsummary` | Problem 2: Present and interpret regression tables |
+| Interpreting confounding | Problem 3: Discuss whether population is a confounder |
+
+---
+### Before You Leave
+
+**Check that you can:**
+- [ ] Merge two datasets and create a country‑year analysis file
+- [ ] Fit a bivariate regression and interpret the output
+- [ ] Fit a multivariate regression with a control variable
+- [ ] Compare coefficients across models
+- [ ] Use `modelsummary` to present results
+
+---
+### Questions?
+
+- TAs available in lab and office hours
+- Email the professor or TAs, or reach out to your peers
+- Start Homework 2 early!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

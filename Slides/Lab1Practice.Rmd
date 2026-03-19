@@ -1,0 +1,210 @@
+---
+title: "Lab 1: Your Turn Practice Exercise"
+author: "Jaye Seawright"
+date: "Oct. 21, 2025"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(ggplot2)
+```
+
+## Instructions
+
+This is your chance to practice the skills from today's lab with a **different dataset**. Work through each step below. If you get stuck, ask a neighbor or raise your hand—TAs are circulating to help.
+
+**You don't need to submit this for a grade.** It's just practice. But keeping your code and notes will help you with Homework 1.
+
+---
+
+## The Research Question
+
+A political scientist wants to know whether **federal health-care grant funding** is distributed differently to counties that support the incument president in elections.
+
+She has two datasets:
+
+- `grants`: Each row is a federal health-care grant awarded to a county since 2018
+- `counties`: Information about each county's presidential voting history
+
+---
+
+## Step 1: Load the Data
+
+```{r, eval=FALSE}
+# Load the grants data
+grants <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/hrsa_grants.csv")
+
+# Load the counties data
+counties <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/countypres.csv")
+```
+
+Let's keep the grants from fiscal year 2025 and the election results from Donald Trump in 2024, so we can look at the effects of the 2024 election on (mostly) subsequent grant awards.
+
+```{r, eval=FALSE}
+library(tidyverse)
+
+grants_2025 <- grants %>% filter(Fiscal.Year == 2025)
+
+counties_2024 <- counties %>% filter(year == 2024 & party == "REPUBLICAN" & mode == "TOTAL")
+```
+
+Second-to-last preparatory step: let's calculate Trump's county share of the vote:
+
+```{r, eval=FALSE}
+counties_2024$trumpvote <- counties_2024$candidatevotes/counties_2024$totalvotes
+```
+
+Finally, we need to clean up the county names in the grants dataset, which have a different format than in our counties data:
+
+```{r, eval=FALSE}
+grants_2025 <- grants_2025 %>%
+  mutate(
+    # Remove common suffixes (case‑insensitive)
+    county_clean = str_remove_all(County, 
+                                   regex(" County| City| Borough| Parish| Census Area", 
+                                         ignore_case = TRUE)),
+    # Trim whitespace
+    county_clean = str_trim(county_clean),
+    # Convert to title case to match the other dataset
+    county_clean = str_to_upper(county_clean)
+  )
+```
+
+**Your Task:** After loading, examine both datasets using `head()`, `summary()`, and `str()`. Write down:
+
+1. What variables does `grants` contain at this point?
+2. What variables does `counties` contain now?
+3. What common variable could you use to merge them?
+
+```{r, eval=FALSE}
+# Write your code here
+
+
+
+# Write your observations here (as comments)
+
+```
+
+---
+
+## Step 2: Merge the Datasets
+
+We want to add the county presidential vote to each grant record.
+
+**Your Task:** Use `left_join()` to merge `counties_2024` into `grants_2025` so that we have access to the trumpvote variable inside each grant entry, matching on the common variable you identified above.
+
+```{r, eval=FALSE}
+# Write your merge code here
+grants_joined <- 
+
+# Check your work: look at the first few rows
+head(grants_joined)
+
+# How many grants went to Democratic vs. Republican counties?
+summary(grants_joined$trumpvote)  # Adjust "party" to the actual column name
+```
+
+---
+
+## Step 3: Create a New Variable
+
+The researcher suspects that **county population** might matter: more populous counties might get more grants regardless of election outcome.
+
+**Your Task:** The `counties` dataset has a `population` variable. After merging, it should now be in `grants`. Create a new variable called `pop_group` that divides counties into three categories:
+
+- "Small": population less than 100,000
+- "Medium": population 100,000 to 500,000
+- "Large": population greater than 500,000
+
+*Hint: Use `mutate()` and `cut()` with the `breaks = c(0, 100000, 500000, Inf)` argument.*
+
+```{r, eval=FALSE}
+# Write your code here
+grants <- grants %>%
+  mutate(pop_group = )
+
+# Hint: we've done things like: cut(population, breaks = c(0, 100000, 500000, Inf), 
+#           labels = c("Small", "Medium", "Large"))
+
+# Check your work
+table(grants$pop_group)
+```
+
+---
+
+## Step 4: Visualize the Data
+
+**Your Task:** Create a bar plot showing the number of grants by population group, with bars colored by party that won in 2024.
+
+Use `ggplot()` with:
+- `x = pop_group`
+- `fill = party` (or whatever the party column is named)
+- `geom_bar(position = "dodge")`
+- Appropriate labels and a minimal theme
+- Manual colors: blue for Democratic, red for Republican
+
+```{r, eval=FALSE}
+# Write your code here
+ggplot(grants, aes(x = , fill = )) +
+  geom_bar(position = "dodge") +
+  labs(title = ,
+       x = ,
+       y = ,
+       fill = ) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+---
+
+## Step 5: Interpret What You See
+
+Look at your plot and answer these questions in 2-3 sentences each:
+
+1. In which population groups are grants most common?
+2. Does the party difference look the same across all population groups?
+3. What's one limitation of this plot? (What doesn't it tell us?)
+
+```{r, eval=FALSE}
+# Write your answers here as comments
+
+# 1. 
+
+
+# 2. 
+
+
+# 3. 
+
+```
+
+---
+
+## Step 6: Reflect
+
+In a few sentences, answer:
+
+- What part of this exercise felt most familiar after today's demo?
+- What part felt most confusing?
+- How might these skills apply to Homework 1?
+
+```{r, eval=FALSE}
+# Write your reflection here
+
+```
+
+---
+
+## Done!
+
+You've practiced:
+- Loading and examining data
+- Merging two datasets
+- Creating a categorical variable
+- Making a bar plot with groups
+- Interpreting results
+
+These are exactly the skills you'll need for Homework 1. Keep this file as a reference!

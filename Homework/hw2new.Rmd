@@ -1,0 +1,158 @@
+---
+title: "Homework 2: Regression Analysis of ICE Arrests and Governor's Party"
+author: "Jaye Seawright"
+date: "Due: Nov. 7, 2025"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(ggplot2)
+library(modelsummary)
+```
+
+## Homework 2: ICE Arrests and Governor's Party
+
+**Due: Friday, November 7, 2025 by 11:59 PM on Canvas**
+
+This assignment uses the same datasets as Homework 1:
+
+- `governor_data.csv`: Information about each state's governor (party, etc.)
+- `ice_arrests.csv`: Individual ICE arrest records from 2024–2025
+
+You will investigate whether the party of a state's governor is associated with the number of ICE arrests in that state, and whether that relationship holds after controlling for state population.
+
+You are free to work individually or in groups. If you work collaboratively, include the names of all group members on your submission. You will not be penalized for collaborating, but each person must submit their own work.
+
+---
+
+## Data Preparation
+
+We begin by loading the data and creating a state‑level dataset that includes total arrests, governor's party, and state population.
+
+### Step 1: Load and examine the data
+
+```{r, eval=FALSE}
+# Load data
+governor_data <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/stategovs.csv")
+ice_arrests <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/icearrests.csv")
+state_pops <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/statepops.csv")
+
+# Look at the first few rows
+head(governor_data)
+head(ice_arrests)
+head(state_pops)
+```
+
+### Step 2: Aggregate arrests by state
+
+We need to count how many arrests occurred in each state. Note that some arrests have missing state or occur outside the 50 states. We'll filter to keep only arrests in the 50 states (using the `State` variable).
+
+```{r, eval=FALSE}
+# Count arrests per state
+arrest_counts <- ice_arrests %>%
+  filter(State %in% governor_data$State) %>%   # keep only states in governor_data
+  group_by(State) %>%
+  summarise(arrests = n()) %>%
+  ungroup()
+
+# Check the result
+head(arrest_counts)
+```
+
+### Step 3: Add governor party and state population
+
+Now we merge the arrest counts with governor party and population.
+
+```{r, eval=FALSE}
+# First, clean population variable (remove commas, convert to numeric)
+state_pops$Population <- parse_number(state_pops$Population2024)
+
+# Merge
+state_data <- arrest_counts %>%
+  left_join(governor_data %>% select(State, Party), by = "State") %>%
+  left_join(state_pops %>% select(State, Population), by = "State")
+
+# Check the merged data
+head(state_data)
+summary(state_data)
+```
+
+### Step 4: Create a binary indicator for party
+
+The `Party` variable is character ("Democratic", "Republican"). For regression, we'll create a numeric indicator: `repub = 1` if Republican, `0` if Democratic. (States with other parties are excluded; we'll filter them out.)
+
+```{r, eval=FALSE}
+state_data <- state_data %>%
+  filter(Party %in% c("Democratic", "Republican")) %>%
+  mutate(repub = ifelse(Party == "Republican", 1, 0))
+
+# Check
+table(state_data$Party, state_data$repub)
+```
+
+Now we have a clean dataset `state_data` with variables:
+- `State`
+- `arrests`: total ICE arrests in that state
+- `Party`: governor's party (character)
+- `repub`: 1 = Republican, 0 = Democratic
+- `Population`: state population (2024 estimate)
+
+---
+
+## Problem 1: Bivariate Analysis (12 points)
+
+a) **Visualize the relationship** between arrests and governor's party. Create a boxplot or violin plot showing the distribution of `arrests` for Democratic‑governed states and Republican‑governed states. Add appropriate labels. Describe what you see. (3 points)
+
+b) **Fit a bivariate regression** predicting `arrests` from `repub`. Use `lm()` and display the results with `modelsummary()`. (2 points)
+
+c) **Interpret the coefficient** for `repub`. In plain language, what does it tell us about the difference in arrests between Republican‑ and Democratic‑governed states? (2 points)
+
+d) **Is the relationship statistically significant?** Report the p‑value and explain what it means in this context. (2 points)
+
+e) **Calculate the predicted number of arrests** for a Democratic‑governed state and for a Republican‑governed state using the regression equation. Show your work. (3 points)
+
+---
+
+## Problem 2: Adding a Control Variable (12 points)
+
+You suspect that **state population** might be a confounder: larger states tend to have more arrests simply because they have more people, and they may also be more likely to have Republican or Democratic governors.
+
+a) **Fit a multivariate regression** predicting `arrests` from `repub` and `Population`. Display the results with `modelsummary()`, side by side with the bivariate model from Problem 1. (3 points)
+
+b) **Compare the coefficient for `repub`** between the two models. Did it change? By how much? What does this suggest about confounding? (3 points)
+
+c) **Does `Population` appear to be a confounder?** Explain your reasoning using the criteria for a confounding variable discussed in class. (3 points)
+
+---
+
+## Problem 3: Model Diagnostics and Transformations (8 points)
+
+The distribution of `arrests` is likely highly skewed (some states have many arrests, others few). This can violate regression assumptions.
+
+a) **Create a histogram** of `arrests`. Describe its shape. (2 points)
+
+b) **Create a new variable** `log_arrests = log(arrests + 1)` (adding 1 avoids log(0)). Create a histogram of `log_arrests`. How does it compare to the original? (2 points)
+
+c) **Re‑fit the multivariate model** using `log_arrests` as the dependent variable (instead of `arrests`). Include both `repub` and `Population`. Display the results with `modelsummary()`. (2 points)
+
+d) **Interpret the coefficient for `repub`** in this logged model. How does the interpretation differ from the model with arrests in levels? (Hint: For small changes, a coefficient of 0.1 on `repub` means Republican states have about 10% more arrests, holding population constant.) (2 points)
+
+---
+
+## Problem 4: Reflection on Causal Inference (8 points)
+
+a) Based on your regression results, can we conclude that a Republican governor *causes* more ICE arrests? Why or why not? Refer to the **four questions for causal inference** from class. (4 points)
+
+b) Propose **one additional variable** that might be a confounder and is **not** included in this analysis. Explain why you think it could be a confounder and what effect it might have on the relationship if we could control for it. (4 points)
+
+---
+
+## Submission Instructions
+
+Knit your R Markdown file to HTML or PDF, and submit it on Canvas. Make sure your code is visible and your answers are clearly written.
+
+**Reminder:** You may work in groups, but each person must submit their own work. Include the names of any collaborators at the top of your assignment.
+
+**Due: Friday, November 7, 2025, 11:59 PM.**

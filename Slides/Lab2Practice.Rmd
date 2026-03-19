@@ -1,0 +1,167 @@
+---
+title: "Lab 2: Your Turn Practice Exercise"
+author: "Jaye Seawright"
+date: "Oct. 30, 2025"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(ggplot2)
+library(modelsummary)
+```
+
+## Instructions
+
+This is your chance to practice regression skills with the **same datasets you used in Lab 1**. Work through each step below. Ask a neighbor or TA if you get stuck.
+
+**You don't need to submit this for a grade.** It's just practice, but keeping your code will help with Homework 2.
+
+---
+
+## The Research Question
+
+Does a county's support for Donald Trump in the 2024 election affect the amount of federal health‑care grant funding it receives in 2025?
+
+We have the same datasets from Lab 1:
+
+- `hrsa_grants.csv`: Federal health‑care grants awarded to counties since 2018
+- `countypres.csv`: County‑level presidential election results (2024)
+
+---
+
+## Step 1: Load and Prepare the Data
+
+The code below repeats the steps from Lab 1. Run it to create the analysis dataset.
+
+```{r, eval=FALSE}
+# Load data
+grants <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/hrsa_grants.csv")
+counties <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/countypres.csv")
+
+# Keep only 2025 grants
+grants_2025 <- grants %>% filter(Fiscal.Year == 2025)
+
+# Keep only Trump 2024 votes (total mode) and calculate Trump vote share
+counties_2024 <- counties %>%
+  filter(year == 2024 & party == "REPUBLICAN" & mode == "TOTAL") %>%
+  mutate(trump_share = candidatevotes / totalvotes)
+
+# Clean county names in grants dataset
+grants_2025 <- grants_2025 %>%
+  mutate(
+    county_clean = str_remove_all(County,
+                                   regex(" County| City| Borough| Parish| Census Area",
+                                         ignore_case = TRUE)),
+    county_clean = str_trim(county_clean),
+    county_clean = str_to_upper(county_clean)
+  )
+
+# Merge grants with election data
+grants_merged <- left_join(
+  grants_2025,
+  counties_2024,
+  by = c("State" = "state_po", "county_clean" = "county_name")
+)
+
+# Keep only relevant variables and remove rows with missing Trump share
+grants_analysis <- grants_merged %>%
+  select(Fiscal.Year, State, County, Funding, trump_share, totalvotes) %>%
+  filter(!is.na(trump_share))
+```
+
+**Your Task:** After running the code, examine the resulting dataset with `head()` and `summary()`. Write down:
+
+1. How many observations (grants) are in `grants_analysis`?
+2. What is the range of `Funding`? Of `trump_share`?
+3. Why might we want to use `log(Funding)` in a regression? (Look at the distribution.)
+
+```{r, eval=FALSE}
+# Your code here
+
+# Your observations (as comments)
+```
+
+---
+
+## Step 2: Visualize the Relationship
+
+**Your Task:** Create a scatter plot of `Funding` (y) against `trump_share` (x). Add a linear smooth (`geom_smooth(method = "lm")`). Add appropriate labels.
+
+```{r, eval=FALSE}
+# Write your code here
+
+```
+
+**Interpret:** What does the plot suggest about the relationship? Does it appear positive, negative, or flat? Are there any outliers? Does either variable look like it could use a log transformation?
+
+---
+
+## Step 3: Bivariate Regression
+
+**Your Task:** Fit a linear model predicting `Funding` from `trump_share`, using any log transformations, etc., that you concluded might be necessary based on the plot. Display the results with `summary()` and with `modelsummary()`.
+
+```{r, eval=FALSE}
+# Fit model
+model_bivar <- lm(________ ~ ________, data = grants_analysis)
+
+# Summary
+summary(model_bivar)
+
+# modelsummary
+modelsummary(model_bivar, statistic = "p.value")
+```
+
+**Interpret:** 
+- What is the slope? Is it positive or negative?
+- Is it statistically significant? (Look at the p‑value.)
+- Substantively, what does the slope mean? (Hint: For a 1‑percentage‑point increase in Trump share, how much does funding change in dollars?)
+
+---
+
+## Step 4: Add a Control Variable
+
+You suspect that **county population** might be a confounder: larger counties tend to vote differently and also receive more grants (simply because they have more people and organizations). The `totalvotes` variable is a reasonable proxy for population.
+
+**Your Task:** Fit a multivariate model with both `trump_share` and `totalvotes`. Use `modelsummary()` to compare with the bivariate model.
+
+```{r, eval=FALSE}
+# Multivariate model
+model_control <- lm(________ ~ ________ + ________, data = grants_analysis)
+
+# Compare models
+modelsummary(list("Bivariate" = model_bivar, "With Population" = model_control),
+             statistic = "p.value")
+```
+
+**Interpret:**
+- How did the coefficient for `trump_share` change after adding `totalvotes`? Did it get closer to zero? Farther?
+- Is `totalvotes` a statistically significant predictor?
+- Does `totalvotes` appear to be a confounder? Why or why not? (Recall the definition: a confounder is related to both the treatment and the outcome, and including it changes the treatment coefficient.)
+
+---
+
+## Step 5: Reflect
+
+Answer in a few sentences:
+
+1. What was the most challenging part of this exercise?
+2. What did you learn about the relationship between Trump support and grant funding?
+3. How might these skills apply to Homework 2? (Homework 2 will ask you to do exactly this type of analysis, interpret the results, and discuss causal inference.)
+
+```{r, eval=FALSE}
+# Write your reflections here
+```
+
+---
+
+## Done!
+
+You've practiced:
+- Loading and preparing the grants/election data
+- Visualizing the relationship
+- Fitting bivariate and multivariate regressions
+- Interpreting coefficients and confounding
+
+These are exactly the skills you'll need for Homework 2. Keep this file as a reference!

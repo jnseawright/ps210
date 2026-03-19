@@ -1,7 +1,7 @@
 ---
 title: "Machine Learning"
 subtitle: "Empirical Methods"
-author: "<large>J. Seawright</large>"
+author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
 date: "Oct. 28, 2025"
 output: 
@@ -31,7 +31,6 @@ library(dplyr)
 library(readr)
 library(nlme)
 library(jtools)
-library(hrbrthemes)
 library(mice)
 library(knitr)
 
@@ -98,7 +97,11 @@ democplot.2
 
 ---
 
-What if we take this approach of learning flexibly from the data and push it as far as we can?
+What we're doing in this plot is a LOESS (locally estimated scatterplot smoothing) regression, which fits different regressions to different parts of the relationship and then averages those together to generate a smooth, potentially curved model based on learning the shape from the data.
+
+---
+
+LOESS is great for one or two predictors. But what if we have many variables that might interact in complex ways? That's where tree-based methods shine.
 
 ---
 ### CART
@@ -120,6 +123,11 @@ additivity, linearity, etc.
     step 2 for each of the current last-generation nodes.
 
 ---
+### CART: Homogeneity
+
+Homogeneity in this context means that cases in a node are as similar as possible on the outcome variable (e.g., democracy). The algorithm searches for splits that make the two resulting groups more internally consistent.
+
+---
 ### An Example
 
 ```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
@@ -139,15 +147,15 @@ dem.cart <- rpart(democracy ~ corruption+genderequity+percapitagdp+refugees+cent
 
 ---
 ```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
-plot(dem.cart)
-text(dem.cart, use.n=TRUE)
+library(rpart.plot)
+rpart.plot(dem.cart)
 ```
 
 ---
 ### Random Forests
 
 1.  Sample randomly from the entire data.
-2.  Run CART, selecting a random subset of datapoints and variables at each decision node.
+2.  Run CART, selecting a random subset of data points and variables at each decision node.
 3.  Repeat several times, and find a way to average the results
     together.
 
@@ -174,41 +182,39 @@ dem.mindepth <- min_depth_distribution(dem.rf)
 plot_min_depth_distribution(dem.mindepth)
 ```
 
+
 ---
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+plot_min_depth_distribution(dem.mindepth)
+```
+
+---
+### What This Plot Means
+
+* Variables that appear closer to the root (smaller minimal depth) are more important.
+
+* This plot shows that corruption and per capita GDP are the strongest predictors of democracy in this model.
+
+---
+
 ```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
 plot_min_depth_interactions(dem.rf)
 ```
 
-
 ---
-### LASSO
 
-Estimate a regression, as usual (minimizing the sum of squared errors), but subject to the added penalty term:
-
-$$\lambda \sum_{j=1}^{p}|\beta_{j}|$$
-
----
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
-qogtrim <- qogsmall %>% filter(year > 1979) 
-qogtrim.imp <- mice(qogtrim, method = "cart")
-```
----
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
-qogimputed1 <- mice::complete(qogtrim.imp)
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+plot_min_depth_interactions(dem.rf)
 ```
 
 ---
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
-library(hdm)
-```
+### What This Plot Means
 
-
----
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
-dem.lasso <- rlasso(democracy ~ year + corruption+genderequity+percapitagdp+refugees+centralbankindependence+imports+ecologicalfootprint+globalization, data=qogimputed1)
-```
+This shows which pairs of variables frequently work together in the trees. For example, corruption and GDP might jointly predict democracy.
 
 ---
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
-dem.lasso
-```
+### What Is Machine Learning For?
+
+* Especially prediction and forecasting: which kinds of countries are most likely to experience a coup next year?
+* Can be a powerful tool for complex description problems: what topics dominate congressional speeches during conflicts?
+* Researchers use machine learning to solve many kinds of challenges in causal inference: LASSO (a variant of regression) for variable selection, forests for estimating heterogeneous treatment effects
