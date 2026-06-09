@@ -1,7 +1,7 @@
 ---
 title: "Homework 2: Regression Analysis of ICE Arrests and Governor's Party"
 author: "Jaye Seawright"
-date: "Due: Nov. 7, 2025"
+date: "Due: Nov. 7, 2026"
 output: html_document
 ---
 
@@ -14,12 +14,12 @@ library(modelsummary)
 
 ## Homework 2: ICE Arrests and Governor's Party
 
-**Due: Friday, November 7, 2025 by 11:59 PM on Canvas**
+**Due: Friday, November 7, 2026 by 11:59 PM on Canvas**
 
 This assignment uses the same datasets as Homework 1:
 
 - `governor_data.csv`: Information about each state's governor (party, etc.)
-- `ice_arrests.csv`: Individual ICE arrest records from 2024–2025
+- `ice_arrests.csv`: Individual ICE arrest records from 2025–the first few months of 2026
 
 You will investigate whether the party of a state's governor is associated with the number of ICE arrests in that state, and whether that relationship holds after controlling for state population.
 
@@ -36,7 +36,7 @@ We begin by loading the data and creating a state‑level dataset that includes 
 ```{r, eval=FALSE}
 # Load data
 governor_data <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/stategovs.csv")
-ice_arrests <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/icearrests.csv")
+ice_arrests <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/ice_arrests_2025_early_2026.csv")
 state_pops <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/statepops.csv")
 
 # Look at the first few rows
@@ -52,9 +52,10 @@ We need to count how many arrests occurred in each state. Note that some arrests
 ```{r, eval=FALSE}
 # Count arrests per state
 arrest_counts <- ice_arrests %>%
-  filter(State %in% governor_data$State) %>%   # keep only states in governor_data
-  group_by(State) %>%
+  filter(apprehension_state %in% governor_data$State) %>%   # keep only states in governor_data
+  group_by(apprehension_state) %>%
   summarise(arrests = n()) %>%
+  rename(State = apprehension_state) %>%   # rename for merging
   ungroup()
 
 # Check the result
@@ -66,9 +67,6 @@ head(arrest_counts)
 Now we merge the arrest counts with governor party and population.
 
 ```{r, eval=FALSE}
-# First, clean population variable (remove commas, convert to numeric)
-state_pops$Population <- parse_number(state_pops$Population2024)
-
 # Merge
 state_data <- arrest_counts %>%
   left_join(governor_data %>% select(State, Party), by = "State") %>%
@@ -155,4 +153,4 @@ Knit your R Markdown file to HTML or PDF, and submit it on Canvas. Make sure you
 
 **Reminder:** You may work in groups, but each person must submit their own work. Include the names of any collaborators at the top of your assignment.
 
-**Due: Friday, November 7, 2025, 11:59 PM.**
+**Due: Friday, November 7, 2026, 11:59 PM.**

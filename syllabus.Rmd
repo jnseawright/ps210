@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ####################
 ## Course         ##
 ####################
@@ -101,8 +106,7 @@ Late work will be accepted but with a grade penalty equivalent to 5% per day. La
 
 While some of the tools discussed in this course are based in
 sophisticated mathematical reasoning, our discussion of them will be
-posed at a primarily conceptual level. Hence, no particular mathematical
-or statistical background is expected for this course.
+posed at a primarily conceptual level. While this course focuses on conceptual understanding, some topics (e.g., confidence intervals, regression) rely on basic mathematical reasoning. Students should be comfortable with high‑school algebra (e.g., working with equations, interpreting graphs). No prior statistics or calculus is required.
 
 The textbook for this course, available for free online, is *Empirical
 Methods in Political Science: An introduction*, edited by Jean
@@ -119,125 +123,100 @@ Students enrolled in this course are required to complete a research participati
 
 This course follows the [Northwestern University Syllabus Standards](https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html). Students are responsible for familiarizing themselves with this information.
 
-# Course Schedule and Readings
+### Course Schedule and Readings (Fall 2026)
 
-This schedule is subject to changes (minor or major) depending on how
-long each topic actually takes us to cover, as well as on the needs of
-the class.
+**Sept. 24 (Thu)**
+**Topic:** Asking social science questions.
+**Reading:** Clipperton, ed., Chapter 1.
 
-Sept. 16: *Asking social science questions.*
+**Sept. 29 (Tue)**
+**Topic:** Data.
+**Reading:** Clipperton, ed., Chapter 4.
 
-Clipperton, ed., Chapter 1.
+**Oct. 1 (Thu)**
+**Topic:** Causation.
+**Reading:** Clipperton, ed., Chapter 2.
+*Note: This is the last day to add/drop courses without special permission.*
 
-Sept. 18: *Data.*
+**Oct. 6 (Tue)**
+**Topic:** Causal inference in action.
+**Reading:** Morral, Andrew R., and Rosanna Smart. "Concealed Carry Laws and Violence in America." *Annual Review of Criminology* 9 (2026). [https://doi.org/10.1146/annurev-criminol-032924-013352](https://doi.org/10.1146/annurev-criminol-032924-013352)
 
-Clipperton, ed., Chapter 4.
+**Oct. 8 (Thu)**
+**Topic:** Experiments.
+**Reading:** Clipperton, ed., Chapter 7.
+**Due:** **First homework due.**
 
-Sept. 23: *Causation.*
+**Oct. 13 (Tue)**
+**Topic:** Applied experiments.
+**Readings:**
+- Gramacho, Wladimir G., and Mathieu Turgeon. "When politics collides with public health: COVID-19 vaccine country of origin and vaccination acceptance in Brazil." *Vaccine* 39 (2021): 2608-12.
+- Bos, L., Schemer, C., Corbu, N., et al. "The effects of populism as a social identity frame on persuasion and mobilisation: Evidence from a 15-country experiment." *European Journal of Political Research* 59 (2020): 3-24.
+**Activity:** Asynchronous activity (in lieu of class meeting). See Canvas for details.
 
-Clipperton, ed., Chapter 2.
+**Oct. 15 (Thu)**
+**Topic:** Sampling and survey research.
+**Reading:** Clipperton, ed., Chapter 6.
+**Due:** **Second homework due.**
 
-Please watch the video at the following week in place of attending class for Sept. 23: [https://northwestern.zoom.us/rec/share/Q3kWcjscgQ3fimzNfRoWnOa3rOKADBBlKiyGO8ZFH1nSRsaultN4gTRdPRs4LaKU.Q-qeQC3Cr8yDNS89](https://northwestern.zoom.us/rec/share/Q3kWcjscgQ3fimzNfRoWnOa3rOKADBBlKiyGO8ZFH1nSRsaultN4gTRdPRs4LaKU.Q-qeQC3Cr8yDNS89)
+**Oct. 20 (Tue)**
+**Topic:** Confidence intervals and significance tests.
+**Reading:** Clipperton, ed., Chapter 5.
 
-Sept. 25: *Causal inference in action.*
+**Oct. 22 (Thu)**
+**Topic:** Correlation and bivariate regression.
+**Reading:** Clipperton, ed., Chapter 8.
 
-Morral, Andrew R., and Rosanna Smart. "Concealed Carry Laws and Violence in America." Annual Review of Criminology 9 (2025). [https://doi.org/10.1146/annurev-criminol-032924-013352](https://doi.org/10.1146/annurev-criminol-032924-013352)
+**Oct. 27 (Tue)**
+**Topic:** Multivariate regression (conceptual).
+**Reading:** Clipperton, ed., Chapter 8 (continued).
+*Note: The week of October 26-30 is when midterms are often held.*
 
-Sept. 30: *Experiments.*
+**Oct. 29 (Thu)**
+**Topic:** **Midterm Exam (In-person)**
+*Note: Covers all material from Sept. 24 through Oct. 27.*
 
-Clipperton, ed., Chapter 7.
+**Nov. 3 (Tue)**
+**Topic:** Statistical Computing Lab I: Introduction to R for descriptive statistics and visualization. *(Hands-on lab)*
+*Note: Students should bring a laptop with R and RStudio installed.*
 
-Oct. 2: *Applied experiments.*
+**Nov. 5 (Thu)**
+**Topic:** Statistical Computing Lab II: Introduction to R for basic regression. *(Hands-on lab)*
+**Due:** **Third homework due.**
 
-[Wladimir G. Gramacho and Mathieu Turgeon, "When politics collides with
-public health: COVID-19 vaccine country of origin and vaccination
-acceptance in Brazil," Vaccine 39 (2021):
-2608-12.](https://doi.org/10.1016/j.vaccine.2021.03.080)
+**Nov. 10 (Tue)**
+**Topic:** Machine Learning Concepts (Lecture & Demo).
+**Reading:** Clipperton, ed., Chapter 12.
 
-[BOS, L., SCHEMER, C., CORBU, N., HAMELEERS, M., ANDREADIS,
-I., SCHULZ, A., SCHMUCK, D., REINEMANN, C. and FAWZI, N. (2020), The
-effects of populism as a social identity frame on persuasion and
-mobilisation: Evidence from a 15-country experiment. European Journal of
-Political Research, 59: 3-24.](https://doi.org/10.1111/1475-6765.12334)
+**Nov. 12 (Thu)**
+**Topic:** Quantitative political science research examples.
+**Readings:**
+- Bansak, Kirk, Jens Hainmueller, and Dominik Hangartner. "How economic, humanitarian, and religious concerns shape European attitudes toward asylum seekers." *Science* (2016). [Link](http://science.sciencemag.org/content/early/2016/09/22/science.aag2147)
+- *Recommended:* Enos, Ryan D. "What the Demolition of Public Housing Teaches Us about the Impact of Racial Threat on Political Behavior." *American Journal of Political Science* 60 (Jan. 2016): 123–142.
 
-Activity: for a research question in the social sciences that interests you, suggest a design for an experiment that could be done as an honors thesis project. (You don't have to actually intend to do it, etc., but it has to be the kind of thing that could hypothetically be done.) Explain why you find the topic interesting and how your design helps answer your question. Evaluate the strengths and weaknesses of your design in comparison with the example experiments linked above.
+**Nov. 17 (Tue)**
+**Topic:** The qualitative comparative method.
+**Reading:** Clipperton, ed., Chapter 9.
 
-Please email your responses to the activity (which shouldn't be more than a couple of pages double-spaced) to Professor Seawright!
+**Nov. 19 (Thu)**
+**Topic:** Qualitative political science research examples.
+**Readings:**
+- Gibson, Edward L. "Boundary Control: Subnational Authoritarianism in Democratic Countries." *World Politics* 58 (Oct. 2005): 101–132.
+- Thurston, Chloe N. "Policy Feedback in the Public--Private Welfare State: Advocacy Groups and Access to Government Homeownership Programs, 1934–1954." *Studies in American Political Development* 29 (Oct. 2015): 250–267.
 
-Oct. 7: *Sampling and survey research.*
+**Nov. 24 (Tue)**
+**Topic:** Qualitative computing tools in political science.
+*Note: No class Thursday, Nov. 26 (Thanksgiving Break).*
 
-Clipperton, ed., Chapter 6.
+**Dec. 1 (Tue)**
+**Topic:** Ethics and Normative Concerns in Political Science.
+**Reading:** American Political Science Association. (2020). *A Guide to Professional Ethics in Political Science* (3rd ed.). Chapters 1-2. [Available online via APSA website]
+*Recommended:* Lupia, Arthur, and Colin Elman. "Openness in Political Science: Data Access and Research Transparency." *PS: Political Science & Politics* 47 (Jan. 2014): 19–42.
 
-Oct. 9: *Confidence intervals and significance tests.*
+**Dec. 3 (Thu)**
+**Topic:** Summary, review, and looking forward.
+**Reading:** Soss, Joe, Meghan Condon, Matthew Holleque, and Amber Wichowsky. "The Illusion of Technique: How Method‐Driven Research Leads Welfare Scholarship Astray." *Social Science Quarterly* 87 (Dec. 2006): 798–807.
 
-Clipperton, ed., Chapter 5.
+---
+**Final Exam:** **Monday, December 7, 2026, 2:00 PM** (Take-home exam due).
 
-Oct. 14: *Correlation and bivariate regression.*
-
-Clipperton, ed., Chapter 8.
-
-Oct. 16: *Multivariate regression.*
-
-Oct. 21: Midterm review and Questions
-
-Oct. 23: Midterm
-
-Oct. 21: *Statistical Computing Lab I: Introduction to R for Descriptive Statistics and Visualization.*
-
-Oct. 23: *Quantitative political science research examples.*
-
-[Kirk Bansak, Jens Hainmueller, and Dominik Hangartner, "How economic,
-humanitarian, and religious concerns shape European attitudes toward
-asylum seekers."
-Science](http://science.sciencemag.org/content/early/2016/09/22/science.aag2147).
-
-Recommended: [Ryan D. Enos. "What the Demolition of Public Housing
-Teaches Us about the Impact of Racial Threat on Political Behavior."
-American Journal of Political Science 60 (January 2016):
-123--142.](https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12156)
-
-Oct. 28: *Statistical Computing I: Machine learning.*
-
-Clipperton, ed., Chapter 12.
-
-Oct. 30: *Statistical Computing Lab II: Introduction to R for Basic Regression.*
-
-Nov. 4: *Statistical Computing II: Applied text methods, LLMs, and AI in social science.*
-
-[Erin L. Rossiter, "Measuring Agenda Setting in Interactive Political
-Communication." American Journal of Political Science 66 (April 2022):
-337-51.](https://doi.org/10.1111/ajps.12653)
-
-Nov. 6: *The qualitative comparative method.*
-
-Clipperton, ed., Chapter 9.
-
-Nov. 11: *Qualitative political science research examples.*
-
-[Edward L. Gibson, "Boundary Control: Subnational Authoritarianism in
-Democratic Countries," World Politics 58 (Oct. 2005):
-101-132.](https://heinonline.org/HOL/Page?handle=hein.journals/wpot58&div=9&g_sent=1&casa_token=&collection=journals)
-
-[Chloe N. Thurston, "Policy Feedback in the Public--Private Welfare
-State: Advocacy Groups and Access to Government Homeownership Programs,
-1934--1954," Studies in American Political Development 29 (Oct. 2015):
-250-67.](https://doi.org/10.1017/S0898588X15000097)
-
-Nov. 13: *Qualitative computing tools in political science.*
-
-Nov. 18: *Ethics and Normative Concerns in Political Science.*
-
-Ron Iphofen, *Ethical Decision-Making in Social Research: A Practical
-Guide*. 2009. New York: Palgrave Macmillan. Chapter 1.
-
-Recommended: [Arthur Lupia and Colin Elman, "Openness in Political
-Science: Data Access and Research Transparency," PS: Political Science &
-Politics 47 (Jan. 2014):
-19-42.](https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/openness-in-political-science-data-access-and-research-transparency/0B189FC1097A4D062E57F805E8F07BD0)
-
-Nov. 20: *Summary, review, and looking forward.*
-
-[Joe Soss, Meghan Condon, Matthew Holleque, and Amber Wichowsky. 2006.
-"The Illusion of Technique: How Method‐Driven Research Leads Welfare
-Scholarship Astray." *Social Science Quarterly* 87 (Dec.):
-798-807.](https://www.jstor.org/stable/42956158)

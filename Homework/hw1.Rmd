@@ -22,7 +22,7 @@ loaded into our R workspace.
 ```{r, eval=FALSE}
 governor_data <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/stategovs.csv")
 
-ice_arrests <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/icearrests.csv")
+ice_arrests <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/ice_arrests_2025_early_2026.csv")
 ```
 
 Now what we want to do is create a new variable in the ICE data that records the 
@@ -108,10 +108,6 @@ for (i in 1:nrow(ice_arrests)){
     else ice_arrests$Population[i] <-   
         state_pops$Population2024[state_pops$State==ice_arrests$State[i]]
 }
-
-#This variable often reads in with commas and gets treated as text, so we'll 
-#make sure to convert it to an actual number.
-ice_arrests$Population <- parse_number(ice_arrests$Population)
 ```
 
 ```{r, eval=FALSE}
