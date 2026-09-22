@@ -1,33 +1,109 @@
-####################
-## Homework 3     ##
-####################
+---
+title: "Homework 3: Qualitative Analysis of Protest Dynamics"
+author: "Jaye Seawright"
+date: "Due: November 25, 2026"
+output: html_document
+---
 
-The local, national, and world news have been full of stories about protests in Chicagoland regarding ICE activities, and about complex dynamics between protesters, local governments, federal law enforcement, and the government. In this assignment, I will ask you to use qualitative methods to explore these relationships. The evidence you will use is a collection of news stories from the last three months describing protest activity, government statements, and law enforcement responses in Chicagoland, found on [the class website](https://github.com/jnseawright/ps210/tree/main/Homework/HW3%20Documents).
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
 
-For this assignment, you are free to work individually or in groups. If you choose
-to work collaboratively, please include your name and the names of the people you
-worked with on your submitted assignment. You will not be penalized for collaborating.
+## Homework 3: Qualitative Analysis of Protest Dynamics
 
-####################
-## Problem 1      ##
-####################
+**Due: Wednesday, November 25, 2026 by 11:59 PM on Canvas**
 
-Before you start working with the data, please spell out your theory of how Trump's immigration enforcement initiative this fall may have changed the size, scope, and kind of protests that Chicagoland is experiencing. Do your best to spell out the theory with multiple testable implications, in the way that we discussed in class, possibly with a box chart linking steps to show your thinking.
+This assignment asks you to use **qualitative methods** (manual coding and process tracing) to analyze a set of news stories about protests in Chicagoland related to ICE enforcement activities. The evidence is a collection of news stories **since August of 2025**, available on [the class website](https://github.com/jnseawright/ps210/tree/main/Homework/HW3%20Documents).
 
-####################
-## Problem 2      ##
-####################
+You are free to work individually or in groups. If you work collaboratively, include your name and the names of the people you worked with on your submitted assignment. You will not be penalized for collaborating.
 
-On the class website, you will find about 22 news stories from the last few months. Look through these and select some that seem relevant. Load them into Taguette and systematically code them, searching for evidence that confirms or defeats your theory as well as other interesting findings. When you are finished, screenshot your list of codes, as well as the summary of tagged text for one of your most interesting codes. 
+---
 
-You should expect to identify at least ten codes, each of which applies to a minimum of two highlights. Your most frequently used codes should probably apply to many more.
+## Problem 1: Theory Development (15 points)
 
-####################
-## Problem 3      ##
-####################
+Before you examine the news stories, develop a **theory** of how the current federal immigration enforcement initiative may have changed the size, scope, or kind of protests in Chicagoland.
 
-Using the text you highlighted in Problem 2, evaluate which components of your theory from Problem 1 are supported by evidence, which components do not have evidence, and which components perhaps face contradictory evidence. Taken as a whole, does the process-tracing data support, contradict, or simply not decide about your theory? Explain your reasoning.
+Your theory should address two or more questions of the following scope (you may address more):
 
-Please submit your completed assignment at:
+- Has there been a **feedback loop** between protest intensity and ICE violence? For example, do larger or more confrontational protests lead to harsher ICE enforcement, which in turn sparks further protest? Or does violence suppress protest?
+- Has ICE behavior generated **incentives for new protest tactics**? For instance, have protesters shifted to more decentralized, digital, or legal strategies to avoid detention? Have they adopted more confrontational or more passive resistance tactics?
+- Have protesters experienced **fear of repression and violence**? If so, does that fear **reduce** the scope of protest (fewer participants, smaller events), **increase** it (anger mobilization), or **change its character** (more secretive, more symbolic, or more violent)?
+- What other mechanisms might link enforcement actions to protest dynamics (e.g., media coverage, political opportunity structures, community organizing)?
 
-[https://canvas.northwestern.edu/courses/235934/assignments/1666300](https://canvas.northwestern.edu/courses/235934/assignments/1666300)
+**Your task:**
+
+- State your theory in one or two sentences.
+- Then list **at least three testable implications** (predictions that would be true if your theory is correct). 
+- Optionally, draw a **causal diagram** (box‑and‑arrow chart) showing the steps linking the independent variable to protest outcomes.
+
+*Hint: Use the prompts above to generate specific, falsifiable predictions about what you would expect to see in the news stories.*
+
+---
+
+## Problem 2: Manual Coding of News Stories (40 points)
+
+You will read and code the provided news stories. You do **not** need special software – use a table or spreadsheet (Word, Excel, Google Docs, or even a notebook) to record your codes.
+
+### Instructions:
+
+1. **Select at least 10 stories** from the collection on the class website (the collection includes stories from August 2025 through the present).
+2. **Create a coding scheme** (a set of thematic codes). For example:
+   - `Police_response` – mentions of law enforcement actions
+   - `Protest_size` – estimates of crowd size
+   - `Rhetoric` – language used by protesters or officials
+   - `Violence` – any reports of physical conflict
+   - `Arrests` – mentions of arrests at protests
+   - `Community_support` – statements of solidarity from local groups
+   - `Fear_repression` – references to fear of ICE or police violence
+   - `Tactics` – descriptions of protest methods (e.g., marches, sit‑ins, online organizing)
+   - (You will create your own codes – aim for **8–12 codes**.)
+
+3. **Read each story** and assign one or more codes to passages. For each coded passage, record:
+   - Story number or title
+   - The exact quote (1–2 sentences)
+   - The code(s) you are applying
+
+4. **Produce a coding table** with columns: `Story ID | Quote | Code(s) | Brief Note`. This can be a screenshot of your spreadsheet or a formatted table in your document.
+
+5. **Take one screenshot** showing the list of codes you created (e.g., the first column of your coding sheet).
+
+### Deliverables for Problem 2:
+
+- A **list of your codes** (screenshot or typed) – 5 points
+- Your **coding table** with at least 15 coded passages (each code should appear at least twice) – 25 points
+- A brief **reflection** (1 paragraph) on any challenges you faced in coding (e.g., ambiguous passages, overlapping codes) – 10 points
+
+---
+
+## Problem 3: Process Tracing and Theory Evaluation (30 points)
+
+Using the coded evidence from Problem 2, evaluate your theory from Problem 1.
+
+- Which **components of your theory** are supported by the evidence? Give specific examples (quote a coded passage and explain how it supports your theory).
+- Which components have **no evidence** (or too little to decide)?
+- Is there any **contradictory evidence**? If so, quote it and explain why it challenges your theory.
+- **Overall conclusion:** Does the process‑tracing data support your theory, contradict it, or leave it undecided? Explain your reasoning.
+
+---
+
+## Problem 4: Reflection on Qualitative Methods (15 points)
+
+Write a short essay (2–3 paragraphs) answering the following:
+
+- What are the main **strengths** of using qualitative analysis (like coding and process tracing) to study protest dynamics, compared to a purely quantitative approach (e.g., counting protest events)?
+- What are the main **weaknesses** or limitations of this qualitative approach for making causal claims?
+- How might you combine qualitative and quantitative methods to study the same research question more effectively?
+
+---
+
+## Submission Instructions
+
+Submit a single PDF or Word document containing:
+
+1. Your answers to Problems 1–4.
+2. Screenshot(s) of your coding scheme and coding table.
+3. A list of collaborators (if any).
+
+**Due: Wednesday, November 25, 2026, 11:59 PM.**
+
+*Note: This deadline is the day before Thanksgiving break. Plan accordingly; no extensions will be granted except in cases of documented emergency.*

@@ -1,0 +1,219 @@
+# Week 2 Session Notes: Historical Fascism and Its Contemporary Heirs
+### The Politics of the Far Right
+
+**Readings assigned:**
+- David Welch, "Nazi Propaganda and the Volksgemeinschaft: Constructing a People's Community," *Journal of Contemporary History* 39, no. 2 (2004): 213–238
+- Jörg Spenkuch, "Elite Influence? Religion and the Electoral Success of the Nazis," *American Journal of Political Science* 61, no. 1 (2017): 19–34
+- Jean-Yves Camus and Nicolas Lebourg, *Far-Right Politics in Europe* (2017), Introduction + Chapter 1 ("What to Do after Fascism?")
+- BNP Manifesto (excerpts): https://www.lsu.edu/faculty/lray2/teaching/4075/bnp/Website/MANIFESTOPAGE.html
+- IRR, "From Portrayal to Reality: Examining the Record of the EDL" (2011): https://irr.org.uk/article/from-portrayal-to-reality-examining-the-record-of-the-edl/
+- Anders Breivik (*pseud.* Andrew Berwick), *2083: A European Declaration of Independence* (2011), selected passages [instructor-selected excerpts only — the full document is 1,500+ pages of violent extremist content]
+
+---
+
+## Instructor Framing
+
+Week 1 gave students frameworks for asking *what is fascism?* Week 2 tests those frameworks against real historical material and then asks students to carry that analysis forward to contemporary actors. The structural logic of the session is a **comparison exercise**: working between the 1930s–1945 historical record (via Welch and Spenkuch) and three British far-right actors from the 2000s–2010s (BNP, EDL, Breivik).
+
+The key intellectual move you want students to make is to resist two symmetrical errors:
+- **Over-assimilation**: everything that echoes historical fascism *is* fascism; Breivik = Hitler; the BNP = the NSDAP. This collapses real analytical distinctions and, as Camus and Lebourg warn, may actually serve the far right's own self-presentation by making their threat seem distant and obviously illegitimate.
+- **Under-assimilation**: because the BNP supports the NHS and Breivik hated the Nazis (he despised biological racism), these movements have nothing to do with historical fascism. This misses the structural family resemblances Camus and Lebourg spend the book mapping.
+
+A secondary goal is to sharpen the **analytical vocabulary** students will use for the rest of the course: Volksgemeinschaft logic, street vs. electoral movements, the revisionist/denial move post-1945, the gap between public face and private core.
+
+**A note on the Breivik assignment:** Instructors should assign and distribute specific excerpts rather than the full manifesto. The document is used not to platform Breivik's ideology but to analyze it as primary source material — specifically, to trace how he constructs his enemy ("cultural Marxism," the Frankfurt School, feminism, multiculturalism as conspiracy), invokes a mythic European past, and arrives at a logic of violence. It is worth acknowledging to students at the start of discussion that this is primary source work for analytical purposes, and normalizing some discomfort with that.
+
+---
+
+## Session Architecture (75 minutes)
+
+### 1. Opening move: the revision problem (8 min)
+
+Open with a direct question:
+
+> *"After 1945, fascism was discredited across Europe. What do you do if you still hold fascist beliefs? What are your options?"*
+
+Brief discussion — 3–4 responses. Students will generate something like: go underground, deny you were a fascist, repackage the ideas, find new enemies. Write these on the board.
+
+Then introduce Camus and Lebourg's key observation: the post-war far right's first move, before any ideological renovation, was **historical revision** — beginning with Holocaust denial in 1946–48. This isn't incidental; it's structural. If you want to defend anything adjacent to National Socialism, you first have to sever its association with genocide.
+
+This sets up the analytical frame for the whole session: **the contemporary far right is always in some sense negotiating its relationship to the historical record**.
+
+---
+
+### 2. Mini-lecture: What made historical fascism work? (15 min)
+
+**From Welch:** Two findings to foreground.
+
+First: Nazi propaganda was not an autonomous force that created beliefs from scratch. It worked by **canalization** — directing and reinforcing already-existing attitudes. Welch's Huxley quote is worth putting on the board:
+
+> *"Propaganda gives force and direction to the successive movements of popular feeling and desire; but it does not do much to create these movements. The propagandist is a man who canalises an already existing stream. In a land where there is no water, he digs in vain."*
+
+This has obvious implications for the contemporary cases: to what extent is the BNP/EDL/Breivik canaling existing streams vs. creating new ones?
+
+Second: The **Volksgemeinschaft** — "people's community" — was the central propaganda concept. It promised a society that had transcended class divisions through *ethnic* unity. The "national community" would replace horizontal solidarity (trade unions, class) with vertical ethnic solidarity (all Germans as one people). Crucially, Welch argues there was always a gap between the propaganda myth and social reality — the class structure persisted — but the myth was powerful enough to produce at least *passive* acquiescence from significant portions of the population.
+
+**Key concept for the comparison exercise:** The Volksgemeinschaft logic defines who is *in* the authentic people and — by implication — who is *out*. This exclusion is the analytic hinge between historical fascism and the contemporary cases.
+
+**From Spenkuch:** Shift from propaganda to electoral mobilization. Spenkuch's central finding is that the Nazis' electoral success was not simply driven by economic grievance or working-class mobilization. **Elite endorsement** (particularly from Protestant church leaders) significantly boosted Nazi vote share. This complicates both the "spontaneous popular rage" narrative and the pure "economic anxiety" narrative.
+
+Analytical implication: ask students to hold this finding in mind when thinking about contemporary far-right parties. The BNP briefly attracted media platforms and policy attention in the UK — what role did that legitimization play?
+
+**From Camus and Lebourg on economic explanations:**
+
+Their comparative analysis (comparing the FN's 35.89% in Perpignan against far-right parties' 0.38% in Spain during the same recession) makes a strong methodological point: **economic conditions are necessary but not sufficient**. The far-right vote depends on three intersecting factors: (1) a coherent political offering that fits national context; (2) a social demand for authoritarianism; (3) a sense that a community of common destiny is disintegrating. The economic crisis provides grievance fuel, but only ignites a fire if the other conditions are present.
+
+---
+
+### 3. Primary source analysis: Three contemporary actors (30 min)
+
+*Divide into three groups; each group takes one actor and answers a structured set of comparison questions. 15 minutes group work, then report back.*
+
+**Structured comparison questions** (write on board or distribute as handout):
+
+1. Who is "the people" for this actor, and who is excluded from the authentic community?
+2. What is the primary enemy — internal, external, or both?
+3. Does this actor operate through elections, street mobilization, or individual violence? What does the choice of tactic tell us?
+4. Where do you see Volksgemeinschaft logic (or something structurally similar)?
+5. What is explicitly *different* from 1930s fascism — not just cosmetically, but analytically?
+6. Applying Stanley's framework from Week 1: how many of the ten tactics are present? Which are absent?
+
+---
+
+**Group A: British National Party (BNP)**
+
+*Key passages to anchor discussion:*
+
+From the BNP manifesto on immigration: "As we remain steadfast in our goal to remove the non-British population from Great Britain, we see a way to reallocate budget funds to aid in health care." On education: "We will ban all subjects relating to the cultures of immigrants." On the Euro: the EU is "corrupt" and Britain should retain the pound and full sovereignty.
+
+*Instructor notes for debrief:*
+
+**Resonances**: The BNP's logic is structurally Volksgemeinschaft — "British citizens" as an ethnic category from which non-white residents are excluded; the framing of immigration as resource extraction ("reallocating budget funds"); the appeal to cultural purity in education. The electoral strategy, the anti-EU nationalism, and the "voluntary resettlement" euphemism all echo postwar neofascist adaptation — working within democratic forms while pursuing ethnically exclusionary goals.
+
+**Departures**: The BNP explicitly disavowed Nazi/fascist heritage and reframed itself as a constitutional British nationalist party. It supported the NHS, opposed the Iraq war, and positioned itself on economic issues traditionally associated with the Left — precisely the kind of adaptive "fitting to national society" Camus and Lebourg describe. The primary target is not Jews but non-white (especially Muslim) immigrants. The mechanism of exclusion is deportation through "voluntary" incentives rather than extermination.
+
+**Camus and Lebourg's framework**: The BNP is an example of what they call a "populist party" — the most electorally successful postwar far-right formation type, distinguished from neo-Nazi groups by its acceptance of democratic norms and updating of the ideological content. It peaked at about 1 million votes in 2009 European elections, then collapsed, partly through internal dysfunction and partly because its electoral niche was captured by UKIP.
+
+---
+
+**Group B: English Defence League (EDL)**
+
+*Key passages to anchor discussion:*
+
+From the EDL mission statement: "The English Defence League (EDL) is a human rights organisation that opposes an Islam that runs counter to all that we hold dear within our British liberal democracy." From IRR's analysis: sixteen documented mosque attacks in five months; attacks on left-wing bookshops, Palestine solidarity stalls, anti-cuts demonstrators; Facebook posts by "official divisions" calling Obama "a slave" and referring to the Middle East as "p**iworld"; internal fracturing as more explicitly racist members rejected the "multicultural" public face.
+
+*Instructor notes for debrief:*
+
+**Resonances**: The EDL is structurally the most similar to historical fascism's **street movement** phase — not an electoral party but a mobilizing force that uses demonstrations, marches, and tactical violence to claim physical and symbolic ownership of public space. The analogy to the SA (Sturmabteilung, the Nazi brownshirts) is imperfect but worth examining: the SA also grew out of football-firm-like cultures of organized male violence and was repurposed into political mobilization. The EDL's explicit use of football firms as "a hoi polloi that gets off their backsides and travels to a city" is organizers' own language for their strategic logic.
+
+The gap between public liberal face and private racist core maps onto Welch's point about propaganda: the public mission statement is designed to canalize sympathizers who might be uncomfortable with explicit racism, while the private Facebook voice reveals the actual stream being canalized.
+
+**Departures**: The EDL's explicit multiculturalism — Jewish Division, LGBT Division, Sikh spokesperson — represents a genuine structural departure from historical fascism's racial hierarchy. Whatever the private views of members, the organization staked its public legitimacy on religion-not-race as the basis of exclusion. This is something new: an Islamophobic movement that actively incorporates some non-white members. Camus and Lebourg classify this type as distinct from neo-Nazism and observe that contemporary populist far-right movements have generally replaced biological racism with "culturalism" — the enemy is a culture, not a race, which provides legal and rhetorical cover.
+
+**The Breivik connection** (brief): EDL leader Stephen Lennon went on Newsnight after Utøya to deny organizational links with Breivik, who referenced the EDL approvingly in his manifesto and had briefly been in contact with EDL members. This connection is analytically important: it shows that the permeable boundary between electoral/street movements and individual violence is not accidental.
+
+---
+
+**Group C: Anders Breivik / *2083: A European Declaration of Independence***
+
+*Key passages to anchor discussion:*
+
+From Book 1: the "cultural Marxism" thesis — the Frankfurt School deliberately engineered the destruction of European civilization through feminism, multiculturalism, and political correctness; this is framed as a "quiet revolution" carried out through control of universities, media, and government; the goal is "the Islamisation of Europe" by allowing Muslim immigration while dismantling the cultural defenses of European nations. The document catalogs both the alleged conspiracy and tactical instructions for violent resistance.
+
+*Instructor notes for debrief:*
+
+**Resonances**: The "cultural Marxism" framework is structurally parallel to classical fascism's antisemitic conspiracy theory — a shadowy intellectual elite is secretly engineering the destruction of the authentic people from within. The enemy has simply been updated: where Goebbels blamed a Jewish-Bolshevik conspiracy, Breivik blames a Frankfurt School-multiculturalist conspiracy. The logic is formally identical: the authentic people (European civilization) is under attack from internal traitors enabling an external threat (Jews/Islam). The mythic past being defended is "European civilization" — Breivik literally titles his manifesto after 2083, the 400th anniversary of the Battle of Vienna (1683), when Ottoman forces were repelled from Central Europe.
+
+Welch's canalization point applies with force here: Breivik did not invent the "cultural Marxism" framework. It circulates across the far-right internet, through American paleoconservative think-tanks (he literally excerpts the Free Congress Foundation's pamphlets), and through movements like the EDL. He assembled existing streams into an unusually systematic document.
+
+**Departures**: Breivik is not a fascist by Finchelstein's definition and would have been contemptuous of the label — he explicitly rejected biological racism, admired Israel as a front-line state against Islam, and was indifferent to electoral politics. He represents a **different political form**: the lone-wolf networked terrorist, radicalized through online communities, who acts outside any organizational structure. This is significant because it can't be explained by the party-formation logic that explains BNP or the mobilization logic that explains EDL. Spenkuch's elite-endorsement finding has no purchase here — Breivik specifically acted *against* all existing elites, including conservative ones.
+
+**What's analytically distinctive about Breivik's case**: He illustrates what happens when the ideological content of far-right movements (enemy construction, mythic past, victimhood) is combined with radicalization pathways that bypass organizational gatekeepers. The manifesto is partly a how-to document for others — he explicitly addresses it to future actors, not a party membership. This anticipates the Islamic State's distributed-inspiration model that would emerge a few years later.
+
+---
+
+### 4. Full-group synthesis: resonances and departures (15 min)
+
+After group reports, push to the comparative synthesis. Draw a rough comparison grid on the board:
+
+|  | Historical Fascism | BNP | EDL | Breivik |
+|---|---|---|---|---|
+| Organizational form | Party + street movement | Electoral party | Street movement | Individual actor |
+| Primary "enemy within" | Jews / Communists | Non-white immigrants | "Radical Islam" / Left | Multiculturalist elites |
+| External enemy | Allied powers / degeneracy | EU / non-Western nations | Islam | Islam |
+| Volksgemeinschaft equivalent | Ethnic Germans | Ethnic British | English (culturally defined) | European civilization |
+| Relation to democracy | Anti-democratic | Formally democratic | Ambivalent | Explicitly anti-democratic |
+| Relation to violence | Institutionalized | Rhetorical distancing | Unofficial / plausibly deniable | Explicit advocacy |
+
+Key questions to push on:
+- **Does the shift from biological racism to "culturalism" represent a fundamental break or a surface adaptation?** (Camus and Lebourg's position: adaptation, not break — the exclusionary logic is preserved even if the basis shifts from race to religion/culture)
+- **Does the BNP's support for the NHS make it less fascist, or is that Welch's canalization working in a new register?** (The Volksgemeinschaft also included social welfare — for *members of the community*)
+- **Breivik's departure from biological racism is genuine — does that mean Stanley's framework applies better to him than Finchelstein's?**
+
+---
+
+### 5. Closing question (7 min)
+
+Return to Camus and Lebourg's key analytical claim: the far-right vote depends not just on economic conditions but on an intersection of political offering, social demand for authoritarianism, and perceived cultural disintegration.
+
+Ask: **What's the "common destiny" that's perceived as disintegrating in each of these cases?** How does each actor try to make that feeling politically actionable?
+
+Close with the framing for upcoming weeks: "We've been working mostly on the UK today. Next sessions move to the broader European picture — parties that have actually entered government, and the question of whether electoral success changes or moderates the far right."
+
+---
+
+## Key Passages to Have Ready (Instructor Reference)
+
+**Welch** — "Propaganda gives force and direction to the successive movements of popular feeling and desire; but it does not do much to create these movements. The propagandist is a man who canalises an already existing stream."
+
+**Welch** — "Propaganda is as much about confirming rather than converting public opinion."
+
+**Camus and Lebourg** — "The far-right vote depends on an intersection between a coherent political offering and a social demand for authoritarianism, reinforced by a sense that a community of common destiny is falling apart."
+
+**Camus and Lebourg** — "the label 'neo-Nazi' should be attached only to those movements that defend racialism, biological and eugenicist racism, the superiority of the white race... These groups embrace conspiracy theories as their worldview and deny the material reality of the genocide of the Jews."
+
+**BNP** — "As we remain steadfast in our goal to remove the non-British population from Great Britain, we see a way to reallocate budget funds to aid in health care."
+
+**IRR on EDL** — "Those who suffer most from the policies environmentalism would have us enact are the aged, poor, and vulnerable." [Mis-attributed; this is Breivik/Roberts] — *Use instead:* "The EDL states on its website that it is 'a human rights organisation' that opposes an Islam that 'runs counter to all that we hold dear within our British liberal democracy'... the actions of some of its members suggest otherwise."
+
+**Breivik** — "The revolutionary aim of the Nazi regime to bring about the Volksgemeinschaft, the true harmony of classes... The Cultural Marxist stalwarts apparently know exactly what they want to do and how they plan to do it. They have actually already succeeded in accomplishing much of their agenda."
+
+---
+
+## Anticipated Student Moves and How to Handle Them
+
+**"The BNP and EDL aren't fascist because they support democracy."**
+Push back carefully. Finchelstein would say that's precisely the distinction between fascism and *populism* — not that the latter is harmless, but that its logic is different. Stanley might say supporting democracy while systematically dehumanizing a target population is exactly how fascist politics operates in a democratic context.
+
+**"Breivik is just a mentally ill loner — he's not representative of a movement."**
+This is the standard dismissal and it's analytically weak. The Norwegian court found him legally sane. More importantly, his manifesto is a *compilation* — he explicitly assembled it from existing far-right intellectual currents that circulate across movements and borders. His ideology has a genealogy; his radicalization has a context. The question isn't whether he was typical but what conditions produced him.
+
+**"The 'cultural Marxism' framework Breivik uses sounds paranoid, but isn't he right that multiculturalism is a real policy that people disagree about?"**
+This is worth engaging. There's a difference between the legitimate policy debate about multiculturalism and the conspiracy theory framing in which it's a covert Frankfurt School plot to destroy European civilization. What does the conspiracy framing add to — and what does it do to — a legitimate policy disagreement? (Answer: it transforms political opponents into traitors, which licenses violence against them.)
+
+**"How is the EDL different from legitimate protest movements that oppose radical Islamism?"**
+Ask what the IRR's evidence shows about who the actual targets of EDL violence are: mosques in general (not radical ones), left-wing bookshops, anti-cuts protestors, Kurdish kebab shops. The stated target (radical Islam) and the operational targets are different. That gap is analytically significant.
+
+**"Why does it matter which category these groups fall into — fascism, populism, far right?"**
+This is a useful question to sit with. One answer: because the category shapes the response. Fascist movements historically required military defeat; populist movements can be addressed through elections. Neo-Nazi groups can be legally banned in Germany; populist parties cannot. The stakes of classification are real.
+
+---
+
+## Connections to Other Weeks
+
+- **Week 1**: Apply Stanley's ten tactics to each of the three actors as a check on Week 1 learning. The EDL's sexual anxiety tactic (anti-trans, homophobic undercurrent beneath the "LGBT Division" public face) is worth surfacing.
+- **Week 3** (Historical Fascism, deep dive): Camus and Lebourg's Introduction will get more attention; Chapter 1's neo-Nazi taxonomy becomes useful.
+- **Week 6–7** (Contemporary European parties): The BNP → UKIP → Reform UK trajectory in Britain is a case study in how electoral far-right parties evolve and what happens to their more radical variants.
+- **Week 10** (US far right, if added): Breivik's "cultural Marxism" thesis, which he largely imported from American paleoconservative sources, is now mainstream Republican discourse. The genealogy matters.
+
+---
+
+## A Note on Classroom Dynamics
+
+Discussing Breivik requires some care. Students may include Norwegians, those who were affected by Utøya (or knew people who were), or students who find the material genuinely disturbing. It's worth:
+- Naming at the start of discussion that this is hard material and why it's analytically necessary
+- Making clear that the goal is to understand the ideology's structure, not to evaluate the validity of any part of it
+- Not reading violent or graphic passages aloud
+- Being prepared for a quieter, more subdued room than usual — that's appropriate
+
+On the other side, some students may find conspiracy theories like Breivik's "cultural Marxism" thesis uncomfortably resonant with things they've heard in mainstream conservative media. If that comes up, it's worth addressing directly: the question is how far the conspiracy logic travels from its extremist origins into mainstream discourse, and what that movement does to the discourse.

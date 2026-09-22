@@ -3,7 +3,7 @@ title: "2: Data"
 subtitle: "Empirical Methods"
 author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
-date: "Sept. 18, 2025"
+date: "Sept. 29, 2026"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -57,6 +57,17 @@ style_mono_accent(
 usterrorism <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/usterrorism.csv")
 
 ```
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Identify the key strengths and limitations of a real-world data source
+2. Explain how reporting practices, conceptual definitions, and invisibility bias shape what data capture
+3. Use R to explore a dataset with `head()`, `table()`, `filter()`, and `ggplot()`
+4. Interpret a distribution of event counts across time
+5. Explain why data creation is often the most consequential step in a research project
+
+---
 ### A perennially newsworthy question: how much political violence is there in the U.S., and what are its sources?
 
 ---
@@ -104,7 +115,7 @@ usterrorism %>% filter(nkill==1385)
 ```
 
 ---
-```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center'}
+```{r, echo = TRUE, out.width="100%", fig.retina = 1, fig.align='center', fig.alt="R code and resulting boxplot: distribution of deaths per U.S. terrorism incident by year on a log scale. Most years show medians near zero with high-fatality outliers; 2001 is a dramatic outlier due to the 9/11 attacks."}
 
 ggplot(usterrorism, aes(x = factor(iyear), y = nkill)) +
     geom_boxplot(fill = "grey", outlier.color = "black", outlier.shape = 1) +
@@ -120,7 +131,7 @@ ggplot(usterrorism, aes(x = factor(iyear), y = nkill)) +
 ```
 
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Boxplot: distribution of deaths per U.S. terrorism incident by year on a log scale. Most years show medians near zero with high-fatality outliers; 2001 is a dramatic outlier due to the 9/11 attacks."}
 
 ggplot(usterrorism, aes(x = factor(iyear), y = nkill)) +
     geom_boxplot(fill = "grey", outlier.color = "black", outlier.shape = 1) +

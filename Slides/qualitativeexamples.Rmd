@@ -249,3 +249,115 @@ include_graphics("images/Gerzsoquote7.png")
 **What unites them:** Multiple evidence types + process-tracing + attention to *how* and *why*
 
 When you read, always ask: *What's the evidence? What kind of design? What would strengthen it?*
+
+---
+### Lab 3: Qualitative Coding Practice
+
+Now you try it. This lab practices the two core skills you'll use in Homework 3:
+
+1. **Building a coding scheme** and applying it to documents
+2. **Drawing a process-tracing inference** from coded evidence
+
+We'll work with oral history interviews — a different format and topic from HW3 — so you develop the skills before applying them independently.
+
+---
+### The Source
+
+**Kentucky Oral History Commission — Summer of 2020 BLM Protests Project**
+
+Eight oral history interviews conducted with Kentuckians who participated in the 2020 protests. Each interview has:
+
+- Timestamped **segment synopses** (readable summaries — no need to listen to the full audio)
+- Keywords and subjects already identified by the archivist
+
+https://passtheword.ky.gov/collections/summer-of-2020-black-lives-matter-movement-protests-oral-history-project
+
+---
+### Your Task
+
+1. Read through the segment synopses for the **Donavyn Ceesay** interview (we'll do this together)
+2. Build a coding scheme as a class
+3. Apply it to 3–4 segments
+4. Choose a **second interview** and code 2–3 segments on your own
+
+---
+### Step 1: What Did You Notice?
+
+After reading the Ceesay synopses, what **topics or themes** kept coming up?
+
+*Share with a neighbor — we'll compile a list.*
+
+---
+### Step 2: Draft a Coding Scheme
+
+A good coding scheme has codes that are:
+
+- **Meaningful** — they capture something theoretically relevant
+- **Distinguishable** — you could reliably tell them apart
+- **Exhaustive enough** — most relevant passages get a code
+
+*What 5–6 codes should we use for these interviews?*
+
+---
+### Step 3: Code Together
+
+Apply our scheme to this segment from the Ceesay interview:
+
+> "Ceesay says that he never experienced any violence directed towards him from either police or counter protestors. Ceesay says he brought a knife for self-defense and zip ties and a cutter in case he were to be arrested while at the protests. Ceesay explains that he was unwilling to be arrested and charged for protesting against something that the government was doing to its own citizens."
+
+- What code(s) does this passage get?
+- Is the passage ambiguous? How do you decide?
+
+---
+### Step 4: Your Turn
+
+Pick **two more segments** from the Ceesay interview and apply the coding scheme.
+
+For each:
+- Paste or paraphrase the segment (1–3 sentences)
+- Assign a code
+- One sentence explaining your choice
+
+*3 minutes — then we'll compare.*
+
+---
+### Step 5: Process-Tracing Inference
+
+Consider this theoretical claim:
+
+> *"Repression raises the personal costs of protesting, but participants recalibrate — through preparation, solidarity, and reframing risk — rather than withdrawing."*
+
+Using the coded segments:
+
+- Which passages **support** this claim?
+- Which are **neutral or unclear**?
+- Is there any passage that seems to **contradict** it?
+
+---
+### Step 6: Second Interview
+
+Now choose one of the remaining seven interviews and code **2–3 segments** using the same scheme.
+
+Ask yourself: does this interview tell a similar story to Ceesay's, or a different one? Where do the codes hold up, and where do they break down?
+
+*This is the same move you'll make across 10+ documents in HW3.*
+
+---
+### What Makes This Hard
+
+- **Ambiguous passages**: Real documents don't announce their codes.
+- **Overlapping codes**: Some passages fit multiple categories — note both.
+- **Contradictory evidence**: Don't ignore it. Process tracing means weighing evidence honestly, not cherry-picking.
+- **The archivist's categories aren't your codes**: Keywords like "Fear" or "Violence" are not a coding scheme — they're a finding aid.
+
+---
+### Connection to HW3
+
+In HW3, you'll apply these same skills:
+
+1. Develop your **own theory** about protest dynamics
+2. Build your **own coding scheme** (8–12 codes)
+3. Code at least **10 news stories** (15+ passages)
+4. Use coded evidence to **evaluate your theory**
+
+The mechanics are identical. The scale is larger and the topic is yours to work through.

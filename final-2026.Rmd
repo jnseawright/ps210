@@ -1,0 +1,214 @@
+---
+title: "Final Examination"
+subtitle: "Political Science 210 — Fall 2026"
+author: "Jaye Seawright"
+date: "December 7, 2026 (in class)"
+output:
+  pdf_document:
+    keep_tex: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(knitr)
+```
+
+\vspace{1cm}
+
+**Instructions:** This exam is **open notes but closed devices**. You may consult your own handwritten or printed notes. No laptops, phones, tablets, or any electronic devices are permitted. The figures and tables you need are printed on the following pages. **Write your answers in the spaces provided below each question.** You have 75 minutes.
+
+The exam has 11 questions worth a total of **100 points**. Point values are shown in parentheses.
+
+If you find ambiguity in a question, adopt a reasonable reading, note your assumption briefly, and proceed.
+
+\newpage
+
+# Figures and Tables for Study 1 (Colmer \& Doleac 2026)
+
+\vspace{0.5cm}
+
+**Colmer, J., \& Doleac, J. L. (2026).** Access to Guns in the Heat of the Moment: More Restrictive Gun Laws Mitigate the Effect of Temperature on Violence. *The Review of Economics and Statistics*, 108(1), 30–43.
+
+\newpage
+
+```{r colmer-fig2, out.width="90%", fig.align='center', fig.cap="**Figure 2 (Colmer \\& Doleac)** – Differences in the temperature-homicide relationship between more-prohibitive and less-prohibitive states."}
+include_graphics("img/colmer_fig2.jpg")
+```
+
+\newpage
+
+```{r colmer-table3, out.width="80%", fig.align='center', fig.cap="**Table 3 (Colmer \\& Doleac)** – Main results: concealed carry laws and the temperature-homicide relationship."}
+include_graphics("img/colmer_table3.jpg")
+```
+
+\newpage
+
+```{r colmer-table4, out.width="80%", fig.align='center', fig.cap="**Table 4 (Colmer \\& Doleac)** – Mechanisms: firearms vs. non-firearms; aggravated assaults."}
+include_graphics("img/colmer_table4.jpg")
+```
+
+\newpage
+
+```{r colmer-fig3, out.width="90%", fig.align='center', fig.cap="**Figure 3 (Colmer \\& Doleac)** – Event study: differential effect of right-to-carry laws on the temperature-homicide relationship over time."}
+include_graphics("img/colmer_fig3.jpg")
+```
+
+\newpage
+
+# Materials for Study 2 (Shapira, Liang, \& Lin 2021)
+
+\vspace{0.5cm}
+
+**Shapira, H., Liang, C., \& Lin, K.-H. (2021).** How Attitudes about Guns Develop over Time. *Sociological Perspectives*, 65(1), 1–25.
+
+\newpage
+
+```{r shapira-passage1, out.width="80%", fig.align='center'}
+include_graphics("img/shapira_passage_1.jpg")
+```
+
+\newpage
+
+```{r shapira-passage2, out.width="80%", fig.align='center'}
+include_graphics("img/shapira_passage_2.jpg")
+```
+
+\newpage
+
+```{r shapira-brian1, out.width="80%", fig.align='center'}
+include_graphics("img/shapira_brian_1.jpg")
+```
+
+\newpage
+
+```{r shapira-brian2, out.width="80%", fig.align='center'}
+include_graphics("img/shapira_brian_2.jpg")
+```
+
+\newpage
+
+# Exam Questions
+
+## Study 1: Temperature, Gun Laws, and Violence (35 points)
+
+**Question 1** (5 points)
+(a) What is the **research design** of the Colmer & Doleac study? (Be specific – they use two related designs.) What is the **key independent variable** and what is the **dependent variable**?
+
+(b) Name **one potential confounding variable** that could bias the relationship under study if left uncontrolled. Explain why it would bias the estimate.
+
+\vspace{4cm}
+
+---
+
+**Question 2** (10 points)
+Look at **Table 3 (Colmer & Doleac)**, column 4 (DiDiT specification).
+- What is the coefficient on "Temperature × More-Prohibitive"? Interpret its magnitude in plain language (include the baseline mean).
+- Is the effect statistically significant? How can you tell?
+- What does this tell us about whether gun laws change the relationship under study?
+
+\vspace{5cm}
+
+---
+
+**Question 3** (10 points)
+Look at **Figure 3 (Colmer & Doleac)** – the event study.
+- What does the x-axis represent? What does the y-axis represent?
+- Before the policy change (periods –6 to –1), are the coefficients close to zero? Why is that important for causal identification?
+- After the policy change (periods 0 to +9), what pattern do you see? How does this support the authors' conclusion?
+
+\vspace{5cm}
+
+---
+
+**Question 4** (10 points)
+**Table 4 (Colmer & Doleac)** examines whether the effect is driven by homicides involving firearms versus non-firearm homicides.
+- Compare the coefficients for firearm homicides (column 5) and non-firearm homicides (column 6) in the DiDiT specification. What do you observe?
+- Why is this pattern important for the argument that *gun laws* (rather than some other factor) are driving the results?
+- The authors claim that "more-prohibitive policy regimes reduce the lethality of altercations." Is this a causal or descriptive claim? What descriptive evidence would you need to support it?
+
+\vspace{5cm}
+
+---
+
+## Study 2: How Attitudes about Guns Develop over Time (45 points)
+
+**Question 5** (5 points)
+Shapira et al. use **life history interviews** as their primary method.
+
+(a) What is a life history interview? How does it differ from a standard survey question or a focus group?
+
+(b) The authors combine this qualitative method with quantitative survey data. What is the advantage of using both? What can the interviews reveal that the survey data cannot?
+
+\vspace{5cm}
+
+---
+
+**Question 6** (10 points)
+Read the **passages printed above** (Passage 1 and Passage 2).
+
+- What is the authors' main argument about *how* gun attitudes develop over the life course? In your own words, summarize the process they describe.
+- The authors distinguish between attitudes expressed as **emotional and embodied feelings** in childhood and attitudes expressed as **political positions** in young adulthood. What does this distinction mean? Give an example from the passages.
+- How does this finding complicate the way standard surveys measure "attitudes about guns"?
+
+\vspace{6cm}
+
+---
+
+**Question 7** (10 points)
+Read the case of **Brian** (printed above).
+
+- Briefly describe Brian's background and how his attitude toward guns changed over time.
+- What specific experiences or relationships drove the change? (Be concrete — name at least two factors from the text.)
+- What does Brian's case illustrate about the role of **social networks** in attitude formation that a survey question about "family gun ownership" would miss?
+
+\vspace{6cm}
+
+---
+
+**Question 8** (10 points)
+The authors argue that life history interviews reveal **mechanisms** that explain the patterns in their quantitative data.
+
+- Give one specific example where a quantitative finding (from the survey data) and a qualitative finding (from the interviews) point in the same direction and reinforce each other.
+- Give one example where the interviews reveal something the quantitative data *cannot* show on their own. Explain why the survey data is insufficient for that particular insight.
+- What does this suggest about the value of **mixed-methods** research designs?
+
+\vspace{6cm}
+
+---
+
+**Question 9** (10 points)
+The authors find that **relationships** — with family, friends, and romantic partners — are central to how gun attitudes form and change across the life course.
+
+- How does this finding challenge a simple model in which attitudes are determined by family background and stay fixed?
+- What does this suggest about the **temporality** of political attitude formation more broadly — not just about guns, but about political attitudes generally?
+- Does this finding have implications for how we should design surveys that measure political attitudes? Explain.
+
+\vspace{5cm}
+
+---
+
+## Ethics and Integration (20 points)
+
+**Question 10** (10 points)
+What can the Colmer and Doleac study accomplish in terms of major social-science goals that the Shapira et al. study cannot? Which goals can the Shapira et al. study help meet more thoroughly than the Colmer and Doleac study? Give examples and explain your reasoning.
+
+\vspace{6cm}
+
+---
+
+**Question 11** (10 points)
+This question draws on our **ethics session** (IRB, informed consent, vulnerable populations, harm, deception, transparency).
+
+- **(a)** The **Shapira et al.** study interviewed college students about their childhood experiences with guns, family relationships, and personal trauma (e.g., domestic violence, gun violence). What **ethical issues** might arise in this research? Consider informed consent, risk of harm, vulnerable populations, and confidentiality. How might the researchers have addressed these?
+- **(b)** The **Colmer & Doleac** study uses administrative data (NIBRS crime reports, weather data, publicly available policy data) with no direct interaction with human subjects. Does this study require IRB approval? Why or why not? What **ethical obligations** do researchers have when using secondary data that could affect policy debates about gun control and public safety?
+- **(c)** Both studies touch on **politically sensitive** topics (guns, violence, regulation). How might **transparency** (e.g., preregistration, data and code sharing) help address concerns about researcher bias or selective reporting?
+
+\vspace{8cm}
+
+---
+
+**End of exam.**
+*Total points: 100.*
+
+\vspace{0.5cm}
+**Submission:** Write your answers on this exam paper. Hand it in before leaving.

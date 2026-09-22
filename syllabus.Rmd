@@ -1,7 +1,8 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document:
+    latex_engine: xelatex
 ---
 ####################
 ## Course         ##
@@ -11,7 +12,7 @@ Introduction to Empirical Methods in Political Science
 
 PS 210
 
-Fall 2025
+Fall 2026
 
 Department of Political Science \
 Weinberg College of Arts and Sciences
@@ -26,7 +27,7 @@ j-seawright@northwestern.edu
 
 312 Scott Hall 
 
-Office Hours Tuesdays 3-5pm
+Office Hours Mondays 3-5pm
 
 #########################
 ## Key Dates and Times ##
@@ -34,24 +35,22 @@ Office Hours Tuesdays 3-5pm
 
 Class meets:
 
-  Tuesday and Thursday, 9:30 to 10:50
+  Tuesday and Thursday, 3:30 to 4:50
 
   Harris Hall L07
 
 
--   Tuesday, September 23rd: Prerecorded class session.
+-   Thursday, September 24th: First day of class.
 
--   Thursday, October 2nd: Asynchronous activity in lieu of class meeting.
+-   October 8th: First homework due.
 
--   October 9th: First homework due.
+-   November 3rd: Midterm.
 
--   October 16th: Midterm.
+-   November 10th: Second homework due.
 
--   November 7th: Second homework due.
+-   November 25th: Third homework due.
 
--   November 21st: Third homework due.
-
--   Monday, December 8th, 2:00 PM: Take-home final exam due.
+-   Friday, December 11th, 12:00-2:00 PM: In-class final exam.
 
 # Basic Course Information
 
@@ -100,13 +99,11 @@ Participation (10%) – Your participation grade has three components:
 
 * Weekly "Muddiest Point" Posts (3%): Each Wednesday by 9:00 PM, post one sentence on Canvas identifying something from the week's materials you found confusing. Full credit for any good-faith submission.
 
-* Engagement (3%): Active, constructive participation in class discussions, group work, and the October 2nd asynchronous activity.
+* Engagement (3%): Active, constructive participation in class discussions and group work.
 
 Late work will be accepted but with a grade penalty equivalent to 5% per day. Late exams will not be accepted without prior communication with the instructors or an overriding exemption due to university policy.
 
-While some of the tools discussed in this course are based in
-sophisticated mathematical reasoning, our discussion of them will be
-posed at a primarily conceptual level. While this course focuses on conceptual understanding, some topics (e.g., confidence intervals, regression) rely on basic mathematical reasoning. Students should be comfortable with high‑school algebra (e.g., working with equations, interpreting graphs). No prior statistics or calculus is required.
+**Mathematical background.** This course introduces statistical concepts at a conceptual level. Students should be comfortable with high-school algebra (e.g., interpreting graphs, understanding equations like \(y = a + bx\)). No prior statistics or calculus is required.
 
 The textbook for this course, available for free online, is *Empirical
 Methods in Political Science: An introduction*, edited by Jean
@@ -117,106 +114,86 @@ electronically.
 
 # Research Study Participation Requirement
 
-Students enrolled in this course are required to complete a research participation assignment. This will involve taking part in studies conducted by students and faculty from the Department of Political Science, and will include up to 4 hours of research study participation. This will primarily require completing on-line surveys, and in some cases in-person studies at Scott Hall. Students will be able to see how political science studies are conducted and can request information about the studies at the end of the quarter. Students who prefer not to participate in research may opt for an alternative that entails reading a book chapter about political science research and writing a five page reaction paper. The typical chapter is about 20 pages and thus reading it and writing a five-page paper should take approximately four hours. In order to opt for the 5-page paper alternative, please email the lab manager, Jacob Fortier at jacobfortier2027@u.northwestern.edu.
+Students enrolled in this course are required to complete a research participation assignment. This will involve taking part in studies conducted by students and faculty from the Department of Political Science, and will include up to 4 hours of research study participation. This will primarily require completing on-line surveys, and in some cases in-person studies at Scott Hall. Students will be able to see how political science studies are conducted and can request information about the studies at the end of the quarter. Students who prefer not to participate in research may opt for an alternative that entails reading a book chapter about political science research and writing a five page reaction paper. The typical chapter is about 20 pages and thus reading it and writing a five-page paper should take approximately four hours. To select the paper option, email the instructor by October 1st; no justification is required.
 
 # Northwestern University Syllabus Standards
 
 This course follows the [Northwestern University Syllabus Standards](https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html). Students are responsible for familiarizing themselves with this information.
 
-### Course Schedule and Readings (Fall 2026)
+# Course Schedule and Readings (Fall 2026)
 
-**Sept. 24 (Thu)**
-**Topic:** Asking social science questions.
-**Reading:** Clipperton, ed., Chapter 1.
+**Week 1**  
+**Thu, Sept 24** – Asking social science questions.  
+*Reading:* Clipperton, ed., Chapter 1.
 
-**Sept. 29 (Tue)**
-**Topic:** Data.
-**Reading:** Clipperton, ed., Chapter 4.
+**Week 2**  
+**Tue, Sept 29** – Data.  
+*Reading:* Clipperton, ed., Chapter 4.  
+**Thu, Oct 1** – Causation.  
+*Reading:* Clipperton, ed., Chapter 2.
 
-**Oct. 1 (Thu)**
-**Topic:** Causation.
-**Reading:** Clipperton, ed., Chapter 2.
-*Note: This is the last day to add/drop courses without special permission.*
+**Week 3**
+**Tue, Oct 6** – Statistical Computing Lab I: Introduction to R for descriptive statistics and visualization. *(Hands‑on lab; bring laptop with R & RStudio installed.)*  
+**Thu, Oct 8** – Causal inference in action.  
+*Reading:* Morral, Andrew R., and Rosanna Smart. "Concealed Carry Laws and Violence in America." *Annual Review of Criminology* 9 (2026). [https://doi.org/10.1146/annurev-criminol-032924-013352](https://doi.org/10.1146/annurev-criminol-032924-013352)  
+**Due:** **First homework.**
 
-**Oct. 6 (Tue)**
-**Topic:** Causal inference in action.
-**Reading:** Morral, Andrew R., and Rosanna Smart. "Concealed Carry Laws and Violence in America." *Annual Review of Criminology* 9 (2026). [https://doi.org/10.1146/annurev-criminol-032924-013352](https://doi.org/10.1146/annurev-criminol-032924-013352)
+**Week 4**  
+**Tue, Oct 13** – Experiments.  
+*Reading:* Clipperton, ed., Chapter 7.  
+**Thu, Oct 15** – Applied experiments.  
+*Readings:*
 
-**Oct. 8 (Thu)**
-**Topic:** Experiments.
-**Reading:** Clipperton, ed., Chapter 7.
-**Due:** **First homework due.**
+- Gramacho, Wladimir G., and Mathieu Turgeon. "When politics collides with public health: COVID-19 vaccine country of origin and vaccination acceptance in Brazil." *Vaccine* 39 (2021): 2608–12.
+- Bos, L., Schemer, C., Corbu, N., et al. "The effects of populism as a social identity frame on persuasion and mobilisation: Evidence from a 15‑country experiment." *European Journal of Political Research* 59 (2020): 3–24.
 
-**Oct. 13 (Tue)**
-**Topic:** Applied experiments.
-**Readings:**
-- Gramacho, Wladimir G., and Mathieu Turgeon. "When politics collides with public health: COVID-19 vaccine country of origin and vaccination acceptance in Brazil." *Vaccine* 39 (2021): 2608-12.
-- Bos, L., Schemer, C., Corbu, N., et al. "The effects of populism as a social identity frame on persuasion and mobilisation: Evidence from a 15-country experiment." *European Journal of Political Research* 59 (2020): 3-24.
-**Activity:** Asynchronous activity (in lieu of class meeting). See Canvas for details.
+**Week 5**  
+**Tue, Oct 20** – Sampling and survey research.  
+*Reading:* Clipperton, ed., Chapter 6.
+**Thu, Oct 22** – **Foundations of Statistical Inference and Bivariate Regression** (confidence intervals, significance tests, correlation, bivariate regression).  
+*Reading:* Clipperton, ed., Chapters 5 & 8.  
 
-**Oct. 15 (Thu)**
-**Topic:** Sampling and survey research.
-**Reading:** Clipperton, ed., Chapter 6.
-**Due:** **Second homework due.**
+**Week 6**  
+**Tue, Oct 27** – Multivariate regression (conceptual).  
+*Reading:* Clipperton, ed., Chapter 8 (continued).
+**Thu, Oct 29** – Midterm review.  
 
-**Oct. 20 (Tue)**
-**Topic:** Confidence intervals and significance tests.
-**Reading:** Clipperton, ed., Chapter 5.
+**Week 7**  
+**Tue, Nov 3** – **Midterm exam** (in class).  
+*Covers all material from Sept 24 through Oct 27.*
+**Thu, Nov 5** – Statistical Computing Lab II: Introduction to R for basic regression. *(Hands‑on lab.)*  
 
-**Oct. 22 (Thu)**
-**Topic:** Correlation and bivariate regression.
-**Reading:** Clipperton, ed., Chapter 8.
+**Week 8**  
+**Tue, Nov 10** – Machine Learning Concepts (Lecture & Demo).  
+*Reading:* Clipperton, ed., Chapter 12.  
+**Due:** **Second homework.**
+**Thu, Nov 12** – The qualitative comparative method.  
+*Reading:* Clipperton, ed., Chapter 9.
 
-**Oct. 27 (Tue)**
-**Topic:** Multivariate regression (conceptual).
-**Reading:** Clipperton, ed., Chapter 8 (continued).
-*Note: The week of October 26-30 is when midterms are often held.*
+**Week 9**  
+**Tue, Nov 17** – Applied Qualitative Methods.
+*Readings:*
 
-**Oct. 29 (Thu)**
-**Topic:** **Midterm Exam (In-person)**
-*Note: Covers all material from Sept. 24 through Oct. 27.*
+- Gibson, Edward L. "Boundary Control: Subnational Authoritarianism in Democratic Countries." *World Politics* 58, no. 1 (2005): 101–132. https://doi.org/10.1353/wp.2006.0018.
+- Thurston, Chloe N. "Policy Feedback in the Public–Private Welfare State: Advocacy Groups and Access to Government Homeownership Programs, 1934–1954." *Studies in American Political Development* 29, no. 2 (2015): 250–267.
+- Gerzso, Thalia. "Judicial Resistance During Electoral Disputes: Evidence from Kenya." *Electoral Studies* 85 (2023). https://doi.org/10.1016/j.electstud.2023.102653.
 
-**Nov. 3 (Tue)**
-**Topic:** Statistical Computing Lab I: Introduction to R for descriptive statistics and visualization. *(Hands-on lab)*
-*Note: Students should bring a laptop with R and RStudio installed.*
+**Thu, Nov 19** – Applied text methods, LLMs, and AI in social science.
+*Reading:* Rossiter, Erin L. “Measuring Agenda Setting in Interactive Political Communication.” *American Journal of Political Science* 66 (April 2022): 337–51.
 
-**Nov. 5 (Thu)**
-**Topic:** Statistical Computing Lab II: Introduction to R for basic regression. *(Hands-on lab)*
-**Due:** **Third homework due.**
 
-**Nov. 10 (Tue)**
-**Topic:** Machine Learning Concepts (Lecture & Demo).
-**Reading:** Clipperton, ed., Chapter 12.
+**Week 10**  
+**Tue, Nov 24** – **Ethics and Normative Concerns in Political Science.**  
+*Readings:*
 
-**Nov. 12 (Thu)**
-**Topic:** Quantitative political science research examples.
-**Readings:**
-- Bansak, Kirk, Jens Hainmueller, and Dominik Hangartner. "How economic, humanitarian, and religious concerns shape European attitudes toward asylum seekers." *Science* (2016). [Link](http://science.sciencemag.org/content/early/2016/09/22/science.aag2147)
-- *Recommended:* Enos, Ryan D. "What the Demolition of Public Housing Teaches Us about the Impact of Racial Threat on Political Behavior." *American Journal of Political Science* 60 (Jan. 2016): 123–142.
+- American Political Science Association. (2020). *A Guide to Professional Ethics in Political Science* (3rd ed.). Chapters 1‑2.
+- *Recommended:* Lupia, Arthur, and Colin Elman. "Openness in Political Science: Data Access and Research Transparency." *PS: Political Science & Politics* 47 (Jan. 2014): 19–42.
+- Soss, Joe, et al. "The Illusion of Technique: How Method‑Driven Research Leads Welfare Scholarship Astray." *Social Science Quarterly* 87 (Dec. 2006): 798–807 (assigned – reflection prompt on final exam).
 
-**Nov. 17 (Tue)**
-**Topic:** The qualitative comparative method.
-**Reading:** Clipperton, ed., Chapter 9.
-
-**Nov. 19 (Thu)**
-**Topic:** Qualitative political science research examples.
-**Readings:**
-- Gibson, Edward L. "Boundary Control: Subnational Authoritarianism in Democratic Countries." *World Politics* 58 (Oct. 2005): 101–132.
-- Thurston, Chloe N. "Policy Feedback in the Public--Private Welfare State: Advocacy Groups and Access to Government Homeownership Programs, 1934–1954." *Studies in American Political Development* 29 (Oct. 2015): 250–267.
-
-**Nov. 24 (Tue)**
-**Topic:** Qualitative computing tools in political science.
-*Note: No class Thursday, Nov. 26 (Thanksgiving Break).*
-
-**Dec. 1 (Tue)**
-**Topic:** Ethics and Normative Concerns in Political Science.
-**Reading:** American Political Science Association. (2020). *A Guide to Professional Ethics in Political Science* (3rd ed.). Chapters 1-2. [Available online via APSA website]
-*Recommended:* Lupia, Arthur, and Colin Elman. "Openness in Political Science: Data Access and Research Transparency." *PS: Political Science & Politics* 47 (Jan. 2014): 19–42.
-
-**Dec. 3 (Thu)**
-**Topic:** Summary, review, and looking forward.
-**Reading:** Soss, Joe, Meghan Condon, Matthew Holleque, and Amber Wichowsky. "The Illusion of Technique: How Method‐Driven Research Leads Welfare Scholarship Astray." *Social Science Quarterly* 87 (Dec. 2006): 798–807.
-
+**Due:** **Third homework.**
 ---
-**Final Exam:** **Monday, December 7, 2026, 2:00 PM** (Take-home exam due).
 
+**No class** – Thu, Nov 26 (Thanksgiving break).  
+**WCAS Reading Period** – Nov 27 – Dec 4 (no classes).  
+
+**Final exam:** Friday, December 11, 2026, 12:00‑2:00 PM (in class, open notes, closed devices

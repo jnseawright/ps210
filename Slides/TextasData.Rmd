@@ -3,7 +3,7 @@ title: "15: Text as Data"
 subtitle: "Empirical Methods"
 author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
-date: "Nov. 4, 2025"
+date: "Nov. 17, 2026"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -59,6 +59,17 @@ style_mono_accent(
 
 ```
 
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Describe the four main approaches to text as data — dictionary methods, topic models, word embeddings, and LLMs — and identify the strengths and weaknesses of each
+2. Explain how statistical topic models work and interpret a topic-over-time visualization
+3. Interpret multinomial regression output linking speaker gender to topic choice
+4. Explain how LLMs can be used for deductive content analysis, and evaluate reliability using inter-rater agreement benchmarks
+5. Describe what supervised text classification is and interpret precision, recall, and F1 score as validation metrics
+
+---
 ### A lot of the things we care about in politics naturally come in the form of text, not numbers.
 
 - Party platforms
@@ -156,7 +167,7 @@ Data: 1000 podcast episodes by Alex Jones???s InfoWars network, the Proud Boys, 
 
 ---
 
-![image](images/topics.PNG)
+![Line chart titled 'Topics over Time' showing frequency of 15 LDA topics from InfoWars, Proud Boys, and Ben Shapiro podcast transcripts from approximately 2007 to 2024. The vaccine/COVID topic (light blue) spikes dramatically to approximately 1,300 frequency around 2021–2022 before declining. Topics include gun rights, immigration (border_mexico_illegal_immigration), partisan identity, religion, and antisemitism/geopolitics. Most topics remain relatively stable at lower frequencies throughout the period.](images/topics.PNG)
 
 ---
 ###Selecting a high-probability transcript from Topic 1.
@@ -192,29 +203,29 @@ um we're also planning on um coming up going to a board of trustees member from 
 
 ---
 
-![image](images/womenmultinom.PNG)
+![Console output of a multinomial logistic regression: multinom(formula = keytopics ~ Gender + Age + date, data = gender_speeches_topics). Coefficients table shows rows for topics 1, 2, 3, 4, 5, 6, 8, 11, 12, 13, 15, and 17, with columns for Intercept, Gender, Age, and date. Coefficients are in scientific notation; the Gender coefficient varies in sign across topics, capturing how the probability of discussing each topic differs by the performed gender of the speaker.](images/womenmultinom.PNG)
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Marginal effects plot from multinomial regression. X-axis: Performed Gender (roughly -3 to 6); Y-axis: Probability of COVID and Vaccines vs. Guns Topics (0 to 1.00). An upward-sloping sigmoid curve with gray confidence band shows that speakers with higher performed gender scores are substantially more likely to discuss COVID and vaccines than guns topics compared to speakers with lower performed gender scores."}
 include_graphics("images/covidguns.png")
 ```
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Marginal effects plot from multinomial regression. X-axis: Performed Gender (-3 to 6); Y-axis: Probability of Parenting and Gender vs. Guns Topics (0 to 1.00). An upward-sloping curve with gray confidence band shows that speakers with higher performed gender scores are significantly more likely to discuss parenting and gender topics than guns topics, with the probability rising from about 0.35 to 0.75 across the range."}
 include_graphics("images/parentingvguns.png")
 ```
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Marginal effects plot from multinomial regression. X-axis: Performed Gender (-3 to 6); Y-axis: Female Political Candidates vs. Guns Topics (0 to 1.00). The nearly flat line at approximately 0.35, with a widening confidence band at high performed gender values, indicates no significant relationship between performed gender and the probability of discussing female political candidates versus guns topics."}
 include_graphics("images/femcand.png")
 ```
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Scatterplot with two overlaid trend lines. X-axis: Performed Gender (-3 to 4+); Y-axis: Average Sentiment Score (-4 to 4). The dense cloud of points clusters near zero sentiment for low performed gender values, becoming sparse at higher values. A red linear regression line and a blue LOESS curve are nearly flat, indicating little to no relationship between performed gender and sentiment score across speakers."}
 include_graphics("images/gendersentiment.png")
 ```
 
@@ -260,25 +271,25 @@ include_graphics("images/gendersentiment.png")
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Title page of 'LLM-Assisted Content Analysis: Using Large Language Models to Support Deductive Coding' by Robert Chew, John Bollenbacher, Michael Wenger, Jessica Speer, and Annice Kim (RTI International). The abstract describes the LLM-assisted content analysis (LACA) approach, which uses LLMs like ChatGPT to reduce the burden of deductive coding while retaining the flexibility of traditional content analysis. The paper benchmarks GPT-3.5 across four datasets and finds human-comparable agreement on many coding tasks."}
 include_graphics("images/llmcontentanalysis1.png")
 ```
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Figure 1: LLM-Assisted Content Analysis (LACA) Process Diagram. An 8-step flowchart: (1) Develop categories/codes of interest; (2) Co-develop codebook with LLM; (3) Draw a small random sample of documents; (4) LLM predicts codes on the sample, compared to human codes from 2+ coders; (5) Calculate inter-rater reliability — if low, repeat steps 1–4; (6) Draw a large random sample for final coding; (7) Use LLM to predict codes; (8) Calculate proportions and confidence intervals."}
 include_graphics("images/llmcontentanalysis2.png")
 ```
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Table 7: Summary Benchmark Results Across Data Sets. Rows show datasets (Trump Tweets coded for HSTG, ATSN, CRIT, MEDI, FAMY, PLCE, MAGA, CAPT, INDV, MARG, INTN, PRTY, IMMG; Ukraine Water; BBC News; Contrarian Claims) with columns for Gwet's AC1 human-human agreement, human-model agreement, and tests-of-randomness p-values. Human-model agreement ranges from 0.18 (HSTG) to 0.98 (PLCE, MAGA), showing LLMs achieve near-human reliability on some coding tasks but not others."}
 include_graphics("images/llmcontentanalysis3.png")
 ```
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Table 8: Coding Time per Document. Compares Human Coder versus LLM Coder coding time in seconds per document across four datasets: Trump Tweets (72 vs. 52 seconds), Ukraine Water (108 vs. 16 seconds), BBC News (72 vs. 4 seconds), Contrarian Claims (144 vs. 4 seconds). LLMs are dramatically faster, especially for longer documents."}
 include_graphics("images/llmcontentanalysis4.png")
 ```
 
@@ -341,7 +352,7 @@ These are strong results for text classification—comparable to human coder rel
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Figure 4 from Rossiter (2022): 'Clarifying Candidates Talk More about the Economy.' Two side-by-side bar charts spanning 1992–2016. Panel A (All turns) and Panel B (Topic-shifting turns) show economy topic proportion for Clarifying candidates (dark bars) vs. Insurgent candidates (light bars). In most elections Clarifying candidates show higher economy proportions, with statistically significant differences (* p < 0.05) in several cycles. The 2016 election is a notable exception where Insurgent candidate Trump has a higher economy proportion than Clinton."}
 include_graphics("images/rossiter_figure4.png")
 ```
 

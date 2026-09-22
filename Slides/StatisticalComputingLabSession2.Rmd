@@ -306,18 +306,19 @@ class: inverse, center, middle
 
 | Lab Skill | Homework 2 Task |
 |-----------|-----------------|
-| Merging datasets and creating counts | Problem 1: Combine grants and election data |
-| Visualizing relationship | Problem 1: Scatter plot of funding vs. Trump vote |
-| Bivariate regression | Problem 1: Interpret slope and significance |
+| Merging datasets and creating state-level counts | Data prep: aggregate ICE arrests by state, merge with governor and population data |
+| Visualizing the relationship | Problem 1a: Boxplot of arrests by governor's party |
+| Log transformation of a skewed outcome | Problem 3: Create `log_arrests`, re-run models, interpret |
 
 ---
 ### How Today's Lab Maps to Homework 2
 
 | Lab Skill | Homework 2 Task |
 |-----------|-----------------|
-| Adding a control variable | Problem 2: Add population as control, compare coefficients |
-| Using `modelsummary` | Problem 2: Present and interpret regression tables |
-| Interpreting confounding | Problem 3: Discuss whether population is a confounder |
+| Bivariate regression | Problem 1b–e: `lm(arrests ~ repub)`, interpret slope and significance |
+| Adding a control variable | Problem 2: Add `Population`, compare coefficients across models |
+| Using `modelsummary` | Problems 1–3: Present and interpret regression tables |
+| Interpreting confounding | Problem 2c: Assess whether population meets the definition of a confounder |
 
 ---
 ### Before You Leave

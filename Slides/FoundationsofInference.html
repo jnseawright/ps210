@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>7: Foundations of Statistical Inference and Bivariate Regression</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jaye Seawright" />
+    <meta name="date" content="2026-10-20" />
+    <script src="FoundationsofInference_files/header-attrs-2.30/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# 7: Foundations of Statistical Inference and Bivariate Regression
+]
+.subtitle[
+## Empirical Methods
+]
+.author[
+### <large>Jaye Seawright</large>
+]
+.institute[
+### <small>Northwestern Political Science</small>
+]
+.date[
+### Oct. 20, 2026
+]
+
+---
+
+class: center, middle
+
+&lt;style type="text/css"&gt;
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+pre[class] {
+  max-height: 200px;
+}
+&lt;/style&gt;
+
+
+
+
+
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Explain the logic of a p-value and state what it does and does not tell us
+2. Interpret the output of a two-sample proportion test in R
+3. Explain why significance tests for group differences are insufficient in observational studies
+4. Interpret a correlation coefficient and describe the direction and strength of a linear relationship
+5. Interpret the slope, intercept, and p-value from a bivariate OLS regression
+
+---
+### Today: How do we know if a difference is real?
+
+We often want to compare two groups (e.g., Democrats vs. Republicans) on some outcome (e.g., concern about political violence).
+
+But we only have a sample. How confident can we be that the difference we see reflects a real difference in the population?
+
+---
+
+### A concrete example
+
+&lt;img src="images/demrepviolence.PNG" alt="YouGov chart: 'Democrats and Republicans are more likely to say political violence is a big problem after attacks on members of their own party.' Dot plot showing % saying political violence is 'a very big problem' across six survey dates from 2022–2025, each taken after an attack on a prominent political figure. In the most recent survey (Sept. 10, 2025, after an assassination of Charlie Kirk), Democrats are at 58% and Republicans at 67%. The pattern shows partisans spike sharply when members of their own party are attacked." width="80%" style="display: block; margin: auto;" /&gt;
+
+Looking just at the most recent results: Republicans (67%) seem more concerned than Democrats (58%). But could this just be sampling noise?
+
+---
+
+### The logic of significance tests
+
+- If the true difference in the population were **zero**, how often would we see a difference as large as 9 percentage points just by random chance?
+- If that probability is very small, we say the difference is **statistically significant**.
+
+**Key concept:** The **p-value** is the probability of observing a result at least as extreme as the one we got, *if the null hypothesis (no difference) were true*.
+
+---
+
+### Sampling distribution (under the null)
+
+&lt;img src="FoundationsofInference_files/figure-html/sampling-dist-1.png" alt="Sampling distribution of the difference in proportions under the null hypothesis (no difference). A bell-shaped normal curve centered at zero; red shaded tails beyond ±0.09 (the observed difference) show the p-value. The tails are extremely small, indicating the observed 9-point gap between Republicans and Democrats would be very unlikely by chance alone." style="display: block; margin: auto;" /&gt;
+
+The two‑tailed p‑value is the area in both tails. Here it's very small (&lt;0.001).
+
+---
+
+
+``` r
+prop.test(c(580,670), c(1000,1000))
+```
+
+```
+## 
+## 	2-sample test for equality of proportions with continuity correction
+## 
+## data:  c(580, 670) out of c(1000, 1000)
+## X-squared = 16.898, df = 1, p-value = 3.944e-05
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.13325075 -0.04674925
+## sample estimates:
+## prop 1 prop 2 
+##   0.58   0.67
+```
+
+The p‑value is tiny: we reject the null. The difference is statistically significant.
+
+---
+
+### Another comparison
+
+From June to September, Republican concern about political violence jumped from 44% to 67%. Is that real?
+
+
+``` r
+prop.test(c(440,670), c(1000,1000))
+```
+
+```
+## 
+## 	2-sample test for equality of proportions with continuity correction
+## 
+## data:  c(440, 670) out of c(1000, 1000)
+## X-squared = 106.17, df = 1, p-value &lt; 2.2e-16
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.2733778 -0.1866222
+## sample estimates:
+## prop 1 prop 2 
+##   0.44   0.67
+```
+
+---
+
+Again, the p‑value is minuscule. The change over time is also statistically significant.
+
+---
+
+### But what about confounding?
+
+These tests work well when we compare two groups that are otherwise similar (e.g., random assignment). But in **observational studies**, groups may differ in many ways.
+
+An **observational study** is a research project where we don't assign the independent variable; we just observe what happens naturally.
+
+Confounding variables are a major problem for causal inference in observational studies.
+
+---
+
+### Moving beyond simple group comparisons
+
+Suppose you wanted to study the relationship between political polarization and terrorism. Does this translate cleanly into a comparison between two groups?
+
+---
+
+I think we need methods that can:
+
+- Handle **quantitative** independent variables.
+- Control for multiple confounders simultaneously.
+
+That's where **regression** comes in.
+
+---
+
+### Correlation: Measuring the strength of a linear relationship
+
+**Correlation coefficient (r)**:
+- Ranges from –1 to +1.
+- Positive r = as X increases, Y tends to increase.
+- Negative r = as X increases, Y tends to decrease.
+- r = 0 means no linear relationship.
+- Closer to ±1 = stronger relationship.
+
+---
+
+### Example: Attitudes and Policy Preferences
+
+We'll use the 2024 ANES survey.
+
+- **transbathroom**: Support for laws requiring transgender individuals to use bathrooms matching sex assigned at birth (1 = favor a great deal, 5 = oppose a great deal).
+- **carbonregulations**: Support for government regulation of carbon emissions (1 = favor a great deal, 5 = oppose a great deal).
+
+
+``` r
+anes2024 &lt;- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
+anes2024$transbathroom &lt;- ifelse(anes2024$V241372x &lt; 0, NA, anes2024$V241372x)
+anes2024$carbonregulations &lt;- ifelse(anes2024$V242324x &lt; 0, NA, anes2024$V242324x)
+cor(anes2024$transbathroom, anes2024$carbonregulations, use = "complete.obs")
+```
+
+```
+## [1] 0.454604
+```
+
+---
+
+The correlation is about **0.45** – a moderately strong positive relationship.
+
+---
+
+### Visualizing correlation
+
+&lt;img src="FoundationsofInference_files/figure-html/corplot-1.png" alt="Scatterplot matrix of transbathroom (support for bathroom laws matching sex assigned at birth) and carbonregulations (opposition to carbon regulation) from the 2024 ANES. The scatterplot shows a positive association with jittered points; the correlation is approximately 0.45, indicating that respondents more conservative on transgender bathroom laws also tend to be more opposed to carbon regulations." width="70%" style="display: block; margin: auto;" /&gt;
+
+People who are more conservative on transgender bathroom laws also tend to be more opposed to carbon regulations.
+
+---
+
+### From correlation to regression
+
+**Correlation** tells us the strength and direction of a linear relationship.
+
+**Regression** gives us a line that predicts Y from X, with an **interpretable slope**.
+
+The formula for a line: `\(Y = \alpha + \beta X + \epsilon\)`
+
+- `\(\alpha\)` (intercept): predicted Y when X = 0.
+- `\(\beta\)` (slope): change in Y for a one‑unit change in X.
+- `\(\epsilon\)`: error term (variation not explained by the line).
+
+---
+
+### Fitting a regression line
+
+We use **ordinary least squares (OLS)** – the line that minimizes the sum of squared vertical distances from the points to the line.
+
+
+``` r
+transcarbonlm &lt;- lm(carbonregulations ~ transbathroom, data = anes2024)
+summary(transcarbonlm)
+```
+
+```
+## 
+## Call:
+## lm(formula = carbonregulations ~ transbathroom, data = anes2024)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.6524 -1.5278 -0.4033  0.7225  5.5967 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    1.02846    0.05579   18.43   &lt;2e-16 ***
+## transbathroom  0.37484    0.01074   34.89   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.665 on 4674 degrees of freedom
+##   (845 observations deleted due to missingness)
+## Multiple R-squared:  0.2067,	Adjusted R-squared:  0.2065 
+## F-statistic:  1218 on 1 and 4674 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+
+### Interpreting the output
+
+- **Intercept (`\(\alpha\)`)** ≈ 1.02: predicted carbon regulation opposition when transbathroom = 0 (a value below the scale, but mathematically necessary).
+- **Slope (`\(\beta\)`)** ≈ 0.37: for each one‑unit increase in transbathroom (more conservative), predicted opposition to carbon regulation increases by 0.37 units.
+- **p‑value** for transbathroom is &lt;0.001: the relationship is statistically significant.
+
+---
+
+### Visualizing the regression line
+
+&lt;img src="FoundationsofInference_files/figure-html/lm-plot-1.png" alt="Scatterplot of transbathroom (x-axis) vs. carbonregulations (y-axis) with a red OLS regression line and 95% confidence band. Points are jittered and colored teal. The upward slope (≈0.37) confirms that more conservative views on transgender bathroom laws predict greater opposition to carbon regulation; the narrow confidence band reflects the statistically significant relationship." width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+
+The red line is the best‑fit line; the shaded band is the 95% confidence interval for the line.
+
+---
+
+### Summary
+
+- We can test whether a difference between two groups is statistically significant (p‑values).
+- But those tests assume no confounding – not realistic in observational studies.
+- **Correlation** measures the strength and direction of a linear relationship.
+- **Bivariate regression** gives us a slope that quantifies the relationship and a p‑value for significance.
+
+**Next time:** Multivariate regression – adding control variables to get closer to causal estimates.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

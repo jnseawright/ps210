@@ -3,7 +3,7 @@ title: "1: Asking Social Science Questions"
 subtitle: "Empirical Methods"
 author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
-date: "Sept. 16, 2025"
+date: "Sept. 24, 2026"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -58,107 +58,107 @@ style_mono_accent(
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Citation: Sears et al. (1997), 'Is It Really Racism? The Origins of White Americans' Opposition to Race-Targeted Policies,' Public Opinion Quarterly 61(1), pp. 16-53."}
 include_graphics("images/Sears1.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Sears et al. excerpt: old-fashioned racism (Jim Crow era) focused on biological superiority and legalized segregation; variously called 'redneck racism,' 'blatant racism,' or 'classical racism.'"}
 include_graphics("images/Sears2.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Sears et al. excerpt: stereotypes of Black people as lazy, unintelligent, and morally depraved have long been common in American society and used as predictors of policy and candidate preferences."}
 include_graphics("images/Sears3.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Sears et al. excerpt: negative affect toward African Americans as a group has been measured using the NES 'feeling thermometer' and treated as the simplest index of racial prejudice."}
 include_graphics("images/Sears4.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Sears et al. excerpt: despite declining old-fashioned racism, a 'new racism' has emerged; scholars describe it variously as symbolic racism, modern racism, subtle racism, racial resentments, ambivalent racism, aversive racism, and laissez-faire racism."}
 include_graphics("images/Sears5.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Sears et al. excerpt: group position theory, realistic group conflict theory, and social dominance theory share the assumption that attachment to a hegemonic in-group drives opposition to groups aspiring to equality."}
 include_graphics("images/Sears6.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Sears et al. Table 1: regression results predicting whites' opposition to equal opportunity for Blacks using 1986 and 1992 NES data. Symbolic racism is the strongest predictor (Beta=0.40 in 1986, 0.35 in 1992), with social welfare ideology also significant."}
 include_graphics("images/Sears7.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Rucker and Richeson (2021), 'Toward an Understanding of Structural Racism: Implications for Criminal Justice,' Science 374(6565), pp. 286-290."}
 include_graphics("images/Rucker1.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Rucker and Richeson Figure 1A: declining self-reports of racial prejudice among white Americans from 1972 to 2008 across four survey items (home seller discrimination, laws against intermarriage, right to segregate neighborhood, school segregation)."}
 include_graphics("images/Rucker2.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Rucker and Richeson Figure 1B: rising prison admission and imprisonment rates for Black Americans (orange) vs. white Americans (blue) from the 1920s to 2010, showing a dramatic increase beginning around 1980."}
 include_graphics("images/Rucker3.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Quillian et al. (2017), 'Meta-analysis of Field Experiments Shows No Change in Racial Discrimination in Hiring over Time,' PNAS — title page."}
 include_graphics("images/quilliantitle.JPG")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Quillian et al. Figure 1: scatter plot of callback ratio (white/Black applicants) across resume audit studies by fieldwork year, 1972-2016. The trend line is essentially flat, showing no reduction in hiring discrimination over time."}
 include_graphics("images/resumetime.JPG")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Bertrand and Mullainathan (2004), 'Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination,' American Economic Review 94(4), pp. 991-1013."}
 include_graphics("images/Bertrand1.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Bertrand and Mullainathan: African-American-sounding names increase the likelihood of a callback by 0.54 percentage points less than white-sounding names; applicants in whiter, more educated zip codes are helped relatively more by having a white-sounding name."}
 include_graphics("images/Bertrand2.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Bertrand and Mullainathan Table 8: callback rates and mothers' education by first name, separately for white-male, white-female, Black-male, and Black-female names. Average callback rate is 9.65% for white names vs. 6.45% for Black names."}
 include_graphics("images/Bertrand3.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="50%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="50%", fig.retina = 1, fig.align='center', fig.alt="Kline et al. (2022), 'Systemic Discrimination Among Large U.S. Employers,' Quarterly Journal of Economics: a correspondence experiment finds mean contact gaps of 1.3 percentage points favoring white over Black applicants, with firms in the top quintile of discrimination accounting for nearly half the gap."}
 include_graphics("images/Kline.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Brown (2013), 'Race, Legality, and the Social Policy Consequences of Anti-Immigration Mobilization,' American Sociological Review 78(2), pp. 290-314 — title page."}
 include_graphics("images/Brown1.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Brown Figure 1: diagram of categories of worth in the legality and racial frames. Legality frame: legal immigrants are worthy, illegal immigrants unworthy. Racial frame: white American citizens are worthy, Hispanics unworthy; illegal Hispanic immigrants sit at the intersection."}
 include_graphics("images/Brown2.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Brown Table 1: comparison of welfare reform policies and demographic characteristics of Arizona and California in 1996. Arizona adopted stricter work requirements, shorter time limits, full-family sanctions, and denial of noncitizen benefits; California did not."}
 include_graphics("images/Brown3.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Brown excerpt: politician Pete Wilson using the legality frame — arguing that illegal immigration harms legal immigrants and hardworking citizens, framing the issue around lawfulness rather than race."}
 include_graphics("images/Brown4.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Brown excerpt: politician Tom McClintock using the racial frame — invoking 'Mexicans,' southern border hemorrhage, and protecting 'our land, our resources, and our hard-earned tax dollars,' framing immigration as a racial and economic threat."}
 include_graphics("images/Brown5.png")
 ```
 
@@ -213,9 +213,9 @@ There is a complex and probably multifaceted reality behind these studies, but t
 ---
 ### Course Mechanics
 
--   30% of the term grade comes from a take-home midterm.
+-   30% of the term grade comes from a midterm (in class, open notes).
 
--   30% of the term grade comes from a final exam.
+-   30% of the term grade comes from a final exam (in class, open notes).
 
 -   10% of the term grade comes from participation.
 
@@ -223,16 +223,16 @@ There is a complex and probably multifaceted reality behind these studies, but t
 
 
 ---
-### Key Dates
+###Key Dates (Fall 2026)
 
--   October 9th: First homework due.
+- October 8th: First homework due.
 
--   October 16th: Midterm.
+- October 29th: Midterm (in class).
 
--   November 7th: Second homework due.
+- November 7th: Second homework due.
 
--   November 21st: Third homework due.
+- November 25th: Third homework due.
 
--   Monday, December 8th: 2 PM: Take-home final exam due.
+- December 11th, 12:00‑2:00 PM: Final exam (in class).
 
 

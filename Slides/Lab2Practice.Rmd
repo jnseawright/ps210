@@ -148,7 +148,7 @@ Answer in a few sentences:
 
 1. What was the most challenging part of this exercise?
 2. What did you learn about the relationship between Trump support and grant funding?
-3. How might these skills apply to Homework 2? (Homework 2 will ask you to do exactly this type of analysis, interpret the results, and discuss causal inference.)
+3. How might these skills apply to Homework 2? (Homework 2 uses the same regression workflow — bivariate model, adding a control, log-transforming a skewed outcome — applied to ICE arrests and governor's party.)
 
 ```{r, eval=FALSE}
 # Write your reflections here

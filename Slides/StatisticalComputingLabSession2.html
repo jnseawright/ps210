@@ -4,7 +4,6 @@
     <title>Lab 2: Introduction to Regression in R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Jaye Seawright" />
-    <meta name="date" content="2025-10-30" />
     <script src="libs/header-attrs-2.30/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -25,7 +24,7 @@ class: center, middle, inverse, title-slide
 ### <small>Northwestern Political Science</small>
 ]
 .date[
-### Oct. 30, 2025
+### Oct. 2026
 ]
 
 ---
@@ -37,7 +36,6 @@ pre {
   max-height: 400px;
   overflow-y: auto;
 }
-
 pre[class] {
   max-height: 200px;
 }
@@ -51,207 +49,138 @@ pre[class] {
 
 ## Today's Goals
 
-- Load and combine the QOG and right‑wing violence (RTV) datasets
-- Create a country‑year dataset with democracy scores and violence counts
-- Fit and interpret a **bivariate regression** (violence → democracy)
-
----
-
-## Today's Goals
-
+- Load and explore the ANES 2024 survey data
+- Fit and interpret a **bivariate regression** (one predictor)
 - Add a control variable and fit a **multivariate regression**
-- Visualize the results and discuss limitations
-- Connect these skills to Homework 2
+- Compare coefficients across models to assess confounding
+- Connect these skills directly to Homework 2
 
 ---
 class: inverse, center, middle
 
-# Part 1: Quick Recap – Merging Datasets
+# Part 1: Loading and Exploring the ANES Data
+
+---
+### What Is the ANES?
+
+The **American National Election Studies** (ANES) is one of the most important political surveys in the United States. It has been conducted around every presidential election since 1948.
+
+The 2024 ANES interviewed U.S. adults before and after the election, asking about:
+- Political attitudes and values
+- Candidate evaluations
+- Issue positions
+- Emotions about politics
+- Vote choice
 
 ---
 ### Load the Data
 
 
 ``` r
-# QOG dataset (country‑year level)
-qog_small &lt;- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/qogsmall.csv")
-
-# Right-wing violence incidents (event-level)
-rtv &lt;- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/rtv.csv")
+anes2024 &lt;- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
 ```
 
 ---
-### Examine the Data
+### Examine the Raw Data
 
 
 ``` r
-head(qog_small)
+dim(anes2024)
 ```
 
 ```
-##   X       cname year democracy corruption genderequity percapitagdp refugees
-## 1 1 Afghanistan 1946     0.059         NA        0.142           NA       NA
-## 2 2 Afghanistan 1947     0.060         NA        0.142           NA       NA
-## 3 3 Afghanistan 1948     0.060         NA        0.142           NA       NA
-## 4 4 Afghanistan 1949     0.060         NA        0.142           NA       NA
-## 5 5 Afghanistan 1950     0.061         NA        0.143           NA       NA
-## 6 6 Afghanistan 1951     0.061         NA        0.143           NA       NA
-##   centralbankindependence imports ecologicalfootprint globalization
-## 1                      NA      NA                  NA            NA
-## 2                      NA      NA                  NA            NA
-## 3                      NA      NA                  NA            NA
-## 4                      NA      NA                  NA            NA
-## 5                      NA    8958                  NA            NA
-## 6                      NA    9093                  NA            NA
+## [1] 5521 1722
 ```
-
----
-### Examine the Data
 
 
 ``` r
-head(rtv)
+names(anes2024)[1:20]
 ```
 
 ```
-##     case_id year month day country_id iso3 country_name          region
-## 1  1990-0-0 1990     0   0         17  SWE       Sweden Västra Götaland
-## 2  1990-3-4 1990     3   4         14  NOR       Norway            Oslo
-## 3 1990-4-21 1990     4  21         14  NOR       Norway           Agder
-## 4  1990-5-0 1990     5   0         17  SWE       Sweden    Södermanland
-## 5 1990-5-26 1990     5  26         17  SWE       Sweden    Östergötland
-## 6 1990-5-30 1990     5  30         17  SWE       Sweden Västra Götaland
-##         city location location_latitude location_longitude location_accuracy
-## 1 Gothenburg                                                                
-## 2       Oslo                                                                
-## 3      Fevik                                                                
-## 4    Mellösa                                                                
-## 5     Motala                                                                
-## 6 Gothenburg                                                                
-##   incident_type perpetrator_type      organizational_affiliation
-## 1             1               99                                
-## 2             1                8         Arisk Front (suspected)
-## 3             1                1 Folkebevegelsen mot innvandring
-## 4             1                5                                
-## 5             1               99                                
-## 6             1                5                                
-##   organizational_affiliation_2 loneactor_id target_group
-## 1                                        NA          200
-## 2                                        NA          200
-## 3                    Boot Boys           NA          200
-## 4                                        NA          104
-## 5                                        NA          102
-## 6                                        NA          102
-##          grouped_target_group target_group_2 grouped_target_group_2 weapon_type
-## 1         Political opponents             NA                                101
-## 2         Political opponents             NA                                802
-## 3         Political opponents             NA                                500
-## 4 Ethnic/religious minorities             NA                                200
-## 5 Ethnic/religious minorities             NA                                806
-## 6 Ethnic/religious minorities             NA                                201
-##   grouped_weapon_type weapon_type_2 grouped_weapon_type_2
-## 1          Explosives            NA                      
-## 2               Other            NA                      
-## 3   Blunt instruments           600       Beating/kicking
-## 4      Arson/firebomb            NA                      
-## 5               Other            NA                      
-## 6      Arson/firebomb            NA                      
-##                         weapon_description fatal n_killed n_wounded
-## 1                              Letter bomb     0        0         m
-## 2                                   CS-gas     0        0         m
-## 3 Sticks, chains, bats and beating/kicking     0        0         5
-## 4                                    Arson     0        0         m
-## 5                               Smoke bomb     0        0        11
-## 6                    Two Molotov cocktails     0        0         m
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      description
-## 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   A letter bomb was sent to a well known anti-racist in Gothenburg. The incident is likely connected to CaseID 1990-6-8 and CaseID 1991-12-30.
-## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Unknown perpetrators threw a military grenade with teargas into the left-wing collective 'Blitzhuset' where 150 people had gathered for a concert. Many people strapped on gas masks (stored in case of razzia by the police) , but there weren't enough for everyone. One person was injured when she jumped down from the second floor, falling more than 3 meters and hitting the concrete. No arrests were made, but suspicions were directed towards Arisk Front (Aryan Front) also known as Elitegruppa (The elite group).
-## 3 The attack known as 'Fevik-slaget' occurred when 40-50 demonstrators travelled to Fevik (Grimstad) to hold an appeal against a meeting held by Folkebevegelsen mot innvandring (FMI) [People's Movement Against Immigration]. The protest was arranged by SOS-Racism and was aimed to be a peaceful demonstration to show dismay with FMIs movement. A person got out of the bus and headed towards the leader of FMI who then attacked him when the person asked if the leader was drunk. He was hit in the back of the head and recieved seven stitches. Other members of FMI were also armed with sticks and attacked other protesters. In total, five people were taken to the hospital. FMI later claimed that they suspected that the demonstrators had weapons with them. There were no weapons and the bus contained men, women and children. The police chief was clear that FMI had initiated the violence. The leader was sentenced to seven months imprisonment in 1992. Two other men, belonging to Boot Boys, were also charged.
-## 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           After provoking a fight with a Roma family in Mellösa, two young men set fire to their house. The fire caused severe material damage. There is limited information about this case. 
-## 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       11 refugees were taken to the hospital after a smoke-bomb was thrown in the building they slept in. There is limited information about this case. Motive not explicitly stated, but sufficently evident to be included. 
-## 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Two young men threw Molotov cocktails at the refugee hostel in Partille. The same perpetrators were involved in CaseID: 1991-10-0. There is limited information about this case. 
-##   plot_type plot_targeting plot_operational_planning version
-## 1        NA             NA                        NA    2016
-## 2        NA             NA                        NA    2016
-## 3        NA             NA                        NA    2021
-## 4        NA             NA                        NA    2016
-## 5        NA             NA                        NA    2020
-## 6        NA             NA                        NA    2016
+##  [1] "version"      "V240001"      "V200001"      "V160001_orig" "V240002a"    
+##  [6] "V240002b"     "V240002c"     "V240003"      "V240101a"     "V240101b"    
+## [11] "V240101c"     "V240101d"     "V240102a"     "V240102b"     "V240102c"    
+## [16] "V240102d"     "V240103a"     "V240103b"     "V240103c"     "V240103d"
 ```
+
+The variable names are ANES codes (like `V241004`). We'll create a cleaner working dataset.
 
 ---
+### Build a Working Dataset
 
-**Questions:**
-- What variables does each dataset have?
-- How can we connect them? (country, year)
-
----
-### Merge and Count (Tidyverse Version)
+We select only the variables we need and give them meaningful names.
 
 
 ``` r
-# Count incidents per country‑year
-event_counts &lt;- rtv %&gt;%
-  group_by(country_name, year) %&gt;%
-  summarise(violence_count = n(), .groups = "drop")
-
-# Join to QOG
-qog_merged &lt;- left_join(qog_small, event_counts,
-                        by = c("cname" = "country_name", "year" = "year"))
-
-# Replace NA with 0 (no violence)
-qog_merged$violence_count[is.na(qog_merged$violence_count)] &lt;- 0
-
-# Keep only countries that appear in RTV (optional)
-qog_merged &lt;- qog_merged %&gt;% filter(cname %in% rtv$country_name)
+aneshw &lt;- data.frame(
+  politicalattention  = anes2024$V241004,
+  corruption          = anes2024$V241233,
+  economytrend        = anes2024$V241294x,
+  angry               = anes2024$V241121,
+  afraid              = anes2024$V241119,
+  demrep              = anes2024$V241227x,
+  trustgovernment     = anes2024$V241229,
+  libcon              = anes2024$V241177,
+  gender              = anes2024$V241551,
+  presvote            = anes2024$V242067,
+  democracyworks      = anes2024$V242439
+)
 ```
 
 ---
-### Check the Result
+### Clean the Data
+
+ANES uses negative numbers for non-responses (refused, don't know, etc.). We recode these as missing.
 
 
 ``` r
-head(qog_merged)
-```
+aneshw &lt;- aneshw %&gt;%
+  mutate(across(where(is.numeric), ~ ifelse(. &lt; 0, NA, .)))
 
-```
-##     X   cname year democracy corruption genderequity percapitagdp refugees
-## 1 583 Austria 1955     0.625         NA        0.595           NA       NA
-## 2 584 Austria 1956     0.690         NA        0.641           NA       NA
-## 3 585 Austria 1957     0.683         NA        0.641           NA       NA
-## 4 586 Austria 1958     0.683         NA        0.641           NA       NA
-## 5 587 Austria 1959     0.683         NA        0.646           NA       NA
-## 6 588 Austria 1960     0.690         NA        0.646     11960.96    39000
-##   centralbankindependence imports ecologicalfootprint globalization
-## 1                      NA 6945.79                  NA            NA
-## 2                      NA 6951.26                  NA            NA
-## 3                      NA 6964.76                  NA            NA
-## 4                      NA 6986.26                  NA            NA
-## 5                      NA 7013.22                  NA            NA
-## 6                      NA 7046.33                  NA            NA
-##   violence_count
-## 1              0
-## 2              0
-## 3              0
-## 4              0
-## 5              0
-## 6              0
+# Recode presvote: keep only Harris (1) and Trump (2)
+aneshw$presvote[aneshw$presvote &gt; 2] &lt;- NA
 ```
 
 ---
-### Check the Result
+### Check the Outcome Variable
+
+`presvote`: 1 = voted for Harris, 2 = voted for Trump.
 
 
 ``` r
-summary(qog_merged$violence_count)
+table(aneshw$presvote)
 ```
 
 ```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   0.000   0.000   0.000   1.628   0.000  94.000
+## 
+##    1    2 
+## 2015 1588
 ```
 
-Now we have a dataset ready for regression: democracy scores and violence counts for each country‑year.
+**Question:** What does this distribution tell us? Does it match what you know about the 2024 election outcome?
+
+---
+### Check the Treatment Variable
+
+`democracyworks`: "On the whole, are you very satisfied, fairly satisfied, not very satisfied, or not at all satisfied with the way democracy works in the United States?"
+
+Scored 1 (very satisfied) to 5 (not at all satisfied) — so **higher = more concerns with democracy**.
+
+---
+
+
+``` r
+table(aneshw$democracyworks)
+```
+
+```
+## 
+##    1    2    4    5 
+##  449 2668 1272  287
+```
+
+**Question:** Where do most respondents fall? What would you predict about the relationship between this variable and vote choice?
 
 ---
 class: inverse, center, middle
@@ -261,120 +190,190 @@ class: inverse, center, middle
 ---
 ### Research Question
 
-Does right‑wing violence affect the level of democracy?
+Does satisfaction with the functioning of American democracy predict presidential vote choice in 2024?
 
-**Hypothesis:** Countries with more right‑wing violence have lower democracy scores.
+**Hypothesis:** Respondents who are less satisfied with American democracy are more likely to vote for Trump (the populist candidate who challenges the traditional functioning of the American system).
+
+Since higher `democracyworks` scores = *less* satisfaction with democracy, we might expect:
+- Higher scores → more likely to vote Trump (higher presvote)
 
 ---
-### Visualize the Relationship
+### Visualize First
+
+Always look before you model.
 
 
 ``` r
-bivarplot &lt;- ggplot(qog_merged, aes(x = violence_count, y = democracy)) +
-  geom_point(alpha = 0.3) +
+ggplot(aneshw, aes(x = democracyworks, y = presvote)) +
+  geom_jitter(alpha = 0.1, width = 0.2, height = 0.1) +
   geom_smooth(method = "lm", color = "red") +
-  labs(title = "Democracy by Right-Wing Violence",
-       x = "Number of violent incidents",
-       y = "Democracy score") +
+  labs(title = "Satisfaction with Democracy and Vote Choice (2024)",
+       x = "Satisfaction with Democracy (1=high, 5=none)",
+       y = "Vote choice (1=Harris, 2=Trump)") +
   theme_minimal()
-```
-
----
-
-
-``` r
-bivarplot
 ```
 
 ![](StatisticalComputingLabSession2_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ---
+### Discuss the Plot
 
-**Discuss:** What do you see? Any issues? (Skew, outliers)
-
----
-### Log Transformation
-
-Because violence is highly skewed, we often use `log(1 + violence)`.
-
-
-``` r
-qog_merged &lt;- qog_merged %&gt;%
-  mutate(log_violence = log(1 + violence_count))
-
-logbivarplot &lt;- ggplot(qog_merged, aes(x = log_violence, y = democracy)) +
-  geom_point(alpha = 0.3) +
-  geom_smooth(method = "lm", color = "red") +
-  labs(title = "Democracy by Logged Right-Wing Violence",
-       x = "Log(1 + violence)",
-       y = "Democracy score") +
-  theme_minimal()
-```
-
----
-
-
-``` r
-logbivarplot
-```
-
-![](StatisticalComputingLabSession2_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+- What direction is the relationship?
+- Does it look strong or weak?
+- What are the limitations of this visualization?
 
 ---
 ### Fit the Bivariate Regression
 
 
 ``` r
-model1 &lt;- lm(democracy ~ log_violence, data = qog_merged)
+model1 &lt;- lm(presvote ~ democracyworks, data = aneshw)
 summary(model1)
 ```
 
 ```
 ## 
 ## Call:
-## lm(formula = democracy ~ log_violence, data = qog_merged)
+## lm(formula = presvote ~ democracyworks, data = aneshw)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.64368 -0.03068  0.06332  0.09932  0.19032 
+##     Min      1Q  Median      3Q     Max 
+## -0.5297 -0.4708 -0.3529  0.5292  0.7061 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.704683   0.005579  126.31   &lt;2e-16 ***
-## log_violence 0.055452   0.006425    8.63   &lt;2e-16 ***
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     1.58869    0.02072  76.661  &lt; 2e-16 ***
+## democracyworks -0.05896    0.00743  -7.935  2.8e-15 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.183 on 1293 degrees of freedom
-##   (17 observations deleted due to missingness)
-## Multiple R-squared:  0.05447,	Adjusted R-squared:  0.05373 
-## F-statistic: 74.48 on 1 and 1293 DF,  p-value: &lt; 2.2e-16
+## Residual standard error: 0.4919 on 3547 degrees of freedom
+##   (1972 observations deleted due to missingness)
+## Multiple R-squared:  0.01744,	Adjusted R-squared:  0.01716 
+## F-statistic: 62.96 on 1 and 3547 DF,  p-value: 2.803e-15
 ```
 
 ---
+### Read the Output
 
-**Interpretation:**
-- Intercept: predicted democracy when violence = 0 (log = 0)
-- Slope: for a 1‑unit increase in log_violence, democracy changes by ______
-- Is the slope statistically significant?
+Key things to find:
+
+- **Intercept**: predicted vote choice when democracyworks = 0 (not meaningful here)
+- **Slope for `democracyworks`**: for a 1-unit decrease in democratic satisfaction, how does vote choice change?
+- **p-value**: is this relationship statistically distinguishable from zero?
 
 ---
-### Better Regression Table
+### A Cleaner Table
 
 
 ``` r
-modelsummary(list("Bivariate Regression" = model1),
-             output = "gt") %&gt;%
-  gt::gtsave(filename = "images\\regression_table.png")
+modelsummary(list("Bivariate" = model1),
+             statistic = "p.value")
 ```
 
----
+```{=html}
+&lt;!-- preamble start --&gt;
 
-&lt;img src="images/regression_table.png" width="40%" style="display: block; margin: auto;" /&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"&gt;&lt;/script&gt;
 
----
+    &lt;script&gt;
+      // Create table-specific functions using external factory
+      const tableFns_rhpjpd4vfi1s3ctoa8np = TinyTable.createTableFunctions("tinytable_rhpjpd4vfi1s3ctoa8np");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '11', j: 2 } ], css_id: 'tinytable_css_jlcjcqyy3g8ha480d6ry',}, 
+          { positions: [ { i: '4', j: 2 } ], css_id: 'tinytable_css_lmy9opouwp9xcsntqfb4',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 } ], css_id: 'tinytable_css_zikxnfsm4t310onnl30n',}, 
+          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_83yk9g6wnb82urwziidq',}, 
+          { positions: [ { i: '11', j: 1 } ], css_id: 'tinytable_css_laopjr0op1tsm1tkw8v3',}, 
+          { positions: [ { i: '4', j: 1 } ], css_id: 'tinytable_css_wczxzxtg9oj4kf9qnfd8',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 } ], css_id: 'tinytable_css_5hqcjhy1zidgsui7d18k',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_joov02t9ijfkxelxb6p3',}, 
+          ];
 
-This is easier to read is recommended for Homework 2.
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_rhpjpd4vfi1s3ctoa8np.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    &lt;/script&gt;
+
+    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css"&gt;
+    &lt;style&gt;
+    /* tinytable css entries after */
+    #tinytable_rhpjpd4vfi1s3ctoa8np td.tinytable_css_jlcjcqyy3g8ha480d6ry, #tinytable_rhpjpd4vfi1s3ctoa8np th.tinytable_css_jlcjcqyy3g8ha480d6ry {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_rhpjpd4vfi1s3ctoa8np td.tinytable_css_lmy9opouwp9xcsntqfb4, #tinytable_rhpjpd4vfi1s3ctoa8np th.tinytable_css_lmy9opouwp9xcsntqfb4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_rhpjpd4vfi1s3ctoa8np td.tinytable_css_zikxnfsm4t310onnl30n, #tinytable_rhpjpd4vfi1s3ctoa8np th.tinytable_css_zikxnfsm4t310onnl30n { text-align: center }
+    #tinytable_rhpjpd4vfi1s3ctoa8np td.tinytable_css_83yk9g6wnb82urwziidq, #tinytable_rhpjpd4vfi1s3ctoa8np th.tinytable_css_83yk9g6wnb82urwziidq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_rhpjpd4vfi1s3ctoa8np td.tinytable_css_laopjr0op1tsm1tkw8v3, #tinytable_rhpjpd4vfi1s3ctoa8np th.tinytable_css_laopjr0op1tsm1tkw8v3 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_rhpjpd4vfi1s3ctoa8np td.tinytable_css_wczxzxtg9oj4kf9qnfd8, #tinytable_rhpjpd4vfi1s3ctoa8np th.tinytable_css_wczxzxtg9oj4kf9qnfd8 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_rhpjpd4vfi1s3ctoa8np td.tinytable_css_5hqcjhy1zidgsui7d18k, #tinytable_rhpjpd4vfi1s3ctoa8np th.tinytable_css_5hqcjhy1zidgsui7d18k { text-align: left }
+    #tinytable_rhpjpd4vfi1s3ctoa8np td.tinytable_css_joov02t9ijfkxelxb6p3, #tinytable_rhpjpd4vfi1s3ctoa8np th.tinytable_css_joov02t9ijfkxelxb6p3 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    &lt;/style&gt;
+    &lt;div class="container"&gt;
+      &lt;table class="tinytable" id="tinytable_rhpjpd4vfi1s3ctoa8np" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'&gt;
+        
+        &lt;thead&gt;
+              &lt;tr&gt;
+                &lt;th scope="col" data-row="0" data-col="1"&gt; &lt;/th&gt;
+                &lt;th scope="col" data-row="0" data-col="2"&gt;Bivariate&lt;/th&gt;
+              &lt;/tr&gt;
+        &lt;/thead&gt;
+        
+        &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="1" data-col="1"&gt;(Intercept)&lt;/td&gt;
+                  &lt;td data-row="1" data-col="2"&gt;1.589&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="2" data-col="1"&gt;&lt;/td&gt;
+                  &lt;td data-row="2" data-col="2"&gt;(&lt;0.001)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="3" data-col="1"&gt;democracyworks&lt;/td&gt;
+                  &lt;td data-row="3" data-col="2"&gt;-0.059&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="4" data-col="1"&gt;&lt;/td&gt;
+                  &lt;td data-row="4" data-col="2"&gt;(&lt;0.001)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="5" data-col="1"&gt;Num.Obs.&lt;/td&gt;
+                  &lt;td data-row="5" data-col="2"&gt;3549&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="6" data-col="1"&gt;R2&lt;/td&gt;
+                  &lt;td data-row="6" data-col="2"&gt;0.017&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="7" data-col="1"&gt;R2 Adj.&lt;/td&gt;
+                  &lt;td data-row="7" data-col="2"&gt;0.017&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="8" data-col="1"&gt;AIC&lt;/td&gt;
+                  &lt;td data-row="8" data-col="2"&gt;5040.0&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="9" data-col="1"&gt;BIC&lt;/td&gt;
+                  &lt;td data-row="9" data-col="2"&gt;5058.5&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="10" data-col="1"&gt;Log.Lik.&lt;/td&gt;
+                  &lt;td data-row="10" data-col="2"&gt;-2516.998&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="11" data-col="1"&gt;RMSE&lt;/td&gt;
+                  &lt;td data-row="11" data-col="2"&gt;0.49&lt;/td&gt;
+                &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+&lt;!-- hack to avoid NA insertion in last line --&gt;
+```
 
 ---
 class: inverse, center, middle
@@ -382,58 +381,83 @@ class: inverse, center, middle
 # Part 3: Multivariate Regression
 
 ---
-### The Problem of Confounding
+### A Potential Confounder
 
-Violence might be correlated with other factors that also affect democracy, e.g., **economic development** (per capita GDP).
+Party identification (`demrep`) is measured on a 7-point scale from strong Democrat (1) to strong Republican (7).
 
-Let's add `percapitagdp` as a control.
+It's plausibly a confounder: Republicans may both (a) be culturally more enthusiastic about America and (b) be more likely to vote for Trump.
+
+If we don't control for it, the democratic satisfaction coefficient might just be capturing party ID.
 
 ---
 ### Check the Control Variable
 
 
 ``` r
-summary(qog_merged$percapitagdp)
+table(aneshw$demrep)
 ```
 
 ```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##    3135   18533   29057   33764   43284  112418     234
+## 
+##    1    2    3    4    5    6    7 
+## 1314  616  714  380  716  577 1166
 ```
-
-Some missing values. We'll need to handle them. For now, `lm()` will drop rows with NA in any predictor.
-
----
-### Fit the Multivariate Model
 
 
 ``` r
-model2 &lt;- lm(democracy ~ log_violence + I(log(percapitagdp)), data = qog_merged)
+# Is party ID related to both democratic satisfaction and vote choice?
+cor(aneshw$demrep, aneshw$democracyworks, use = "complete.obs")
+```
+
+```
+## [1] -0.108899
+```
+
+
+``` r
+cor(aneshw$demrep, aneshw$presvote, use = "complete.obs")
+```
+
+```
+## [1] 0.8426908
+```
+
+---
+### What Did We Find?
+
+- If `demrep` correlates with both `democracyworks` and `presvote`, it meets the definition of a confounder.
+- What do the correlations suggest?
+
+---
+### Add the Control Variable
+
+
+``` r
+model2 &lt;- lm(presvote ~ democracyworks + demrep, data = aneshw)
 summary(model2)
 ```
 
 ```
 ## 
 ## Call:
-## lm(formula = democracy ~ log_violence + I(log(percapitagdp)), 
-##     data = qog_merged)
+## lm(formula = presvote ~ democracyworks + demrep, data = aneshw)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -0.57616 -0.03378  0.02121  0.06741  0.20824 
+## -1.00353 -0.10904  0.01751  0.06566  1.06566 
 ## 
 ## Coefficients:
-##                       Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)          -0.762860   0.063414 -12.030  &lt; 2e-16 ***
-## log_violence          0.015789   0.004662   3.387 0.000732 ***
-## I(log(percapitagdp))  0.147556   0.006222  23.715  &lt; 2e-16 ***
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     0.787706   0.014211  55.429   &lt;2e-16 ***
+## democracyworks -0.007013   0.004074  -1.721   0.0853 .  
+## demrep          0.174691   0.001896  92.154   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.1269 on 1075 degrees of freedom
-##   (234 observations deleted due to missingness)
-## Multiple R-squared:  0.373,	Adjusted R-squared:  0.3718 
-## F-statistic: 319.7 on 2 and 1075 DF,  p-value: &lt; 2.2e-16
+## Residual standard error: 0.2669 on 3540 degrees of freedom
+##   (1978 observations deleted due to missingness)
+## Multiple R-squared:  0.7108,	Adjusted R-squared:  0.7107 
+## F-statistic:  4351 on 2 and 3540 DF,  p-value: &lt; 2.2e-16
 ```
 
 ---
@@ -441,34 +465,326 @@ summary(model2)
 
 
 ``` r
-modelsummary(list("Bivariate" = model1, "Multivariate" = model2),
-             statistic = "p.value", output = "gt") %&gt;%
-  gt::gtsave(filename = "images\\regression_comparison_table.png")
+modelsummary(list("Bivariate" = model1,
+                  "With Party ID" = model2),
+             statistic = "p.value")
+```
+
+```{=html}
+&lt;!-- preamble start --&gt;
+
+    &lt;script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+      // Create table-specific functions using external factory
+      const tableFns_t7pws01uwgbo6knyf5b8 = TinyTable.createTableFunctions("tinytable_t7pws01uwgbo6knyf5b8");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '13', j: 2 }, { i: '13', j: 3 } ], css_id: 'tinytable_css_7qp0lqih2dssc3e6bmc4',}, 
+          { positions: [ { i: '6', j: 2 }, { i: '6', j: 3 } ], css_id: 'tinytable_css_pyvsvx3xmh92pyb1icgw',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 } ], css_id: 'tinytable_css_8wtpymsy9ql33j6zkq8o',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_zkjoaadnbtie14nndpdr',}, 
+          { positions: [ { i: '13', j: 1 } ], css_id: 'tinytable_css_evjcvdsafssape9kxohp',}, 
+          { positions: [ { i: '6', j: 1 } ], css_id: 'tinytable_css_wfcomkmu8dlf8xudf8lb',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 } ], css_id: 'tinytable_css_9m0zqkuub1lvguov7kjt',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_dt3yfzazv04hzz8m8cqb',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_t7pws01uwgbo6knyf5b8.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    &lt;/script&gt;
+
+    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css"&gt;
+    &lt;style&gt;
+    /* tinytable css entries after */
+    #tinytable_t7pws01uwgbo6knyf5b8 td.tinytable_css_7qp0lqih2dssc3e6bmc4, #tinytable_t7pws01uwgbo6knyf5b8 th.tinytable_css_7qp0lqih2dssc3e6bmc4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_t7pws01uwgbo6knyf5b8 td.tinytable_css_pyvsvx3xmh92pyb1icgw, #tinytable_t7pws01uwgbo6knyf5b8 th.tinytable_css_pyvsvx3xmh92pyb1icgw {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_t7pws01uwgbo6knyf5b8 td.tinytable_css_8wtpymsy9ql33j6zkq8o, #tinytable_t7pws01uwgbo6knyf5b8 th.tinytable_css_8wtpymsy9ql33j6zkq8o { text-align: center }
+    #tinytable_t7pws01uwgbo6knyf5b8 td.tinytable_css_zkjoaadnbtie14nndpdr, #tinytable_t7pws01uwgbo6knyf5b8 th.tinytable_css_zkjoaadnbtie14nndpdr {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_t7pws01uwgbo6knyf5b8 td.tinytable_css_evjcvdsafssape9kxohp, #tinytable_t7pws01uwgbo6knyf5b8 th.tinytable_css_evjcvdsafssape9kxohp {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_t7pws01uwgbo6knyf5b8 td.tinytable_css_wfcomkmu8dlf8xudf8lb, #tinytable_t7pws01uwgbo6knyf5b8 th.tinytable_css_wfcomkmu8dlf8xudf8lb {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_t7pws01uwgbo6knyf5b8 td.tinytable_css_9m0zqkuub1lvguov7kjt, #tinytable_t7pws01uwgbo6knyf5b8 th.tinytable_css_9m0zqkuub1lvguov7kjt { text-align: left }
+    #tinytable_t7pws01uwgbo6knyf5b8 td.tinytable_css_dt3yfzazv04hzz8m8cqb, #tinytable_t7pws01uwgbo6knyf5b8 th.tinytable_css_dt3yfzazv04hzz8m8cqb {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    &lt;/style&gt;
+    &lt;div class="container"&gt;
+      &lt;table class="tinytable" id="tinytable_t7pws01uwgbo6knyf5b8" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'&gt;
+        
+        &lt;thead&gt;
+              &lt;tr&gt;
+                &lt;th scope="col" data-row="0" data-col="1"&gt; &lt;/th&gt;
+                &lt;th scope="col" data-row="0" data-col="2"&gt;Bivariate&lt;/th&gt;
+                &lt;th scope="col" data-row="0" data-col="3"&gt;With Party ID&lt;/th&gt;
+              &lt;/tr&gt;
+        &lt;/thead&gt;
+        
+        &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="1" data-col="1"&gt;(Intercept)&lt;/td&gt;
+                  &lt;td data-row="1" data-col="2"&gt;1.589&lt;/td&gt;
+                  &lt;td data-row="1" data-col="3"&gt;0.788&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="2" data-col="1"&gt;&lt;/td&gt;
+                  &lt;td data-row="2" data-col="2"&gt;(&lt;0.001)&lt;/td&gt;
+                  &lt;td data-row="2" data-col="3"&gt;(&lt;0.001)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="3" data-col="1"&gt;democracyworks&lt;/td&gt;
+                  &lt;td data-row="3" data-col="2"&gt;-0.059&lt;/td&gt;
+                  &lt;td data-row="3" data-col="3"&gt;-0.007&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="4" data-col="1"&gt;&lt;/td&gt;
+                  &lt;td data-row="4" data-col="2"&gt;(&lt;0.001)&lt;/td&gt;
+                  &lt;td data-row="4" data-col="3"&gt;(0.085)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="5" data-col="1"&gt;demrep&lt;/td&gt;
+                  &lt;td data-row="5" data-col="2"&gt;&lt;/td&gt;
+                  &lt;td data-row="5" data-col="3"&gt;0.175&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="6" data-col="1"&gt;&lt;/td&gt;
+                  &lt;td data-row="6" data-col="2"&gt;&lt;/td&gt;
+                  &lt;td data-row="6" data-col="3"&gt;(&lt;0.001)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="7" data-col="1"&gt;Num.Obs.&lt;/td&gt;
+                  &lt;td data-row="7" data-col="2"&gt;3549&lt;/td&gt;
+                  &lt;td data-row="7" data-col="3"&gt;3543&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="8" data-col="1"&gt;R2&lt;/td&gt;
+                  &lt;td data-row="8" data-col="2"&gt;0.017&lt;/td&gt;
+                  &lt;td data-row="8" data-col="3"&gt;0.711&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="9" data-col="1"&gt;R2 Adj.&lt;/td&gt;
+                  &lt;td data-row="9" data-col="2"&gt;0.017&lt;/td&gt;
+                  &lt;td data-row="9" data-col="3"&gt;0.711&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="10" data-col="1"&gt;AIC&lt;/td&gt;
+                  &lt;td data-row="10" data-col="2"&gt;5040.0&lt;/td&gt;
+                  &lt;td data-row="10" data-col="3"&gt;699.5&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="11" data-col="1"&gt;BIC&lt;/td&gt;
+                  &lt;td data-row="11" data-col="2"&gt;5058.5&lt;/td&gt;
+                  &lt;td data-row="11" data-col="3"&gt;724.1&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="12" data-col="1"&gt;Log.Lik.&lt;/td&gt;
+                  &lt;td data-row="12" data-col="2"&gt;-2516.998&lt;/td&gt;
+                  &lt;td data-row="12" data-col="3"&gt;-345.727&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="13" data-col="1"&gt;RMSE&lt;/td&gt;
+                  &lt;td data-row="13" data-col="2"&gt;0.49&lt;/td&gt;
+                  &lt;td data-row="13" data-col="3"&gt;0.27&lt;/td&gt;
+                &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+&lt;!-- hack to avoid NA insertion in last line --&gt;
 ```
 
 ---
+### Interpret the Comparison
 
-&lt;img src="images/regression_comparison_table.png" width="40%" style="display: block; margin: auto;" /&gt;
+**Key question:** How did the coefficient for `democracyworks` change after adding `demrep`?
+
+- Did it get **closer to zero**? That suggests party ID was absorbing some of the apparent democratic satisfaction effect — it was a confounder.
+- Did it stay **roughly the same**? That suggests the democratic satisfaction relationship holds even after accounting for party.
+- Did it **grow or change sign**? That would be surprising and worth investigating further.
 
 ---
+### Add a Second Control
 
-**Discuss:**
-- How did the coefficient for `log_violence` change after adding GDP?
-- What does this tell us about confounding?
+Let's also add `politicalattention` — how much attention respondents say they pay to politics — as an additional control.
+
+
+``` r
+model3 &lt;- lm(presvote ~ democracyworks + demrep + politicalattention,
+             data = aneshw)
+
+modelsummary(list("Bivariate" = model1,
+                  "Party ID" = model2,
+                  "Full Controls" = model3),
+             statistic = "p.value")
+```
+
+```{=html}
+&lt;!-- preamble start --&gt;
+
+    &lt;script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+      // Create table-specific functions using external factory
+      const tableFns_e14c0e22kyn7xt3kbrag = TinyTable.createTableFunctions("tinytable_e14c0e22kyn7xt3kbrag");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '15', j: 2 }, { i: '15', j: 3 }, { i: '15', j: 4 } ], css_id: 'tinytable_css_7940hfl58t99wkefbdnc',}, 
+          { positions: [ { i: '8', j: 2 }, { i: '8', j: 3 }, { i: '8', j: 4 } ], css_id: 'tinytable_css_liofrk699t34ctkc87co',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '1', j: 4 }, { i: '2', j: 4 }, { i: '3', j: 4 }, { i: '4', j: 4 }, { i: '5', j: 4 }, { i: '6', j: 4 }, { i: '7', j: 4 }, { i: '9', j: 4 }, { i: '10', j: 4 }, { i: '11', j: 4 }, { i: '12', j: 4 }, { i: '13', j: 4 }, { i: '14', j: 4 } ], css_id: 'tinytable_css_7it19xwiw7p3pmjix96t',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_2c7wnbfyrsqg5pib2ivq',}, 
+          { positions: [ { i: '15', j: 1 } ], css_id: 'tinytable_css_8smnnzdvhcclvr642ms2',}, 
+          { positions: [ { i: '8', j: 1 } ], css_id: 'tinytable_css_4bvgm9rkiznskk2rl586',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 } ], css_id: 'tinytable_css_c9dmpcydm3xfhjlcdok8',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_1jsx1fic1ugtlcefu2vk',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_e14c0e22kyn7xt3kbrag.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    &lt;/script&gt;
+
+    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css"&gt;
+    &lt;style&gt;
+    /* tinytable css entries after */
+    #tinytable_e14c0e22kyn7xt3kbrag td.tinytable_css_7940hfl58t99wkefbdnc, #tinytable_e14c0e22kyn7xt3kbrag th.tinytable_css_7940hfl58t99wkefbdnc {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_e14c0e22kyn7xt3kbrag td.tinytable_css_liofrk699t34ctkc87co, #tinytable_e14c0e22kyn7xt3kbrag th.tinytable_css_liofrk699t34ctkc87co {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_e14c0e22kyn7xt3kbrag td.tinytable_css_7it19xwiw7p3pmjix96t, #tinytable_e14c0e22kyn7xt3kbrag th.tinytable_css_7it19xwiw7p3pmjix96t { text-align: center }
+    #tinytable_e14c0e22kyn7xt3kbrag td.tinytable_css_2c7wnbfyrsqg5pib2ivq, #tinytable_e14c0e22kyn7xt3kbrag th.tinytable_css_2c7wnbfyrsqg5pib2ivq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_e14c0e22kyn7xt3kbrag td.tinytable_css_8smnnzdvhcclvr642ms2, #tinytable_e14c0e22kyn7xt3kbrag th.tinytable_css_8smnnzdvhcclvr642ms2 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_e14c0e22kyn7xt3kbrag td.tinytable_css_4bvgm9rkiznskk2rl586, #tinytable_e14c0e22kyn7xt3kbrag th.tinytable_css_4bvgm9rkiznskk2rl586 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_e14c0e22kyn7xt3kbrag td.tinytable_css_c9dmpcydm3xfhjlcdok8, #tinytable_e14c0e22kyn7xt3kbrag th.tinytable_css_c9dmpcydm3xfhjlcdok8 { text-align: left }
+    #tinytable_e14c0e22kyn7xt3kbrag td.tinytable_css_1jsx1fic1ugtlcefu2vk, #tinytable_e14c0e22kyn7xt3kbrag th.tinytable_css_1jsx1fic1ugtlcefu2vk {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    &lt;/style&gt;
+    &lt;div class="container"&gt;
+      &lt;table class="tinytable" id="tinytable_e14c0e22kyn7xt3kbrag" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'&gt;
+        
+        &lt;thead&gt;
+              &lt;tr&gt;
+                &lt;th scope="col" data-row="0" data-col="1"&gt; &lt;/th&gt;
+                &lt;th scope="col" data-row="0" data-col="2"&gt;Bivariate&lt;/th&gt;
+                &lt;th scope="col" data-row="0" data-col="3"&gt;Party ID&lt;/th&gt;
+                &lt;th scope="col" data-row="0" data-col="4"&gt;Full Controls&lt;/th&gt;
+              &lt;/tr&gt;
+        &lt;/thead&gt;
+        
+        &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="1" data-col="1"&gt;(Intercept)&lt;/td&gt;
+                  &lt;td data-row="1" data-col="2"&gt;1.589&lt;/td&gt;
+                  &lt;td data-row="1" data-col="3"&gt;0.788&lt;/td&gt;
+                  &lt;td data-row="1" data-col="4"&gt;0.791&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="2" data-col="1"&gt;&lt;/td&gt;
+                  &lt;td data-row="2" data-col="2"&gt;(&lt;0.001)&lt;/td&gt;
+                  &lt;td data-row="2" data-col="3"&gt;(&lt;0.001)&lt;/td&gt;
+                  &lt;td data-row="2" data-col="4"&gt;(&lt;0.001)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="3" data-col="1"&gt;democracyworks&lt;/td&gt;
+                  &lt;td data-row="3" data-col="2"&gt;-0.059&lt;/td&gt;
+                  &lt;td data-row="3" data-col="3"&gt;-0.007&lt;/td&gt;
+                  &lt;td data-row="3" data-col="4"&gt;-0.007&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="4" data-col="1"&gt;&lt;/td&gt;
+                  &lt;td data-row="4" data-col="2"&gt;(&lt;0.001)&lt;/td&gt;
+                  &lt;td data-row="4" data-col="3"&gt;(0.085)&lt;/td&gt;
+                  &lt;td data-row="4" data-col="4"&gt;(0.102)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="5" data-col="1"&gt;demrep&lt;/td&gt;
+                  &lt;td data-row="5" data-col="2"&gt;&lt;/td&gt;
+                  &lt;td data-row="5" data-col="3"&gt;0.175&lt;/td&gt;
+                  &lt;td data-row="5" data-col="4"&gt;0.175&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="6" data-col="1"&gt;&lt;/td&gt;
+                  &lt;td data-row="6" data-col="2"&gt;&lt;/td&gt;
+                  &lt;td data-row="6" data-col="3"&gt;(&lt;0.001)&lt;/td&gt;
+                  &lt;td data-row="6" data-col="4"&gt;(&lt;0.001)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="7" data-col="1"&gt;politicalattention&lt;/td&gt;
+                  &lt;td data-row="7" data-col="2"&gt;&lt;/td&gt;
+                  &lt;td data-row="7" data-col="3"&gt;&lt;/td&gt;
+                  &lt;td data-row="7" data-col="4"&gt;-0.002&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="8" data-col="1"&gt;&lt;/td&gt;
+                  &lt;td data-row="8" data-col="2"&gt;&lt;/td&gt;
+                  &lt;td data-row="8" data-col="3"&gt;&lt;/td&gt;
+                  &lt;td data-row="8" data-col="4"&gt;(0.663)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="9" data-col="1"&gt;Num.Obs.&lt;/td&gt;
+                  &lt;td data-row="9" data-col="2"&gt;3549&lt;/td&gt;
+                  &lt;td data-row="9" data-col="3"&gt;3543&lt;/td&gt;
+                  &lt;td data-row="9" data-col="4"&gt;3542&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="10" data-col="1"&gt;R2&lt;/td&gt;
+                  &lt;td data-row="10" data-col="2"&gt;0.017&lt;/td&gt;
+                  &lt;td data-row="10" data-col="3"&gt;0.711&lt;/td&gt;
+                  &lt;td data-row="10" data-col="4"&gt;0.711&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="11" data-col="1"&gt;R2 Adj.&lt;/td&gt;
+                  &lt;td data-row="11" data-col="2"&gt;0.017&lt;/td&gt;
+                  &lt;td data-row="11" data-col="3"&gt;0.711&lt;/td&gt;
+                  &lt;td data-row="11" data-col="4"&gt;0.711&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="12" data-col="1"&gt;AIC&lt;/td&gt;
+                  &lt;td data-row="12" data-col="2"&gt;5040.0&lt;/td&gt;
+                  &lt;td data-row="12" data-col="3"&gt;699.5&lt;/td&gt;
+                  &lt;td data-row="12" data-col="4"&gt;699.2&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="13" data-col="1"&gt;BIC&lt;/td&gt;
+                  &lt;td data-row="13" data-col="2"&gt;5058.5&lt;/td&gt;
+                  &lt;td data-row="13" data-col="3"&gt;724.1&lt;/td&gt;
+                  &lt;td data-row="13" data-col="4"&gt;730.1&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="14" data-col="1"&gt;Log.Lik.&lt;/td&gt;
+                  &lt;td data-row="14" data-col="2"&gt;-2516.998&lt;/td&gt;
+                  &lt;td data-row="14" data-col="3"&gt;-345.727&lt;/td&gt;
+                  &lt;td data-row="14" data-col="4"&gt;-344.601&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                  &lt;td data-row="15" data-col="1"&gt;RMSE&lt;/td&gt;
+                  &lt;td data-row="15" data-col="2"&gt;0.49&lt;/td&gt;
+                  &lt;td data-row="15" data-col="3"&gt;0.27&lt;/td&gt;
+                  &lt;td data-row="15" data-col="4"&gt;0.27&lt;/td&gt;
+                &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+&lt;!-- hack to avoid NA insertion in last line --&gt;
+```
 
 ---
-### Visualizing the Multivariate Relationship
+### What Changes?
 
-We can't easily plot 3 dimensions, but we can look at partial effects.
-
-For now, we'll rely on the regression table.
+- Does the `democracyworks` coefficient change further once we add `politicalattention`?
+- Which model do you trust more, and why?
 
 ---
 class: inverse, center, middle
 
 # Part 4: Your Turn (20 min)
 
-*Now open the Lab2_Practice.Rmd file and work through the exercises. We'll circulate to help.*
+*Open `Lab2Practice.Rmd` and work through the exercises. TAs are circulating to help.*
 
 ---
 class: inverse, center, middle
@@ -480,35 +796,45 @@ class: inverse, center, middle
 
 | Lab Skill | Homework 2 Task |
 |-----------|-----------------|
-| Merging datasets and creating counts | Problem 1: Combine grants and election data |
-| Visualizing relationship | Problem 1: Scatter plot of funding vs. Trump vote |
-| Bivariate regression | Problem 1: Interpret slope and significance |
+| Loading ANES data and building `aneshw` | Setup code block at the top of HW2 |
+| Checking variable distributions with `table()` | Problem 1: Describe `corruption` and `presvote` distributions |
+| Bivariate regression: `lm(presvote ~ democracyworks)` | Problem 1: Run and interpret the first regression |
+| Checking confounder correlations | Problem 1: Evaluate whether controls make sense |
+| Multivariate regression with `demrep` and `politicalattention` | Problem 1: Add controls, interpret the output |
+| Comparing coefficients across models | Problem 2: Does adding `trustgovernment` change the corruption slope? |
+| Interpreting coefficient size and direction | All problems: write interpretations in plain English |
 
 ---
-### How Today's Lab Maps to Homework 2
+### What's New in HW2 (Beyond Today)
 
-| Lab Skill | Homework 2 Task |
-|-----------|-----------------|
-| Adding a control variable | Problem 2: Add population as control, compare coefficients |
-| Using `modelsummary` | Problem 2: Present and interpret regression tables |
-| Interpreting confounding | Problem 3: Discuss whether population is a confounder |
+Homework 2 also asks you to use **LASSO regression** (Problem 3) to search through many variables at once for important predictors. We'll use the `hdm` package for this. The logic is similar to what we've done — it's a regression — but the algorithm automatically shrinks irrelevant coefficients to zero.
+
+You'll install `hdm` at home before starting Problem 3:
+
+
+``` r
+install.packages("hdm")
+library(hdm)
+```
 
 ---
 ### Before You Leave
 
 **Check that you can:**
-- [ ] Merge two datasets and create a country‑year analysis file
-- [ ] Fit a bivariate regression and interpret the output
-- [ ] Fit a multivariate regression with a control variable
-- [ ] Compare coefficients across models
-- [ ] Use `modelsummary` to present results
+
+- [ ] Load the ANES data and build the working `aneshw` dataset
+- [ ] Examine variable distributions with `table()`
+- [ ] Fit a bivariate regression and read the output
+- [ ] Add a control variable and fit a multivariate regression
+- [ ] Compare coefficients across models using `modelsummary()`
+- [ ] Explain in plain English what a slope means and whether it changed
 
 ---
 ### Questions?
 
-- TAs available in lab and office hours
-- Email the professor or TAs, or reach out to your peers
-- Start Homework 2 early!
+- TAs are available in lab and office hours
+- Email the professor or TAs with questions
+- Start Homework 2 early — the LASSO section takes extra setup time!
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

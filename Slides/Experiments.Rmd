@@ -3,7 +3,7 @@ title: "5: Experiments"
 subtitle: "Empirical Methods"
 author: "<large>J. Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
-date: "Sept. 30, 2025"
+date: "Oct. 8, 2026"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -57,6 +57,16 @@ style_mono_accent(
 
 ```
 
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Explain how random assignment addresses the fundamental problem of causal inference
+2. Define internal validity and external validity and describe major threats to each
+3. Apply a design checklist to evaluate whether an experiment's results are trustworthy
+4. Distinguish lab experiments, field experiments, and survey experiments, and explain when each is appropriate
+
+---
 ### Experiments
 
 -   The fundamental problem of causal inference is that we can't compare
@@ -69,6 +79,7 @@ style_mono_accent(
 ---
 ### In-Class Example
 
+How can we randomize the class, right now?
 
 ---
 ### Experiments
@@ -91,21 +102,21 @@ style_mono_accent(
 ---
 ### Example: Do Media Retractions Work?
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Freitag et al. (2024), 'The Corrections Dilemma: Media Retractions Increase Belief Accuracy But Decrease Trust,' Journal of Experimental Political Science 11, pp. 90–101. Authors: Joshua Freitag, Madeline Gochee, Mitchell Ransden, Brendan Nyhan, Kristy Roschke, and Dan Gillmor."}
 include_graphics("images/Freitag1.PNG")
 ```
 
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Freitag et al. Figure 1: survey flow diagram. Participants complete baseline measures, then see a Twitter feed with a false tweet and four neutral tweets, then answer pre-treatment measures. They are then randomly assigned to one of five conditions: no correction, news outlet correction, third-party correction, both corrections (news first), or both corrections (third-party first). Finally, all participants answer post-treatment measures on false belief, news outlet trust, and political efficacy."}
 include_graphics("images/Freitag2.PNG")
 ```
 
 
 ---
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Freitag et al. Figure 2: dot plot of treatment effects on belief accuracy (red) and news outlet trust (blue) across four correction conditions. All four conditions significantly increase belief accuracy (positive effects above the dashed zero line). All four conditions decrease news outlet trust (negative effects), illustrating the 'corrections dilemma': corrections work, but at a cost to trust in the media outlet that issues them."}
 include_graphics("images/Freitag3.PNG")
 ```
 
@@ -187,22 +198,22 @@ the population of interest), ask:
 
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Laterzo (2024), 'Progressive Ideology and Support for Punitive Crime Policy: Evidence from Argentina and Brazil,' Comparative Political Studies 57(6), pp. 999–1034. Author: Isabel G. Laterzo."}
 include_graphics("images/Laterzo1.PNG")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Laterzo abstract: the study examines how instrumental factors — perceptions of insecurity, ineffectiveness of social policy, and gang-driven crime — moderate the relationship between progressive ideology and support for punitive crime candidates. A conjoint experiment in Argentina and Brazil finds that progressives support punitive candidates when these instrumental factors are present; conservatives support punitive candidates regardless of instrumental factors."}
 include_graphics("images/Laterzo2.PNG")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Laterzo data and analysis section: describes an online conjoint experiment (n=1,512 Brazil, n=1,521 Argentina) fielded in March 2021, in which respondents evaluated gubernatorial candidates proposing either punitive or social-assistance crime platforms. The experiment was fully randomized and pre-registered; convenience sampling concerns are addressed by replication with the AmericasBarometer nationally representative survey."}
 include_graphics("images/Laterzo3.PNG")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Laterzo Figure 4: conjoint marginal means for punitive vs. social-assistance crime policy, disaggregated by neighborhood safety perception (secure vs. insecure) and ideology (pooled, progressives, conservatives). Among progressives in insecure neighborhoods, support for punitive policy rises substantially toward conservative levels; in secure neighborhoods the gap is smaller. The bottom panel shows differences in marginal means confirming the interaction."}
 include_graphics("images/Laterzo4.PNG")
 ```
 
@@ -211,22 +222,22 @@ include_graphics("images/Laterzo4.PNG")
 D. Hangartner, G. Gennaro, S. Alasiri, N. Bahrich, A. Bornhoft, J. Boucher, B.B. Demirci, L. Derksen, A. Hall, M. Jochum, M.M. Munoz, M. Richter, F. Vogel, S. Wittwer, F. Wuthrich, F. Gilardi, & K. Donnay, Empathy-based counterspeech can reduce racist hate speech in a social media field experiment, Proc. Natl. Acad. Sci. U.S.A. 118 (50) e2116310118, [https://doi.org/10.1073/pnas.2116310118](https://doi.org/10.1073/pnas.2116310118) (2021).
 
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Hangartner et al. (2021) abstract, PNAS: a field experiment randomly assigned 1,350 English-speaking Twitter users who had posted xenophobic hate speech to one of three counterspeech strategies — empathy, warning of consequences, or humor — or a control group. Empathy-based counterspeech increased retrospective deletion of hate speech by 0.2 SD and reduced prospective creation by 0.1 SD over a 4-week follow-up; humor and warning of consequences showed no consistent effects."}
 include_graphics("images/Hangartner1.PNG")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Hangartner et al. Figure 1: screenshots illustrating the experiment. Left: a human-controlled bot account with a neutral posting history. Right: examples of three counterspeech strategies delivered in response to a hate tweet — warning of consequences (green box), humor (red box), and empathy-based (blue box). Twitter handles are obscured to protect user anonymity."}
 include_graphics("images/Hangartner2.PNG")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Hangartner et al. methods excerpt: the treatment was a direct, publicly visible reply to the hate tweet delivered within 24 hours, by one of six human-controlled bot accounts with neutral, apolitical posting histories and approximately 100 followers. Counterspeech posts were interspersed with innocuous messages to avoid detection."}
 include_graphics("images/Hangartner3.PNG")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Hangartner et al. Figure 2: point estimates with 90% and 95% confidence intervals for three counterspeech strategies (humor, warning of consequences, empathy) on hate speech creation and deletion outcomes. Empathy shows the largest and most consistent positive effects — reducing creation and increasing deletion of xenophobic tweets. Humor and warning of consequences show near-zero effects with wide confidence intervals."}
 include_graphics("images/Hangartner4.PNG")
 ```
 
@@ -236,26 +247,3 @@ include_graphics("images/Hangartner4.PNG")
 1.  Lab Experiment: Carefully controlled, structured environment in which treatments and outcomes are administered usually in person
 2.  Field Experiment: Real-world intervention in which a treatment is administered at random to treatment and control groups
 3.  Survey Experiment: Experiments in which treatments are administered usually through digital devices as part of a survey 
-
----
-### Oct. 2 Class 
-
-For a research question in the social sciences that interests you, suggest a design for an experiment that could be done as an honors thesis project. (You don't have to actually intend to do it, etc., but it has to be the kind of thing that could hypothetically be done.) Explain why you find the topic interesting and how your design helps answer your question. Evaluate the strengths and weaknesses of your design in comparison with the example experiments in the syllabus.
-
----
-
-What an experimental design includes:
-
-* Treatment
-* Outcome
-* Sample
-* Lab/field/survey?
-* Any other clever design features (e.g., manipulation checks, attention filters, placebo treatments)
-
----
-
-Your response might be structured as:
-
-1-2 paragraphs of justification for why the topic is interesting and how your experiment contributes
-1-2 paragraphs explaining the design details from the previous slide
-1-2 paragraphs comparing strengths and weaknesses in terms of internal and external validity relative to the example experiments

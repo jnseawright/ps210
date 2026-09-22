@@ -4,7 +4,7 @@
     <title>Lab 1: Preparing for Homework 1</title>
     <meta charset="utf-8" />
     <meta name="author" content="Jaye Seawright" />
-    <meta name="date" content="2025-10-21" />
+    <meta name="date" content="2026-11-03" />
     <script src="libs/header-attrs-2.30/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### <small>Northwestern Political Science</small>
 ]
 .date[
-### Oct. 21, 2025
+### Nov. 3, 2026
 ]
 
 ---
@@ -37,7 +37,6 @@ pre {
   max-height: 400px;
   overflow-y: auto;
 }
-
 pre[class] {
   max-height: 200px;
 }
@@ -79,9 +78,6 @@ Four panes:
 ``` r
 # Read data from a URL
 qog_small &lt;- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/qogsmall.csv")
-
-# Read data from your computer (after downloading)
-# local_data &lt;- read.csv("path/to/your/file.csv")
 ```
 
 **Key points:**
@@ -112,39 +108,6 @@ head(qog_small)
 ## 4                      NA      NA                  NA            NA
 ## 5                      NA    8958                  NA            NA
 ## 6                      NA    9093                  NA            NA
-```
-
----
-### Examining Data
-
-
-``` r
-# Look at the last few rows
-tail(qog_small)
-```
-
-```
-##           X          cname year democracy corruption genderequity percapitagdp
-## 12842 12842 Vietnam, South 1971     0.197         NA        0.386           NA
-## 12843 12843 Vietnam, South 1972     0.197         NA        0.386           NA
-## 12844 12844 Vietnam, South 1973     0.197         NA        0.386           NA
-## 12845 12845 Vietnam, South 1974     0.197         NA        0.386           NA
-## 12846 12846 Vietnam, South 1975     0.196         NA        0.386           NA
-## 12847 12847 Vietnam, South 1976        NA         NA           NA           NA
-##       refugees centralbankindependence imports ecologicalfootprint
-## 12842       NA                      NA   18810                  NA
-## 12843       NA                      NA   19086                  NA
-## 12844       NA                      NA   19367                  NA
-## 12845       NA                      NA   19652                  NA
-## 12846       NA                      NA   19941                  NA
-## 12847       NA                      NA      NA                  NA
-##       globalization
-## 12842            NA
-## 12843            NA
-## 12844            NA
-## 12845            NA
-## 12846            NA
-## 12847            NA
 ```
 
 ---
@@ -184,36 +147,6 @@ summary(qog_small)
 ```
 
 ---
-### Examining Data
-
-
-``` r
-# See the structure (variable types)
-str(qog_small)
-```
-
-```
-## 'data.frame':	12847 obs. of  12 variables:
-##  $ X                      : int  1 2 3 4 5 6 7 8 9 10 ...
-##  $ cname                  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
-##  $ year                   : int  1946 1947 1948 1949 1950 1951 1952 1953 1954 1955 ...
-##  $ democracy              : num  0.059 0.06 0.06 0.06 0.061 0.061 0.059 0.06 0.059 0.059 ...
-##  $ corruption             : num  NA NA NA NA NA NA NA NA NA NA ...
-##  $ genderequity           : num  0.142 0.142 0.142 0.142 0.143 0.143 0.143 0.143 0.143 0.143 ...
-##  $ percapitagdp           : num  NA NA NA NA NA NA NA NA NA NA ...
-##  $ refugees               : num  NA NA NA NA NA NA NA NA NA NA ...
-##  $ centralbankindependence: num  NA NA NA NA NA NA NA NA NA NA ...
-##  $ imports                : num  NA NA NA NA 8958 ...
-##  $ ecologicalfootprint    : num  NA NA NA NA NA NA NA NA NA NA ...
-##  $ globalization          : num  NA NA NA NA NA NA NA NA NA NA ...
-```
-
-``` r
-# Open in spreadsheet view (capital V!)
-#View(qog_small)
-```
-
----
 ### Installing and Loading Packages
 
 Packages extend R's capabilities.
@@ -232,14 +165,6 @@ library(ggplot2)
 **Remember:** Install once, load every time!
 
 ---
-### Quick Practice
-
-With a neighbor, discuss:
-1. What's the difference between `head()` and `summary()`?
-2. Why do we need to load packages even after installing them?
-3. What would happen if you run `summary(example_data)` before loading the data?
-
----
 class: inverse, center, middle
 
 # Part 2: Working with Two Datasets
@@ -247,7 +172,7 @@ class: inverse, center, middle
 ---
 ### Today's Example Data
 
-We'll use data about democracy from the QOG data that we loaded above, and also data about :
+We'll use data about democracy from the QOG dataset and right‑wing violence incidents:
 
 
 ``` r
@@ -256,7 +181,7 @@ rtv &lt;- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Dat
 ```
 
 ---
-### Look at Both Datasets
+### Examine Both Datasets
 
 
 ``` r
@@ -329,8 +254,6 @@ head(rtv)
 ## 6        NA             NA                        NA    2016
 ```
 
----
-### Look at Both Datasets
 
 ``` r
 head(qog_small)
@@ -353,79 +276,41 @@ head(qog_small)
 ## 6                      NA    9093                  NA            NA
 ```
 
----
-
 **Questions:**
 - What variables does `rtv` have?
 - What variables does `qog_small` have?
 - How are they connected? (What common variable could we use to match them?)
 
 ---
-### Merging Datasets: The Loop Approach
+### Merging Datasets
 
-Homework 1 uses a loop. Let's understand a slightly modified version:
-
-
-``` r
-# Create variable with zero in it as defaul
-qog_to_merge &lt;- qog_small
-
-qog_to_merge$rightwingviolence &lt;- 0
-
-# Loop through each act of violence
-for (i in 1:nrow(rtv)) {
-  # Find which country this act of violence happened in
-  this_country &lt;- rtv$country_name[i]
-  this_year &lt;- rtv$year[i]
-  
-  # Find the row(s) in qog_small that match this event's country and year
-  target_rows &lt;- qog_to_merge$cname == this_country &amp; qog_to_merge$year == this_year
-
-  # Increase the count for those rows by 1
-  qog_to_merge$rightwingviolence[target_rows] &lt;- qog_to_merge$rightwingviolence[target_rows] + 1
-}
-
-  #Our dataset only covers some countries.
-qog_plus_rtv &lt;- qog_to_merge %&gt;% filter(cname %in% rtv$country_name)
-qog_to_merge &lt;- NULL
-```
-
----
-### A Faster and Shorter Alternative
-
-The `tidyverse` gives us a speedier and less error-prone way:
+We want to count how many violent incidents happened in each country‑year and add that count to the QOG data.
 
 
 ``` r
-# Step 1: Count events per country-year from the events dataset
+# Step 1: Count incidents per country‑year
 event_counts &lt;- rtv %&gt;%
   group_by(country_name, year) %&gt;%
   summarise(rightwingviolence = n(), .groups = "drop")
 
-# Step 2: Join these counts to the full QoG panel
-qog_plus_rtv &lt;- left_join(qog_small, event_counts, 
-                          by = c("cname" = "country_name", "year" = "year"))
+# Step 2: Join to QOG
+qog_merged &lt;- left_join(qog_small, event_counts,
+                        by = c("cname" = "country_name", "year" = "year"))
 
-# Step 3: Replace NA counts with 0 (countries/years with no events)
-qog_plus_rtv$rightwingviolence &lt;- ifelse(is.na(qog_plus_rtv$rightwingviolence), 0, 
-                                          qog_plus_rtv$rightwingviolence)
+# Step 3: Replace NA with 0 (no incidents)
+qog_merged$rightwingviolence &lt;- ifelse(is.na(qog_merged$rightwingviolence), 0,
+                                        qog_merged$rightwingviolence)
 
-# Step 4: Filter countries not in both datasets.
-qog_plus_rtv &lt;- qog_plus_rtv %&gt;% filter(cname %in% rtv$country_name)
+# Step 4: Keep only countries that appear in RTV (optional)
+qog_merged &lt;- qog_merged %&gt;% filter(cname %in% rtv$country_name)
 ```
-
----
-### A Faster and Shorter Alternative
-
-This does the same thing as the loop, but it will execute much more quickly!
 
 ---
 ### Check Your Work
 
 
 ``` r
-# See what we have now
-head(qog_plus_rtv)
+head(qog_merged)
 ```
 
 ```
@@ -453,72 +338,17 @@ head(qog_plus_rtv)
 ```
 
 ---
-### Check Your Work
-
-
-``` r
-# How much violence?
-# Load ggplot2
-library(ggplot2)
-
-# Create a histogram of violence per country-year
-rwhist &lt;- qog_plus_rtv %&gt;% ggplot(aes(x = rightwingviolence)) +
-  geom_histogram(bins = 10,           # number of bins (adjust as needed)
-                 fill = "skyblue",    # bar fill color
-                 color = "white") +   # bar outline color
-  labs(title = "Distribution of Right-Wing Violence",
-       x = "Violence Per Country-Year",
-       y = "Count") +
-  theme_minimal()                     # clean theme
-```
-
----
-
-
-``` r
-rwhist
-```
-
-![](StatisticalComputingLabSession1_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
-
----
 ### Creating New Variables
 
 We can create new variables based on existing ones:
 
 
 ``` r
-# Create a variable indicating large states
-qog_plus_rtv$loggedrightwingviolence &lt;- log(qog_plus_rtv$rightwingviolence + 1)
-
-rwloghist &lt;- qog_plus_rtv %&gt;% ggplot(aes(x = loggedrightwingviolence)) +
-  geom_histogram(bins = 10,           # number of bins (adjust as needed)
-                 fill = "skyblue",    # bar fill color
-                 color = "white") +   # bar outline color
-  labs(title = "Distribution of Logged Right-Wing Violence",
-       x = "Logged Violence Per Country-Year",
-       y = "Count") +
-  theme_minimal()                     # clean theme
-```
-
----
-
-
-``` r
-rwloghist
-```
-
-![](StatisticalComputingLabSession1_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
-
----
-
-
-``` r
 # Create a categorical variable from a numeric one
-qog_plus_rtv$violence_cat &lt;- cut(qog_plus_rtv$rightwingviolence,
+qog_merged$violence_cat &lt;- cut(qog_merged$rightwingviolence,
                            breaks = c(-1, 0, 5, 10, Inf),
                            labels = c("None", "Little", "Some", "Much"))
-table(qog_plus_rtv$violence_cat)
+table(qog_merged$violence_cat)
 ```
 
 ```
@@ -527,13 +357,7 @@ table(qog_plus_rtv$violence_cat)
 ##   1022    193     46     51
 ```
 
----
-### Your Turn (with a neighbor)
-
-Given what we've seen:
-1. Why might we prefer the tidyverse approach over writing a loop?
-2. What could go wrong if the country (or state?) names don't match exactly?
-3. How would you check if the merge worked correctly?
+This is exactly the same logic as creating population groups in Homework 1.
 
 ---
 class: inverse, center, middle
@@ -545,75 +369,65 @@ class: inverse, center, middle
 
 
 ``` r
-rwscatter &lt;- qog_plus_rtv %&gt;% ggplot(aes(x = rightwingviolence, y = democracy)) +
-  geom_point() +
+ggplot(qog_merged, aes(x = rightwingviolence, y = democracy)) +
+  geom_point(alpha = 0.3) +
   labs(title = "Level of Democracy by Right-Wing Violence",
        x = "Right-Wing Violence",
        y = "Level of Democracy") +
   theme_minimal()
 ```
 
-
----
-
-
-``` r
-rwscatter
-```
-
-![](StatisticalComputingLabSession1_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](StatisticalComputingLabSession1_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 ---
 ### What Does This Plot Tell Us?
 
-Look at the plot and discuss:
-
-- What is the relationship between right-wing violence and democracy?
+- What is the relationship between right‑wing violence and democracy?
 - What are the *limitations* of this plot?
 
 ---
-### Visualizing Logged Violence Instead
+### Grouped Bar Plot
 
-Maybe we don't like the stretched distribution of violence, so let's use the log:
+Suppose we want to compare democracy scores between countries with "None" vs. "Little" violence, broken down by region.
 
 
 ``` r
-rwlogscatter &lt;- qog_plus_rtv %&gt;% ggplot(aes(x = log(1+ rightwingviolence), y = democracy)) +
-  geom_point() +
-  labs(title = "Logged Level of Democracy by Right-Wing Violence",
-       x = "Logged Acts of Right-Wing Violence",
-       y = "Level of Democracy") +
+qog_merged$region &lt;- sample(c("Europe", "Americas", "Asia", "Africa"),
+                            size = nrow(qog_merged), replace = TRUE)
+# (In real use, you would have a real region variable)
+
+ggplot(qog_merged, aes(x = violence_cat, fill = region)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Count of Country-Years by Violence Category and Region",
+       x = "Violence Category",
+       y = "Count",
+       fill = "Region") +
   theme_minimal()
 ```
 
----
+![](StatisticalComputingLabSession1_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
-
-``` r
-rwlogscatter
-```
-
-![](StatisticalComputingLabSession1_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+This is similar to the bar plot you will create in Homework 1, where you compare arrests by population group and governor's party.
 
 ---
-### Does this help?
+### Key `ggplot` Concepts for Homework 1
 
-Look at the plot and discuss:
-
-- Does the log transformation make the relationship easier or harder to see?
-- What are the *advantages* and *disadvantages* of this version of the plot?
+- `aes(x = , fill = )` – map variables to x‑axis and fill color
+- `geom_bar(position = "dodge")` – bars side‑by‑side (not stacked)
+- `scale_fill_manual(values = c("blue", "red"))` – set custom colors
+- `labs()` – add titles and axis labels
 
 ---
 class: inverse, center, middle
 
 # Part 4: Your Turn (20 min)
 
-*Now you'll practice with a different dataset. Open the Lab1_Practice.Rmd file and follow the instructions. We'll circulate to help.*
+*Now open the Lab1_Practice.Rmd file and follow the instructions. We'll circulate to help.*
 
 ---
 class: inverse, center, middle
 
-# Part 5: Connecting to Homework 1 
+# Part 5: Connecting to Homework 1
 
 ---
 ### How Today's Lab Maps to Homework 1
@@ -622,35 +436,17 @@ class: inverse, center, middle
 |-----------|-------------------|
 | Loading data with `read.csv()` | Problem 1: Load governor and ICE data |
 | Examining data with `head()`, `summary()` | Problem 1: Understand what's in each dataset |
-| Combining two datasets | Problem 1: Add party variable to ICE data |
-
----
-### How Today's Lab Maps to Homework 1
-
-| Lab Skill | Homework 1 Problem |
-|-----------|-------------------|
-| Creating variables with `mutate()` and `cut()` | Problem 3: Create population groups |
-| Bar plots with `ggplot()` | Problem 3: Visualize arrests by party and population |
+| Merging with `left_join()` | Problem 1: Add party variable to ICE data |
+| Creating variables with `cut()` | Problem 3: Create population groups |
+| Grouped bar plot with `ggplot()` | Problem 3: Visualize arrests by party and population |
 | Interpreting limitations | Problems 2 and 4: Causal inference, experiment feasibility |
-
----
-### Key Differences to Notice
-
-| Today's Lab | Homework 1 |
-|-------------|------------|
-| Democracy and violence | ICE arrests data |
-| tidyverse (faster) | Loop (more explicit) |
-| Party from `states` dataset | Party from `governor_data` |
-| Population groups with quintiles | Same approach! |
-
-The *logic* is the same even if the code differs slightly.
 
 ---
 ### Where to Find Help in Homework 1
 
-- **Problem 1:** The loop code is already provided—you just need to run it and interpret the results
+- **Problem 1:** The code to merge is provided – you just need to run it and interpret
 - **Problem 2:** Use the four questions from lecture (relationship, reverse causation, pathway, confounders)
-- **Problem 3:** The code for population groups is provided—focus on interpreting the plot
+- **Problem 3:** The population group code is provided – focus on interpreting the plot
 - **Problem 4:** Think about what an experiment would require (random assignment, manipulation)
 
 ---
@@ -661,7 +457,7 @@ The *logic* is the same even if the code differs slightly.
 - [ ] Examine data with `head()` and `summary()`
 - [ ] Merge two datasets using `left_join()`
 - [ ] Create a new categorical variable with `cut()`
-- [ ] Make a bar plot with `ggplot()`
+- [ ] Make a grouped bar plot with `ggplot()`
 - [ ] Explain what the plot shows and its limitations
 
 ---

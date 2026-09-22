@@ -4,6 +4,7 @@
     <title>3: Causation</title>
     <meta charset="utf-8" />
     <meta name="author" content="Jaye Seawright" />
+    <meta name="date" content="2026-10-01" />
     <script src="Causation_files/header-attrs-2.30/header-attrs.js"></script>
     <link href="Causation_files/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
     <script src="Causation_files/htmlwidgets-1.6.4/htmlwidgets.js"></script>
@@ -29,7 +30,7 @@ class: center, middle, inverse, title-slide
 ### <small>Northwestern Political Science</small>
 ]
 .date[
-### Sept. 23, 2025
+### Oct. 1, 2026
 ]
 
 ---
@@ -49,50 +50,63 @@ pre[class] {
 
 
 
+
+---
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Distinguish causation from correlation and explain the fundamental problem of causal inference
+2. Apply the four causal inference questions to any empirical claim
+3. Identify threats to causal inference: reverse causation, confounding, and post-treatment bias
+4. Explain how laboratory experiments, natural experiments, and field experiments help establish causal claims
+---
+
 ### How do citizen attitudes affect the survival of democracy?
 
 ---
-&lt;img src="images/Chiopris.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/Chiopris.png" alt="Chiopris, Nalepa &amp;amp; Vanberg: 'A Wolf in Sheep's Clothing: Citizen Uncertainty and Democratic Backsliding.' Abstract: citizens who support incumbents may inadvertently enable backsliding even if they oppose authoritarianism; a survey experiment in Poland supports the model." width="90%" style="display: block; margin: auto;" /&gt;
+
 
 ---
 
 ### Causation
 
-<div class="grViz html-widget html-fill-item" id="htmlwidget-fa0c7c56a9f8238e73a8" style="width:80%;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-fa0c7c56a9f8238e73a8">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,1!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,0!\"] \n  \"1\"->\"2\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-92ca1d9517165fc0fb0c" style="width:80%;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-92ca1d9517165fc0fb0c">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,1!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,0!\"] \n  \"1\"->\"2\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
 ### Reverse Causation
 
-<div class="grViz html-widget html-fill-item" id="htmlwidget-e0a4e6dce4c552196caa" style="width:80%;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-e0a4e6dce4c552196caa">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,0!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,1!\"] \n  \"2\"->\"1\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-0b6d64cdd4cdbe89ff99" style="width:80%;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-0b6d64cdd4cdbe89ff99">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,0!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,1!\"] \n  \"2\"->\"1\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ---
 
 ### Reciprocal Causation
 
-<div class="grViz html-widget html-fill-item" id="htmlwidget-3463808bd8d798a84994" style="width:80%;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-3463808bd8d798a84994">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.395125696009872,0!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.395125696009872,0!\"] \n  \"1\"->\"2\" \n  \"2\"->\"1\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-a4f764798963754b706c" style="width:80%;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-a4f764798963754b706c">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.39871288408148,2.77555756156289e-17!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.39871288408148,-2.77555756156289e-17!\"] \n  \"1\"->\"2\" \n  \"2\"->\"1\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ---
 
 ### Confounding
 
-<div class="grViz html-widget html-fill-item" id="htmlwidget-ad4b5fd6d90790394da3" style="width:80%;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-ad4b5fd6d90790394da3">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.501925692413714,0.289786935483161!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.501925692927179,0.289786932815116!\"] \n  \"3\" [label = \"Social Media\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-5.13465575613381e-10,-0.579573868298277!\"] \n  \"1\"->\"2\" \n  \"3\"->\"2\" \n  \"3\"->\"1\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-0ca0617357e133427d81" style="width:80%;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-0ca0617357e133427d81">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.499086878169957,0.288147943263199!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.499086878154999,0.288147943340923!\"] \n  \"3\" [label = \"Social Media\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-1.49578960328967e-11,-0.576295886604122!\"] \n  \"1\"->\"2\" \n  \"3\"->\"2\" \n  \"3\"->\"1\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
 ### Post-Treatment
 
-<div class="grViz html-widget html-fill-item" id="htmlwidget-68f3c8a80fe04d841a7e" style="width:80%;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-68f3c8a80fe04d841a7e">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.501848957848785,0.289742630578143!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.501848957760316,0.289742631037844!\"] \n  \"3\" [label = \"Favorability\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-8.84696205183388e-11,-0.579485261615987!\"] \n  \"1\"->\"2\" \n  \"3\"->\"2\" \n  \"1\"->\"3\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-b00d42b738a739edc7bb" style="width:80%;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-b00d42b738a739edc7bb">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.499555329898086,0.288418404181694!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.499555329898991,0.288418404176992!\"] \n  \"3\" [label = \"Favorability\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-9.04915031796349e-13,-0.576836808358685!\"] \n  \"1\"->\"2\" \n  \"3\"->\"2\" \n  \"1\"->\"3\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
 ### Instrument (More Advanced)
 
-<div class="grViz html-widget html-fill-item" id="htmlwidget-517b2ba1a7308cc80087" style="width:80%;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-517b2ba1a7308cc80087">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,1!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,0!\"] \n  \"3\" [label = \"Country Size\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,2!\"] \n  \"1\"->\"2\" \n  \"3\"->\"1\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-a85bebc93ca457c65775" style="width:80%;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-a85bebc93ca457c65775">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Uncertainty\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,1!\"] \n  \"2\" [label = \"Backsliding\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,0!\"] \n  \"3\" [label = \"Country Size\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,2!\"] \n  \"1\"->\"2\" \n  \"3\"->\"1\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 ### Fundamental Problem of Causal Inference
@@ -111,7 +125,7 @@ There are some questions we can ask to reason about that help us pinpoint what w
 
 
 ---
-&lt;img src="images/Chiopris2.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/Chiopris2.png" alt="Chiopris et al. Figure 6: conditional average marginal component effect of an undemocratic reform proposal on punishment (vote against incumbent), by how undemocratic respondents perceived the reform to be (Low, Mid-Low, Mid-High, High). All estimates are negative, growing larger at higher perceived undemocratic assessment." width="90%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -123,7 +137,7 @@ There are some questions we can ask to reason about that help us pinpoint what w
 
 
 ---
-&lt;img src="images/Chiopris3.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/Chiopris3.png" alt="Chiopris et al. Table 3: conjoint experiment vignette. Candidate A supports EU relations and expanded voting access; Candidate B supports Christian values, Polish sovereignty, and proposes extending parliamentary terms and postponing elections in emergencies — the undemocratic treatment." width="90%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -162,7 +176,7 @@ A different scholar with a different agenda might have tried to study the causal
 4.  Have confounding variables been ruled out?
 
 ---
-&lt;img src="images/Chiopris4.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/Chiopris4.png" alt="Chiopris et al. Table 5: covariate balance across treatment and control groups at Low, Mid-Low, Mid-High, and High levels of perceived undemocratic assessment. Variables include Democracy Index, age, education, gender, religiosity, and town size — groups are well-balanced, supporting causal identification." width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Controlling for Confounders
@@ -182,33 +196,212 @@ relationship between the treatment and the outcome in only those cases.
     cases left in each category.
 
 ---
-### Do Mask Mandates Work?
+### Do Gender Quotas Elect More Women?
 
+Many countries have adopted **gender quotas** to increase women's representation in legislatures — reserved seats, candidate quotas requiring parties to nominate a minimum share of women, or placement mandates determining list positions.
 
----
-&lt;img src="images/maskexp.jpg" width="90%" style="display: block; margin: auto;" /&gt;
-
----
-&lt;img src="images/maskexp2.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+Do they work?
 
 ---
-&lt;img src="images/maskexp3.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+### The Descriptive Pattern
+
+Women hold roughly **26%** of seats in national parliaments worldwide (IPU, 2024).
+
+Countries with legislated gender quotas average meaningfully higher female representation than those without.
+
+At first glance, the evidence looks compelling: quotas → more women elected.
 
 ---
 ### Let's ask the four questions
 
+**Question 1: Is there a relationship?**
+
+Yes. Across countries, places with quotas tend to have more women in office. Within countries, districts or councils with reserved seats reliably elect women to those seats.
+
+This part of the causal case is on solid ground.
 
 ---
-&lt;img src="images/healthaffairs1.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+**Question 2: Could the outcome cause the treatment?**
+
+Could having *more women in office* cause *quotas to be adopted*?
+
+Plausibly yes — countries with stronger gender equality norms might both elect more women voluntarily *and* be more likely to pass quota legislation.
+
+If so, the quota isn't doing the causal work; progressive culture is driving both variables.
 
 ---
-&lt;img src="images/healthaffairs2.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+**Question 3: Is there evidence of a causal pathway?**
+
+The most obvious pathway: quotas put more women on ballots, so more win.
+
+But a deeper question is *why* women aren't already running and winning without quotas. Two competing explanations:
+
+- **Pipeline problem:** Not enough women are recruited or nominated as candidates
+- **Voter discrimination:** Voters penalize women, so parties and women avoid running
+
+Which mechanism is at work matters enormously for policy.
 
 ---
-&lt;img src="images/healthaffairs3.jpg" width="65%" style="display: block; margin: auto;" /&gt;
+
+**Question 4: Have confounding variables been ruled out?**
+
+This is the hard one. Countries that adopt quotas may differ from those that don't in:
+
+- Cultural attitudes toward gender equality
+- Economic development
+- Legal and political institutions
+- Existing female political participation
+
+Any of these could explain both quota adoption and higher female representation, making cross-country comparisons unreliable.
 
 ---
-### Again, the four questions!
+### A Natural Experiment: Mumbai's Reserved Seats
+
+&lt;img src="images/bhavnani_title.png" alt="Bhavnani (2009), 'Do Electoral Quotas Work after They Are Withdrawn? Evidence from a Natural Experiment in India,' APSR 103(1). Abstract: using Mumbai's lottery-assigned seat reservations, women who won reserved seats were approximately five times more likely to win again after reservations were withdrawn." width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+Mumbai city council seats were **randomly assigned** for reservation by lottery — one election at a time.
+
+The key question: after reservations are *withdrawn*, do women still win?
+
+---
+### The Design
+
+&lt;img src="images/bhavnani_research_design.png" alt="Bhavnani Figure 1: 2x2 diagram of control and treatment groups. Treatment = Reserved in 1997, Open in 2002 (n=37); Control = Open in 1997, Open in 2002 (n=81). Wards reserved in both years (n=18) and newly reserved in 2002 (n=37) are excluded from the main analysis." width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+Treatment = **Reserved in 1997, Open in 2002** (n = 37)
+
+Control = **Open in 1997, Open in 2002** (n = 81)
+
+The lottery makes these groups equivalent before treatment — so any difference in 2002 is causal.
+
+---
+### Scale of the Reservations
+
+&lt;img src="images/bhavnani_reservations.png" alt="Bhavnani Table 1: constituency-wise reservations in Mumbai in 1997 and 2002. Of 221 total constituencies in 1997, 73 (33.9%) were reserved for women; of 227 in 2002, 76 (33.0%) were reserved for women. Reservations were randomly assigned within caste categories." width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+### The Results
+
+&lt;img src="images/bhavnani_findings.png" alt="Bhavnani Table 3: next-election effects of 1997 reservations on 2002 outcomes. Treatment wards (reserved 1997, open 2002) vs. control wards (open both years): 21.6% vs 3.7% female winners (+17.9pp***); 73% vs 35.8% of wards with at least one female candidate (+37.2pp***). Sixteen outcome measures shown, most significantly favoring treatment." width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+Row 1: **21.6% vs 3.7%** — women won in previously reserved wards at nearly six times the rate of never-reserved wards.
+
+Row 2: **73% vs 35.8%** of previously reserved wards had at least one female candidate — the pipeline effect.
+
+The quota introduced women into politics. After it was gone, they kept winning.
+
+---
+### What the Lottery Design Solves
+
+Because reservation was assigned by lottery:
+
+- **Question 2 (reverse causation):** Constituencies didn't earn reservations by already having strong female candidates. The treatment was assigned before the outcome.
+
+- **Question 4 (confounding):** Reserved and non-reserved constituencies were identical on average before the lottery. Any difference in outcomes reflects the quota's causal effect.
+
+The persistence of the effect after quotas are *withdrawn* suggests reservations change which women run — and teach parties that women can win.
+
+---
+### A Field Experiment on Electing Women
+
+&lt;img src="images/karpowitz_title.png" alt="Karpowitz, Monson &amp;amp; Preece (2017), 'How to Elect More Women: Gender and Candidate Success in a Field Experiment,' AJPS. Abstract: a field experiment in 1,842 Utah Republican caucus precincts tests supply (encourage women to run) and demand (encourage voters to support women) interventions; both supply and demand treatments increase women's election as delegates, especially combined." width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+Karpowitz, Monson &amp; Preece (2017) randomly assigned Utah Republican caucus precincts to one of four conditions:
+
+- **Control:** no intervention
+- **Supply:** messages encouraging women to run as delegates
+- **Demand:** messages from party leaders encouraging voters to support female candidates
+- **Supply + Demand:** both interventions combined
+
+---
+
+&lt;img src="images/karpowitz_outcome.png" alt="Karpowitz et al. Figure 2: proportion of precincts electing at least one woman as state delegate by condition. Control ~38%, Supply ~44%, Demand ~44%, Supply+Demand ~46%. All treatment conditions are higher than control with overlapping 95% confidence intervals." width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/karpowitz_outcome_2.png" alt="Karpowitz et al. Figure 3: estimated proportion of state delegates who are women by condition. Control ~24%, Supply ~26%, Demand ~27%, Supply+Demand ~30%. The Supply+Demand condition shows the largest gain, with confidence intervals not overlapping the control." width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+Both supply and demand interventions raised women's representation. Combined, they worked best.
+
+The finding challenges a simple "pipeline only" story: **voter demand matters too**, but simple party-leader messages can move it.
+
+Most importantly: random assignment means we can trust these are causal effects, not just correlations.
+
+---
+### Is Voter Bias the Real Problem?
+
+If voters systematically punish female candidates, that would be a major causal pathway *against* women's election — and would limit what quotas can accomplish once lifted.
+
+Two recent studies address this head-on.
+
+---
+### What Voters Actually Do (Schwarz &amp; Coppock 2022)
+
+&lt;img src="images/schwarz_title.png" alt="Schwarz &amp;amp; Coppock (2022), 'What Have We Learned about Gender from Candidate Choice Experiments? A Meta-Analysis of Sixty-Seven Factorial Survey Experiments,' JOP. Abstract: pooling 67 conjoint/vignette studies, the average effect of female candidate gender is a gain of approximately 2 percentage points; voter preferences are not a major factor explaining women's underrepresentation." width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/schwarz_results.png" alt="Schwarz &amp;amp; Coppock Figure 1: forest plot of AMCE estimates for female candidate gender across 67 studies. Each row is one study; most estimates cluster near or slightly above zero (slight advantage for women), confirming no systematic voter penalty for female candidates." width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+
+Each row is one of 67 studies. Most estimates cluster near zero — or slightly *positive* for women.
+
+The average effect of being a female candidate: **+2 percentage points** in voter choice.
+
+Voters don't penalize women. If anything, they very slightly prefer them. This means voter preferences cannot explain women's underrepresentation.
+
+---
+### Voter Bias Under Low Information (Eyméoud &amp; Vertier 2023)
+
+&lt;img src="images/eymeoud_title.png" alt="Eyméoud &amp;amp; Vertier (2023), 'Gender Biases: Evidence from a Natural Experiment in French Local Elections,' Economic Policy. A 2015 reform required gender-balanced candidate pairs; alphabetical ordering determined which gender appeared first on the ballot, creating an as-if random treatment." width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+
+A 2015 French reform required gender-balanced candidate pairs. **Alphabetical ordering** determined which gender appeared first on the ballot — effectively random.
+
+&lt;img src="images/eymeoud_treatment.png" alt="Eyméoud &amp;amp; Vertier Figure 1: examples of valid French local election ballots showing three layout variants. Each ballot lists a main candidate and a substitute (remplaçant/e); candidate order varies by alphabetical name ordering, providing the natural experiment variation." width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/eymeoud_results.png" alt="Eyméoud &amp;amp; Vertier regression results: effect of 'Woman first' on ballot by voter ideology (XLeft, Left, Right, XRight). The penalty is statistically significant only among right-leaning voters (Right column: -1.397**, p=0.016). Left-leaning and far-right voters show no significant effect." width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+The "Woman first" penalty is significant only in the **Right** column (−1.4pp\*\*).
+
+Right-leaning voters penalized women who appeared first on the ballot. Left-leaning voters did not.
+
+And this bias decreases with higher newspaper circulation — more information reduces discrimination.
+
+---
+### Reconciling the Two Voter Bias Findings
+
+Survey experiments (Schwarz &amp; Coppock): voters evaluate candidates in a deliberate, information-rich setting → no penalty for women, slight advantage.
+
+Real low-information elections (Eyméoud &amp; Vertier): right-leaning voters show a small negative bias — but only under low information.
+
+Voter discrimination is **real, narrow, and context-dependent** — concentrated among right-leaning voters and reducible by information. Not the primary bottleneck.
+
+---
+### Quotas: The Four Questions Answered
+
+1. **Relationship?** Yes: documented in Mumbai via lottery (Bhavnani) and via field experiment (Karpowitz et al.)
+2. **Reverse causation?** Blocked in all four studies by lottery assignment, experimental randomization, or ballot-order instrument
+3. **Causal pathway?** Primarily candidacy supply and party behavior; voter bias is real but small and reducible by information (Schwarz &amp; Coppock; Eyméoud &amp; Vertier)
+4. **Confounders ruled out?** Yes: in each study by design, though not in simple cross-country comparisons
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -3,7 +3,7 @@ title: "Machine Learning"
 subtitle: "Empirical Methods"
 author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
-date: "Oct. 28, 2025"
+date: "Nov. 10, 2026"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -61,6 +61,17 @@ style_mono_accent(
 )
 ```
 
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Explain why assuming linearity limits what we can learn from data, and describe how LOESS addresses this
+2. Describe how CART builds a decision tree through recursive binary splits
+3. Interpret a CART tree: identify the root split, trace paths to terminal nodes, and read predicted values
+4. Explain how random forests improve on a single CART tree through bagging and variable randomization
+5. Interpret a minimum depth distribution plot to identify the most important predictors in a random forest
+
+---
 ### A (Quick) Historical Journey
 
 A lot of social science works with statistical models that assume the whole shape of the equation they work with, like regression did.
@@ -74,7 +85,7 @@ democplot.1 <- ggplot(qogsmall, aes(x=year, y=democracy)) +
 ```
 
 ---
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Scatterplot of year (x-axis) vs democracy score (y-axis) from the Quality of Government dataset. Individual country-years are plotted as points. A red linear regression line with a green 95% confidence band shows a slight upward trend in democracy over time, but considerable scatter around the line."}
 
 democplot.1
 ```
@@ -91,7 +102,7 @@ democplot.2 <- ggplot(qogsmall, aes(x=year, y=democracy)) +
   theme_minimal()
 ```
 ---
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Same scatterplot of year vs democracy score, but now with a LOESS (locally estimated scatterplot smoothing) curve in red and a green 95% confidence band. Unlike the linear model, the flexible curve can reveal non-linear patterns — showing how democracy levels rise and fall at different rates across different time periods."}
 democplot.2
 ```
 
@@ -130,7 +141,7 @@ Homogeneity in this context means that cases in a node are as similar as possibl
 ---
 ### An Example
 
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="A CART decision tree with five terminal nodes. Root split: radionews < 4.5. Right branch (high radio news exposure) predicts outcome = 1. Left branch splits on intefficacy < 2.5 — higher internal political efficacy (≥ 2.5) predicts 0.59. Lower efficacy branch splits on simpletreat < 0.5 (untreated cases split by edlevel < 7.5: terminal nodes 0.29 and 0.58; treated cases split by edlevel ≥ 7.5: terminal nodes 0.28 and 0.76). Higher education among treated respondents produces the highest predicted outcome."}
 library(knitr)
 include_graphics("images/experimentcart.pdf")
 ```
@@ -146,7 +157,7 @@ dem.cart <- rpart(democracy ~ corruption+genderequity+percapitagdp+refugees+cent
 ```
 
 ---
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="CART decision tree predicting democracy scores from corruption, gender equity, per capita GDP, refugees, central bank independence, imports, ecological footprint, and globalization. The tree shows recursive binary splits; variables closer to the root are stronger predictors. Terminal nodes display the predicted democracy value for cases that follow that path."}
 library(rpart.plot)
 rpart.plot(dem.cart)
 ```
@@ -177,14 +188,14 @@ library(randomForestExplainer)
 ```
 
 ---
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Minimum depth distribution plot from the random forest. Each bar represents a predictor variable; bar length reflects mean minimal depth across trees (shorter = more important, appears closer to the root more often). Corruption and per capita GDP have the smallest mean minimal depths, identifying them as the strongest predictors of democracy in this model."}
 dem.mindepth <- min_depth_distribution(dem.rf)
 plot_min_depth_distribution(dem.mindepth)
 ```
 
 
 ---
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Minimum depth distribution plot from the random forest (display version). Corruption and per capita GDP appear with the smallest mean minimal depths, indicating they are the most important predictors of democracy; other variables such as globalization and gender equity appear deeper in trees on average."}
 plot_min_depth_distribution(dem.mindepth)
 ```
 
@@ -197,13 +208,13 @@ plot_min_depth_distribution(dem.mindepth)
 
 ---
 
-```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center'}
+```{r, echo = TRUE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Minimum depth interaction plot from the random forest. Each cell shows how frequently a pair of predictor variables co-occurs in the same branches across trees, measured by their mean minimal depth of interaction. Pairs with lower mean interaction depth (darker cells) interact more strongly. Corruption and per capita GDP are likely among the most prominent interacting pairs."}
 plot_min_depth_interactions(dem.rf)
 ```
 
 ---
 
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Minimum depth interaction plot (display version). Shows pairwise variable interactions in the random forest; pairs appearing together near the root of trees more frequently have lower interaction depth scores. This identifies which combinations of predictors jointly drive democracy scores in the model."}
 plot_min_depth_interactions(dem.rf)
 ```
 

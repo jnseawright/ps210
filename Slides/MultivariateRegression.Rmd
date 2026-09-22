@@ -1,13 +1,12 @@
 ---
-title: "10: Multivariate Regression"
+title: "8: Multivariate Regression"
 subtitle: "Empirical Methods"
 author: "<large>Jaye Seawright</large>"
-institute: "<small>Northwestern Political Science</small>" 
-date: "Oct. 16, 2025"
-output: 
+institute: "<small>Northwestern Political Science</small>"
+date: "Oct. 22, 2026"
+output:
   xaringan::moon_reader:
     css: xaringan-themer.css
-  
 ---
 class: center, middle
 
@@ -16,16 +15,13 @@ pre {
   max-height: 400px;
   overflow-y: auto;
 }
-
 pre[class] {
   max-height: 200px;
 }
 ```
 
 ```{r, load_refs, include=FALSE, cache=FALSE}
-# Initializes
 library(RefManageR)
-
 library(ggplot2)
 library(dplyr)
 library(readr)
@@ -34,21 +30,19 @@ library(jtools)
 library(mice)
 library(knitr)
 library(DiagrammeR)
-library(extrafont)
-loadfonts(device="win")
 
 BibOptions(check.entries = FALSE,
-           bib.style = "authoryear", # Bibliography style
-           max.names = 3, # Max author names displayed in bibliography
-           sorting = "nyt", #Name, year, title sorting
-           cite.style = "authoryear", # citation style
+           bib.style = "authoryear",
+           max.names = 3,
+           sorting = "nyt",
+           cite.style = "authoryear",
            style = "markdown",
            hyperlink = FALSE,
            dashed = FALSE)
-
 ```
+
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
-library(xaringanthemer,MnSymbol)
+library(xaringanthemer, MnSymbol)
 style_mono_accent(
   base_color = "#1c5253",
   header_font_google = google_font("Josefin Sans"),
@@ -56,8 +50,17 @@ style_mono_accent(
   code_font_google   = google_font("Fira Mono"),
   text_font_size = "1.6rem"
 )
-
 ```
+
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Explain what a multivariate regression coefficient means and how it differs from a bivariate coefficient
+2. Identify potential confounders and explain why controlling for them changes estimates
+3. Distinguish good controls, irrelevant controls, and harmful controls using causal diagrams
+4. Explain collider bias
+5. Explain post-treatment bias and identify when including a variable in a regression would block a causal path of interest
 
 ---
 
@@ -152,7 +155,7 @@ Not every variable should be included in a regression. We can classify controls 
 
 ### Good Control
 
-```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center', fig.alt="DAG illustrating a good control: the Good Control node sits above Treatment and Outcome, with arrows pointing FROM it TO both Treatment and Outcome — making it a common cause (confounder). A direct arrow also runs from Treatment to Outcome. Including this variable in a regression blocks the backdoor path and isolates the causal effect of Treatment."}
 include_graphics("images/goodcontrol.jpg")
 ```
 
@@ -162,7 +165,7 @@ A good control is a common cause of both the treatment and the outcome. Includin
 
 ### Irrelevant Control
 
-```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center', fig.alt="DAG illustrating an irrelevant control: the Irrelevant Control node sits above Outcome with an arrow pointing only TO Outcome — no connection to Treatment. A direct arrow runs from Treatment to Outcome. Because this variable is unrelated to Treatment, it is not a confounder and does not bias the estimate; including it merely uses up degrees of freedom."}
 include_graphics("images/irrelevantcontrol1.jpg")
 ```
 
@@ -172,7 +175,7 @@ An irrelevant control is unrelated to the treatment or the outcome. It doesn't b
 
 ### Harmful Control: Collider
 
-```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center', fig.alt="DAG illustrating a harmful control — collider: the Harmful Control node sits above Treatment and Outcome, with arrows pointing FROM both Treatment and Outcome INTO it (both variables cause the control). A direct arrow also runs from Treatment to Outcome. Conditioning on this collider opens a spurious path between Treatment and Outcome, biasing the estimate even though there is no genuine confounding."}
 include_graphics("images/harmfulcontrol3.jpg")
 ```
 
@@ -182,33 +185,32 @@ A collider is a variable caused by both the treatment and the outcome. Condition
 
 ### Harmful Control: Post-Treatment
 
-```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center', fig.alt="DAG illustrating a harmful control — post-treatment variable: Treatment points TO the Harmful Control, which in turn points TO Outcome. A direct arrow also runs from Treatment to Outcome. Controlling for this variable blocks the indirect causal path (Treatment → Control → Outcome), understating the total effect and potentially introducing collider bias if the mediator also has unmeasured causes."}
 include_graphics("images/harmfulcontrol2.jpg")
 ```
 
-A post-treatment variable is affected by the treatment. 
+A post-treatment variable is affected by the treatment.
 
 ---
+
 ### Post-Treatment Bias
 
 When we control for a variable that is *caused by the treatment*, we can block part of the causal path and introduce bias.
 
 ---
 
-```{r posttreatment-dag, echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+```{r posttreatment-dag, echo=FALSE, fig.width=6, fig.height=4, fig.align='center', fig.alt="DiagrammeR DAG with three nodes: Treatment (Trans Bathroom) → Post-Treatment (Mediator) → Outcome (Carbon Regs), with an additional direct arrow from Treatment → Outcome. Illustrates that the total causal effect of Treatment on Outcome includes both the direct path and the indirect path through the mediator; controlling for the mediator removes the indirect path and underestimates the total effect."}
 library(DiagrammeR)
 
-# Create a simple DAG for post-treatment bias
 posttreat_dag <- 
   create_graph() %>%
   add_node(label = "Treatment\n(Trans Bathroom)") %>%
   add_node(label = "Post-Treatment\n(Mediator)") %>%
   add_node(label = "Outcome\n(Carbon Regs)") %>%
-  add_edge(from = 1, to = 2) %>%   # Treatment -> Post-Treatment
-  add_edge(from = 1, to = 3) %>%   # Treatment -> Outcome (direct)
-  add_edge(from = 2, to = 3)       # Post-Treatment -> Outcome (indirect)
+  add_edge(from = 1, to = 2) %>%
+  add_edge(from = 1, to = 3) %>%
+  add_edge(from = 2, to = 3)
 
-# Render the graph
 render_graph(posttreat_dag, layout = "nicely")
 ```
 
@@ -238,5 +240,6 @@ We would be asking: 'What's the effect of bathroom attitudes on carbon opinions 
 
 ### Next Steps
 
-- In the next class, we'll look at examples of quantitative political science research that use these techniques.
-- Then we'll move on to machine learning, which takes a different approach to handling many variables.
+- We'll continue with statistical computing labs to practice these techniques.
+- Then we'll see examples of quantitative political science research that use multivariate regression and other tools.
+- Later in the quarter, we'll introduce machine learning as an alternative approach to handling many variables.

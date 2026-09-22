@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Midterm Review Session</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jaye Seawright" />
+    <script src="MidtermReview_files/header-attrs-2.30/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Midterm Review Session
+]
+.subtitle[
+## Political Science 210 — Fall 2026
+]
+.author[
+### Jaye Seawright
+]
+.date[
+### October 27, 2026 (in class)
+]
+
+---
+
+class: center, middle
+
+&lt;style type="text/css"&gt;
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+pre[class] {
+  max-height: 200px;
+}
+&lt;/style&gt;
+
+
+
+
+
+### Today: Midterm Review
+
+- **Format:** In‑class, open notes, closed devices. 75 minutes.
+- **What to bring:** Your notes (handwritten or printed). No laptops/phones.
+- **Coverage:** All material from Sept 24 through Oct 22 (up to multivariate regression).
+
+We'll review **concepts and tools** using studies we've discussed in class.
+
+---
+
+## Example Studies We'll Use
+
+| Study | Topic | Key concepts |
+|-------|-------|--------------|
+| Lott &amp; Mustard (1996) | Concealed carry laws &amp; crime | Four questions, confounding, reverse causation |
+| Mask mandate study (Health Affairs) | COVID‑19 policies &amp; infection rates | Controlling for confounders, difference‑in‑differences |
+---
+
+## Example Studies We'll Use
+
+| Study | Topic | Key concepts |
+|-------|-------|--------------|
+| ANES regression example | Transgender bathrooms &amp; carbon regulation | Bivariate/multivariate regression interpretation |
+| **Piazza (2023)** | Political polarization &amp; political violence | Observational research, cross‑national time‑series, correlation vs. causation, survey experiment |
+
+---
+
+## New Example: Piazza (2023)
+
+**Research question:** Does affective partisan polarization increase support for political violence and the actual occurrence of political violence?
+
+**Design:** Two studies:
+1. **Original US survey** (N=1,899) measuring polarization (aversion to opposing party) and support for political violence.
+2. **Cross‑national time‑series** of 83 democracies (1970–2018) testing whether polarized democracies experience more political violence.
+
+---
+
+**Findings:**
+- In the US, polarized Democrats are 8% more likely, and polarized Republicans 18% more likely, to endorse political violence.
+- In the cross‑national analysis, highly polarized democracies are 34% more likely to experience frequent political violence.
+
+---
+
+### Strengths and Weaknesses
+
+| Aspect | Implication |
+|--------|----------------|
+| **Observational design** | No random assignment – confounding is a major threat. |
+| **Survey** (US) | Measures polarization as an attitude, not a manipulated treatment. |
+| **Cross‑national time‑series** | Uses lagged variables and controls (GDP, inequality, civil war history) to reduce confounding. |
+
+---
+
+### Strengths and Weaknesses
+
+| Aspect | Implication |
+|--------|----------------|| **Correlation vs. causation** | Piazza is careful: he finds an *association* and acknowledges possible reverse causation or common causes. |
+| **External validity** | Findings from the US may not generalize to other democracies; cross‑national analysis helps but has its own limits. |
+
+---
+
+### Practice: Apply the four questions to Piazza
+
+**Claim:** Polarization causes political violence.
+
+- **Q1:** Is there a relationship? (Yes – both the US survey and cross‑national analysis show a positive association.)
+- **Q2:** Could the outcome cause the treatment? (Possibly – political violence might increase polarization (rally effect).)
+- **Q3:** Is there a causal pathway? (Piazza proposes dehumanization, moral polarization, and group mobilization.)
+
+---
+
+### Practice: Apply the four questions to Piazza
+
+- **Q4:** Have confounders been ruled out? (Partially – he controls for many variables (GDP, inequality, past violence), but unmeasured confounders (e.g., elite rhetoric, social media) remain.)
+
+**Takeaway:** Even with careful controls, observational studies cannot fully establish causation.
+
+---
+
+## The Four Questions (for causal inference)
+
+| # | Question |
+|---|----------|
+| 1 | Is there a relationship between the treatment and the outcome? |
+| 2 | Could the outcome cause the treatment? (reverse causation) |
+| 3 | Is there evidence of a causal pathway? (mechanism) |
+| 4 | Have confounding variables been ruled out? |
+
+Use these to organize any critique of causal claims.
+
+---
+
+### Practice: Lott &amp; Mustard
+
+**What they claimed:** States that adopted “shall‑issue” concealed carry laws saw significant decreases in violent crime (murder ↓8.5%, rape ↓5%, aggravated assault ↓7%).
+
+**Apply the four questions:**
+
+- **Q1:** Is there a relationship?
+- **Q2:** Could the outcome cause the treatment? 
+- **Q3:** What is the proposed causal pathway? 
+- **Q4:** Have confounders been ruled out?
+
+---
+
+### Practice: Confounding in Lott &amp; Mustard
+
+**Question:** Name **two potential confounders** that could bias the relationship between shall‑issue laws and crime rates. Explain why each meets the definition of a confounder.
+
+*Think for a moment, then discuss with a neighbor.*
+
+---
+
+## Confounding and Control Variables
+
+A **confounder** is a variable that causes **both** the treatment and the outcome.
+
+**Controlling for a confounder** means holding it constant (e.g., including it in a regression) to isolate the causal effect of the treatment.
+
+---
+
+### Practice: Mask Mandate Study
+
+From our causation lecture: a study comparing counties with and without mask mandates found that mandates were associated with lower COVID‑19 infection rates.
+
+**Question:** What are some potential confounders? How might the authors try to control for them?
+
+*Discuss.*
+
+---
+
+## Descriptive vs. Causal Inference
+
+- **Descriptive:** What is the level or distribution of a variable? (e.g., “Shall‑issue states have higher homicide rates than may‑issue states.”)
+- **Causal:** Does X cause Y? (e.g., “Shall‑issue laws cause higher homicide rates.”)
+
+**Key:** Causal claims require a counterfactual and ruling out confounders.
+
+---
+
+### Practice: Descriptive or Causal?
+
+| Claim | Type? |
+|-------|-------|
+| “States with shall‑issue laws have higher violent crime rates.” |   |
+| “Shall‑issue laws increase violent crime.” |   |
+| “Democrats are more likely to support mask mandates than Republicans.” |   |
+| “Exposure to partisan news causes people to oppose mask mandates.” |   |
+| “Polarized democracies are 34% more likely to experience political violence.” |   |
+| “Polarization causes political violence.” |   |
+
+---
+
+## Regression Interpretation
+
+### Bivariate Regression
+`\(Y = \alpha + \beta X + \epsilon\)`
+
+- `\(\beta\)` = change in Y for a one‑unit change in X.
+- p‑value for `\(\beta\)` tests if the relationship is statistically significant.
+
+---
+
+## Regression Interpretation
+
+### Multivariate Regression
+Adds controls: `\(Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \dots + \epsilon\)`
+
+- `\(\beta_1\)` is the effect of `\(X_1\)` **holding other variables constant**.
+- If `\(\beta_1\)` changes after adding a control, that control may be a confounder.
+
+---
+
+### Practice: ANES Regression Example
+
+From our bivariate regression session: support for transgender bathroom laws (1–5 scale, higher = more conservative) predicts opposition to carbon regulations (1–5 scale, higher = more opposition).
+
+**Bivariate result:** `\(\beta = 0.37\)`, p &lt; 0.001.
+
+---
+
+### Practice: ANES Regression Example
+
+**Multivariate result (adding party ID):** `\(\beta = 0.12\)`, p &lt; 0.001; party ID coefficient = 0.21.
+
+**Questions:**
+
+1. Interpret the bivariate slope.
+2. Interpret the multivariate slope for transbathroom.
+3. What happened when party ID was added? What does that suggest?
+4. Is party ID a confounder? Why?
+---
+
+## Observational Studies &amp; Large‑N Methods
+
+From the Piazza study: a cross‑national time‑series analysis of 83 democracies over nearly 50 years.
+
+**Key features:**
+- Observational (no randomization)
+- Uses many countries and years (large N)
+- Includes control variables (GDP, inequality, regime age, past violence, etc.)
+- Finds that more polarized democracies are more likely to experience political violence.
+
+---
+
+## Observational Studies &amp; Large‑N Methods
+
+**Challenge:** Correlation is not enough to show causation. Even with many controls, unmeasured confounders (e.g., elite rhetoric, social media algorithms, historical legacies) may remain.
+
+---
+
+### Practice: Piazza Study – Alternative Explanations
+
+**Question:** The Piazza study finds that polarized democracies have more political violence. Name **three alternative explanations** (other than polarization causing violence) and explain how you might test them.
+
+*Think, then discuss.*
+
+---
+
+## Statistical Significance (p‑value)
+
+- **p‑value:** Probability of observing the data (or more extreme) if the null hypothesis (no effect) were true.
+- Small p‑value (&lt; 0.05) → reject null → evidence of a relationship.
+- Large p‑value → fail to reject null → not enough evidence.
+
+**Important:** Statistical significance is not the same as practical importance.
+
+---
+
+### Practice: Interpret p‑values
+
+From the Gadarian et al. study (discussed in class): Table 2 shows an adjusted risk difference for hand washing of 0.088 with p &lt; 0.001.
+
+- Is the difference statistically significant?
+- What does the p‑value tell us? 
+- Is the difference practically important? 
+
+---
+
+## Internal vs. External Validity
+
+- **Internal validity:** Does the treatment cause the outcome for the cases studied?
+- **External validity:** Do the results generalize to other populations, settings, or times?
+
+**Trade‑off:** Often you have to sacrifice one for the other.
+
+---
+
+### Practice: Mask Mandate Study (again)
+
+A study of U.S. counties in 2020 finds that mask mandates reduce infection rates.
+
+- **Internal validity:** Threats? 
+- **External validity:** Do the results apply to 2024? To other countries? 
+
+---
+
+## Sampling and Survey Methods
+
+- **Random sample:** Every member of population has known, non‑zero chance – allows generalization.
+- **Convenience sample:** Easy to access – may be biased.
+- **Quota sample:** Match population characteristics on certain variables – better than convenience but not truly random.
+
+---
+
+### Practice: Sampling Bias
+
+A study of vaccine acceptance uses an online survey recruited from Facebook ads. The sample is 10,000 people.
+
+- Is this a random sample? 
+- What biases might exist? 
+- Could the results still be useful? 
+
+---
+
+## Measurement Validity
+
+Does the measured variable actually capture the concept it claims to measure?
+
+- **Example:** Measuring “political violence” using only terrorism deaths. Does it capture all political violence? 
+- **Threats:** Social desirability bias, recall bias, ambiguous wording, missing dimensions.
+
+---
+
+### Practice: Measurement Validity in Piazza
+
+**Question:** Piazza measures “polarization” using survey questions about whether the opposing party is a threat and whether one’s own party “loves America more.” Is this a valid measure of the concept of affective polarization? What might be missing?
+
+*Discuss.*
+
+---
+
+## Final Tips for the Midterm
+
+- **Read the instructions carefully.** Open notes, closed devices. Write legibly.
+- **Use the four questions** to structure causal critiques.
+- **When asked for a confounder,** explain why it meets the definition (causes both treatment and outcome).
+- **When interpreting figures/tables,** look at confidence intervals and p‑values. Also explain what coefficients mean in substantive terms.
+- **For measurement validity,** think about what the measure might miss or distort.
+- **If you're stuck,** write something. Partial credit is better than blank.
+
+---
+
+### Good luck! Any final questions?
+
+We'll now do a quick Q&amp;A. Ask about concepts, not specific exam content.
+
+After this, use the remaining time to review your notes quietly.
+ studies. 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

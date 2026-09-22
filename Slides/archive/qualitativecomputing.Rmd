@@ -1,0 +1,133 @@
+---
+title: "17: Computer-Aided Qualitative Coding"
+subtitle: "Empirical Methods"
+author: "<large>J. Seawright</large>"
+institute: "<small>Northwestern Political Science</small>" 
+date: "Nov. 13, 2025"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+  
+---
+class: center, middle
+
+```{css, echo=FALSE}
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+```
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+# Initializes
+library(RefManageR)
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(nlme)
+library(jtools)
+library(hrbrthemes)
+library(mice)
+library(knitr)
+library(DiagrammeR)
+
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear", # Bibliography style
+           max.names = 3, # Max author names displayed in bibliography
+           sorting = "nyt", #Name, year, title sorting
+           cite.style = "authoryear", # citation style
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE)
+
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer,MnSymbol)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.6rem"
+)
+```
+
+If we want to use texts to do the (inductive or deductive) process tracing that we talked about yesterday, we need to be able to carefully and consistently analyze them for the evidence that we want to use.
+
+---
+
+* We need a way of keeping track of various important findings as we go, and of grouping together similar ideas.
+* We need to pay attention to inconsistent evidence, as well as support.
+* It's most productive to be open to surprise and discovery rather than purely testing a prior theory.
+
+
+---
+
+[https://taguette.org/install.html](https://taguette.org/install.html)
+
+[https://app.taguette.org/](https://app.taguette.org/)
+
+---
+
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette1.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette2.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette3.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette4.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette5.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette6.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette7.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette8.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette9.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center'}
+include_graphics("images/taguette10.png")
+```

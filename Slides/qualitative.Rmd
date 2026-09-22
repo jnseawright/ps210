@@ -3,7 +3,7 @@ title: "15: Qualitative Methods"
 subtitle: "Empirical Methods"
 author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
-date: "Nov. 6, 2025"
+date: "Nov. 12, 2026"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -56,6 +56,17 @@ style_mono_accent(
 )
 ```
 
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Describe the main types of qualitative data and explain what each is best suited to study
+2. Apply the method of difference and method of agreement to identify causal factors across cases
+3. Distinguish theory-testing from theory-building process tracing and explain what each requires
+4. Identify the main threats to causal inference in comparative case research
+5. Explain the logic of case selection for process tracing
+
+---
 ### Qualitative Methods
 
 Looking at description and processes in *depth* instead of analyzing large data sets to achieve *breadth*.
@@ -73,7 +84,7 @@ Looking at description and processes in *depth* instead of analyzing large data 
 
 ---
 
-```{r, echo=FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+```{r, echo=FALSE, out.width="80%", fig.retina = 1, fig.align='center', fig.alt="Simple three-node DAG: State Weakness causes both Rural Poverty and Revolution; Rural Poverty also causes Revolution. This triangle represents an initial theoretical hypothesis in which state weakness is a common cause of poverty and revolution, and poverty amplifies the path to revolution."}
 quant_graph <- create_graph() %>%
     add_node(label="State Weakness") %>%
     add_node(label="Rural Poverty") %>%
@@ -81,13 +92,13 @@ quant_graph <- create_graph() %>%
     add_edge(from = 1, to = 2) %>%
     add_edge(from = 1, to = 3) %>%
     add_edge(from = 2, to = 3)
- 
+
 render_graph(quant_graph, layout="nicely")
 ```
 
 ---
 
-```{r, echo=FALSE, out.width="80%", fig.retina = 1, fig.align='center'}
+```{r, echo=FALSE, out.width="80%", fig.retina = 1, fig.align='center', fig.alt="Elaborated four-node DAG: State Weakness causes Rural Poverty and also causes Revolution directly. Rural Poverty causes Landlord Conflict, which in turn causes Revolution. This model shows qualitative process-tracing adding an intermediate mechanism — Landlord Conflict — to the causal chain between poverty and revolution."}
 elab_graph <- create_graph() %>%
     add_node(label="State Weakness") %>%
     add_node(label="Rural Poverty") %>%
@@ -97,14 +108,14 @@ elab_graph <- create_graph() %>%
     add_edge(from = 1, to = 4) %>%
     add_edge(from = 2, to = 3) %>%
     add_edge(from = 3, to = 4)
-    
+
 render_graph(elab_graph, layout="nicely")
 ```
 
 
 ---
 ### Even More Elaboration
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center'}
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Complex causal DAG from comparative-historical research (Mahoney and Skocpol style), with 37 numbered nodes grouped into four labeled boxes: Agrarian Backwardness (nodes 1–10), International Pressure (nodes 11–16), State Autonomy (nodes 17–24, 28–31), and State Breakdown (nodes 32–37). Arrows from each cluster converge on central bridge nodes 25–27 before flowing into the State Breakdown cluster, illustrating how multiple historical causal streams combine to produce revolutionary state breakdown."}
 include_graphics("images/mahoneyskocpol.png")
 ```
 
@@ -125,15 +136,15 @@ Can we structure the in-depth study of a few cases together to teach us more tha
 
 
 ---
-![image](images/modtitle.JPG)
+![Title page of 'Employers, the state and the politics of institutional change: Vocational education and training in Austria, Germany and Switzerland' by Christine Trampusch, published in European Journal of Political Research 49: 545–573, 2010.](images/modtitle.JPG)
 
 
 ---
-![image](images/modabstract.JPG)
+![Abstract of Trampusch (2010). Compares Austria, Germany, and Switzerland. Where large firms dominate and collaborate with public education elites, institutional change is transformative; where SMEs dominate and influence public elites, change is self-preserving. The study uses Mill's method of agreement and difference.](images/modabstract.JPG)
 
 
 ---
-![image](images/methodofdiff.JPG)
+![Figure from Trampusch (2010) applying both Mill's methods. Top panel (Method of Agreement): Switzerland BBG reform 2002 and Austria BAG reform 2006 both produced self-preserving change and share the same conditions — powerful SMEs, a protectionist SME–state coalition, and weak unions. Bottom panel (Method of Agreement): Switzerland KV reform 1998–2003 and Germany modularization both produced transformative change and share powerful large firms and a pro-liberalizing large-firm–state coalition. The center label reads 'Method of Difference,' contrasting the two panels.](images/methodofdiff.JPG)
 
 
 ---
@@ -145,45 +156,45 @@ Debunking the Method of Difference
 ---
 
 <div style="display: flex; gap: 10px;">
-  <img src="images/davidkoch.jpg" style="width:40%;" />
-  <img src="images/johnmenardjr.jpg" style="width:40%;" />
+  <img src="images/davidkoch.jpg" style="width:40%;" alt="Portrait of David Koch, billionaire industrialist and political donor, smiling in a blue blazer." />
+  <img src="images/johnmenardjr.jpg" style="width:40%;" alt="Photo of John Menard Jr., billionaire founder of Menards, wearing a blue Menards cap at a racing event." />
 </div>
 
 ---
 
 <div style="display: flex; gap: 10px;">
-  <img src="images/davidkoch.jpg" style="width:40%;" />
-  <img src="images/johnmenardjr.jpg" style="width:40%;" />
+  <img src="images/davidkoch.jpg" style="width:40%;" alt="Portrait of David Koch." />
+  <img src="images/johnmenardjr.jpg" style="width:40%;" alt="Photo of John Menard Jr." />
 </div>
 
 <div style="display: flex; gap: 10px;">
-  <img src="images/kochindustries.jpg" style="width:40%;" />
-  <img src="images/menardsstore.png" style="width:40%;" />
+  <img src="images/kochindustries.jpg" style="width:40%;" alt="Exterior of Koch Industries Inc. headquarters in Wichita, Kansas — a large dark-glass corporate office building with an American flag out front." />
+  <img src="images/menardsstore.png" style="width:40%;" alt="Exterior of a Menards home improvement store — a large green building with the Menards logo and red flags." />
 </div>
 
 ---
 
 <div style="display: flex; gap: 10px;">
-  <img src="images/davidkoch.jpg" style="width:40%;" />
-  <img src="images/johnmenardjr.jpg" style="width:40%;" />
+  <img src="images/davidkoch.jpg" style="width:40%;" alt="Portrait of David Koch." />
+  <img src="images/johnmenardjr.jpg" style="width:40%;" alt="Photo of John Menard Jr." />
 </div>
 
 <div style="display: flex; gap: 10px;">
-  <img src="images/kochresidence.jpg" style="width:40%;" />
-  <img src="images/menardhouse.jpg" style="width:40%;" />
+  <img src="images/kochresidence.jpg" style="width:40%;" alt="Photo of an elegant high-rise apartment building on what appears to be Park Avenue in New York City, the reported residence of David Koch." />
+  <img src="images/menardhouse.jpg" style="width:40%;" alt="Aerial satellite view of a sprawling private estate with a very large main house surrounded by trees, the reported residence of John Menard Jr." />
 </div>
 
 
 ---
 
 <div style="display: flex; gap: 10px;">
-  <img src="images/davidkoch.jpg" style="width:40%;" />
-  <img src="images/johnmenardjr.jpg" style="width:40%;" />
+  <img src="images/davidkoch.jpg" style="width:40%;" alt="Portrait of David Koch." />
+  <img src="images/johnmenardjr.jpg" style="width:40%;" alt="Photo of John Menard Jr." />
 </div>
 
 <div style="display: flex; gap: 10px;">
-  <img src="images/kochtheater.jpg" style="width:40%;" />
-  <img src="images/menardracing.jpg" style="width:40%;" />
+  <img src="images/kochtheater.jpg" style="width:40%;" alt="The David H. Koch Theater at Lincoln Center in New York City, photographed at night with its illuminated glass facade and plaza." />
+  <img src="images/menardracing.jpg" style="width:40%;" alt="John Menard Jr. sitting alongside an IndyCar driver in Menards-sponsored racing gear at what appears to be the Indianapolis Motor Speedway." />
 </div>
 
 ---
@@ -204,52 +215,52 @@ Mill had other methods, less frequently used. One is the Method of Agreement, in
 Sometimes, a shock to a case can create before-after and cross-case comparisons that improve on the Method of Difference. We call these natural experiments.
 
 ---
-![image](images/miamiboatlift.JPG)
+![Title page: 'The Impact of the Mariel Boatlift on the Miami Labor Market' by David Card, Industrial and Labor Relations Review, Vol. 43, No. 2 (Jan. 1990), pp. 245–257.](images/miamiboatlift.JPG)
 
 
 ---
-![image](images/mariel1.JPG)
+![Opening lines of Card (1990): 'One of the chief concerns of immigration policy-makers is the extent to which immigrants depress the labor market opportunities of less-skilled natives.'](images/mariel1.JPG)
 
 
 ---
-![image](images/mariel2.JPG)
+![Excerpt from Card (1990): 50 percent of Mariel immigrants settled permanently in Miami, producing a 7 percent increase in Miami's labor force and a 20 percent increase in the number of Cuban workers.](images/mariel2.JPG)
 
 
 ---
-![image](images/marielcomparison.JPG)
+![Table 3 from Card (1990): Logarithms of real hourly earnings for workers aged 16–61 in Miami and four comparison cities (Atlanta, Houston, Los Angeles, Tampa–St. Petersburg), 1979–85, broken down by Whites, Blacks, Cubans, and Hispanics. Miami wages track comparison city wages closely across all groups, with no clear break after 1980 when the boatlift occurred.](images/marielcomparison.JPG)
 
 
 ---
-![image](images/marielcomparison2.JPG)
+![Table 4 from Card (1990): Unemployment rates for workers aged 16–61 in Miami and four comparison cities, 1979–85, broken down by Whites, Blacks, Cubans, and Hispanics. Miami unemployment rises after 1980 in line with national trends, but not markedly more than comparison cities, suggesting the boatlift did not substantially raise unemployment.](images/marielcomparison2.JPG)
 
 
 ---
-![image](images/marielconclusions.JPG)
+![Conclusion excerpt from Card (1990): 'First, the Mariel immigration had essentially no effect on the wages or employment outcomes of non-Cuban workers in the Miami labor market. Second, and perhaps even more surprising, the Mariel immigration had no strong effect on the wages of other Cubans. The observed decline in average Cuban wage rates in Miami after 1980 is no larger than would be expected by simply adding the Mariel immigrants to the pool of Cuban workers...'](images/marielconclusions.JPG)
 
 
 ---
 ### Process-Tracing I: Theory-Testing
 
 ---
-![image](images/pt1.png)
+![Section 1.1 introduction from Beach and Pedersen's process-tracing methodology text. Defines process-tracing as 'a research method for tracing causal mechanisms using detailed, within-case empirical analysis.' Identifies three core components: (1) theorization about causal mechanisms; (2) analysis of observable empirical manifestations of theorized mechanisms; (3) complementary use of comparative methods to select cases and generalize findings.](images/pt1.png)
 
 
 ---
-![image](images/pt2.png)
+![Table 1.1: Four Variants of Process-Tracing (Beach and Pedersen). Columns: Theory-testing (Is a hypothesized causal mechanism present?), Theory-building (What is the mechanism between cause and outcome?), Theoretical-revision (Why did the mechanism break down?), Explaining-outcome (What mechanistic explanation accounts for the historical outcome?). Theory-testing, theory-building, and theoretical-revision are theory-focused; explaining-outcome is case-focused.](images/pt2.png)
 
 ---
-![image](images/pt3.png)
+![Fig. 2.1 from Beach and Pedersen: 'Empirical narratives and the complete black-boxing of mechanisms.' Two-level diagram: the theoretical level shows Cause — ? — Outcome, with the mechanism unknown; the empirical level shows Empirical manifestation — event a, event b, event c — Empirical manifestation. The question mark illustrates that empirical narratives alone leave causal mechanisms unspecified.](images/pt3.png)
 ---
-![image](images/pt4.png)
+![Fig. 2.2 from Beach and Pedersen: 'A minimalist norms matter causal mechanism.' Three boxes: Cause (Taboo against use of nuclear weapons held by key participants in decision-making group) → Causal mechanism (Constraints imposed by individual decision-makers' personal moral convictions) → Outcome (Decision-makers take nuclear option off the table). A single-part minimal mechanism.](images/pt4.png)
 
 
 ---
-![image](images/pt5.png)
+![Fig. 2.3 from Beach and Pedersen: 'A two-part taboo talk causal mechanism' (based on Tannenwald 1999). Cause (nuclear use taboo) → Part 1: Believer in taboo uses the norm verbally to shame the proponent of use → Part 2: Proponent of use is unable to deploy a counterargument because it clashes with the taboo, thereby becomes silenced → Outcome: Decision-makers take the nuclear option off the table.](images/pt5.png)
 ---
 ### Process Tracing 2: Theory-Building
 
 ---
-![image](images/theorybuildingpt.png)
+![Fig. 9.1 from Beach and Pedersen: 'The three steps of theory-building process-tracing.' Diagram with a theoretical level (top) and an empirical, case-specific level (bottom). Step 1 — Exploring the empirical record; Step 2 — Infer existence of fingerprints (empirical fingerprints for Parts 1 and 2 of the causal mechanism); Step 3 — Infer existence of the causal mechanism from the fingerprints. Shows how theory-building process-tracing moves inductively from raw empirical facts upward to theoretical claims about mechanisms.](images/theorybuildingpt.png)
 
 ---
 ### Example: Prasad on Reagan
@@ -259,19 +270,19 @@ ideology, or pragmatism?
 
 
 ---
-![image](images/omb1.JPG)
+![Excerpt from Prasad's process-tracing analysis of Reagan's budget cuts. Describes reliance on William Greider's interviews with David Stockman, director of the OMB, published in the Atlantic Monthly in December 1981 — 'an extraordinary document' giving Stockman's firsthand view of the budget-making process.](images/omb1.JPG)
 
 
 ---
-![image](images/omb2.JPG)
+![Excerpt from Prasad assessing the credibility of Greider's account of Stockman's revelations. Argues it meets high standards: Stockman confirmed Greider's quotations at a press conference, never disavowed them, and the political costs of his confessions were severe — nearly ending his political career.](images/omb2.JPG)
 
 
 ---
-![image](images/omb3.JPG)
+![Quote from Stockman cited in Prasad: 'None of us really understands what's going on with all these numbers. You've got so many different budgets out and so many different baselines and such complexity now in the interactive parts of the budget between policy action and the economic environment and all the internal mysteries of the budget, and there are a lot of them. People are getting from A to B and it's not clear how they are getting there' (Greider 1981, 38).](images/omb3.JPG)
 
 
 ---
-![image](images/omb4.JPG)
+![Excerpt from Prasad: Stockman repeatedly tried to cut politically protected programs and politicians repeatedly thwarted him. Reagan declared defense and universal programs (Social Security, Medicare) off-limits. Stockman wanted to cut the Export-Import Bank — 'how in the world can I cut food stamps... and you're going to tell me you can't give up one penny for Boeing?' — but a Republican Senator from a Boeing-beneficiary state reinstated the bank's subsidies.](images/omb4.JPG)
 
 
 ---
@@ -339,11 +350,3 @@ So when you're designing qualitative research, think about where the most levera
 - They answer questions quantitative methods can't
 - Description, mechanism, process, context all matter
 
----
-
-### Next Time: Applied Qualitative Examples
-
-- **Gibson (2005):** Boundary control and subnational authoritarianism in democratic countries
-- **Thurston (2015):** Policy feedback and advocacy groups' access to homeownership programs
-
-*How do these scholars use the tools we've discussed today?*

@@ -1,152 +1,156 @@
-####################
-## Homework 2     ##
-####################
+---
+title: "Homework 2: Regression Analysis of ICE Arrests and Governor's Party"
+author: "Jaye Seawright"
+date: "Due: Nov. 10, 2026"
+output: html_document
+---
 
-The 2024 US presidential election was, no doubt, a consequential moment in history. In this assignment, we will look at some data about voter decision-making in that election, collected as part of the American National Election Studies. The codebook and survey questions for these data can be found at the [ANES website](https://electionstudies.org/wp-content/uploads/2025/08/anes_timeseries_2024_userguidecodebook_20250808.pdf).
-
-For this assignment, you are free to work individually or in groups. If you choose
-to work collaboratively, please include your name and the names of the people you
-worked with on your submitted assignment. You will not be penalized for collaborating.
-
-Before starting the problem sets, please load and configure the relevant data in your R software:
-
-```{r, eval=FALSE}
-anes2024 <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
-
-
-aneshw <- data.frame(politicalattention=anes2024$V241004,
-                        wrongtrack=anes2024$V241117,
-                        hopeful=anes2024$V241118,
-                        afraid=anes2024$V241119,
-                        outraged=anes2024$V241120,
-                        angry=anes2024$V241121,
-                        happy=anes2024$V241122,
-                        worried=anes2024$V241123,
-                        proud=anes2024$V241124,
-                        irritated=anes2024$V241125,
-                        nervous=anes2024$V241126,
-                        congressapproval=anes2024$V241129x,
-                        supremecourtapproval=anes2024$V241133x,
-                        feelingsaboutharris=anes2024$V241156,
-                        feelingsabouttrump=anes2024$V241157,
-                        libcon=anes2024$V241177,
-                        demrep=anes2024$V241227x,
-                        trustgovernment=anes2024$V241229,
-                        corruption=anes2024$V241233,
-                        abortion=anes2024$V241248,
-                        defensespending=anes2024$V241242,
-                        socialsecurity=anes2024$V241263x,
-                        bordersecurity=anes2024$V241269x,
-                        crime=anes2024$V241272x,
-                        collegesapproval=anes2024$V241287x,
-                        economytrend=anes2024$V241294x,
-                        electiontrust=anes2024$V241315,
-                        bibledivine=anes2024$V241421,
-                        presvote=anes2024$V242067,
-                        gender=anes2024$V241551,
-                        trumphonest=anes2024$V241208,
-                        harrishonest=anes2024$V241203,
-                        environmentvbusiness=anes2024$V241258,
-                        dei=anes2024$V241290x,
-                        isolationism=anes2024$V241312x,
-                        bidencorruption=anes2024$V241344x,
-                        climatechange=anes2024$V241366x,
-                        birthrightcitizenship=anes2024$V241389x,
-                        borderwall=anes2024$V241395x,
-                        ukraineassistance=anes2024$V241400x,
-                        israelassistance=anes2024$V241403x,
-                        progazaprotests=anes2024$V241412x,
-                        religiousattendance=anes2024$V241440
-                      
-                        )
-
-
-
-aneshw <- aneshw %>% mutate(across(where(is.numeric), ~ ifelse(. < 0, NA, .)))
-
-aneshw$presvote[aneshw$presvote>2] <- NA
-```
-
-####################
-## Problem 1      ##
-####################
-
-Let's look at whether concerns about corruption played a role in people's vote choice in the 2024 election. We have a treatment variable, ``corruption,'' which records people's answer to the following survey question:
-
-``How many of the people running the government are corrupt?''
-
-Possible responses run from a score of 1 for ``all'' to a value of 5 for ``none.''
-
-The following command shows the distribution of scores on the corruption variable in our data. Describe the results.
-
-```{r, eval=FALSE}
-table(aneshw$corruption)
-```
-We also have an outcome variable, ``presvote,'' which records responses to the survey question:
-
-``Who did you vote for? [ Kamala Harris (Democrat), Donald Trump
-(Republican) / Donald Trump (Republican), Kamala Harris
-(Democrat)], Cornel West (Independent), Jill Stein (Green), or
-someone else?''
-
-Answers other than the two major party candidates are set to be missing, and votes for Harris are coded as a 1 while votes for Trump are coded as a 2. Check the distribution with the command below; what conclusions can we reach?
-
-```{r, eval=FALSE}
-table(aneshw$presvote)
-```
-
-Let's run a regression, predicting vote choice based on corruption and some control variables. We will add in controls for partisanship and how much attention the respondent pays to politics. Do these two variables make sense as possible confounders, in your view? Why, or why not?
-
-Now, use the following commands to run the regression. What do the results tell us about the relationship between concerns about corruption and vote choice in the 2024 election?
-
-```{r, eval=FALSE}
-install.packages("modelsummary")
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(ggplot2)
 library(modelsummary)
-votechoice.lm1 <- lm(presvote ~ corruption + demrep + politicalattention, data=aneshw)
-modelsummary(votechoice.lm1, statistic = c("p.value"))
-
-#if the modelsummary doesn't work, the alternative is:
-
-summary(votechoice.lm1)
 ```
 
-####################
-## Problem 2      ##
-####################
+## Homework 2: ICE Arrests and Governor's Party
 
-I'm worried that we may have still missed some confounding variables. One that occurs to me is trust in government. Let's check whether that has the kind of empirical pattern consistent with an important confounding relationship. We will run the regression from Problem 1, adding trust in government to the end as an additional control, and we will check whether there is a meaningful change in the size of the slope for the corruption variable compared to the previous regression.
+**Due: Tuesday, November 10, 2026 by 11:59 PM on Canvas**
 
-Run this new regression:
+This assignment uses the same datasets as Homework 1:
+
+- `governor_data.csv`: Information about each state's governor (party, etc.)
+- `ice_arrests.csv`: Individual ICE arrest records from 2025–the first few months of 2026
+
+You will investigate whether the party of a state's governor is associated with the number of ICE arrests in that state, and whether that relationship holds after controlling for state population.
+
+You are free to work individually or in groups. If you work collaboratively, include the names of all group members on your submission. You will not be penalized for collaborating, but each person must submit their own work.
+
+---
+
+## Data Preparation
+
+We begin by loading the data and creating a state‑level dataset that includes total arrests, governor's party, and state population.
+
+### Step 1: Load and examine the data
 
 ```{r, eval=FALSE}
-votechoice.lm2 <- lm(presvote ~ corruption + demrep + politicalattention + trustgovernment, data=aneshw)
-modelsummary(votechoice.lm2, statistic = c("p.value"))
+# Load data
+governor_data <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/stategovs.csv")
+ice_arrests <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/ice_arrests_2025_early_2026.csv")
+state_pops <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/statepops.csv")
 
-#if the modelsummary doesn't work, the alternative is:
-
-summary(votechoice.lm2)
+# Look at the first few rows
+head(governor_data)
+head(ice_arrests)
+head(state_pops)
 ```
 
-Directly compare the slope for corruption here to the slope for corruption in Problem 1. Are they similar or different? If different, does that suggest that trust in government might be a meaningful confounder?
+### Step 2: Aggregate arrests by state
 
-####################
-## Problem 3      ##
-####################
-
-I'm still worried that there might be additional confounders. There are so many variables! Let's use machine learning to search through more of them. As in class, let's use lasso regresssion to explore a long list of possible variables and let the algorithm zero out the irrelevant ones:
+We need to count how many arrests occurred in each state. Note that some arrests have missing state or occur outside the 50 states. We'll filter to keep only arrests in the 50 states (using the `State` variable).
 
 ```{r, eval=FALSE}
-library(hdm)
+# Count arrests per state
+arrest_counts <- ice_arrests %>%
+  filter(apprehension_state %in% governor_data$State) %>%   # keep only states in governor_data
+  group_by(apprehension_state) %>%
+  summarise(arrests = n()) %>%
+  rename(State = apprehension_state) %>%   # rename for merging
+  ungroup()
 
-votechoice.lasso <- rlasso(presvote ~ . - presvote, data=aneshw)
-
-summary(votechoice.lasso)
+# Check the result
+head(arrest_counts)
 ```
 
-What do we learn from these results? Summarize the findings, and explain what they mean for understanding the 2024 election.
+### Step 3: Add governor party and state population
 
-On the basis of what you just learned, run a new regression, either using corruption as a main treatment variable and incorporating new control variables, or choosing a new treatment variable. Report your code and interpret your results. Feel free to copy and modify the regression code in Problem 2.
+Now we merge the arrest counts with governor party and population.
 
-Please submit your completed assignment at:
+```{r, eval=FALSE}
+# Merge
+state_data <- arrest_counts %>%
+  left_join(governor_data %>% select(State, Party), by = "State") %>%
+  left_join(state_pops %>% select(State, Population), by = "State")
 
-[https://canvas.northwestern.edu/courses/235934/assignments/1663168](https://canvas.northwestern.edu/courses/235934/assignments/1663168)
+# Check the merged data
+head(state_data)
+summary(state_data)
+```
+
+### Step 4: Create a binary indicator for party
+
+The `Party` variable is character ("Democratic", "Republican"). For regression, we'll create a numeric indicator: `repub = 1` if Republican, `0` if Democratic. (States with other parties are excluded; we'll filter them out.)
+
+```{r, eval=FALSE}
+state_data <- state_data %>%
+  filter(Party %in% c("Democratic", "Republican")) %>%
+  mutate(repub = ifelse(Party == "Republican", 1, 0))
+
+# Check
+table(state_data$Party, state_data$repub)
+```
+
+Now we have a clean dataset `state_data` with variables:
+- `State`
+- `arrests`: total ICE arrests in that state
+- `Party`: governor's party (character)
+- `repub`: 1 = Republican, 0 = Democratic
+- `Population`: state population (2024 estimate)
+
+---
+
+## Problem 1: Bivariate Analysis (12 points)
+
+a) **Visualize the relationship** between arrests and governor's party. Create a boxplot or violin plot showing the distribution of `arrests` for Democratic‑governed states and Republican‑governed states. Add appropriate labels. Describe what you see. (3 points)
+
+b) **Fit a bivariate regression** predicting `arrests` from `repub`. Use `lm()` and display the results with `modelsummary()`. (2 points)
+
+c) **Interpret the coefficient** for `repub`. In plain language, what does it tell us about the difference in arrests between Republican‑ and Democratic‑governed states? (2 points)
+
+d) **Is the relationship statistically significant?** Report the p‑value and explain what it means in this context. (2 points)
+
+e) **Calculate the predicted number of arrests** for a Democratic‑governed state and for a Republican‑governed state using the regression equation. Show your work. (3 points)
+
+---
+
+## Problem 2: Adding a Control Variable (12 points)
+
+You suspect that **state population** might be a confounder: larger states tend to have more arrests simply because they have more people, and they may also be more likely to have Republican or Democratic governors.
+
+a) **Fit a multivariate regression** predicting `arrests` from `repub` and `Population`. Display the results with `modelsummary()`, side by side with the bivariate model from Problem 1. (3 points)
+
+b) **Compare the coefficient for `repub`** between the two models. Did it change? By how much? What does this suggest about confounding? (3 points)
+
+c) **Does `Population` appear to be a confounder?** Explain your reasoning using the criteria for a confounding variable discussed in class. (3 points)
+
+---
+
+## Problem 3: Model Diagnostics and Transformations (8 points)
+
+The distribution of `arrests` is likely highly skewed (some states have many arrests, others few). This can violate regression assumptions.
+
+a) **Create a histogram** of `arrests`. Describe its shape. (2 points)
+
+b) **Create a new variable** `log_arrests = log(arrests + 1)` (adding 1 avoids log(0)). Create a histogram of `log_arrests`. How does it compare to the original? (2 points)
+
+c) **Re‑fit the multivariate model** using `log_arrests` as the dependent variable (instead of `arrests`). Include both `repub` and `Population`. Display the results with `modelsummary()`. (2 points)
+
+d) **Interpret the coefficient for `repub`** in this logged model. How does the interpretation differ from the model with arrests in levels? (Hint: For small changes, a coefficient of 0.1 on `repub` means Republican states have about 10% more arrests, holding population constant.) (2 points)
+
+---
+
+## Problem 4: Reflection on Causal Inference (8 points)
+
+a) Based on your regression results, can we conclude that a Republican governor *causes* more ICE arrests? Why or why not? Refer to the **four questions for causal inference** from class. (4 points)
+
+b) Propose **one additional variable** that might be a confounder and is **not** included in this analysis. Explain why you think it could be a confounder and what effect it might have on the relationship if we could control for it. (4 points)
+
+---
+
+## Submission Instructions
+
+Knit your R Markdown file to HTML or PDF, and submit it on Canvas. Make sure your code is visible and your answers are clearly written.
+
+**Reminder:** You may work in groups, but each person must submit their own work. Include the names of any collaborators at the top of your assignment.
+
+**Due: Tuesday, November 10, 2026, 11:59 PM.**

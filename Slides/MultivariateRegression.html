@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>10: Multivariate Regression</title>
+    <title>8: Multivariate Regression</title>
     <meta charset="utf-8" />
     <meta name="author" content="Jaye Seawright" />
-    <meta name="date" content="2025-10-16" />
+    <meta name="date" content="2026-10-22" />
     <script src="MultivariateRegression_files/header-attrs-2.30/header-attrs.js"></script>
     <link href="MultivariateRegression_files/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
     <script src="MultivariateRegression_files/htmlwidgets-1.6.4/htmlwidgets.js"></script>
@@ -18,7 +18,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 10: Multivariate Regression
+# 8: Multivariate Regression
 ]
 .subtitle[
 ## Empirical Methods
@@ -30,7 +30,7 @@ class: center, middle, inverse, title-slide
 ### <small>Northwestern Political Science</small>
 ]
 .date[
-### Oct. 16, 2025
+### Oct. 22, 2026
 ]
 
 ---
@@ -42,7 +42,6 @@ pre {
   max-height: 400px;
   overflow-y: auto;
 }
-
 pre[class] {
   max-height: 200px;
 }
@@ -50,6 +49,17 @@ pre[class] {
 
 
 
+
+
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Explain what a multivariate regression coefficient means and how it differs from a bivariate coefficient
+2. Identify potential confounders and explain why controlling for them changes estimates
+3. Distinguish good controls, irrelevant controls, and harmful controls using causal diagrams
+4. Explain collider bias
+5. Explain post-treatment bias and identify when including a variable in a regression would block a causal path of interest
 
 ---
 
@@ -175,7 +185,7 @@ Not every variable should be included in a regression. We can classify controls 
 
 ### Good Control
 
-&lt;img src="images/goodcontrol.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/goodcontrol.jpg" alt="DAG illustrating a good control: the Good Control node sits above Treatment and Outcome, with arrows pointing FROM it TO both Treatment and Outcome — making it a common cause (confounder). A direct arrow also runs from Treatment to Outcome. Including this variable in a regression blocks the backdoor path and isolates the causal effect of Treatment." width="80%" style="display: block; margin: auto;" /&gt;
 
 A good control is a common cause of both the treatment and the outcome. Including it blocks a backdoor path.
 
@@ -183,7 +193,7 @@ A good control is a common cause of both the treatment and the outcome. Includin
 
 ### Irrelevant Control
 
-&lt;img src="images/irrelevantcontrol1.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/irrelevantcontrol1.jpg" alt="DAG illustrating an irrelevant control: the Irrelevant Control node sits above Outcome with an arrow pointing only TO Outcome — no connection to Treatment. A direct arrow runs from Treatment to Outcome. Because this variable is unrelated to Treatment, it is not a confounder and does not bias the estimate; including it merely uses up degrees of freedom." width="80%" style="display: block; margin: auto;" /&gt;
 
 An irrelevant control is unrelated to the treatment or the outcome. It doesn't bias the estimate, but it may reduce precision. Adding unnecessary control variables uses up information we could otherwise use for productive purposes.
 
@@ -191,7 +201,7 @@ An irrelevant control is unrelated to the treatment or the outcome. It doesn't b
 
 ### Harmful Control: Collider
 
-&lt;img src="images/harmfulcontrol3.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/harmfulcontrol3.jpg" alt="DAG illustrating a harmful control — collider: the Harmful Control node sits above Treatment and Outcome, with arrows pointing FROM both Treatment and Outcome INTO it (both variables cause the control). A direct arrow also runs from Treatment to Outcome. Conditioning on this collider opens a spurious path between Treatment and Outcome, biasing the estimate even though there is no genuine confounding." width="80%" style="display: block; margin: auto;" /&gt;
 
 A collider is a variable caused by both the treatment and the outcome. Conditioning on it can create a spurious association.
 
@@ -199,19 +209,20 @@ A collider is a variable caused by both the treatment and the outcome. Condition
 
 ### Harmful Control: Post-Treatment
 
-&lt;img src="images/harmfulcontrol2.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/harmfulcontrol2.jpg" alt="DAG illustrating a harmful control — post-treatment variable: Treatment points TO the Harmful Control, which in turn points TO Outcome. A direct arrow also runs from Treatment to Outcome. Controlling for this variable blocks the indirect causal path (Treatment → Control → Outcome), understating the total effect and potentially introducing collider bias if the mediator also has unmeasured causes." width="80%" style="display: block; margin: auto;" /&gt;
 
-A post-treatment variable is affected by the treatment. 
+A post-treatment variable is affected by the treatment.
 
 ---
+
 ### Post-Treatment Bias
 
 When we control for a variable that is *caused by the treatment*, we can block part of the causal path and introduce bias.
 
 ---
 
-<div class="grViz html-widget html-fill-item" id="htmlwidget-99121f88b8933a50c34d" style="width:432px;height:288px;"></div>
-<script type="application/json" data-for="htmlwidget-99121f88b8933a50c34d">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Treatment\n(Trans Bathroom)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.498683690565642,-0.287915163040788!\"] \n  \"2\" [label = \"Post-Treatment\n(Mediator)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.498683690611046,-0.287915162804862!\"] \n  \"3\" [label = \"Outcome\n(Carbon Regs)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-4.54040138819778e-11,0.575830325845649!\"] \n  \"1\"->\"2\" \n  \"1\"->\"3\" \n  \"2\"->\"3\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-3654ef01b2bf5bfe31b3" style="width:432px;height:288px;"></div>
+<script type="application/json" data-for="htmlwidget-3654ef01b2bf5bfe31b3">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Treatment\n(Trans Bathroom)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.500230843332296,0.28880841208438!\"] \n  \"2\" [label = \"Post-Treatment\n(Mediator)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.500230843354629,0.288808411968336!\"] \n  \"3\" [label = \"Outcome\n(Carbon Regs)\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-2.23326027809501e-11,-0.577616824052716!\"] \n  \"1\"->\"2\" \n  \"1\"->\"3\" \n  \"2\"->\"3\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -239,8 +250,9 @@ We would be asking: 'What's the effect of bathroom attitudes on carbon opinions 
 
 ### Next Steps
 
-- In the next class, we'll look at examples of quantitative political science research that use these techniques.
-- Then we'll move on to machine learning, which takes a different approach to handling many variables.
+- We'll continue with statistical computing labs to practice these techniques.
+- Then we'll see examples of quantitative political science research that use multivariate regression and other tools.
+- Later in the quarter, we'll introduce machine learning as an alternative approach to handling many variables.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

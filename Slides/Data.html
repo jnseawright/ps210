@@ -24,7 +24,7 @@ class: center, middle, inverse, title-slide
 ### <small>Northwestern Political Science</small>
 ]
 .date[
-### Sept. 18, 2025
+### Sept. 29, 2026
 ]
 
 ---
@@ -44,6 +44,17 @@ pre[class] {
 
 
 
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Identify the key strengths and limitations of a real-world data source
+2. Explain how reporting practices, conceptual definitions, and invisibility bias shape what data capture
+3. Use R to explore a dataset with `head()`, `table()`, `filter()`, and `ggplot()`
+4. Interpret a distribution of event counts across time
+5. Explain why data creation is often the most consequential step in a research project
+
+---
 ### A perennially newsworthy question: how much political violence is there in the U.S., and what are its sources?
 
 ---
@@ -453,7 +464,7 @@ ggplot(usterrorism, aes(x = factor(iyear), y = nkill)) +
 ## (`stat_boxplot()`).
 ```
 
-&lt;img src="Data_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Data_files/figure-html/unnamed-chunk-5-1.png" alt="R code and resulting boxplot: distribution of deaths per U.S. terrorism incident by year on a log scale. Most years show medians near zero with high-fatality outliers; 2001 is a dramatic outlier due to the 9/11 attacks." width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -462,7 +473,7 @@ ggplot(usterrorism, aes(x = factor(iyear), y = nkill)) +
 ## (`stat_boxplot()`).
 ```
 
-&lt;img src="Data_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Data_files/figure-html/unnamed-chunk-6-1.png" alt="Boxplot: distribution of deaths per U.S. terrorism incident by year on a log scale. Most years show medians near zero with high-fatality outliers; 2001 is a dramatic outlier due to the 9/11 attacks." width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 

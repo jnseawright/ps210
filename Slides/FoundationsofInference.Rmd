@@ -1,0 +1,261 @@
+---
+title: "7: Foundations of Statistical Inference and Bivariate Regression"
+subtitle: "Empirical Methods"
+author: "<large>Jaye Seawright</large>"
+institute: "<small>Northwestern Political Science</small>"
+date: "Oct. 20, 2026"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+class: center, middle
+
+```{css, echo=FALSE}
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+pre[class] {
+  max-height: 200px;
+}
+```
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+library(ggplot2)
+library(dplyr)
+library(knitr)
+BibOptions(check.entries = FALSE, bib.style = "authoryear", max.names = 3, sorting = "nyt", cite.style = "authoryear", style = "markdown", hyperlink = FALSE, dashed = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer, MnSymbol)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  text_font_size = "1.6rem"
+)
+```
+
+### Today's Goals
+
+By the end of this session, you should be able to:
+
+1. Explain the logic of a p-value and state what it does and does not tell us
+2. Interpret the output of a two-sample proportion test in R
+3. Explain why significance tests for group differences are insufficient in observational studies
+4. Interpret a correlation coefficient and describe the direction and strength of a linear relationship
+5. Interpret the slope, intercept, and p-value from a bivariate OLS regression
+
+---
+### Today: How do we know if a difference is real?
+
+We often want to compare two groups (e.g., Democrats vs. Republicans) on some outcome (e.g., concern about political violence).
+
+But we only have a sample. How confident can we be that the difference we see reflects a real difference in the population?
+
+---
+
+### A concrete example
+
+```{r, echo = FALSE, out.width="80%", fig.align='center', fig.alt="YouGov chart: 'Democrats and Republicans are more likely to say political violence is a big problem after attacks on members of their own party.' Dot plot showing % saying political violence is 'a very big problem' across six survey dates from 2022–2025, each taken after an attack on a prominent political figure. In the most recent survey (Sept. 10, 2025, after an assassination of Charlie Kirk), Democrats are at 58% and Republicans at 67%. The pattern shows partisans spike sharply when members of their own party are attacked."}
+include_graphics("images/demrepviolence.PNG")
+```
+
+Looking just at the most recent results: Republicans (67%) seem more concerned than Democrats (58%). But could this just be sampling noise?
+
+---
+
+### The logic of significance tests
+
+- If the true difference in the population were **zero**, how often would we see a difference as large as 9 percentage points just by random chance?
+- If that probability is very small, we say the difference is **statistically significant**.
+
+**Key concept:** The **p-value** is the probability of observing a result at least as extreme as the one we got, *if the null hypothesis (no difference) were true*.
+
+---
+
+### Sampling distribution (under the null)
+
+```{r sampling-dist, echo=FALSE, fig.width=8, fig.height=4, fig.align='center', fig.alt="Sampling distribution of the difference in proportions under the null hypothesis (no difference). A bell-shaped normal curve centered at zero; red shaded tails beyond ±0.09 (the observed difference) show the p-value. The tails are extremely small, indicating the observed 9-point gap between Republicans and Democrats would be very unlikely by chance alone."}
+p1 <- 580/1000; p2 <- 670/1000
+n1 <- 1000; n2 <- 1000
+p_pool <- (580 + 670) / (n1 + n2)
+se_diff <- sqrt(p_pool * (1 - p_pool) * (1/n1 + 1/n2))
+obs_diff <- 0.09
+x <- seq(-4*se_diff, 4*se_diff, length.out = 200)
+y <- dnorm(x, mean = 0, sd = se_diff)
+df <- data.frame(x = x, y = y)
+tail_right <- x >= obs_diff
+tail_left <- x <= -obs_diff
+ggplot(df, aes(x = x, y = y)) +
+  geom_line(color = "black", size = 1) +
+  geom_area(data = subset(df, tail_right), aes(x = x, y = y), fill = "red", alpha = 0.3) +
+  geom_area(data = subset(df, tail_left), aes(x = x, y = y), fill = "red", alpha = 0.3) +
+  geom_vline(xintercept = obs_diff, color = "red", linetype = "dashed") +
+  labs(title = "Sampling distribution of difference (null hypothesis)",
+       x = "Difference (Republican - Democrat)", y = "Density") +
+  theme_minimal()
+```
+
+The two‑tailed p‑value is the area in both tails. Here it's very small (<0.001).
+
+---
+
+```{r prop1, echo=TRUE}
+prop.test(c(580,670), c(1000,1000))
+```
+
+The p‑value is tiny: we reject the null. The difference is statistically significant.
+
+---
+
+### Another comparison
+
+From June to September, Republican concern about political violence jumped from 44% to 67%. Is that real?
+
+```{r prop2, echo=TRUE}
+prop.test(c(440,670), c(1000,1000))
+```
+
+---
+
+Again, the p‑value is minuscule. The change over time is also statistically significant.
+
+---
+
+### But what about confounding?
+
+These tests work well when we compare two groups that are otherwise similar (e.g., random assignment). But in **observational studies**, groups may differ in many ways.
+
+An **observational study** is a research project where we don't assign the independent variable; we just observe what happens naturally.
+
+Confounding variables are a major problem for causal inference in observational studies.
+
+---
+
+### Moving beyond simple group comparisons
+
+Suppose you wanted to study the relationship between political polarization and terrorism. Does this translate cleanly into a comparison between two groups?
+
+---
+
+I think we need methods that can:
+
+- Handle **quantitative** independent variables.
+- Control for multiple confounders simultaneously.
+
+That's where **regression** comes in.
+
+---
+
+### Correlation: Measuring the strength of a linear relationship
+
+**Correlation coefficient (r)**:
+- Ranges from –1 to +1.
+- Positive r = as X increases, Y tends to increase.
+- Negative r = as X increases, Y tends to decrease.
+- r = 0 means no linear relationship.
+- Closer to ±1 = stronger relationship.
+
+---
+
+### Example: Attitudes and Policy Preferences
+
+We'll use the 2024 ANES survey.
+
+- **transbathroom**: Support for laws requiring transgender individuals to use bathrooms matching sex assigned at birth (1 = favor a great deal, 5 = oppose a great deal).
+- **carbonregulations**: Support for government regulation of carbon emissions (1 = favor a great deal, 5 = oppose a great deal).
+
+```{r load-anes, echo=TRUE}
+anes2024 <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
+anes2024$transbathroom <- ifelse(anes2024$V241372x < 0, NA, anes2024$V241372x)
+anes2024$carbonregulations <- ifelse(anes2024$V242324x < 0, NA, anes2024$V242324x)
+cor(anes2024$transbathroom, anes2024$carbonregulations, use = "complete.obs")
+```
+
+---
+
+The correlation is about **0.45** – a moderately strong positive relationship.
+
+---
+
+### Visualizing correlation
+
+```{r corplot, echo=FALSE, out.width="70%", fig.align='center', fig.alt="Scatterplot matrix of transbathroom (support for bathroom laws matching sex assigned at birth) and carbonregulations (opposition to carbon regulation) from the 2024 ANES. The scatterplot shows a positive association with jittered points; the correlation is approximately 0.45, indicating that respondents more conservative on transgender bathroom laws also tend to be more opposed to carbon regulations."}
+library(GGally)
+anes2024 %>% 
+  select(transbathroom, carbonregulations) %>%
+  ggpairs(
+    lower = list(
+      continuous = wrap("points", position = position_jitter(width = 0.2, height = 0.2), alpha = 0.5)
+    )
+  ) +
+  theme_minimal()
+```
+
+People who are more conservative on transgender bathroom laws also tend to be more opposed to carbon regulations.
+
+---
+
+### From correlation to regression
+
+**Correlation** tells us the strength and direction of a linear relationship.
+
+**Regression** gives us a line that predicts Y from X, with an **interpretable slope**.
+
+The formula for a line: $Y = \alpha + \beta X + \epsilon$
+
+- $\alpha$ (intercept): predicted Y when X = 0.
+- $\beta$ (slope): change in Y for a one‑unit change in X.
+- $\epsilon$: error term (variation not explained by the line).
+
+---
+
+### Fitting a regression line
+
+We use **ordinary least squares (OLS)** – the line that minimizes the sum of squared vertical distances from the points to the line.
+
+```{r lm-fit, echo=TRUE}
+transcarbonlm <- lm(carbonregulations ~ transbathroom, data = anes2024)
+summary(transcarbonlm)
+```
+
+---
+
+### Interpreting the output
+
+- **Intercept ($\alpha$)** ≈ 1.02: predicted carbon regulation opposition when transbathroom = 0 (a value below the scale, but mathematically necessary).
+- **Slope ($\beta$)** ≈ 0.37: for each one‑unit increase in transbathroom (more conservative), predicted opposition to carbon regulation increases by 0.37 units.
+- **p‑value** for transbathroom is <0.001: the relationship is statistically significant.
+
+---
+
+### Visualizing the regression line
+
+```{r lm-plot, echo=FALSE, out.width="55%", fig.align='center', fig.alt="Scatterplot of transbathroom (x-axis) vs. carbonregulations (y-axis) with a red OLS regression line and 95% confidence band. Points are jittered and colored teal. The upward slope (≈0.37) confirms that more conservative views on transgender bathroom laws predict greater opposition to carbon regulation; the narrow confidence band reflects the statistically significant relationship."}
+anes2024 %>% 
+  ggplot(aes(x = transbathroom, y = carbonregulations)) + 
+  geom_point(color = "#69b3a2") +
+  geom_jitter() +
+  geom_smooth(method = lm, color = "red", se = TRUE) +  
+  theme_minimal()
+```
+
+---
+
+The red line is the best‑fit line; the shaded band is the 95% confidence interval for the line.
+
+---
+
+### Summary
+
+- We can test whether a difference between two groups is statistically significant (p‑values).
+- But those tests assume no confounding – not realistic in observational studies.
+- **Correlation** measures the strength and direction of a linear relationship.
+- **Bivariate regression** gives us a slope that quantifies the relationship and a p‑value for significance.
+
+**Next time:** Multivariate regression – adding control variables to get closer to causal estimates.
