@@ -36,8 +36,14 @@ We begin by loading the data and creating a state‑level dataset that includes 
 ```{r, eval=FALSE}
 # Load data
 governor_data <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/stategovs.csv")
-ice_arrests <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/ice_arrests_2025_early_2026.csv")
 state_pops <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/statepops.csv")
+
+# ICE arrests data is provided as a zip file because the CSV is large
+temp <- tempfile()
+download.file("https://github.com/jnseawright/ps210/raw/refs/heads/main/Homework/ice_arrests_2025_early_2026.zip", temp)
+unzip(temp, "ice_arrests_2025_early_2026.csv")
+ice_arrests <- read.csv("ice_arrests_2025_early_2026.csv")
+unlink(temp)  # remove the temporary file
 
 # Look at the first few rows
 head(governor_data)

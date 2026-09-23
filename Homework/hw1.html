@@ -391,7 +391,7 @@ state_pops &lt;- read.csv(&quot;https://github.com/jnseawright/ps210/raw/refs/he
 
 # ICE arrests data is provided as a zip file because the CSV is large
 temp &lt;- tempfile()
-download.file(&quot;https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/ice_arrests_2025_early_2026.zip&quot;, temp)
+download.file(&quot;https://github.com/jnseawright/ps210/raw/refs/heads/main/Homework/ice_arrests_2025_early_2026.zip&quot;, temp)
 unzip(temp, &quot;ice_arrests_2025_early_2026.csv&quot;)
 ice_arrests &lt;- read.csv(&quot;ice_arrests_2025_early_2026.csv&quot;)
 unlink(temp)  # remove the temporary file
