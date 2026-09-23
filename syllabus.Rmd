@@ -1,8 +1,8 @@
 ---
 output:
-  html_document: default
   pdf_document:
     latex_engine: xelatex
+  html_document: default
 ---
 ####################
 ## Course         ##
@@ -25,7 +25,7 @@ Jaye Seawright
 
 j-seawright@northwestern.edu
 
-312 Scott Hall 
+2001 Sheridan Road, Room 3203
 
 Office Hours Mondays 3-5pm
 
