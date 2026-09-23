@@ -34,7 +34,7 @@
 * [Thursday, Nov. 12: The Qualitative Comparative Method](https://jnseawright.github.io/ps210/Slides/qualitative.html#1)
 * [Tuesday, Nov. 17: Applied Qualitative Methods](https://jnseawright.github.io/ps210/Slides/qualitativeexamples.html#1). *Readings:* Gibson, Edward L. "Boundary Control: Subnational Authoritarianism in Democratic Countries." *World Politics* 58, no. 1 (2005): 101–132. [https://doi.org/10.1353/wp.2006.0018](https://doi.org/10.1353/wp.2006.0018). Thurston, Chloe N. "Policy Feedback in the Public–Private Welfare State: Advocacy Groups and Access to Government Homeownership Programs, 1934–1954." *Studies in American Political Development* 29, no. 2 (2015): 250–267. Gerzso, Thalia. "Judicial Resistance During Electoral Disputes: Evidence from Kenya." *Electoral Studies* 85 (2023). [https://doi.org/10.1016/j.electstud.2023.102653](https://doi.org/10.1016/j.electstud.2023.102653).
 * [Thursday, Nov. 19: Applied Text Methods, LLMs, and AI in Social Science](https://jnseawright.github.io/ps210/Slides/TextasData.html#1). *Reading:* Rossiter, Erin L. "Measuring Agenda Setting in Interactive Political Communication." *American Journal of Political Science* 66 (April 2022): 337–51.
-* [Tuesday, Nov. 24: Ethics and Normative Concerns in Political Science](https://jnseawright.github.io/ps210/Slides/ethics.html#1). *Readings:* American Political Science Association (2020), *A Guide to Professional Ethics in Political Science* (3rd ed.), Chs. 1–2; Soss, Joe, et al. "The Illusion of Technique: How Method-Driven Research Leads Welfare Scholarship Astray." *Social Science Quarterly* 87 (Dec. 2006): 798–807 (reflection prompt on final exam). *Recommended:* Lupia, Arthur, and Colin Elman. "Openness in Political Science: Data Access and Research Transparency." *PS: Political Science & Politics* 47 (Jan. 2014): 19–42. **Due: Third Homework.**
+* [Tuesday, Nov. 24: Ethics and Normative Concerns in Political Science](https://jnseawright.github.io/ps210/Slides/ethics.html#1). *Readings:* American Political Science Association (2020), *A Guide to Professional Ethics in Political Science* (3rd ed.), Chs. 1–2; Soss, Joe, et al. "The Illusion of Technique: How Method-Driven Research Leads Welfare Scholarship Astray." *Social Science Quarterly* 87 (Dec. 2006): 798–807 (reflection prompt on final exam). *Recommended:* Lupia, Arthur, and Colin Elman. "Openness in Political Science: Data Access and Research Transparency." *PS: Political Science & Politics* 47 (Jan. 2014): 19–42. **Third Homework due Wednesday, Nov. 25.**
 * **No class:** Thursday, Nov. 26 (Thanksgiving break). WCAS Reading Period Nov. 27–Dec. 4 (no classes).
 
 ### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
@@ -44,7 +44,7 @@
 ### Other Resources
 
 * [Textbook: Jean Clipperton et al. 2022, Empirical Methods in Political Science: An Introduction](https://nulib-oer.github.io/empirical-methods-polisci/)
-* Jaye Seawright: Office 312 Scott Hall, 3-5pm Tuesdays, email j-seawright@northwestern.edu
+* Jaye Seawright: Office 312 Scott Hall, 3-5pm Mondays, email j-seawright@northwestern.edu
 * [Practice Final](https://jnseawright.github.io/ps210/Homework/Practice-Final.html)
 * [Practice Final Rubric](https://jnseawright.github.io/ps210/Homework/practice-final-rubric.html)
 
@@ -53,4 +53,4 @@
 
 * [First Homework, Due Oct. 8](https://jnseawright.github.io/ps210/Homework/hw1.html)
 * [Second Homework, Due Nov. 10](https://jnseawright.github.io/ps210/Homework/hw2.html)
-* [Third Homework, Due Nov. 24](https://jnseawright.github.io/ps210/Homework/hw3.html)
+* [Third Homework, Due Nov. 25](https://jnseawright.github.io/ps210/Homework/hw3.html)
