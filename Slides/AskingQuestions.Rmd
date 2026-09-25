@@ -123,7 +123,7 @@ include_graphics("images/Bertrand1.png")
 ```
 
 ---
-```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Bertrand and Mullainathan: African-American-sounding names increase the likelihood of a callback by 0.54 percentage points less than white-sounding names; applicants in whiter, more educated zip codes are helped relatively more by having a white-sounding name."}
+```{r, echo = FALSE, out.width="90%", fig.retina = 1, fig.align='center', fig.alt="Bertrand and Mullainathan: African-American-sounding names change the likelihood of a callback to be 0.54 percentage points less than white-sounding names; applicants in whiter, more educated zip codes are helped relatively more by having a white-sounding name."}
 include_graphics("images/Bertrand2.png")
 ```
 
@@ -223,13 +223,13 @@ There is a complex and probably multifaceted reality behind these studies, but t
 
 
 ---
-###Key Dates (Fall 2026)
+### Key Dates (Fall 2026)
 
 - October 8th: First homework due.
 
-- October 29th: Midterm (in class).
+- November 3rd: Midterm (in class).
 
-- November 7th: Second homework due.
+- November 10th: Second homework due.
 
 - November 25th: Third homework due.
 
