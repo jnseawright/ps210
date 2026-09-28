@@ -1,8 +1,8 @@
 ---
 output:
-  html_document: default
   pdf_document:
     latex_engine: xelatex
+  html_document: default
 ---
 ####################
 ## Course         ##
@@ -114,7 +114,7 @@ electronically.
 
 # Research Study Participation Requirement
 
-Students enrolled in this course are required to complete a research participation assignment. This will involve taking part in studies conducted by students and faculty from the Department of Political Science, and will include up to 4 hours of research study participation. This will primarily require completing on-line surveys, and in some cases in-person studies at Scott Hall. Students will be able to see how political science studies are conducted and can request information about the studies at the end of the quarter. Students who prefer not to participate in research may opt for an alternative that entails reading a book chapter about political science research and writing a five page reaction paper. The typical chapter is about 20 pages and thus reading it and writing a five-page paper should take approximately four hours. To select the paper option, email the instructor by October 1st; no justification is required.
+Students enrolled in this course are required to complete a research participation assignment. This will involve taking part in studies conducted by students and faculty from the Department of Political Science, and will include up to 4 hours of research study participation. This will primarily require completing on-line surveys, and in some cases in-person studies at Scott Hall. Students will be able to see how political science studies are conducted and can request information about the studies at the end of the quarter. Students who prefer not to participate in research may opt for an alternative that entails reading a book chapter about political science research and writing a five page reaction paper. The typical chapter is about 20 pages and thus reading it and writing a five-page paper should take approximately four hours. In order to opt for the 5-page paper alternative, please email the lab manager, Ubeydullah Ademi at UbeydullahAdemi2027 at u.northwestern.edu.
 
 # Northwestern University Syllabus Standards
 
