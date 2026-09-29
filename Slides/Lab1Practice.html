@@ -11,7 +11,7 @@
 
 <meta name="author" content="Jaye Seawright" />
 
-<meta name="date" content="2025-10-21" />
+<meta name="date" content="2026-10-06" />
 
 <title>Lab 1: Your Turn Practice Exercise</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Lab 1: Your Turn Practice Exercise</h1>
 <h4 class="author">Jaye Seawright</h4>
-<h4 class="date">Oct. 21, 2025</h4>
+<h4 class="date">Oct. 6, 2026</h4>
 
 </div>
 
@@ -364,15 +364,15 @@ display: none;
 get stuck, ask a neighbor or raise your hand—TAs are circulating to
 help.</p>
 <p><strong>You don’t need to submit this for a grade.</strong> It’s just
-practice. But keeping your code and notes will help you with Homework
-1.</p>
+practice. An answer key will be posted after class so you can check your
+work.</p>
 <hr />
 </div>
 <div id="the-research-question" class="section level2">
 <h2>The Research Question</h2>
 <p>A political scientist wants to know whether <strong>federal
 health-care grant funding</strong> is distributed differently to
-counties that support the incument president in elections.</p>
+counties that support the incumbent president in elections.</p>
 <p>She has two datasets:</p>
 <ul>
 <li><code>grants</code>: Each row is a federal health-care grant awarded
@@ -423,8 +423,6 @@ using <code>head()</code>, <code>summary()</code>, and
 </ol>
 <pre class="r"><code># Write your code here
 
-
-
 # Write your observations here (as comments)</code></pre>
 <hr />
 </div>
@@ -433,16 +431,16 @@ using <code>head()</code>, <code>summary()</code>, and
 <p>We want to add the county presidential vote to each grant record.</p>
 <p><strong>Your Task:</strong> Use <code>left_join()</code> to merge
 <code>counties_2024</code> into <code>grants_2025</code> so that we have
-access to the trumpvote variable inside each grant entry, matching on
-the common variable you identified above.</p>
+access to the <code>trumpvote</code> variable inside each grant entry,
+matching on the common variable you identified above.</p>
 <pre class="r"><code># Write your merge code here
 grants_joined &lt;- 
 
 # Check your work: look at the first few rows
 head(grants_joined)
 
-# How many grants went to Democratic vs. Republican counties?
-summary(grants_joined$trumpvote)  # Adjust &quot;party&quot; to the actual column name</code></pre>
+# How many grants went to counties with high vs. low Trump vote?
+summary(grants_joined$trumpvote)</code></pre>
 <hr />
 </div>
 <div id="step-3-create-a-new-variable" class="section level2">
@@ -452,8 +450,8 @@ matter: more populous counties might get more grants regardless of
 election outcome.</p>
 <p><strong>Your Task:</strong> The <code>counties</code> dataset has a
 <code>population</code> variable. After merging, it should now be in
-<code>grants</code>. Create a new variable called <code>pop_group</code>
-that divides counties into three categories:</p>
+<code>grants_joined</code>. Create a new variable called
+<code>pop_group</code> that divides counties into three categories:</p>
 <ul>
 <li>“Small”: population less than 100,000</li>
 <li>“Medium”: population 100,000 to 500,000</li>
@@ -462,33 +460,34 @@ that divides counties into three categories:</p>
 <p><em>Hint: Use <code>mutate()</code> and <code>cut()</code> with the
 <code>breaks = c(0, 100000, 500000, Inf)</code> argument.</em></p>
 <pre class="r"><code># Write your code here
-grants &lt;- grants %&gt;%
-  mutate(pop_group = )
-
-# Hint: we&#39;ve done things like: cut(population, breaks = c(0, 100000, 500000, Inf), 
-#           labels = c(&quot;Small&quot;, &quot;Medium&quot;, &quot;Large&quot;))
+grants_joined &lt;- grants_joined %&gt;%
+  mutate(pop_group = cut(population, 
+                         breaks = c(0, 100000, 500000, Inf),
+                         labels = c(&quot;Small&quot;, &quot;Medium&quot;, &quot;Large&quot;)))
 
 # Check your work
-table(grants$pop_group)</code></pre>
+table(grants_joined$pop_group)</code></pre>
 <hr />
 </div>
 <div id="step-4-visualize-the-data" class="section level2">
 <h2>Step 4: Visualize the Data</h2>
 <p><strong>Your Task:</strong> Create a bar plot showing the number of
-grants by population group, with bars colored by party that won in
-2024.</p>
+grants by population group, with bars colored by the party that won in
+2024 (you’ll need to get the winning party from the
+<code>counties_2024</code> data – it has a <code>party</code> column for
+the candidate).</p>
 <p>Use <code>ggplot()</code> with: - <code>x = pop_group</code> -
-<code>fill = party</code> (or whatever the party column is named) -
+<code>fill = party</code> (the winning party in that county) -
 <code>geom_bar(position = &quot;dodge&quot;)</code> - Appropriate labels and a
 minimal theme - Manual colors: blue for Democratic, red for
 Republican</p>
 <pre class="r"><code># Write your code here
-ggplot(grants, aes(x = , fill = )) +
+ggplot(grants_joined, aes(x = pop_group, fill = party)) +
   geom_bar(position = &quot;dodge&quot;) +
-  labs(title = ,
-       x = ,
-       y = ,
-       fill = ) +
+  labs(title = &quot;Number of Grants by Population Group and Winning Party&quot;,
+       x = &quot;Population Group&quot;,
+       y = &quot;Number of Grants&quot;,
+       fill = &quot;Party&quot;) +
   scale_fill_manual(values = c(&quot;blue&quot;, &quot;red&quot;)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))</code></pre>
@@ -508,9 +507,7 @@ groups?</li>
 
 # 1. 
 
-
 # 2. 
-
 
 # 3. </code></pre>
 <hr />
@@ -530,7 +527,7 @@ demo?</li>
 <div id="done" class="section level2">
 <h2>Done!</h2>
 <p>You’ve practiced: - Loading and examining data - Merging two datasets
-- Creating a categorical variable - Making a bar plot with groups -
+- Creating a categorical variable - Making a grouped bar plot -
 Interpreting results</p>
 <p>These are exactly the skills you’ll need for Homework 1. Keep this
 file as a reference!</p>
