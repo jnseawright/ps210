@@ -1,201 +1,206 @@
 ---
+title: "Homework 1 Rubric: Descriptive Analysis of ICE Arrests and Governor's Party"
+author: "Jaye Seawright"
+date: "Fall 2026"
 output:
   html_document: default
   pdf_document: default
 ---
-####################
-## Homework 1     ##
-####################
 
-There has been a great deal of discussion from Americans and others worldwide about
-the patterns of immigration arrests carried out by ICE during 2025. In this assignment,
-we will look at some data about these arrests, collected by the [Deportation Data Project](https://deportationdata.org/).
+**Total: 60 points** (Problem 1: 10, Problem 2: 20, Problem 3: 20, Problem 4: 10)
 
-For this assignment, you are free to work individually or in groups. If you choose
-to work collaboratively, please include your name and the names of the people you
-worked with on your submitted assignment. You will not be penalized for collaborating.
+This rubric matches `hw1.Rmd` for Fall 2026, which uses the state-level
+dataset built from `ice_arrests_2025_early_2026.zip` (Deportation Data Project,
+January 2025 – March 2026).
 
-####################
-## Problem 1      ##
-####################
+---
 
-Let's figure out whether there have been equal numbers of arrests in states with
-Democratic and Republican governors. We have a dataset pulled from Wikipedia that lists
-details about governors, and the deportation data. Let's start by getting both of these
-loaded into our R workspace.
+## Reference answers
 
-```{r, eval=FALSE}
-governor_data <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/stategovs.csv")
+Values below come from running the assignment's own pipeline on the
+distributed data. Students' numbers should match closely; small differences
+are acceptable if they filtered slightly differently.
 
-ice_arrests <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/icearrests.csv")
-```
+After Step 4, `state_data` has **50 states** (27 Republican, 23 Democratic)
+covering **374,959** arrests.
 
-Now what we want to do is create a new variable in the ICE data that records the 
-partisanship of the state governor where the arrest happens.
+| Statistic | Democratic | Republican |
+|---|---:|---:|
+| Total arrests | 142,326 | 232,633 |
+| Mean arrests | 6,188 | 8,616 |
+| Median arrests | 4,480 | 3,319 |
 
-```{r, eval=FALSE}
-#This command creates a new empty variable called Party.
-ice_arrests$Party <- NA
+Republican-governed states have **about 1.6× the total** arrests and
+**about 1.4× the mean**. Note that the **median reverses** — Democratic
+states have the higher median. Texas (95,474) and Florida (37,422) pull the
+Republican mean up; the five largest states by arrest count are Texas,
+Florida, California, New York, and Georgia.
 
-#This block of commands is going to loop through the ice_arrests database and 
-#check the relevant partisanship of the governor for each arrest
-for (i in 1:nrow(ice_arrests)){
-  #This command is checking if a given arrest happened in one of the 50 states.
-  #Some arrests have no recorded location, some happen in international travel,
-  #some happen on military bases, etc. For those, we'll record the party as
-  #missing.
-  if (!ice_arrests$State[i] %in% levels(as.factor(governor_data$State)))
-    ice_arrests$Party[i] <- NA
-    #When the party isn't missing, we'll set it from the governor data.
-    else ice_arrests$Party[i] <- governor_data$Party[governor_data$State==ice_arrests$State[i]]
-}
-```
+Correlation between population and arrests: **r = 0.79** overall,
+**0.94** within Democratic states, **0.92** within Republican states.
 
-We can now ask where arrests are actually happening.
+Arrests by population quintile:
 
-```{r, eval=FALSE}
-table(ice_arrests$Party)
-```
+| Population group | Democratic | Republican | R/D |
+|---|---:|---:|---:|
+| Very Small | 2,079 | 2,723 | 1.31 |
+| Small | 7,316 | 18,201 | 2.49 |
+| Medium | 17,248 | 30,048 | 1.74 |
+| Large | 41,948 | 29,961 | **0.71** |
+| Very Large | 73,735 | 151,700 | 2.06 |
 
-What does this tell us? Explain in your own words what we learn from this about
-partisanship and ICE arrest patterns. What conclusions can we draw, and what
-further information do you want before we start interpreting these results?
+The "Large" quintile **reverses** the overall pattern. Cell counts are small
+(3–7 states each), so these totals are driven by a handful of states.
 
-*Rubric for Problem 1*
+---
 
-Assign points as follows, up to a total of 25.
+## Problem 1: Descriptive Comparison (10 points)
 
-- [ ] Reports the correct total arrests per party of A for Democrat-governed states and B for Republican-governed states. *10 points*
-- [ ] Describes the difference as showing that Republican-governed states have about twice as many ICE arrests as Democrat-governed states (or similar language). *10 points*
-- [ ] Raises issues related to measurement error about potential heterogeneity among Democrats/Republicans on immigration stands. *5 points*
-- [ ] Mentions questions about time frames for measurement. *5 points*
-- [ ] Mentions concerns about data completeness and nonresponse. *5 points*
-- [ ] Uses ideas or concepts from class to make some other creative and/or reasonable point about the overall picture of these results. *5 points*
+**(a) Bar plot of total arrests by party — 3 points**
 
-####################
-## Problem 2      ##
-####################
+- [ ] Produces a bar plot using `geom_bar(stat = "identity")` on party totals. *2 points*
+- [ ] Includes axis labels and a title. *1 point*
 
-Are there any challenges involved in interpreting the relationship between 
-partisanship and ICE arrests as a causal relationship? In answering, please work through
-the four questions for causal inference discussed in class. 
+Deduct 1 point if the plot shows arrest counts per state rather than totals
+per party, but is otherwise correct.
 
-Propose at least three possible confounding variables that you'd like to see 
-explored, and explain why you believe each of these variables would meet the 
-criteria for a confounding variable.
+**(b) Mean arrests by party — 3 points**
 
-*Rubric for Problem 2*
+- [ ] Reports means of roughly **6,188** (Democratic) and **8,616** (Republican). *2 points*
+- [ ] States that Republican-governed states have the higher average. *1 point*
 
-Assign points as follows, up to a total of 25.
+**(c) Interpretation — 4 points**
 
-- [ ] Uses the four-question framework to evaluate what we can conclude from this and what else we might want to ask. *10 points*
-- [ ] Offers a well-reasoned argument for a view on the question of reverse causation. *5 points*
-- [ ] Offers a well-reasoned argument for a view on the question of a causal mechanism. *5 points*
-- [ ] Discusses one possible confounding variable, but does not explain why it would be connected to the treatment and/or outcome. *2 points*
-- [ ] Discusses one possible confounding variable, and explains why it might be connected to both the treatment and the outcome. *5 points*
-- [ ] Discusses more than one possible confounding variable, and explains why they might be connected to both the treatment and the outcome. *10 points*
-- [ ] Uses ideas or concepts from class to make some other creative and/or reasonable point about causal inference in this situation. *5 points*
+Award up to 4 points across the following. Full credit does not require every item.
 
-####################
-## Problem 3      ##
-####################
+- [ ] Describes the direction of the difference accurately. *1 point*
+- [ ] Notes that this is a descriptive comparison and does not establish causation. *1 point*
+- [ ] Identifies at least one thing they would want to know before interpreting causally — population, border proximity, immigrant population size, ICE field-office locations, state cooperation policies. *1 point*
+- [ ] Raises a data-quality or measurement concern — reporting completeness, what counts as an "arrest," the time window, missing state values. *1 point*
 
-Let's add one additional variable to the analysis. We'll look at state populations,
-partisanship, and ICE arrests all at once. Let's start by adding data on population
-to our ice_arrests dataset.
+**Bonus consideration:** A student who notices that the **median reverses the
+mean**, or who identifies Texas and Florida as outliers driving the average,
+has done something better than the assignment asked. Award full credit on (c)
+and note it approvingly.
 
-```{r, eval=FALSE}
-state_pops <- read.csv("https://github.com/jnseawright/ps210/raw/refs/heads/main/Data/statepops.csv")
-```
+---
 
-Now we can use a version of our code from above that copies in state populations
-instead of partisanship.
+## Problem 2: Causal Inference and Confounding (20 points)
 
-```{r, eval=FALSE}
-#Run the following two commands once if you haven't before, without the hashtag:
-#install.packages("tidyverse")
-#install.packages("ggplot2")
+**(a) Four questions for causal inference — 8 points**
 
-#Load libraries
-library(tidyverse)
-library(ggplot2)
+- [ ] Works through the four-question framework from class rather than giving a general discussion of causality. *4 points*
+- [ ] Reaches a defensible position on reverse causation (do arrest patterns influence who gets elected?). *2 points*
+- [ ] Reaches a defensible position on mechanism (how would a governor's party actually change federal ICE activity, given ICE is federal?). *2 points*
 
-#This command creates a new empty variable called Population.
-ice_arrests$Population <- NA
+The mechanism question is the sharp one here: ICE is a federal agency, so
+students should notice that any causal story has to run through something
+like state cooperation with detainers, sanctuary policies, or National Guard
+coordination — not through direct gubernatorial control.
 
-#This block of commands is going to loop through the ice_arrests database and 
-#check the relevant population of the state for each arrest
-for (i in 1:nrow(ice_arrests)){
-  #This command is checking if a given arrest happened in one of the 50 states.
-  #Some arrests have no recorded location, some happen in international travel,
-  #some happen on military bases, etc. For those, we'll record the population as
-  #missing.
-  if (!ice_arrests$State[i] %in% levels(as.factor(state_pops$State)))
-    ice_arrests$Population[i] <- NA
-    #When the population isn't missing, we'll set it from the state population data.
-    else ice_arrests$Population[i] <-   
-        state_pops$Population2024[state_pops$State==ice_arrests$State[i]]
-}
+**(b) Three confounding variables — 12 points**
 
-#This variable often reads in with commas and gets treated as text, so we'll 
-#make sure to convert it to an actual number.
-ice_arrests$Population <- parse_number(ice_arrests$Population)
-```
+For each of three confounders, award up to 4 points:
 
-```{r, eval=FALSE}
-#Group the states into population categories.
-ice_arrests %>% mutate(Population_group = cut(Population, 
-                                              breaks = quantile(Population, 
-                                                                probs = seq(0, 1, 0.2), 
+- [ ] Names a plausible confounder. *1 point*
+- [ ] Explains why it is related to governor's party. *1.5 points*
+- [ ] Explains why it is related to arrest counts. *1.5 points*
 
-                                                                na.rm = TRUE),
-                                                                                                                                                            labels = c("Very Small", 
-                                                                  "Small", "Medium",
-                                                                  "Large", 
-                                                                  "Very Large"),
-                                                       include.lowest = TRUE)) %>% 
-#Plot the relationship between arrests, population, and party.
-  ggplot(aes(x = Population_group, fill = Party)) +
-  geom_bar(position = "dodge") +
-  labs(x = "Population", y = "Number of Arrests", 
-       title = "Number of Arrests by Population and Party") +
-  scale_fill_manual(values = c("blue", "red")) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  theme_minimal()
-```
+Strong candidates: state population, share of foreign-born residents,
+proximity to an international border, urbanization, existing ICE
+infrastructure and field-office density, state sanctuary/cooperation law,
+regional political culture.
 
-What do you see? What does adding information about population do to the relationship between party and numbers of arrests? (You might consider answering that this additional information *eliminates* the previous relationship, *reverses* it, leaves it *unchanged*, or *complicates* it in other ways you explain.) Explain your reasoning.
+Award at most 2 of the 4 points for a variable named without a both-sides
+explanation. A variable connected to only one of treatment or outcome is not
+a confounder and should be marked as such.
 
-*Rubric for Problem 3*
+---
 
-Assign points as follows, up to a total of 25.
+## Problem 3: Adding Population as a Control (20 points)
 
-- [ ] Explains that we are adding population to control for this as a possible confounding variable. *5 points*
-- [ ] Explains the results: either stating that the within-population-group patterns are broadly similar to the results in Problem 1, or explaining that the results are similar to those in Problem 1 for large and small areas but more complicated for medium-population areas. *10 points*
-- [ ] Gives an answer from the list of options (eliminate/reverse/unchanged/complicate), but the answer does include a clear explanation of the evidence used to reach that conclusion. *2 points*
-- [ ] Gives an answer from the list of options (eliminate/reverse/unchanged/complicate), explains the evidence used to reach that conclusion, but misinterprets the evidence in some important way. *5 points*
-- [ ] Gives an answer from the list of options (eliminate/reverse/unchanged/complicate), explains the evidence used to reach that conclusion, and interprets the evidence carefully. *10 points*
-- [ ] Uses ideas or concepts from class to make some other creative and/or reasonable point about the role of population as a third variable. *5 points*
+**(a) Scatter plot and description — 4 points**
 
-####################
-## Problem 4      ##
-####################
+- [ ] Scatter plot of `Population` (x) against `arrests` (y), colored by `Party`, with labels. *2 points*
+- [ ] Describes a clear positive relationship. *1 point*
+- [ ] Notes the outliers (Texas, and to a lesser extent Florida and California). *1 point*
 
-Is this an area of research where a social-science experiment makes sense as a research
-tool? If so, suggest an example of an experiment that you think would help illuminate
-the questions at work here. If not, explain your reasoning for why this is a poor
-area for using experiments.
+Students who report the correlation (**r ≈ 0.79**) have gone beyond the ask;
+this is worth acknowledging but not extra points.
 
+**(b) Population groups and grouped bar plot — 6 points**
 
-*Rubric for Problem 4*
+- [ ] Uses `cut()` with `quantile()` breaks as shown to create `pop_group`. *3 points*
+- [ ] Produces a bar plot by population group with `position = "dodge"` and fill by party. *3 points*
 
-Assign points as follows, up to a total of 25.
+A common failure is omitting `include.lowest = TRUE`, which drops the
+smallest state. Deduct 1 point if that state is missing and the student
+does not notice.
 
-- [ ] Demonstrates an understanding of the key idea that experiments require random assignment and manipulation of the treatment. *15 points*
-- [ ] Offers an idea for an experiment in which some kind of feasible treatment manipulation might help us understand the role of partisanship in ICE operations. *10 points*
-- [ ] Offers a thoughtful argument for why random assignment and/or manipulation is infeasible or unethical in the current context. *10 points*
-- [ ] Uses ideas or concepts from class to make some other creative and/or reasonable point relevant to the possibility of using experiments to study ICE operations. *5 points*
+**(c) Interpretation — 5 points**
 
-Please submit your completed assignment at:
+- [ ] Gives an answer from the list (eliminate / reverse / unchanged / complicate). *1 point*
+- [ ] Supports the answer with specific evidence from the plot. *2 points*
+- [ ] Interprets that evidence accurately. *2 points*
 
-[https://canvas.northwestern.edu/courses/235934/assignments/1648222](https://canvas.northwestern.edu/courses/235934/assignments/1648222)
+The best-supported answer is **complicates**. The party gap persists in four
+of five quintiles but **reverses in the "Large" group**, where Democratic
+states have more arrests. Accept "eliminate" or "reverse" only if the student
+builds a careful argument from the actual pattern; award 3 of 5 if the answer
+is defensible but the evidence is described loosely.
+
+Award full marks to a student who notes that each cell holds only 3–7 states,
+so the quintile totals are unstable and driven by individual states.
+
+**(d) Is population a confounder? — 5 points**
+
+- [ ] Applies the definition of a confounder explicitly. *2 points*
+- [ ] Argues that population is strongly related to arrests (r ≈ 0.79). *1.5 points*
+- [ ] Addresses whether population is related to governor's party — and notices this link is **weak**, which is the interesting part. *1.5 points*
+
+The defensible conclusion is that population is a powerful *predictor* of
+arrests but a questionable *confounder*, because large states are not
+systematically Republican or Democratic. A student who reaches that
+distinction has understood the concept. A student who says "population is a
+confounder because it affects arrests" has only done half the work — award
+at most 3.
+
+---
+
+## Problem 4: Experiments as an Alternative Approach (10 points)
+
+**(a) Does an experiment make sense? — 4 points**
+
+- [ ] Takes a clear position. *1 point*
+- [ ] Demonstrates understanding that experiments require **random assignment** and **manipulation** of the treatment. *3 points*
+
+**(b) Design or justification — 6 points**
+
+If **yes**, award up to 6 points:
+
+- [ ] Specifies a treatment that could actually be manipulated. *2 points*
+- [ ] Specifies an outcome and a sample. *2 points*
+- [ ] Identifies the design as lab, field, or survey. *1 point*
+- [ ] Addresses feasibility or ethics at least briefly. *1 point*
+
+Realistic designs manipulate something other than a governor's party: survey
+experiments on public support for cooperation policies, audit studies of
+local agency responses, or randomized outreach to detainees about legal
+representation.
+
+If **no**, award up to 6 points:
+
+- [ ] Explains that governor's party cannot be randomly assigned. *3 points*
+- [ ] Raises an ethical objection to manipulating enforcement against real people. *2 points*
+- [ ] Suggests what observational strategy might substitute. *1 point*
+
+Both answers can earn full credit. The position matters less than the
+reasoning about random assignment and manipulability.
+
+---
+
+## Submission
+
+Students submit on Canvas:
+
+[https://canvas.northwestern.edu/courses/256277/assignments/1807219](https://canvas.northwestern.edu/courses/256277/assignments/1807219)

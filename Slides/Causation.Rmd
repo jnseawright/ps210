@@ -65,7 +65,7 @@ By the end of this session, you should be able to:
 1. Distinguish causation from correlation and explain the fundamental problem of causal inference
 2. Apply the four causal inference questions to any empirical claim
 3. Identify threats to causal inference: reverse causation, confounding, and post-treatment bias
-4. Explain how laboratory experiments, natural experiments, and field experiments help establish causal claims
+4. Explain how a natural experiment can answer questions that observational comparison cannot
 ---
 
 ### How do citizen attitudes affect the survival of democracy?
@@ -263,7 +263,7 @@ relationship between the treatment and the outcome in only those cases.
 ---
 ### Do Gender Quotas Elect More Women?
 
-Many countries have adopted **gender quotas** to increase women's representation in legislatures — reserved seats, candidate quotas requiring parties to nominate a minimum share of women, or placement mandates determining list positions.
+Many countries have adopted **gender quotas** to increase women's representation in legislatures, including reserved seats, candidate quotas requiring parties to nominate a minimum share of women, or placement mandates determining list positions.
 
 Do they work?
 
@@ -274,7 +274,7 @@ Women hold roughly **26%** of seats in national parliaments worldwide (IPU, 2024
 
 Countries with legislated gender quotas average meaningfully higher female representation than those without.
 
-At first glance, the evidence looks compelling: quotas → more women elected.
+At first glance, the evidence looks compelling: quotas lead to more women elected.
 
 ---
 ### Let's ask the four questions
@@ -291,7 +291,7 @@ This part of the causal case is on solid ground.
 
 Could having *more women in office* cause *quotas to be adopted*?
 
-Plausibly yes — countries with stronger gender equality norms might both elect more women voluntarily *and* be more likely to pass quota legislation.
+Plausibly yes, because countries with stronger gender equality norms might both elect more women voluntarily *and* be more likely to pass quota legislation.
 
 If so, the quota isn't doing the causal work; progressive culture is driving both variables.
 
@@ -330,7 +330,7 @@ include_graphics("images/bhavnani_title.png")
 
 ---
 
-Mumbai city council seats were **randomly assigned** for reservation by lottery — one election at a time.
+Mumbai city council seats were **randomly assigned** for reservation by lottery, one election at a time.
 
 The key question: after reservations are *withdrawn*, do women still win?
 
@@ -347,7 +347,7 @@ Treatment = **Reserved in 1997, Open in 2002** (n = 37)
 
 Control = **Open in 1997, Open in 2002** (n = 81)
 
-The lottery makes these groups equivalent before treatment — so any difference in 2002 is causal.
+The lottery makes these groups equivalent before treatment, so any difference in 2002 is causal.
 
 ---
 ### Scale of the Reservations
@@ -365,9 +365,9 @@ include_graphics("images/bhavnani_findings.png")
 
 ---
 
-Row 1: **21.6% vs 3.7%** — women won in previously reserved wards at nearly six times the rate of never-reserved wards.
+Row 1: **21.6% vs 3.7%**: women won in previously reserved wards at nearly six times the rate of never-reserved wards.
 
-Row 2: **73% vs 35.8%** of previously reserved wards had at least one female candidate — the pipeline effect.
+Row 2: **73% vs 35.8%** of previously reserved wards had at least one female candidate, which is the pipeline effect.
 
 The quota introduced women into politics. After it was gone, they kept winning.
 
@@ -380,114 +380,27 @@ Because reservation was assigned by lottery:
 
 - **Question 4 (confounding):** Reserved and non-reserved constituencies were identical on average before the lottery. Any difference in outcomes reflects the quota's causal effect.
 
+---
+### What the Lottery Design Solves
+
 The persistence of the effect after quotas are *withdrawn* suggests reservations change which women run — and teach parties that women can win.
-
----
-### A Field Experiment on Electing Women
-
-```{r, echo = FALSE, out.width="85%", fig.retina = 1, fig.align='center', fig.alt="Karpowitz, Monson & Preece (2017), 'How to Elect More Women: Gender and Candidate Success in a Field Experiment,' AJPS. Abstract: a field experiment in 1,842 Utah Republican caucus precincts tests supply (encourage women to run) and demand (encourage voters to support women) interventions; both supply and demand treatments increase women's election as delegates, especially combined."}
-include_graphics("images/karpowitz_title.png")
-```
-
----
-
-Karpowitz, Monson & Preece (2017) randomly assigned Utah Republican caucus precincts to one of four conditions:
-
-- **Control:** no intervention
-- **Supply:** messages encouraging women to run as delegates
-- **Demand:** messages from party leaders encouraging voters to support female candidates
-- **Supply + Demand:** both interventions combined
-
----
-
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Karpowitz et al. Figure 2: proportion of precincts electing at least one woman as state delegate by condition. Control ~38%, Supply ~44%, Demand ~44%, Supply+Demand ~46%. All treatment conditions are higher than control with overlapping 95% confidence intervals."}
-include_graphics("images/karpowitz_outcome.png")
-```
-
----
-
-```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Karpowitz et al. Figure 3: estimated proportion of state delegates who are women by condition. Control ~24%, Supply ~26%, Demand ~27%, Supply+Demand ~30%. The Supply+Demand condition shows the largest gain, with confidence intervals not overlapping the control."}
-include_graphics("images/karpowitz_outcome_2.png")
-```
-
----
-
-Both supply and demand interventions raised women's representation. Combined, they worked best.
-
-The finding challenges a simple "pipeline only" story: **voter demand matters too**, but simple party-leader messages can move it.
-
-Most importantly: random assignment means we can trust these are causal effects, not just correlations.
-
----
-### Is Voter Bias the Real Problem?
-
-If voters systematically punish female candidates, that would be a major causal pathway *against* women's election — and would limit what quotas can accomplish once lifted.
-
-Two recent studies address this head-on.
-
----
-### What Voters Actually Do (Schwarz & Coppock 2022)
-
-```{r, echo = FALSE, out.width="85%", fig.retina = 1, fig.align='center', fig.alt="Schwarz & Coppock (2022), 'What Have We Learned about Gender from Candidate Choice Experiments? A Meta-Analysis of Sixty-Seven Factorial Survey Experiments,' JOP. Abstract: pooling 67 conjoint/vignette studies, the average effect of female candidate gender is a gain of approximately 2 percentage points; voter preferences are not a major factor explaining women's underrepresentation."}
-include_graphics("images/schwarz_title.png")
-```
-
----
-
-```{r, echo = FALSE, out.width="55%", fig.retina = 1, fig.align='center', fig.alt="Schwarz & Coppock Figure 1: forest plot of AMCE estimates for female candidate gender across 67 studies. Each row is one study; most estimates cluster near or slightly above zero (slight advantage for women), confirming no systematic voter penalty for female candidates."}
-include_graphics("images/schwarz_results.png")
-```
-
----
-
-Each row is one of 67 studies. Most estimates cluster near zero — or slightly *positive* for women.
-
-The average effect of being a female candidate: **+2 percentage points** in voter choice.
-
-Voters don't penalize women. If anything, they very slightly prefer them. This means voter preferences cannot explain women's underrepresentation.
-
----
-### Voter Bias Under Low Information (Eyméoud & Vertier 2023)
-
-```{r, echo = FALSE, out.width="75%", fig.retina = 1, fig.align='center', fig.alt="Eyméoud & Vertier (2023), 'Gender Biases: Evidence from a Natural Experiment in French Local Elections,' Economic Policy. A 2015 reform required gender-balanced candidate pairs; alphabetical ordering determined which gender appeared first on the ballot, creating an as-if random treatment."}
-include_graphics("images/eymeoud_title.png")
-```
-
----
-
-A 2015 French reform required gender-balanced candidate pairs. **Alphabetical ordering** determined which gender appeared first on the ballot — effectively random.
-
-```{r, echo = FALSE, out.width="85%", fig.retina = 1, fig.align='center', fig.alt="Eyméoud & Vertier Figure 1: examples of valid French local election ballots showing three layout variants. Each ballot lists a main candidate and a substitute (remplaçant/e); candidate order varies by alphabetical name ordering, providing the natural experiment variation."}
-include_graphics("images/eymeoud_treatment.png")
-```
-
----
-
-```{r, echo = FALSE, out.width="85%", fig.retina = 1, fig.align='center', fig.alt="Eyméoud & Vertier regression results: effect of 'Woman first' on ballot by voter ideology (XLeft, Left, Right, XRight). The penalty is statistically significant only among right-leaning voters (Right column: -1.397**, p=0.016). Left-leaning and far-right voters show no significant effect."}
-include_graphics("images/eymeoud_results.png")
-```
-
----
-
-The "Woman first" penalty is significant only in the **Right** column (−1.4pp\*\*).
-
-Right-leaning voters penalized women who appeared first on the ballot. Left-leaning voters did not.
-
-And this bias decreases with higher newspaper circulation — more information reduces discrimination.
-
----
-### Reconciling the Two Voter Bias Findings
-
-Survey experiments (Schwarz & Coppock): voters evaluate candidates in a deliberate, information-rich setting → no penalty for women, slight advantage.
-
-Real low-information elections (Eyméoud & Vertier): right-leaning voters show a small negative bias — but only under low information.
-
-Voter discrimination is **real, narrow, and context-dependent** — concentrated among right-leaning voters and reducible by information. Not the primary bottleneck.
 
 ---
 ### Quotas: The Four Questions Answered
 
-1. **Relationship?** Yes: documented in Mumbai via lottery (Bhavnani) and via field experiment (Karpowitz et al.)
-2. **Reverse causation?** Blocked in all four studies by lottery assignment, experimental randomization, or ballot-order instrument
-3. **Causal pathway?** Primarily candidacy supply and party behavior; voter bias is real but small and reducible by information (Schwarz & Coppock; Eyméoud & Vertier)
-4. **Confounders ruled out?** Yes: in each study by design, though not in simple cross-country comparisons
+1. **Relationship?** Yes, but cross-country comparison couldn't tell us whether it was causal. Bhavnani's lottery could.
+2. **Reverse causation?** Blocked by design. Constituencies didn't earn reservations by already electing women; the lottery assigned treatment before the outcome.
+3. **Causal pathway?** Partly answered. Reservations change *who runs,* i.e., the pipeline. Whether voters also penalize women is still open.
+4. **Confounders ruled out?** Yes, by randomization: reserved and unreserved wards were equivalent before the lottery.
+
+---
+### What We Still Don't Know
+
+Bhavnani shows quotas work. It doesn't tell us **why** women weren't winning in the first place.
+
+Two live possibilities:
+
+- **Supply:** women aren't recruited or nominated
+- **Demand:** voters penalize women candidates
+
+Distinguishing these needs a design that manipulates supply and demand directly, which is where we pick this up on **October 13**.

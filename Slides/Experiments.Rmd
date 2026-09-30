@@ -247,3 +247,144 @@ include_graphics("images/Hangartner4.PNG")
 1.  Lab Experiment: Carefully controlled, structured environment in which treatments and outcomes are administered usually in person
 2.  Field Experiment: Real-world intervention in which a treatment is administered at random to treatment and control groups
 3.  Survey Experiment: Experiments in which treatments are administered usually through digital devices as part of a survey 
+---
+### Back to a Question from October 1
+
+On Oct. 1 we saw that gender quotas work; Bhavnani's Mumbai lottery showed women kept winning after reservations were withdrawn.
+
+But we left a question open: **why** weren't women winning without quotas?
+
+- **Supply:** women aren't recruited or nominated
+- **Demand:** voters penalize women candidates
+
+Each of the three experiment types gives us a different angle on this.
+
+---
+### A Field Experiment on Electing Women
+
+```{r, echo = FALSE, out.width="85%", fig.retina = 1, fig.align='center', fig.alt="Karpowitz, Monson & Preece (2017), 'How to Elect More Women: Gender and Candidate Success in a Field Experiment,' AJPS. Abstract: a field experiment in 1,842 Utah Republican caucus precincts tests supply (encourage women to run) and demand (encourage voters to support women) interventions; both supply and demand treatments increase women's election as delegates, especially combined."}
+include_graphics("images/karpowitz_title.png")
+```
+
+---
+
+Karpowitz, Monson & Preece (2017) randomly assigned Utah Republican caucus precincts to one of four conditions:
+
+- **Control:** no intervention
+- **Supply:** messages encouraging women to run as delegates
+- **Demand:** messages from party leaders encouraging voters to support female candidates
+- **Supply + Demand:** both interventions combined
+
+Note what makes this a *field* experiment: real caucuses, real delegates, real party letters.
+
+---
+
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Karpowitz et al. Figure 2: proportion of precincts electing at least one woman as state delegate by condition. Control ~38%, Supply ~44%, Demand ~44%, Supply+Demand ~46%. All treatment conditions are higher than control with overlapping 95% confidence intervals."}
+include_graphics("images/karpowitz_outcome.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="70%", fig.retina = 1, fig.align='center', fig.alt="Karpowitz et al. Figure 3: estimated proportion of state delegates who are women by condition. Control ~24%, Supply ~26%, Demand ~27%, Supply+Demand ~30%. The Supply+Demand condition shows the largest gain, with confidence intervals not overlapping the control."}
+include_graphics("images/karpowitz_outcome_2.png")
+```
+
+---
+
+Both supply and demand interventions raised women's representation. Combined, they worked best.
+
+So it isn't only a pipeline problem: **voter demand matters too**, and simple party-leader messages can move it.
+
+Random assignment means we can trust these are causal effects.
+
+---
+### But Do Voters Actually Penalize Women?
+
+Karpowitz shows demand *can be moved*. That's not the same as showing voters are biased to begin with.
+
+For that we need a different design. Here the three experiment types disagree.
+
+---
+### Survey Experiments (Schwarz & Coppock 2022)
+
+```{r, echo = FALSE, out.width="85%", fig.retina = 1, fig.align='center', fig.alt="Schwarz & Coppock (2022), 'What Have We Learned about Gender from Candidate Choice Experiments? A Meta-Analysis of Sixty-Seven Factorial Survey Experiments,' JOP. Abstract: pooling 67 conjoint/vignette studies, the average effect of female candidate gender is a gain of approximately 2 percentage points; voter preferences are not a major factor explaining women's underrepresentation."}
+include_graphics("images/schwarz_title.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="55%", fig.retina = 1, fig.align='center', fig.alt="Schwarz & Coppock Figure 1: forest plot of AMCE estimates for female candidate gender across 67 studies. Each row is one study; most estimates cluster near or slightly above zero (slight advantage for women), confirming no systematic voter penalty for female candidates."}
+include_graphics("images/schwarz_results.png")
+```
+
+---
+
+Each row is one of 67 survey experiments. Most estimates cluster near zero, or slightly *positive* for women.
+
+Average effect of being a female candidate: **+2 percentage points**.
+
+On this evidence, voters don't penalize women at all.
+
+---
+### A Natural Experiment in Real Elections (Eyméoud & Vertier 2023)
+
+```{r, echo = FALSE, out.width="75%", fig.retina = 1, fig.align='center', fig.alt="Eyméoud & Vertier (2023), 'Gender Biases: Evidence from a Natural Experiment in French Local Elections,' Economic Policy. A 2015 reform required gender-balanced candidate pairs; alphabetical ordering determined which gender appeared first on the ballot, creating an as-if random treatment."}
+include_graphics("images/eymeoud_title.png")
+```
+
+---
+
+A 2015 French reform required gender-balanced candidate pairs. **Alphabetical ordering** determined which gender appeared first on the ballot, so it was effectively random.
+
+```{r, echo = FALSE, out.width="85%", fig.retina = 1, fig.align='center', fig.alt="Eyméoud & Vertier Figure 1: examples of valid French local election ballots showing three layout variants. Each ballot lists a main candidate and a substitute (remplaçant/e); candidate order varies by alphabetical name ordering, providing the natural experiment variation."}
+include_graphics("images/eymeoud_treatment.png")
+```
+
+---
+
+```{r, echo = FALSE, out.width="85%", fig.retina = 1, fig.align='center', fig.alt="Eyméoud & Vertier regression results: effect of 'Woman first' on ballot by voter ideology (XLeft, Left, Right, XRight). The penalty is statistically significant only among right-leaning voters (Right column: -1.397**, p=0.016). Left-leaning and far-right voters show no significant effect."}
+include_graphics("images/eymeoud_results.png")
+```
+
+---
+
+The "Woman first" penalty is significant only in the **Right** column (−1.4pp\*\*).
+
+Right-leaning voters penalized women who appeared first. Left-leaning voters did not.
+
+And the bias shrinks where newspaper circulation is higher: more information, less discrimination.
+
+---
+### Two Designs, Two Answers. Which Do We Believe?
+
+**Survey experiments** (Schwarz & Coppock): no penalty, slight advantage for women.
+
+**Real elections** (Eyméoud & Vertier): a small penalty among right-leaning voters.
+
+Both are well-identified. So why do they disagree?
+
+---
+### This Is an External Validity Problem
+
+Recall our three external validity questions:
+
+1. **Are the subjects representative?** Survey samples skew toward the attentive and online.
+
+2. **Is the treatment similar to the real-world variable?** A conjoint table presents two candidates side by side with full information. A real ballot gives you names and almost nothing else.
+
+3. **Is the outcome measured well?** Clicking a preferred profile is not casting a vote.
+
+---
+### This Is an External Validity Problem
+
+
+The survey experiments have excellent *internal* validity. The gap is in generalizing to a low-information ballot.
+
+---
+### What We Can Now Say
+
+Voter discrimination is **real, narrow, and context-dependent**, concentrated among right-leaning voters, and reducible by information.
+
+It is not the primary bottleneck. Supply and party behavior matter more.
+
+Note how we got here: no single experiment answered the question. The answer came from **reading designs against each other**.
