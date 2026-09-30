@@ -3,7 +3,7 @@ title: "Lab 2: Introduction to Regression in R"
 subtitle: "Empirical Methods"
 author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>"
-date: "Oct. 30, 2025"
+date: "Nov. 5, 2026"
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css

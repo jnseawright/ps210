@@ -3,7 +3,7 @@ title: "6: Applied Experiments"
 subtitle: "Empirical Methods"
 author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>"
-date: "Oct. 13, 2026"
+date: "Oct. 15, 2026"
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css

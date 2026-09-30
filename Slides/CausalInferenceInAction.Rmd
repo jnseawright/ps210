@@ -3,7 +3,7 @@ title: "4: Causal Inference in Action"
 subtitle: "Concealed Carry Laws and Violence"
 author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>"
-date: "Oct. 6, 2026"
+date: "Oct. 8, 2026"
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css

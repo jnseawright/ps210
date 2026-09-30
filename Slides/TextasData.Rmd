@@ -3,7 +3,7 @@ title: "15: Text as Data"
 subtitle: "Empirical Methods"
 author: "<large>Jaye Seawright</large>"
 institute: "<small>Northwestern Political Science</small>" 
-date: "Nov. 17, 2026"
+date: "Nov. 19, 2026"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css

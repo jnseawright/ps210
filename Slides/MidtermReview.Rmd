@@ -2,7 +2,7 @@
 title: "Midterm Review Session"
 subtitle: "Political Science 210 — Fall 2026"
 author: "Jaye Seawright"
-date: "October 27, 2026 (in class)"
+date: "Oct. 29, 2026"
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css
