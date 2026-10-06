@@ -107,9 +107,9 @@ summary(grants_joined$trumpvote)
 
 ## Step 3: Create a New Variable
 
-The researcher suspects that **county population** might matter: more populous counties might get more grants regardless of election outcome.
+The researcher suspects that **county population** might matter: more populous counties might get more grants regardless of election outcome. (We will use county total votes as a proxy for population.)
 
-**Your Task:** The `counties` dataset has a `population` variable. After merging, it should now be in `grants_joined`. Create a new variable called `pop_group` that divides counties into three categories:
+**Your Task:** The `counties` dataset has a `totalvotes` variable. After merging, it should now be in `grants_joined`. Create a new variable called `pop_group` that divides counties into three categories:
 
 - "Small": population less than 100,000
 - "Medium": population 100,000 to 500,000
@@ -120,7 +120,7 @@ The researcher suspects that **county population** might matter: more populous c
 ```{r, eval=FALSE}
 # Write your code here
 grants_joined <- grants_joined %>%
-  mutate(pop_group = cut(population, 
+  mutate(pop_group = cut(totalvotes, 
                          breaks = c(0, 100000, 500000, Inf),
                          labels = c("Small", "Medium", "Large")))
 
