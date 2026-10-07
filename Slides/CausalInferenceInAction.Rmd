@@ -243,9 +243,9 @@ Lott & Mustard treated all law changes the same, even though states adopted shal
 Later studies using these tools found:
 
 - **No pre‑trends** – acceptable.
-- But the **post‑law effect** flipped sign: from large *decreases* (Lott & Mustard) to small *increases* (modern studies).
+- But the **post‑law effect** flipped sign: from large *decreases* (Lott & Mustard) to moderate *increases* (modern studies).
 
-**Example:** Donohue et al. (2019) used synthetic control and found a 7% increase in violent crime after shall‑issue laws, not a decrease.
+**Example:** Donohue et al. (2019) used panels and synthetic control and found an increase in violent crime of between 9\% and 14\% after shall‑issue laws, not a decrease.
 
 ---
 
