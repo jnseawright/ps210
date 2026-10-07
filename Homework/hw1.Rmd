@@ -13,7 +13,7 @@ library(ggplot2)
 
 ## Homework 1: ICE Arrests and Governor's Party
 
-**Due: Thursday, October 12, 2026 by 11:59 PM on Canvas**
+**Due: Monday, October 12, 2026 by 11:59 PM on Canvas**
 
 There has been a great deal of discussion about the patterns of immigration arrests carried out by ICE during 2025–2026. In this assignment, we will look at data about these arrests, collected by the [Deportation Data Project](https://deportationdata.org/).
 
