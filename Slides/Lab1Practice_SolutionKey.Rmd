@@ -1,0 +1,498 @@
+---
+title: "Lab 1 Practice Exercise: Step-by-Step Solution Key"
+author: "Jaye Seawright"
+date: "Oct. 6, 2026"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(ggplot2)
+```
+
+## How to Use This Key
+
+This key should explain step-by-step how to complete the in-class exercise from Tuesday (including fixing the mistakes I inadvertently left in it). After working through this, you should have a very clear picture of how to complete Homework 1; if you still need explanation, please email the professor or your TA, or raise questions in your section. Each step explains what the code does, why we write it that way, and where you have seen the same move before. 
+
+After Step 6 there is a **Rehearsal for Homework 1** section. It repeats every R operation Homework 1 asks for (totals by party, means by party, a colored scatter plot, quantile-based groups, a dodged bar plot) using the grants data. If you can follow that section, you can do Homework 1. Feel free to copy and adjust code!
+
+---
+
+## Step 1: Load and Examine the Data
+
+### 1a. Load
+
+```{r load}
+grants <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/hrsa_grants.csv")
+counties <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/countypres.csv")
+```
+
+`read.csv()` reads a file (here, from a URL) and `<-` stores it under a name. Notice that R rewrites column names that contain spaces or punctuation: the file's `Fiscal Year` column becomes `Fiscal.Year` in R. That is why the filter below says `Fiscal.Year`.
+
+> **Lab slide connection:** "Loading Data with `read.csv()`".
+
+### 1b. Keep the years and rows we need
+
+```{r filter}
+# Keep only grants awarded in fiscal year 2025
+grants_2025 <- grants %>% filter(Fiscal.Year == 2025)
+
+# Keep one row per county: Trump's 2024 vote, all voting modes combined
+counties_2024 <- counties %>%
+  filter(year == 2024 & party == "REPUBLICAN" & mode == "TOTAL")
+```
+
+Read `%>%` as "and then." The first line says: take `grants`, *and then* keep only rows where `Fiscal.Year` equals 2025.
+
+Why three conditions for the counties? In `counties`, each row is **one candidate in one county in one voting mode**. Filtering to the Republican candidate and to `mode == "TOTAL"` leaves exactly **one row per county**. That property matters a great deal in Step 2.
+
+```{r check-states}
+# Sanity check: how many states (plus DC) survived the filter?
+n_distinct(counties_2024$state_po)
+```
+
+If everything worked perfectly, you would see a number close to 51. If a state is missing, it is usually because that state reports results only by voting mode (election day, early, absentee) and has no `TOTAL` row. In this analysis, we have about 8 states missing. While this could be fixed with an extra step, we will accept this as a  limitation for this exercise.
+
+### 1c. Compute Trump's vote share
+
+```{r trumpvote}
+counties_2024$trumpvote <- counties_2024$candidatevotes / counties_2024$totalvotes
+```
+
+`dataset$variable` refers to one column. Assigning to a column name that does not yet exist creates it. This is the same "create a new variable" move as `qog_merged$rightwingviolence <- ...` in the lab slides.
+
+### 1d. Clean the county names
+
+```{r clean-names}
+grants_2025 <- grants_2025 %>%
+  mutate(
+    county_clean = str_remove_all(County,
+                                  regex(" County| City| Borough| Parish| Census Area",
+                                        ignore_case = TRUE)),
+    county_clean = str_trim(county_clean),
+    county_clean = str_to_upper(county_clean)
+  )
+```
+
+The grants data say `"Richmond County"`; the election data say `"RICHMOND"`. A merge only works when the matching values are letter-for-letter identical, so we strip the suffix, remove stray spaces, and convert to upper case.
+
+### 1e. Examine both datasets (Your Task)
+
+```{r examine}
+head(grants_2025)
+summary(grants_2025$Funding)
+
+head(counties_2024)
+summary(counties_2024$trumpvote)
+```
+
+`head()` shows the first six rows and `summary()` gives the minimum, quartiles, mean, and maximum of numeric variables.
+
+> **Lab slide connection:** "Examining Data" (`head(qog_small)`, `summary(qog_small)`).
+
+**Model answers**
+
+1. **Variables in `grants_2025`:** `Fiscal.Year`, `HRSA.Program.Area`, `HHS.Region`, `State.Territory`, `County.and.State`, `Cong..District`, `Program`, `Grant.Num.`, `Grantee`, `DUNS.Num.`, `Address`, `City`, `State` (two-letter abbreviation), `ZIP.Code`, `County`, `Funding` (dollars), two date-stamp variables, and our new `county_clean`. Each row is one grant.
+
+2. **Variables in `counties_2024`:** `state`, `county_name`, `year`, `state_po` (two-letter abbreviation), `county_fips`, `office`, `candidate`, `party`, `candidatevotes`, `totalvotes`, `version`, `mode`, and our new `trumpvote`. Each row is one county.
+
+3. **Common variable(s):** the county name (`county_clean` in grants, `county_name` in counties). As several of you noticed during class yesterday, county name alone is not enough. There are about 30 counties named Washington and more than 20 named Jefferson. A county is uniquely identified by county name *plus* state, so we must also match `State` (grants) to `state_po` (counties). Both use two-letter postal abbreviations, which is convenient.
+
+> **Common mistake:** Matching on county name only. Every grant in Washington County, Oregon would get matched to every Washington County in the country, and the dataset would silently grow with duplicated, wrong rows. Step 2 shows how to check for this.
+
+---
+
+## Step 2: Merge the Datasets
+
+```{r merge}
+grants_joined <- left_join(grants_2025, counties_2024,
+                           by = c("county_clean" = "county_name",
+                                  "State"        = "state_po"))
+
+head(grants_joined)
+summary(grants_joined$trumpvote)
+```
+
+**How to read the `by =` argument.** `c("county_clean" = "county_name")` means "the column called `county_clean` in the first (left) dataset matches the column called `county_name` in the second (right) dataset." Order matters here. When the names differ across datasets, you must spell out the pairing like this. When they are identical, `by = "State"` is enough (you will see that form in Homework 1).
+
+**Why `left_join()`?** It keeps every row of the left dataset (every grant) and attaches matching information from the right dataset. Grants whose county does not match get `NA` for `trumpvote`.
+
+> **Lab slide connection:** "Merging Datasets": `left_join(qog_small, event_counts, by = c("cname" = "country_name", "year" = "year"))`. Same function, same two-variable match, different names.
+
+### Check your merge (always do this)
+
+```{r merge-checks}
+# 1. The number of rows should NOT change in a left join onto one-row-per-county data
+nrow(grants_2025)
+nrow(grants_joined)
+
+# 2. How many grants failed to find a matching county?
+sum(is.na(grants_joined$trumpvote))
+
+# 3. Which county names failed to match? (useful for diagnosing name problems)
+grants_2025 %>%
+  anti_join(counties_2024, by = c("county_clean" = "county_name", "State" = "state_po")) %>%
+  count(State, county_clean, sort = TRUE) %>%
+  head(15)
+```
+
+If the two row counts differ, the right-hand dataset has more than one row per key and the merge has duplicated grants. A small number of non-matches is normal; typical causes are territories (Puerto Rico, Guam), Alaska (which reports elections by district, not borough), Connecticut (which now reports by planning region), Virginia's independent cities, and spelling differences such as `DEKALB` versus `DE KALB`.
+
+### Interpreting `summary(grants_joined$trumpvote)`
+
+The `summary()` output describes Trump's vote share in the county of the typical grant, not in the typical county. Look at the median: if it is below 0.5, more than half of all grants go to counties Trump lost. That can be true even though Trump won most counties, because grants are concentrated in populous counties, which lean Democratic. This is our first hint that population is going to matter.
+
+A direct count of high- versus low-Trump-vote grants:
+
+```{r high-low}
+table(grants_joined$trumpvote > 0.5, useNA = "ifany")
+```
+
+`TRUE` = grants to counties where Trump received a majority; `FALSE` = the rest; `NA` = unmatched.
+
+---
+
+## Step 3: Create a New Variable
+
+```{r popgroup}
+grants_joined <- grants_joined %>%
+  mutate(pop_group = cut(totalvotes,
+                         breaks = c(0, 100000, 500000, Inf),
+                         labels = c("Small", "Medium", "Large")))
+
+table(grants_joined$pop_group, useNA = "ifany")
+```
+
+**How `cut()` works.** It turns a number into a category by asking which interval the number falls in. With `breaks = c(0, 100000, 500000, Inf)` there are three intervals:
+
+| Interval | Label |
+|---|---|
+| (0, 100,000] | Small |
+| (100,000, 500,000] | Medium |
+| (500,000, ∞) | Large |
+
+You always need one more break than labels, because *k* intervals need *k* + 1 endpoints. `Inf` means "no upper limit."
+
+A measurement note: `totalvotes` is votes cast, not residents. A county with 100,000 votes has very roughly 200,000 to 250,000 residents. It is a reasonable proxy for ranking counties by size, but the labels "Small / Medium / Large" describe electorates.
+
+> **Lab slide connection:** "Creating New Variables": `cut(qog_merged$rightwingviolence, breaks = c(-1, 0, 5, 10, Inf), labels = c("None", "Little", "Some", "Much"))`. The slide says: "This is exactly the same logic as creating population groups in Homework 1."
+
+> **HW1 connection:** Problem 3b. The only difference is that Homework 1 sets the breaks with `quantile()` instead of typing them in. See the Rehearsal section below.
+
+---
+
+## Step 4: Visualize the Data
+
+### 4a. First, fix a hidden problem: we need the *winning* party
+
+The instructions say to color bars by `party`. But look:
+
+```{r party-problem}
+table(grants_joined$party, useNA = "ifany")
+```
+
+Every matched row says `REPUBLICAN`, because in Step 1 we filtered `counties_2024` to Republican rows. That column records which candidate the vote share belongs to, not who won. If you plot `fill = party` you get one color and learn nothing. The exercise instructions told you to use `party` here; that was my error in writing it. It's also a good illustration of the lesson below.
+
+> **Common mistake:** Using a variable without checking what it contains. A one-line `table()` would have caught this.
+
+We need a new variable, `winner`. The cleanest way is to go back to the full election data, pull out Harris's votes, and compare:
+
+```{r winner}
+# Harris's votes in each county (one row per county)
+harris_2024 <- counties %>%
+  filter(year == 2024 & party == "DEMOCRAT" & mode == "TOTAL") %>%
+  select(state_po, county_name, harrisvotes = candidatevotes)
+
+# Attach Harris's votes and decide the winner
+grants_joined <- grants_joined %>%
+  left_join(harris_2024, by = c("county_clean" = "county_name", "State" = "state_po")) %>%
+  mutate(winner = ifelse(candidatevotes > harrisvotes, "Republican", "Democratic"))
+
+table(grants_joined$winner, useNA = "ifany")
+```
+
+Note two things. First, in this file the Democratic party is coded `"DEMOCRAT"`, not `"DEMOCRATIC"`; always check spelling with `table()` before filtering. Second, `ifelse(condition, value_if_true, value_if_false)` is the basic tool for building a two-category variable.
+
+*Shortcut:* `ifelse(trumpvote > 0.5, "Republican", "Democratic")` gives nearly the same answer, but it misclassifies the rare county where Trump won a plurality with under 50 percent because of third-party votes.
+
+We label the categories `"Democratic"` and `"Republican"` on purpose: those are exactly the values of `Party` in Homework 1, so the plotting code below will transfer directly.
+
+### 4b. The plot
+
+```{r barplot}
+grants_joined %>%
+  filter(!is.na(pop_group), !is.na(winner)) %>%       # drop unmatched grants
+  ggplot(aes(x = pop_group, fill = winner)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Number of FY2025 HRSA Grants by County Size and 2024 Winner",
+       x = "County Size (by 2024 votes cast)",
+       y = "Number of Grants",
+       fill = "2024 County Winner") +
+  scale_fill_manual(values = c("Democratic" = "blue", "Republican" = "red")) +
+  theme_minimal()
+```
+
+**Line by line:**
+
+- `filter(!is.na(...))` removes grants that did not match. Otherwise ggplot draws a separate grey `NA` bar. `!` means "not."
+- `aes(x = pop_group, fill = winner)` maps county size to the x-axis and winner to bar color.
+- `geom_bar()` with **no `y`** counts rows. Because each row is a grant, the bar height is the number of grants.
+- `position = "dodge"` puts the bars side by side; without it they stack.
+- `scale_fill_manual(values = c("Democratic" = "blue", "Republican" = "red"))` assigns colors by name. Writing `c("blue", "red")` without names works only because "Democratic" happens to come first alphabetically. Naming the colors is safer.
+- `labs()` sets the title, axis titles, and legend title.
+
+> **Lab slide connection:** "Grouped Bar Plot" (`violence_cat` by `region`) and "Key `ggplot` Concepts for Homework 1."
+
+> **HW1 connection:** Problem 3b. **Read this before you start Homework 1:** in Homework 1 each row of `state_data` is a *state*, not an arrest. `geom_bar()` with no `y` would count states, not arrests. To plot arrests you must supply the count yourself with `y = arrests` and `stat = "identity"`. The Rehearsal section shows exactly how.
+
+---
+
+## Step 5: Interpret What You See
+
+Your bar heights depend on the data you downloaded, so compare these model answers against your own plot. What matters is the kind of reasoning.
+
+**1. In which population groups are grants most common?**
+
+Read the total height of each pair of bars. Most U.S. counties fall in the "Small" group, so that group can contain a large share of grants simply because it contains so many counties. Grants per county are much higher in the Large group. A strong answer distinguishes these two ideas: where the grants are versus how many grants a typical county gets. The bar plot shows only the first.
+
+**2. Does the party difference look the same across all population groups?**
+
+Most likely not. Among small counties, Republican-won counties dominate (because most small counties voted for Trump), so the red bar should be taller. Among large counties, the pattern typically flips toward Democratic-won counties. When the comparison between parties changes direction across groups, the relationship between party and grants is entangled with population. That is the signature of a possible confounder, and it is exactly what Homework 1 Problem 3c asks you to evaluate.
+
+**3. One limitation of this plot.**
+
+Any one of these is a good answer:
+
+- It counts grants, not dollars. One large grant and one small grant count the same. (`Funding` would let us fix this.)
+- It shows totals, not rates. Republican-won small counties may receive more grants only because there are more such counties. A fair comparison would use grants per county or per capita.
+- Timing and causation. Many FY2025 grants continue awards made in earlier years, before the 2024 election, so the election cannot have caused them. More generally, a descriptive association cannot fully answer whether the incumbent rewards supportive counties, although it is a useful starting clue.
+- Need. Counties differ in poverty, insurance coverage, and number of eligible health centers. These could affect both voting and grant receipt.
+
+---
+
+## Step 6: Reflect
+
+There is no single right answer here.
+
+---
+
+## Rehearsal for Homework 1
+
+Homework 1 works with states and arrests. Here we do the identical operations with counties and grants. Each block notes the matching homework problem.
+
+### R1. Aggregate to one row per unit (≈ HW1 Step 2)
+
+Homework 1 turns arrest-level data into state-level data with `group_by()` + `summarise(n())`. We do the same thing to turn grant-level data into county-level data.
+
+```{r aggregate}
+county_data <- grants_joined %>%
+  filter(!is.na(winner)) %>%
+  group_by(State, county_clean, winner, totalvotes) %>%
+  summarise(grants  = n(),               # number of rows (grants) in each county
+            funding = sum(Funding),      # total dollars
+            .groups = "drop")
+
+head(county_data)
+nrow(county_data)
+```
+
+`group_by()` sorts the rows into piles, one per county; `summarise()` reduces each pile to one row. `n()` counts the rows in each pile. We include `winner` and `totalvotes` in `group_by()` simply so they are carried along into the result (they are constant within a county).
+
+> **Lab slide connection:** "Merging Datasets," Step 1: `rtv %>% group_by(country_name, year) %>% summarise(rightwingviolence = n())`.
+
+One caveat: `county_data` contains only counties that received at least one grant. Counties with zero grants are missing, which inflates averages. (The lab slides handled this for violence by replacing `NA` with 0 after the join.)
+
+### R2. Totals by party, as a bar plot (≈ HW1 Problem 1a)
+
+```{r totals-by-party}
+party_totals <- county_data %>%
+  group_by(winner) %>%
+  summarise(total_grants = sum(grants))
+
+party_totals
+
+ggplot(party_totals, aes(x = winner, y = total_grants, fill = winner)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total FY2025 HRSA Grants by 2024 County Winner",
+       x = "2024 County Winner",
+       y = "Total Grants") +
+  scale_fill_manual(values = c("Democratic" = "blue", "Republican" = "red")) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**The key idea:** `stat = "identity"` tells ggplot "the bar height is already in my data; use the `y` value as given." Without it, `geom_bar()` counts rows. Because we first summarised to one row per party, the plot shows exactly two bars of the correct heights. (`geom_col()` is a shorthand for `geom_bar(stat = "identity")`.)
+
+For Homework 1, replace `county_data` with `state_data`, `winner` with `Party`, and `grants` with `arrests`.
+
+### R3. Means (averages) by party (≈ HW1 Problem 1b)
+
+```{r means-by-party}
+county_data %>%
+  group_by(winner) %>%
+  summarise(mean_grants = mean(grants),
+            n_counties  = n())
+```
+
+`mean()` replaces `sum()`; that is the only change. Reporting `n()` alongside the mean is good practice, because a mean computed from a handful of units is fragile. (If a variable contains missing values, use `mean(x, na.rm = TRUE)`.)
+
+Notice that totals and means can tell different stories. If Republicans won many more counties, Republican-won counties can have more grants in total but fewer per county. Homework 1 Problem 1 asks for both so we can look for such differences.
+
+### R4. Scatter plot colored by party (≈ HW1 Problem 3a)
+
+```{r scatter}
+ggplot(county_data, aes(x = totalvotes, y = grants, color = winner)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "County Size and Number of FY2025 HRSA Grants",
+       x = "Total Votes Cast, 2024 (proxy for population)",
+       y = "Number of Grants",
+       color = "2024 County Winner") +
+  scale_color_manual(values = c("Democratic" = "blue", "Republican" = "red")) +
+  theme_minimal()
+```
+
+Two differences from the bar plots: points use `color` rather than `fill`, so the matching scale is `scale_color_manual()`; and `alpha = 0.5` makes overlapping points visible, as on the lab's democracy scatter plot.
+
+**How to describe a scatter plot** (Which Homework 1 asks you to do): (1) the overall direction (do larger units have more of the outcome?); (2) where each color sits (are the blue points mostly to the right, i.e., larger?); (3) outliers. If the blue and red points sit along the same upward trend but at different positions on the x-axis, then party differences in the outcome may simply reflect size differences. That is a confounding story.
+
+### R5. Quantile-based groups (≈ HW1 Problem 3b, part 1)
+
+```{r quantile-groups}
+county_data <- county_data %>%
+  mutate(pop_group = cut(totalvotes,
+                         breaks = quantile(totalvotes, probs = seq(0, 1, 0.2), na.rm = TRUE),
+                         labels = c("Very Small", "Small", "Medium", "Large", "Very Large"),
+                         include.lowest = TRUE))
+
+table(county_data$pop_group)
+table(county_data$pop_group, county_data$winner)
+```
+
+**What is new here:**
+
+- `seq(0, 1, 0.2)` produces `0, 0.2, 0.4, 0.6, 0.8, 1`: six probabilities.
+- `quantile(totalvotes, probs = ...)` returns the values that cut the data at those percentiles: the minimum, the 20th, 40th, 60th, and 80th percentiles, and the maximum. Six breaks give five groups, matching five labels.
+- So each group contains about one-fifth of the units. That is the advantage over fixed breaks: no group is nearly empty.
+- `include.lowest = TRUE` keeps the smallest unit. `cut()` intervals are open on the left, so without it the unit exactly equal to the minimum becomes `NA`.
+
+The two-way `table()` is worth running in Homework 1 too: it shows how many Democratic and Republican units fall in each size group. If one party is concentrated in the large groups, that alone tells you population is related to party.
+
+### R6. Outcome by size group and party (≈ HW1 Problem 3b, part 2)
+
+This takes two steps. First we compute the numbers we want to plot; then we plot them.
+
+Step 1: summarise by size group and party.
+
+```{r group-summary}
+group_totals <- county_data %>%
+  group_by(pop_group, winner) %>%
+  summarise(total_grants = sum(grants),
+            mean_grants  = mean(grants),
+            .groups = "drop")
+
+group_totals
+```
+
+Line by line:
+
+- `county_data %>%` starts from the county-level data built in R1 (one row per county, with a `grants` column counting that county's grants).
+- `group_by(pop_group, winner)` sorts the counties into piles defined by two variables at once: one pile for each combination of size group and winning party. With five size groups and two parties, that makes up to 10 piles (for example, "Very Small & Democratic," "Very Small & Republican," and so on). In R2 and R3 we grouped by `winner` alone, which made 2 piles; adding `pop_group` splits each party's pile five ways by size.
+- `summarise()` reduces each pile to a single row and creates the new columns named inside it:
+  - `total_grants = sum(grants)` adds up the `grants` column within the pile, giving the total number of grants received by all counties in that size–party combination.
+  - `mean_grants = mean(grants)` gives the average number of grants per county in that combination. This equals `total_grants` divided by the number of counties in the pile.
+- `.groups = "drop"` removes the grouping from the result. Without it, `summarise()` leaves the result still grouped by `pop_group`, which can make later operations behave unexpectedly, and R prints a message telling you so. Dropping the grouping returns an ordinary data frame.
+- Typing `group_totals` on its own line prints the result so you can inspect it before plotting.
+
+The result is a small table with one row per size–party combination and four columns: `pop_group`, `winner`, `total_grants`, and `mean_grants`. It should look roughly like this (your numbers will differ):
+
+| pop_group | winner | total_grants | mean_grants |
+|---|---|---|---|
+| Very Small | Democratic | … | … |
+| Very Small | Republican | … | … |
+| Small | Democratic | … | … |
+| … | … | … | … |
+
+Read this table before you look at the plot. Every bar in the plot below is one row of this table, so the table tells you exactly what the plot will show. If a combination is missing (for example, no Democratic-won counties in the smallest group), that row simply does not appear, and the plot will have no bar there.
+
+Why sum and mean give different answers: suppose 300 Republican-won small counties each receive 2 grants, and 20 Democratic-won small counties each receive 5. The totals are 600 versus 100, so Republicans look far ahead. The means are 2 versus 5, so Democratic-won counties do better per county. The total reflects how many counties are in each pile; the mean reflects what a typical county in that pile receives. That is why we compute both.
+
+> HW1 connection: Problem 3b. Use the same code with `state_data`, `Party` in place of `winner`, and `arrests` in place of `grants`, for example `summarise(total_arrests = sum(arrests), mean_arrests = mean(arrests), .groups = "drop")`.
+
+Step 2: plot the summary table.
+
+```{r dodge-identity}
+ggplot(group_totals, aes(x = pop_group, y = total_grants, fill = winner)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Total FY2025 HRSA Grants by County Size and 2024 Winner",
+       x = "County Size Quintile",
+       y = "Total Grants",
+       fill = "2024 County Winner") +
+  scale_fill_manual(values = c("Democratic" = "blue", "Republican" = "red")) +
+  theme_minimal()
+```
+
+This combines everything: summarise by two grouping variables, then plot with `stat = "identity"` (heights come from the data) and `position = "dodge"` (side-by-side bars).
+
+To compare typical units rather than totals, change `y = total_grants` to `y = mean_grants`. Comparing means within size groups is a like-with-like comparison and is often the more persuasive way to answer Homework 1 Problem 3c. Including both is a good idea.
+
+```{r dodge-mean}
+ggplot(group_totals, aes(x = pop_group, y = mean_grants, fill = winner)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Total FY2025 HRSA Grants by County Size and 2024 Winner",
+       x = "County Size Quintile",
+       y = "Mean Grants",
+       fill = "2024 County Winner") +
+  scale_fill_manual(values = c("Democratic" = "blue", "Republican" = "red")) +
+  theme_minimal()
+```
+
+> **Common mistake:** Skipping the `summarise()` and writing `ggplot(county_data, aes(x = pop_group, fill = winner)) + geom_bar(position = "dodge")`. That counts *counties* (or, in Homework 1, *states*), not grants or arrests. Check your y-axis: if the largest bar is around 10 in Homework 1, you are counting states.
+
+### R7. Interpreting a control variable (≈ HW1 Problems 2, 3c, 3d)
+
+**Definition of a confounder.** A variable *Z* is a confounder of the relationship between *X* (party) and *Y* (grants or arrests) if *Z* is (1) related to *X*, (2) related to *Y*, and (3) not itself a result of *X*. Your answer to Problem 3d should check all three conditions with evidence:
+
+- Condition (1): from the two-way `table()` in R5, or from where each color sits on the scatter plot.
+- Condition (2): from the overall upward trend in the scatter plot.
+- Condition (3): an argument. Does governor's party plausibly change state population over a year or two?
+
+**What happens when you control for Z?** Compare the party gap overall (R2/R3) with the party gap within each size group (R6):
+
+| If, within size groups, the party gap... | then controlling for size... |
+|---|---|
+| shrinks to roughly zero | **eliminates** the relationship (size explains it) |
+| flips direction | **reverses** the relationship |
+| looks about the same as overall | **leaves it unchanged** |
+| varies across groups, or the groups are too small to say | **complicates** it |
+
+Homework 1 has only about 50 states, so each quintile holds about 10 states, split across two parties. Mention small group sizes when you interpret Problem 3c; with so few units, one large state can drive a bar.
+
+**The four questions for causal inference** (Problem 2a), applied to our grants example as a model:
+
+1. **Is there a relationship?** Do the descriptive comparisons (R2, R3) show a difference between Democratic- and Republican-won counties?
+2. **Could the causation run in reverse?** Could grants affect voting (e.g., health funding making voters more favorable to the incumbent), rather than voting affecting grants?
+3. **Is there a plausible pathway?** By what mechanism would the vote change grant awards: agency discretion, application rates, congressional influence?
+4. **Are there confounders?** Population, poverty, rurality, the number of eligible health centers, and so on. Each must be linked to *both* vote and grants.
+
+For Homework 1, ask the same four questions about governor's party and ICE arrests.
+
+---
+
+## Summary
+
+| Skill | Lab slides | This practice | Homework 1 |
+|---|---|---|---|
+| Load data | `read.csv()` for `qog_small`, `rtv` | Step 1 | Step 1 |
+| Examine data | `head()`, `summary()` | Step 1e | Step 1 |
+| Count rows per unit | `group_by()` + `summarise(n())` | R1 | Step 2 |
+| Merge | `left_join(..., by = c(...))` | Step 2 | Step 3 |
+| Categorize a number | `cut(..., breaks, labels)` | Step 3, R5 | Problem 3b |
+| Bar plot of counts | `geom_bar(position = "dodge")` | Step 4 | — |
+| Bar plot of values | `stat = "identity"` | R2, R6 | Problems 1a, 3b |
+| Group means | `summarise(mean())` | R3 | Problem 1b |
+| Colored scatter plot | `geom_point()` | R4 | Problem 3a |
+| Confounding reasoning | "Limitations" slides | Step 5, R7 | Problems 2, 3c, 3d |
