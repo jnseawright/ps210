@@ -52,7 +52,7 @@ counties_2024 <- counties %>%
 grants_2025 <- grants_2025 %>%
   mutate(
     county_clean = str_remove_all(County,
-                                   regex(" County| City| Borough| Parish| Census Area",
+                                   regex(" County| Borough| Parish| Census Area",  # keep " City": e.g., Baltimore City is separate from Baltimore County
                                          ignore_case = TRUE)),
     county_clean = str_trim(county_clean),
     county_clean = str_to_upper(county_clean)

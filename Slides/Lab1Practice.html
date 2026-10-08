@@ -170,6 +170,7 @@ window.buildTabsets = function(tocID) {
       var heading = tab.find('h' + tabLevel + ':first');
       var headingText = heading.html();
       heading.remove();
+
       // build and append the tab list item
       var a = $('<a role="tab" data-toggle="tab">' + headingText + '</a>');
       a.attr('href', '#' + id);
@@ -446,7 +447,8 @@ summary(grants_joined$trumpvote)</code></pre>
 <h2>Step 3: Create a New Variable</h2>
 <p>The researcher suspects that <strong>county population</strong> might
 matter: more populous counties might get more grants regardless of
-election outcome. (We will use total votes to stand in for population, since it's the closest variable in our dataset.)</p>
+election outcome. (We will use county total votes as a proxy for
+population.)</p>
 <p><strong>Your Task:</strong> The <code>counties</code> dataset has a
 <code>totalvotes</code> variable. After merging, it should now be in
 <code>grants_joined</code>. Create a new variable called

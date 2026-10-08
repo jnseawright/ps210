@@ -11,6 +11,7 @@
 
 <meta name="author" content="Jaye Seawright" />
 
+<meta name="date" content="2025-10-30" />
 
 <title>Lab 2: Your Turn Practice Exercise</title>
 
@@ -351,205 +352,167 @@ display: none;
 
 <h1 class="title toc-ignore">Lab 2: Your Turn Practice Exercise</h1>
 <h4 class="author">Jaye Seawright</h4>
-<h4 class="date">Oct. 2026</h4>
+<h4 class="date">Oct. 30, 2025</h4>
 
 </div>
 
 
 <div id="instructions" class="section level2">
 <h2>Instructions</h2>
-<p>This is your chance to practice the regression skills from today’s
-lab with a <strong>different research question</strong> drawn from the
-same ANES 2024 dataset. Work through each step below. Ask a neighbor or
-TA if you get stuck.</p>
-<p><strong>You don’t need to submit this for a grade.</strong> But
-keeping your code will help with Homework 2, which uses the same data
-and the same workflow.</p>
+<p>This is your chance to practice regression skills with the
+<strong>same datasets you used in Lab 1</strong>. Work through each step
+below. Ask a neighbor or TA if you get stuck.</p>
+<p><strong>You don’t need to submit this for a grade.</strong> It’s just
+practice, but keeping your code will help with Homework 2.</p>
 <hr />
 </div>
 <div id="the-research-question" class="section level2">
 <h2>The Research Question</h2>
-<p>In the 2024 election, many observers argued that voters’ economic
-assessments were the single most important driver of vote choice — that
-people who felt the economy was getting worse punished the incumbent
-party’s candidate (Harris) and rewarded the challenger (Trump).</p>
-<p>We’ll test this claim using ANES data.</p>
-<p><strong>Treatment variable:</strong> <code>economytrend</code> — the
-respondent’s assessment of how the national economy has changed over the
-past year (1 = gotten much better, 5 = gotten much worse).</p>
-<p><strong>Outcome variable:</strong> <code>presvote</code> —
-presidential vote choice (1 = Harris, 2 = Trump).</p>
+<p>Does a county’s support for Donald Trump in the 2024 election affect
+the amount of federal health‑care grant funding it receives in 2025?</p>
+<p>We have the same datasets from Lab 1:</p>
+<ul>
+<li><code>hrsa_grants.csv</code>: Federal health‑care grants awarded to
+counties since 2018</li>
+<li><code>countypres.csv</code>: County‑level presidential election
+results (2024)</li>
+</ul>
 <hr />
 </div>
 <div id="step-1-load-and-prepare-the-data" class="section level2">
 <h2>Step 1: Load and Prepare the Data</h2>
-<p>Run the setup code below to load the ANES data and build the working
-dataset. This is the same code from the demo, with one additional
-variable (<code>economytrend</code>) that you’ll use as your
-treatment.</p>
-<pre class="r"><code>anes2024 &lt;- read.csv(&quot;https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv&quot;)
+<p>The code below repeats the steps from Lab 1. Run it to create the
+analysis dataset.</p>
+<pre class="r"><code># Load data
+grants &lt;- read.csv(&quot;https://raw.githubusercontent.com/jnseawright/ps210/main/Data/hrsa_grants.csv&quot;)
+counties &lt;- read.csv(&quot;https://raw.githubusercontent.com/jnseawright/ps210/main/Data/countypres.csv&quot;)
 
-aneshw &lt;- data.frame(
-  politicalattention  = anes2024$V241004,
-  corruption          = anes2024$V241233,
-  economytrend        = anes2024$V241294x,
-  angry               = anes2024$V241121,
-  afraid              = anes2024$V241119,
-  demrep              = anes2024$V241227x,
-  trustgovernment     = anes2024$V241229,
-  libcon              = anes2024$V241177,
-  gender              = anes2024$V241551,
-  presvote            = anes2024$V242067
+# Keep only 2025 grants
+grants_2025 &lt;- grants %&gt;% filter(Fiscal.Year == 2025)
+
+# Keep only Trump 2024 votes (total mode) and calculate Trump vote share
+counties_2024 &lt;- counties %&gt;%
+  filter(year == 2024 &amp; party == &quot;REPUBLICAN&quot; &amp; mode == &quot;TOTAL&quot;) %&gt;%
+  mutate(trump_share = candidatevotes / totalvotes)
+
+# Clean county names in grants dataset
+grants_2025 &lt;- grants_2025 %&gt;%
+  mutate(
+    county_clean = str_remove_all(County,
+                                   regex(&quot; County| Borough| Parish| Census Area&quot;,  # keep &quot; City&quot;: e.g., Baltimore City is separate from Baltimore County
+                                         ignore_case = TRUE)),
+    county_clean = str_trim(county_clean),
+    county_clean = str_to_upper(county_clean)
+  )
+
+# Merge grants with election data
+grants_merged &lt;- left_join(
+  grants_2025,
+  counties_2024,
+  by = c(&quot;State&quot; = &quot;state_po&quot;, &quot;county_clean&quot; = &quot;county_name&quot;)
 )
 
-aneshw &lt;- aneshw %&gt;%
-  mutate(across(where(is.numeric), ~ ifelse(. &lt; 0, NA, .)))
-
-aneshw$presvote[aneshw$presvote &gt; 2] &lt;- NA</code></pre>
-<p><strong>Your Task:</strong> After running the setup, examine the two
-key variables. Write down:</p>
+# Keep only relevant variables and remove rows with missing Trump share
+grants_analysis &lt;- grants_merged %&gt;%
+  select(Fiscal.Year, State, County, Funding, trump_share, totalvotes) %&gt;%
+  filter(!is.na(trump_share))</code></pre>
+<p><strong>Your Task:</strong> After running the code, examine the
+resulting dataset with <code>head()</code> and <code>summary()</code>.
+Write down:</p>
 <ol style="list-style-type: decimal">
-<li>What does the distribution of <code>economytrend</code> look like?
-Where do most respondents fall?</li>
-<li>Recall that 1 = “gotten much better” and 5 = “gotten much worse.”
-Based on the distribution, how did most 2024 ANES respondents feel about
-the economy?</li>
-<li>What direction would you predict for the relationship between
-<code>economytrend</code> and <code>presvote</code>? (Higher
-<code>economytrend</code> = worse economic assessment. Higher
-<code>presvote</code> = voted for Trump.)</li>
+<li>How many observations (grants) are in
+<code>grants_analysis</code>?</li>
+<li>What is the range of <code>Funding</code>? Of
+<code>trump_share</code>?</li>
+<li>Why might we want to use <code>log(Funding)</code> in a regression?
+(Look at the distribution.)</li>
 </ol>
-<pre class="r"><code># Examine economytrend
-table(aneshw$economytrend)
+<pre class="r"><code># Your code here
 
-# Examine presvote
-table(aneshw$presvote)
-
-# Write your observations here as comments:
-# 1.
-# 2.
-# 3.</code></pre>
+# Your observations (as comments)</code></pre>
 <hr />
 </div>
 <div id="step-2-visualize-the-relationship" class="section level2">
 <h2>Step 2: Visualize the Relationship</h2>
-<p><strong>Your Task:</strong> Create a scatter plot with
-<code>economytrend</code> on the x-axis and <code>presvote</code> on the
-y-axis. Use <code>geom_jitter()</code> to reduce overplotting (since
-both variables take only a few integer values), and add a
-<code>geom_smooth(method = &quot;lm&quot;)</code> line. Add a title and axis
+<p><strong>Your Task:</strong> Create a scatter plot of
+<code>Funding</code> (y) against <code>trump_share</code> (x). Add a
+linear smooth (<code>geom_smooth(method = &quot;lm&quot;)</code>). Add appropriate
 labels.</p>
-<pre class="r"><code>ggplot(aneshw, aes(x = economytrend, y = presvote)) +
-  geom_jitter(alpha = 0.1, width = 0.2, height = 0.1) +
-  geom_smooth(method = &quot;lm&quot;, color = &quot;red&quot;) +
-  labs(title = ___,
-       x = ___,
-       y = ___) +
-  theme_minimal()</code></pre>
-<p><strong>Interpret:</strong> What does the plot suggest? Is the
-relationship positive or negative? Does it look strong or weak?</p>
+<pre class="r"><code># Write your code here</code></pre>
+<p><strong>Interpret:</strong> What does the plot suggest about the
+relationship? Does it appear positive, negative, or flat? Are there any
+outliers? Does either variable look like it could use a log
+transformation?</p>
 <hr />
 </div>
 <div id="step-3-bivariate-regression" class="section level2">
 <h2>Step 3: Bivariate Regression</h2>
 <p><strong>Your Task:</strong> Fit a linear model predicting
-<code>presvote</code> from <code>economytrend</code>. Display the
-results with <code>summary()</code> and with
+<code>Funding</code> from <code>trump_share</code>, using any log
+transformations, etc., that you concluded might be necessary based on
+the plot. Display the results with <code>summary()</code> and with
 <code>modelsummary()</code>.</p>
-<pre class="r"><code>model_bivar &lt;- lm(presvote ~ economytrend, data = aneshw)
+<pre class="r"><code># Fit model
+model_bivar &lt;- lm(________ ~ ________, data = grants_analysis)
 
+# Summary
 summary(model_bivar)
 
+# modelsummary
 modelsummary(model_bivar, statistic = &quot;p.value&quot;)</code></pre>
-<p><strong>Interpret:</strong></p>
-<ul>
-<li>What is the slope? Is it positive or negative?</li>
-<li>Is it statistically significant?</li>
-<li>In plain English: for a respondent who thinks the economy has gotten
-worse by one step on the scale, how does their predicted vote
-change?</li>
-</ul>
+<p><strong>Interpret:</strong> - What is the slope? Is it positive or
+negative? - Is it statistically significant? (Look at the p‑value.) -
+Substantively, what does the slope mean? (Hint: For a 1‑percentage‑point
+increase in Trump share, how much does funding change in dollars?)</p>
 <hr />
 </div>
-<div id="step-4-think-about-confounders" class="section level2">
-<h2>Step 4: Think About Confounders</h2>
-<p>Before adding controls, let’s think carefully.</p>
-<p><strong>Your Task:</strong> Answer the following questions as
-comments:</p>
-<pre class="r"><code># 1. Is party identification (demrep) a plausible confounder here?
-#    Reason through both arrows: is demrep related to economytrend?
-#    Is demrep related to presvote?
+<div id="step-4-add-a-control-variable" class="section level2">
+<h2>Step 4: Add a Control Variable</h2>
+<p>You suspect that <strong>county population</strong> might be a
+confounder: larger counties tend to vote differently and also receive
+more grants (simply because they have more people and organizations).
+The <code>totalvotes</code> variable is a reasonable proxy for
+population.</p>
+<p><strong>Your Task:</strong> Fit a multivariate model with both
+<code>trump_share</code> and <code>totalvotes</code>. Use
+<code>modelsummary()</code> to compare with the bivariate model.</p>
+<pre class="r"><code># Multivariate model
+model_control &lt;- lm(________ ~ ________ + ________, data = grants_analysis)
 
-
-# 2. Is gender a plausible confounder?
-#    Think through both arrows.
-
-
-# 3. Which variable do you think is the stronger confounder? Why?</code></pre>
-<p>Now check your intuition empirically:</p>
-<pre class="r"><code># Check correlation between demrep and economytrend
-cor(aneshw$demrep, aneshw$economytrend, use = &quot;complete.obs&quot;)
-
-# Check correlation between demrep and presvote
-cor(aneshw$demrep, aneshw$presvote, use = &quot;complete.obs&quot;)</code></pre>
-<p><strong>Does the data match your reasoning?</strong></p>
-<hr />
-</div>
-<div id="step-5-multivariate-regression" class="section level2">
-<h2>Step 5: Multivariate Regression</h2>
-<p><strong>Your Task:</strong> Add <code>demrep</code> as a control
-variable. Then add <code>gender</code> as a second control. Use
-<code>modelsummary()</code> to compare all three models side by
-side.</p>
-<pre class="r"><code>model_control1 &lt;- lm(presvote ~ economytrend + demrep, data = aneshw)
-
-model_control2 &lt;- lm(presvote ~ economytrend + demrep + gender, data = aneshw)
-
-modelsummary(list(&quot;Bivariate&quot; = model_bivar,
-                  &quot;Party ID&quot; = model_control1,
-                  &quot;Party ID + Gender&quot; = model_control2),
+# Compare models
+modelsummary(list(&quot;Bivariate&quot; = model_bivar, &quot;With Population&quot; = model_control),
              statistic = &quot;p.value&quot;)</code></pre>
-<p><strong>Interpret:</strong></p>
-<ul>
-<li>How did the coefficient for <code>economytrend</code> change when
-you added <code>demrep</code>? Did it get closer to zero, stay the same,
-or grow?</li>
-<li>Does this suggest that party ID was a confounder? Use the
-definition: a confounder is related to both the treatment and the
-outcome, and including it changes the treatment coefficient.</li>
-<li>What happened when you added <code>gender</code>? Was it a
-meaningful additional control?</li>
-</ul>
+<p><strong>Interpret:</strong> - How did the coefficient for
+<code>trump_share</code> change after adding <code>totalvotes</code>?
+Did it get closer to zero? Farther? - Is <code>totalvotes</code> a
+statistically significant predictor? - Does <code>totalvotes</code>
+appear to be a confounder? Why or why not? (Recall the definition: a
+confounder is related to both the treatment and the outcome, and
+including it changes the treatment coefficient.)</p>
 <hr />
 </div>
-<div id="step-6-reflect" class="section level2">
-<h2>Step 6: Reflect</h2>
+<div id="step-5-reflect" class="section level2">
+<h2>Step 5: Reflect</h2>
 <p>Answer in a few sentences:</p>
-<pre class="r"><code># 1. Based on your regressions, does economic assessment appear to predict
-#    vote choice in 2024, after controlling for party ID?
-
-
-# 2. What additional variables might still be confounding this relationship?
-#    (Think about what else predicts both how someone views the economy
-#    and how they voted.)
-
-
-# 3. How does this exercise connect to Homework 2?
-#    What is the same? What is different about the research question there?</code></pre>
+<ol style="list-style-type: decimal">
+<li>What was the most challenging part of this exercise?</li>
+<li>What did you learn about the relationship between Trump support and
+grant funding?</li>
+<li>How might these skills apply to Homework 2? (Homework 2 uses the
+same regression workflow — bivariate model, adding a control,
+log-transforming a skewed outcome — applied to ICE arrests and
+governor’s party.)</li>
+</ol>
+<pre class="r"><code># Write your reflections here</code></pre>
 <hr />
 </div>
 <div id="done" class="section level2">
 <h2>Done!</h2>
-<p>You’ve practiced:</p>
-<ul>
-<li>Loading and examining ANES survey data</li>
-<li>Visualizing a regression relationship</li>
-<li>Fitting bivariate and multivariate regressions</li>
-<li>Comparing coefficients across models to assess confounding</li>
-<li>Interpreting results in plain English</li>
-</ul>
-<p>These are exactly the skills you’ll use in Homework 2. Keep this file
-as a reference!</p>
+<p>You’ve practiced: - Loading and preparing the grants/election data -
+Visualizing the relationship - Fitting bivariate and multivariate
+regressions - Interpreting coefficients and confounding</p>
+<p>These are exactly the skills you’ll need for Homework 2. Keep this
+file as a reference!</p>
 </div>
 
 

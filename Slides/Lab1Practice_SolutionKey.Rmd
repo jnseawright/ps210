@@ -20,6 +20,18 @@ This key should explain step-by-step how to complete the in-class exercise from 
 
 After Step 6 there is a **Rehearsal for Homework 1** section. It repeats every R operation Homework 1 asks for (totals by party, means by party, a colored scatter plot, quantile-based groups, a dodged bar plot) using the grants data. If you can follow that section, you can do Homework 1. Feel free to copy and adjust code!
 
+### When R gives you an error
+
+| Message or symptom | Usual cause |
+|---|---|
+| `could not find function "%>%"` (or `"ggplot"`, `"left_join"`) | `library(tidyverse)` has not been run in this session. |
+| `object 'xyz' not found` | A typo or wrong capitalization (`grants_2025` vs. `Grants_2025`), or an earlier line that creates the object was never run. Run the file from the top. |
+| `unexpected symbol` or `unexpected ')'` | A missing or extra comma or parenthesis on that line. |
+| The console shows `+` and nothing happens | R is waiting for you to finish a line, usually a missing `)`. Press Esc and fix the line. |
+| A plot doesn't appear | Look in the **Plots** tab (bottom right). |
+
+One rule worth memorizing: `%>%` joins data steps (`filter()`, `mutate()`, `summarise()`), while `+` joins the lines of a `ggplot()`. Both go at the *end* of a line, never at the start of the next one.
+
 ---
 
 ## Step 1: Load and Examine the Data
@@ -27,11 +39,13 @@ After Step 6 there is a **Rehearsal for Homework 1** section. It repeats every R
 ### 1a. Load
 
 ```{r load}
+library(tidyverse)   # loads %>%, filter(), left_join(), ggplot(), str_trim(), etc.
+
 grants <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/hrsa_grants.csv")
 counties <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/countypres.csv")
 ```
 
-`read.csv()` reads a file (here, from a URL) and `<-` stores it under a name. Notice that R rewrites column names that contain spaces or punctuation: the file's `Fiscal Year` column becomes `Fiscal.Year` in R. That is why the filter below says `Fiscal.Year`.
+`library(tidyverse)` must be run at the start of every R session; without it, the next step fails with `could not find function "%>%"`. `read.csv()` reads a file (here, from a URL) and `<-` stores it under a name. Notice that R rewrites column names that contain spaces or punctuation: the file's `Fiscal Year` column becomes `Fiscal.Year` in R. That is why the filter below says `Fiscal.Year`.
 
 > **Lab slide connection:** "Loading Data with `read.csv()`".
 
@@ -71,7 +85,7 @@ counties_2024$trumpvote <- counties_2024$candidatevotes / counties_2024$totalvot
 grants_2025 <- grants_2025 %>%
   mutate(
     county_clean = str_remove_all(County,
-                                  regex(" County| City| Borough| Parish| Census Area",
+                                  regex(" County| Borough| Parish| Census Area",
                                         ignore_case = TRUE)),
     county_clean = str_trim(county_clean),
     county_clean = str_to_upper(county_clean)
@@ -79,6 +93,8 @@ grants_2025 <- grants_2025 %>%
 ```
 
 The grants data say `"Richmond County"`; the election data say `"RICHMOND"`. A merge only works when the matching values are letter-for-letter identical, so we strip the suffix, remove stray spaces, and convert to upper case.
+
+Notice that we do *not* strip " City". Some places, such as Baltimore, are both a county and a separate independent city, and the election data keep them apart as `"BALTIMORE"` and `"BALTIMORE CITY"`. Stripping " City" would attach every Baltimore City grant to Baltimore County, a merge that runs without error but is wrong.
 
 ### 1e. Examine both datasets (Your Task)
 
@@ -140,7 +156,7 @@ grants_2025 %>%
   head(15)
 ```
 
-If the two row counts differ, the right-hand dataset has more than one row per key and the merge has duplicated grants. A small number of non-matches is normal; typical causes are territories (Puerto Rico, Guam), Alaska (which reports elections by district, not borough), Connecticut (which now reports by planning region), Virginia's independent cities, and spelling differences such as `DEKALB` versus `DE KALB`.
+If the two row counts differ, the right-hand dataset has more than one row per key and the merge has duplicated grants. Here, most non-matches come from the states that dropped out in Step 1b because they have no `TOTAL` row (Salt Lake County, Utah, and King County, Washington, top the list), plus the territories, which have no presidential vote. The rest come from Alaska (which reports elections by district, not borough), Connecticut (which now reports by planning region), and spelling differences such as `ST. LOUIS` versus `ST LOUIS`. Because whole states are missing, the unmatched grants are not a random subset, which is worth remembering when you interpret the results below.
 
 ### Interpreting `summary(grants_joined$trumpvote)`
 
@@ -442,7 +458,7 @@ To compare typical units rather than totals, change `y = total_grants` to `y = m
 ```{r dodge-mean}
 ggplot(group_totals, aes(x = pop_group, y = mean_grants, fill = winner)) +
   geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Total FY2025 HRSA Grants by County Size and 2024 Winner",
+  labs(title = "Mean FY2025 HRSA Grants per County by County Size and 2024 Winner",
        x = "County Size Quintile",
        y = "Mean Grants",
        fill = "2024 County Winner") +
