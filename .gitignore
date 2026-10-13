@@ -47,3 +47,17 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Instructor-only: answer keys and rubrics must not reach the public GitHub Pages site
+Homework/Midterm-rubric-2026.Rmd
+Homework/Practice-Midterm-Answer-Key-2026.Rmd
+Homework/Midterm-rubric-2026.html
+Homework/Midterm-rubric-2026.pdf
+Homework/Practice-Midterm-Answer-Key-2026.html
+Homework/Practice-Midterm-Answer-Key-2026.pdf
+Homework/Midterm-2026.Rmd
+Homework/Midterm-2026.html
+Homework/Midterm-2026.pdf
+Homework/Midterm-2026.knit.md
+Homework/Midterm-2026.tex
+Homework/Midterm-2026.log
