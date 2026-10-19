@@ -89,7 +89,7 @@ By the end of this session, you should be able to:
 
 -   Sometimes we need to focus more narrowly.
 
-    -   We need a systematic way of deciding which cases to focus on ---
+    -   We need a systematic way of deciding which cases to focus on, i.e., a
         a **sampling rule**.
 
     -   We hope that our sampling rule will give us correct results: we
@@ -112,7 +112,7 @@ include_graphics("images/conveniencesample.jpg")
 
 ---
 
-In November 2022, shortly after Elon Musk took control of Twitter, he faced a major policy question: should former President Donald Trump's account — banned since January 6, 2021 — be reinstated?
+In November 2022, shortly after Elon Musk took control of Twitter, he faced a major policy question: should former President Donald Trump's account (banned since January 6, 2021) be reinstated?
 
 ---
 
@@ -132,7 +132,7 @@ include_graphics("images/musk_voxpop.jpg")
 
 ---
 
-The poll drew over **15 million votes** in 24 hours. The "yes" side won with 51.8%. Musk declared the matter settled: *"The people have spoken. Trump will be reinstated. Vox Populi, Vox Dei."*
+The poll drew over **15 million votes** in 24 hours. The "yes" side won with 51.8%.
 
 ---
 
@@ -147,7 +147,7 @@ How much do we actually trust what these 15 million votes tell us about what "th
 ---
 ### But are convenience samples *always* useless?
 
-No—but it depends on what you're trying to learn.
+No, but it depends on what you're trying to learn.
 
 Researchers often face tradeoffs:
 - Representative samples are expensive and difficult to obtain
@@ -159,6 +159,10 @@ Researchers often face tradeoffs:
 ### A Direct Test: Ellis, Savchenko, and Messer (2023)
 
 **Research question:** Do people's purchasing decisions differ between a non-representative convenience sample and a representative sample?
+
+---
+
+### A Direct Test: Ellis, Savchenko, and Messer (2023)
 
 **The setup:**
 - Both studies used the *same experiment* about consumer attitudes toward food produced with recycled water
@@ -195,7 +199,7 @@ include_graphics("images/ellis_figure2.png")
 
 Only two small differences emerged:
 
-1. **Trophic level one (plants):** The stigma-reducing effect of moving from water to plants was weaker in the in-person sample—suggesting this effect may be small and tenuous.
+1. **Trophic level one (plants):** The stigma-reducing effect of moving from water to plants was weaker in the in-person sample, suggesting this effect may be small and tenuous.
 
 2. **Perishable products:** In-person participants were less likely to purchase fresh lamb and cheese, perhaps because carrying perishables around a mall or DMV is inconvenient. Online participants knew products would be shipped on ice.
 
@@ -221,10 +225,18 @@ Only two small differences emerged:
 
 ### The Tradeoff
 
-| Sample Type | Cost | Difficulty | External Validity | When to Use |
-|-------------|------|------------|-------------------|-------------|
-| Representative | High | High | High | When you need precise population estimates |
-| Convenience | Low | Low | Moderate | When testing relationships, mechanisms, or theories |
+| Sample Type | Cost | Difficulty | External Validity | 
+|-------------|------|------------|-------------------|
+| Representative | High | High | High | 
+| Convenience | Low | Low | Moderate |
+---
+
+### The Tradeoff
+
+| Sample Type | When to Use |
+|-------------|-------------|
+| Representative | When you need precise population estimates |
+| Convenience | When testing relationships, mechanisms, or theories |
 
 Ellis et al.'s conclusion:
 
@@ -234,13 +246,13 @@ Ellis et al.'s conclusion:
 
 ### Back to Musk
 
-The problem with Musk's poll wasn't just that it used a convenience sample — though it was self-selected in ways that made it deeply unrepresentative. It was that it was used to make a high-stakes, irreversible decision and presented as the voice of the people.
+Musk's sample wasn't defective just because it was a convenience sample. Instead, the problem is that it was used to estimate a population value.
 
 - The population: Twitter users who happened to see Musk's tweet and chose to vote
 - Who is missing: the vast majority of Americans, including those most affected by Trump's return to the platform
 - Musk himself acknowledged bots and trolls likely participated
 
-**The lesson:** Convenience samples can be useful tools, but *honesty about what they are* is non-negotiable — especially when decisions have real consequences.
+**The lesson:** Convenience samples can be useful tools, but *clarity* is non-negotiable.
 
 ---
 ### Quota Sampling
