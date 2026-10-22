@@ -167,8 +167,8 @@ That's where **regression** comes in.
 
 We'll use the 2024 ANES survey.
 
-- **transbathroom**: Support for laws requiring transgender individuals to use bathrooms matching sex assigned at birth (1 = favor a great deal, 5 = oppose a great deal).
-- **carbonregulations**: Support for government regulation of carbon emissions (1 = favor a great deal, 5 = oppose a great deal).
+- **transbathroom**: Support for allowing transgender individuals to use bathrooms that match gender identity (1 = favor a great deal, 7 = oppose a great deal).
+- **carbonregulations**: Support for government regulation of carbon emissions (1 = favor a great deal, 7 = oppose a great deal).
 
 ```{r load-anes, echo=TRUE}
 anes2024 <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/refs/heads/main/Data/anes2024.csv")
