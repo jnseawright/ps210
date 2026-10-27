@@ -1,0 +1,364 @@
+---
+title: "Practice Midterm — Answer Key"
+author: "Jaye Seawright"
+date: "Fall 2026"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+**Total: 100 points, plus up to 2 extra credit.**
+Point distribution mirrors the real midterm exactly: Q1 12, Q2 10, Q3 10, Q4 8 (Study 1 = 40);
+Q5 10, Q6 8, Q7 12, Q8 15, Q9 15 (Study 2 = 60).
+
+All figure values below were read directly off the printed figures. Students' readings should
+land within a percentage point or two; do not penalise small differences.
+
+---
+
+# Study 1: Chiopris, Nalepa & Vanberg (40 points)
+
+## Question 1 (12 points)
+
+**(a) Treatment and outcome — 7 points**
+
+The treatment is the **content of the candidate profiles**. In the treatment condition (Table 3),
+Candidate B proposes that the government be able to **extend the terms of the Sejm and Senate for a
+year or more during an exceptional state emergency, and postpone the election date without
+consulting other state authorities**. Control respondents see a pair of candidates without that
+proposal. The treatment is delivered by randomly varying which version of the paired vignette a
+respondent reads.
+
+The outcome is **punishment** — whether the respondent declines to support the candidate who made the
+undemocratic proposal, expressed as the change in probability of choosing that candidate.
+
+- Identifies the undemocratic proposal as the treatment. *3 points*
+- Notes it is delivered by randomly assigning which vignette version is shown. *2 points*
+- Identifies the outcome as candidate choice / punishment of the proposing candidate. *2 points*
+
+Award at most 4 of 7 for an answer that says the treatment is "the candidates" or "the vignette"
+without identifying what varies.
+
+**(b) Measurement validity — 5 points**
+
+Accept either direction, graded on reasoning.
+
+Reasons it is reasonably valid: it measures the respondent's own interpretation, which is what the
+theory requires — the argument is about *citizen uncertainty*, so what matters is how the voter read
+the proposal, not how a political scientist would code it.
+
+Reasons for doubt: it is self-reported and measured **after** exposure, so it may be shaped by the
+treatment itself; four coarse categories may not capture a continuous judgment; respondents may
+rationalise support for a co-partisan by reporting the proposal as less undemocratic.
+
+- Takes a clear position. *1 point*
+- Gives at least one substantive reason tied to the concept being measured. *2 points*
+- Raises a second consideration, or engages the post-treatment problem. *2 points*
+
+A student who notices that the moderator is measured **after** treatment, and that this makes the
+subgroup comparison non-experimental, has spotted the sharpest issue in the study. Award full marks.
+
+---
+
+## Question 2 (10 points)
+
+This is a **survey experiment** using a paired-profile (conjoint-style) vignette, fielded on a
+sample of Polish respondents.
+
+**Strengths:** random assignment of vignette content means treatment and control groups are
+equivalent in expectation, so the comparison supports a causal claim with high internal validity.
+No confounding by respondent characteristics. Table 5 documents that balance held.
+
+**Weaknesses:** external validity. Reading a pair of candidate descriptions in a survey is not
+casting a vote in a real election with real stakes, incumbents, party loyalty, media coverage, or
+turnout costs. The outcome is a stated preference, not behaviour. The sample is one country at one
+time. Effects are small in magnitude.
+
+- Correctly names the design as a survey experiment (accept "vignette experiment" or
+  "conjoint experiment"). *3 points*
+- Explains why random assignment supports causal inference. *3 points*
+- Raises at least one specific external-validity limitation. *3 points*
+- Distinguishes internal from external validity explicitly. *1 point*
+
+---
+
+## Question 3 (10 points)
+
+**What the table is for — 3 points**
+
+Table 5 is a **covariate balance** check. It compares treatment and control group means on seven
+pre-treatment characteristics (age, democracy index, education, gender, left–right self-placement,
+religiosity, town size) within each subgroup, and tests whether the differences are larger than
+chance would produce. All 28 comparisons return p-values above 0.05, which is evidence that
+randomisation worked and the groups were comparable before treatment.
+
+**Two threats balance does not address — 4 points (2 each)**
+
+Strong answers include any two of:
+
+- **External validity.** Balance says nothing about whether the sample resembles Polish voters, or
+  whether a survey vignette resembles a real election.
+- **Post-treatment moderation.** The subgroups themselves are defined by a variable measured after
+  treatment, so comparing them is not an experimental comparison, however well balanced.
+- **Measurement validity.** Balanced groups can still be answering a badly worded question.
+- **Construct validity of the treatment.** Whether this particular proposal captures "undemocratic"
+  in the way the theory intends.
+- **Attrition or non-response.** Balance among respondents says nothing about who declined.
+- **Statistical power.** Balance does not make small samples informative.
+
+Award 1 of 2 for a threat named without explanation of why balance cannot rule it out.
+
+**The two marginal p-values — 3 points**
+
+No, they do not undermine the balance claim. The table reports **28 comparisons**. Under the null,
+roughly 10 percent — about three — would be expected below 0.10 by chance alone. Finding two is
+entirely consistent with successful randomisation. The relevant question is whether imbalance is
+systematic, and it is not: both marginal cases are above 0.05, and the other 26 comparisons show
+nothing.
+
+- Invokes multiple comparisons / chance across many tests. *2 points*
+- Notes that neither value is significant at conventional levels, or that the pattern is not
+  systematic. *1 point*
+
+A student who argues the opposite can earn up to 2 of 3 if they reason carefully about why
+imbalance on a politically relevant covariate might matter even when not significant.
+
+---
+
+## Question 4 (8 points)
+
+**Largest estimate — 3 points**
+
+The **High** subgroup, at approximately **-0.11** (roughly an 11 percentage point reduction in
+support). Accept **Mid-High** (about -0.10) with sound reasoning, since the two are close; do not accept
+Low or Mid-Low.
+
+**Is "Low" significant? — 3 points**
+
+**No.** Its 95% confidence interval runs from about -0.15 to about **+0.04** — it crosses zero.
+Because the interval includes zero, we cannot rule out no effect at the 95% level.
+
+- Says not significant. *1 point*
+- Gives the reason as the interval crossing / including zero. *2 points*
+
+Award 1 point only if the student says "not significant" with no justification.
+
+**Direction and pattern — 2 points**
+
+All four point estimates are **negative** — every subgroup punishes the undemocratic proposal on
+average. The magnitude grows monotonically as the respondent's judgment of the reform as
+undemocratic rises (about -0.06, -0.06, -0.10, -0.11), and only the two upper subgroups reach
+significance. The pattern is consistent with the authors' argument that punishment depends on
+recognising the proposal as undemocratic.
+
+---
+
+# Study 2: Bhavnani (60 points)
+
+## Question 5 (10 points)
+
+A **natural experiment**. The randomization is genuine — Mumbai ward reservations were assigned by
+lottery — but it was carried out by **the Indian electoral authorities as a matter of policy**, not
+by the researcher. That is the textbook definition: when someone or something other than the
+researcher does the randomizing, it is a natural experiment, and Bhavnani *analyses* rather than
+*conducts* it.
+
+**Advantages:** as-if-random assignment of a real, consequential policy to real constituencies, so
+the comparison supports a causal claim; a researcher could never ethically or practically assign
+reserved seats; the outcome is actual electoral behaviour, not a stated preference; and the
+withdrawal of the quota creates a rare opportunity to study what persists.
+
+**Disadvantages:** the researcher must verify the randomization rather than assume it; the sample is
+small (37 treatment and 81 control wards), so estimates are imprecise and subgroup analysis is hard;
+it is one city in one country at one time; and the design cannot isolate *which* mechanism produced
+persistence.
+
+- Names it as a natural experiment. *3 points*
+- **Notes that the authorities, not the researcher, randomized.** *2 points*
+- Gives a causal-inference or external-validity advantage. *3 points*
+- Names a disadvantage. *2 points*
+
+A student who calls this a field experiment loses those 2 points but can earn the rest.
+
+---
+
+## Question 6 (8 points)
+
+**Treatment and levels — 4 points**
+
+The treatment is **whether the ward was reserved for a woman in the 1997 election**. Two levels:
+**reserved in 1997** (treatment) and **open in 1997** (control). Crucially, both groups were
+**open in 2002**, the year the outcomes are measured — so the comparison is about the lingering
+effect of a quota that no longer applies.
+
+- Identifies the treatment as 1997 reservation status. *2 points*
+- States the two levels, and ideally notes both groups were open in 2002. *2 points*
+
+**Unit of analysis — 4 points**
+
+The **ward** (constituency). Bhavnani compares 37 wards reserved in 1997 and open in 2002 against
+81 wards open in both years.
+
+- Identifies the ward as the unit. *2 points*
+- States what is compared to what, with or without the n's. *2 points*
+
+Award 2 of 4 for "candidates" or "women" — the randomization was applied to wards, not people.
+
+---
+
+## Question 7 (12 points)
+
+**Row 1 — 4 points**
+
+Control: **3.7 percent** of wards elected a female winner. Treatment: **21.6 percent**. The
+treatment figure is roughly **6 times** larger (21.6 / 3.7 = about 5.8). Accept "about five or six times."
+
+- Both percentages correct. *2 points*
+- Ratio approximately correct. *2 points*
+
+**Largest difference — 4 points**
+
+**Row 2** — percentage of wards where at least one woman ran for office — at **37.2 percentage
+points** (73.0 versus 35.8). Accept row 2 only; row 10 (29.7) and row 1 (17.9) are smaller.
+
+- Identifies row 2. *2 points*
+- Gives the difference as 37.2 points. *2 points*
+
+**Reading significance — 4 points**
+
+From the **asterisks** on the difference column, defined in the table note: one asterisk is
+significant at 10 percent, two at 5 percent, three at 1 percent. Rows with no asterisk — 4, 7, 13,
+14, 15 — show no statistically significant difference. The note also says the tests are
+**one-sided** differences in proportions and means.
+
+- Identifies the asterisks and what they denote. *2 points*
+- Notes that unstarred rows are not significant. *1 point*
+- Notes the tests are one-sided. *1 point*
+
+The one-sided point is worth having: one-sided tests are more permissive than the two-sided tests
+students have seen, so a student who flags that has read the note carefully.
+
+---
+
+## Question 8 (15 points)
+
+**What the five rows have in common — 6 points**
+
+None of them is statistically significant, and all five concern features of the election as a whole
+rather than women's participation in it: how many people ran, how competitive the race was, how many
+voters turned out, and how comfortably the winner won. Rows 1, 2, and 11, by contrast, all concern
+**women specifically** — whether a woman won, whether a woman ran, what share of the vote women
+received — and all three are significant at the 1 percent level.
+
+- Notes all five are non-significant. *2 points*
+- Notes the five concern general electoral features while 1, 2, and 11 concern women
+  specifically. *4 points*
+
+**Why report null rows — 5 points**
+
+Because they show the quota did **not** disturb the election in general — it changed who ran and who
+won among women without changing turnout, the overall number of candidates, or the competitiveness
+of the race. That makes the interpretation much cleaner: the effect is specific to women's
+candidacy and success rather than a by-product of some broader disruption that reservation caused.
+These rows function much like placebo tests.
+
+- Explains that null results here isolate the effect to women. *3 points*
+- Identifies the logic as placebo-like, or as ruling out a general-disruption
+  explanation. *2 points*
+
+A student who says "to be transparent" or "to show everything" earns 2 of 5 — true but not the
+methodological point.
+
+**If turnout had differed — 4 points**
+
+It would have opened an alternative explanation. A large turnout difference would suggest that
+previously reserved wards differed from control wards in some broader way — mobilisation, political
+attention, local organisation — and then the higher rate of female winners might reflect that
+general difference rather than the quota's specific effect on women's candidacy. It would also raise
+the worry that something other than the lottery distinguished the two groups.
+
+- Recognises it would create a rival explanation for the main result. *2 points*
+- Articulates what that rival explanation would be. *2 points*
+
+---
+
+## Question 9 (15 points)
+
+**How well supported — 6 points**
+
+Well supported on the central claim. In 2002, with no quota in force, previously reserved wards
+elected female winners at **21.6 percent against 3.7 percent** (row 1, significant at 1 percent),
+had at least one woman run in **73.0 against 35.8 percent** of wards (row 2), and gave women
+**15.0 against 3.3 percent** of the total vote (row 11). Female candidates as a share of all
+candidates was 11.9 against 4.4 percent (row 5), and new female candidates 0.7 against 0.3 (row 9).
+
+Caveats a strong answer will raise: 37 treatment wards is a small sample; the tests are one-sided;
+and this is one city, so the persistence result may not travel.
+
+- Cites at least two specific rows with numbers. *3 points*
+- Reaches a defensible judgment. *2 points*
+- Raises at least one limitation. *1 point*
+
+**What the lottery accomplishes — 5 points**
+
+It rules out **confounding and reverse causation by design**. Without the lottery, wards that
+received reservations might have differed systematically from those that did not — more women
+already active in local politics, more progressive electorates, different party organisation — and
+any of those could explain later female success. Because reservation was assigned at random,
+treatment and control wards were equivalent in expectation **before** treatment, so a difference in
+2002 is attributable to the 1997 reservation rather than to prior differences. It also fixes the
+order of events: wards did not earn reservations by already electing women.
+
+- Identifies confounding as what the lottery addresses. *2 points*
+- Explains equivalence in expectation before treatment. *2 points*
+- Addresses reverse causation or the ordering of treatment and outcome. *1 point*
+
+**Additional evidence — 4 points**
+
+Award 1 point each for up to four of:
+
+- Replication in other cities, states, or countries with different quota rules.
+- Longer follow-up — did the effect survive to 2007 and beyond, or decay?
+- Whether the women elected under quotas governed differently, or only held seats.
+- Mechanism evidence: did parties update their beliefs, or did individual incumbents simply
+  benefit from name recognition?
+- Larger samples to tighten the estimates.
+- Whether effects differ by ward characteristics such as income or literacy.
+- Two-sided tests, or pre-registered hypotheses.
+
+**Bonus (2 extra points): why row 2 matters more than row 1**
+
+Row 1 tells you the quota's effect *persisted*; row 2 begins to explain *why*. The jump in wards
+where at least one woman ran — 35.8 to 73.0 percent — shows that the quota changed the **supply of
+candidates**, not just the outcome of one election. A woman who held the seat under reservation had
+incumbency, name recognition, and a record; parties had seen that a woman could win there. So the
+mechanism looks like a durable change in who stands for office, which is exactly what would make
+the effect outlast the rule. Row 1 alone is consistent with a one-off; row 2 points to a changed
+pipeline.
+
+Award both points for connecting row 2 to a mechanism — candidacy, incumbency, or party beliefs.
+Award 1 point for noting only that row 2 has a larger difference.
+
+---
+
+# Grading notes
+
+**Expected score distribution.** Questions 4 and 7 are figure- and table-reading and should be
+high-scoring for prepared students. Question 3's multiple-comparisons part and Question 8's
+null-results reasoning are where strong students separate themselves.
+
+**The two hardest things on this exam**, both deliberate: that Chiopris's moderator is measured
+*after* treatment, so the subgroup comparison in Figure 6 is not experimental even though the study
+is; and that Bhavnani's five non-significant rows are *evidence for* the argument rather than
+against it, which inverts the instinct that a null result is a failure.
+
+**This practice exam now mirrors the real one's structure.** Study 1 is an experiment whose
+credibility rests on a balance table; Study 2 is a natural experiment whose credibility rests on
+null results in rows the treatment should not have touched. The real midterm pairs an observational
+study with statistical controls against a lottery-based natural experiment with a balance table and
+a placebo test. In both cases the transferable skill is the same: asking what a design rules out,
+and what it leaves open.
+
+**If you use this in the Oct 29 review**, Question 8 is the one to work on the board. The idea that
+an author reports null results *on purpose* is the single most transferable thing here, and it maps
+directly onto Table VII of the real exam, where a null placebo result is the desired outcome.

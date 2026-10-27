@@ -6,7 +6,11 @@
 
 ### Midterm
 
-* Tuesday, Nov. 3: Midterm exam (in class). Covers all material from Sept. 24 through Oct. 27. *(Study guide to be posted closer to the exam.)*
+* Tuesday, Nov. 3: Midterm exam (in class). Covers all material from Sept. 24 through Oct. 27. Feel free to bring up to three pages of printed or handwritten notes.
+
+* [Practice midterm](https://jnseawright.github.io/ps210/Homework/Practice-Midterm-2026.html)
+
+* [Practice midterm answer key](https://jnseawright.github.io/ps210/Homework/Practice-Midterm-Answer-Key-2026.html)
 
 ### Final
 

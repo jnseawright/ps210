@@ -127,8 +127,8 @@ summary(transcarbonlm2)
 
 ### Interpreting the Results
 
-- **transbathroom coefficient** = 0.12 (down from 0.24 in the bivariate model). The relationship is weaker after controlling for party.
-- **partyid coefficient** = 0.21: each step toward stronger Republican identification is associated with 0.21 units more opposition to carbon regulation.
+- **transbathroom coefficient** = 0.20 (down from 0.37 in the bivariate model). The relationship is weaker after controlling for party.
+- **partyid coefficient** = 0.30: each step toward stronger Republican identification is associated with 0.30 units more opposition to carbon regulation.
 - Both variables are statistically significant.
 
 **What happened?** Partisanship was a confounder: Republicans tend to be more conservative on both issues, so part of the original association was spurious.
@@ -145,7 +145,7 @@ Not every variable should be included in a regression. We can classify controls 
 
 ---
 
-2\. **Irrelevant controls**: Variables that are unrelated to both the treatment and the outcome. They don't harm much but don't help either.
+2\. **Causally irrelevant controls**: Variables that are unrelated to the treatment, although possibly connected to the outcome. They don't harm much but don't help either.
 
 ---
 
@@ -163,13 +163,13 @@ A good control is a common cause of both the treatment and the outcome. Includin
 
 ---
 
-### Irrelevant Control
+### Causally Irrelevant Control
 
-```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center', fig.alt="DAG illustrating an irrelevant control: the Irrelevant Control node sits above Outcome with an arrow pointing only TO Outcome — no connection to Treatment. A direct arrow runs from Treatment to Outcome. Because this variable is unrelated to Treatment, it is not a confounder and does not bias the estimate; including it merely uses up degrees of freedom."}
+```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center', fig.alt="DAG illustrating a causally irrelevant control: the Irrelevant Control node sits above Outcome with an arrow pointing only TO Outcome — no connection to Treatment. A direct arrow runs from Treatment to Outcome. Because this variable is unrelated to Treatment, it is not a confounder and does not bias the estimate; including it may increase precision, but it also requires assumptions."}
 include_graphics("images/irrelevantcontrol1.jpg")
 ```
 
-An irrelevant control is unrelated to the treatment or the outcome. It doesn't bias the estimate, but it may reduce precision. Adding unnecessary control variables uses up information we could otherwise use for productive purposes.
+A causally irrelevant control is unrelated to the treatment. It doesn't bias the estimate, but it may increase precision. Adding unnecessary control variables makes assumptions we don't need.
 
 ---
 
