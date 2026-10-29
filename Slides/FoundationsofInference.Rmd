@@ -197,6 +197,8 @@ anes2024 %>%
   theme_minimal()
 ```
 
+---
+
 People who are more conservative on transgender bathroom laws also tend to be more opposed to carbon regulations.
 
 ---

@@ -4,6 +4,7 @@
     <title>Midterm Review Session</title>
     <meta charset="utf-8" />
     <meta name="author" content="Jaye Seawright" />
+    <meta name="date" content="2026-10-29" />
     <script src="MidtermReview_files/header-attrs-2.30/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -45,8 +46,8 @@ pre[class] {
 ### Today: Midterm Review
 
 - **Format:** In‑class, open notes, closed devices. 75 minutes.
-- **What to bring:** Your notes (handwritten or printed). No laptops/phones.
-- **Coverage:** All material from Sept 24 through Oct 22 (up to multivariate regression).
+- **What to bring:** Your notes (up to three pages, handwritten or printed). No laptops/phones.
+- **Coverage:** All material from Sept 24 through Oct 27 (up to multivariate regression).
 
 We'll review **concepts and tools** using studies we've discussed in class.
 
@@ -57,7 +58,15 @@ We'll review **concepts and tools** using studies we've discussed in class.
 | Study | Topic | Key concepts |
 |-------|-------|--------------|
 | Lott &amp; Mustard (1996) | Concealed carry laws &amp; crime | Four questions, confounding, reverse causation |
-| Mask mandate study (Health Affairs) | COVID‑19 policies &amp; infection rates | Controlling for confounders, difference‑in‑differences |
+| Morral &amp; Smart (2026) | Concealed carry laws &amp; violence after Lott &amp; Mustard | Time‑varying confounders, parallel trends, difference‑in‑differences |
+
+---
+
+## Example Studies We'll Use
+
+| Study | Topic | Key concepts |
+|-------|-------|--------------|
+| Bos et al. (2020) | Populist identity frames, persuasion &amp; mobilisation | Random assignment, internal vs. external validity, p‑values |
 ---
 
 ## Example Studies We'll Use
@@ -79,9 +88,11 @@ We'll review **concepts and tools** using studies we've discussed in class.
 
 ---
 
-**Findings:**
-- In the US, polarized Democrats are 8% more likely, and polarized Republicans 18% more likely, to endorse political violence.
-- In the cross‑national analysis, highly polarized democracies are 34% more likely to experience frequent political violence.
+&lt;img src="images/PiazzaTable.png" alt="Table 1 from Piazza (2023)." width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/PiazzaTable2.png" alt="Table 2 from Piazza (2023)." width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -98,7 +109,8 @@ We'll review **concepts and tools** using studies we've discussed in class.
 ### Strengths and Weaknesses
 
 | Aspect | Implication |
-|--------|----------------|| **Correlation vs. causation** | Piazza is careful: he finds an *association* and acknowledges possible reverse causation or common causes. |
+|--------|----------------|
+| **Correlation vs. causation** | Piazza is careful: he finds an *association* and acknowledges possible reverse causation or common causes. |
 | **External validity** | Findings from the US may not generalize to other democracies; cross‑national analysis helps but has its own limits. |
 
 ---
@@ -163,11 +175,15 @@ A **confounder** is a variable that causes **both** the treatment and the outcom
 
 ---
 
-### Practice: Mask Mandate Study
+### Practice: Confounders After Lott &amp; Mustard
 
-From our causation lecture: a study comparing counties with and without mask mandates found that mandates were associated with lower COVID‑19 infection rates.
+From our Oct. 8 session: Lott &amp; Mustard controlled for county fixed effects, year fixed effects, arrest rates, demographics, and income. Morral &amp; Smart (2026) review the studies that followed and conclude that permissive concealed carry laws, on average, *increase* homicide and violent crime.
 
-**Question:** What are some potential confounders? How might the authors try to control for them?
+**Questions:**
+
+1. County fixed effects hold constant anything about a county that doesn't change over time. Name a confounder that **does** change over time and could still bias the estimate.
+2. Why does a pre‑existing difference in crime *trends* between adopting and non‑adopting states work like a confounder?
+3. How do event studies and synthetic control try to deal with that problem?
 
 *Discuss.*
 
@@ -217,7 +233,7 @@ Adds controls: `\(Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \dots + \epsilon\)`
 
 ### Practice: ANES Regression Example
 
-From our bivariate regression session: support for transgender bathroom laws (1–5 scale, higher = more conservative) predicts opposition to carbon regulations (1–5 scale, higher = more opposition).
+From our bivariate regression session: support for transgender bathroom laws (1–7 scale, higher = more conservative) predicts opposition to carbon regulations (1–7 scale, higher = more opposition).
 
 **Bivariate result:** `\(\beta = 0.37\)`, p &lt; 0.001.
 
@@ -225,7 +241,7 @@ From our bivariate regression session: support for transgender bathroom laws (1�
 
 ### Practice: ANES Regression Example
 
-**Multivariate result (adding party ID):** `\(\beta = 0.12\)`, p &lt; 0.001; party ID coefficient = 0.21.
+**Multivariate result (adding party ID):** `\(\beta = 0.2\)`, p &lt; 0.001; party ID coefficient = 0.3.
 
 **Questions:**
 
@@ -273,11 +289,20 @@ From the Piazza study: a cross‑national time‑series analysis of 83 democraci
 
 ### Practice: Interpret p‑values
 
-From the Gadarian et al. study (discussed in class): Table 2 shows an adjusted risk difference for hand washing of 0.088 with p &lt; 0.001.
+From Bos et al. (2020), our Oct. 15 reading. Table 2 (Model 1): compared with the neutral control article, the **anti‑elitist** frame raised agreement with the article's claims by **0.079** points on a 7‑point scale (robust SE = 0.026, p &lt; 0.01).
 
 - Is the difference statistically significant?
 - What does the p‑value tell us? 
-- Is the difference practically important? 
+- Is the difference practically important? (The persuasion measure has SD = 1.37.)
+
+---
+
+### Practice: Interpret p‑values
+
+Table 3 (Model 1): the same anti‑elitist frame changed **mobilisation** by **0.037** points (robust SE = 0.040), which is *not* statistically significant.
+
+- Can we conclude that the frame has **no** effect on mobilisation? Why or why not?
+- What would a 95% confidence interval for this effect roughly look like?
 
 ---
 
@@ -290,12 +315,13 @@ From the Gadarian et al. study (discussed in class): Table 2 shows an adjusted r
 
 ---
 
-### Practice: Mask Mandate Study (again)
+### Practice: Internal vs. External Validity in Bos et al.
 
-A study of U.S. counties in 2020 finds that mask mandates reduce infection rates.
+Online survey experiment in 15 countries (14 European countries plus Israel), fielded in early 2017. Quota samples on age, education, and gender; participants randomly assigned to one of four versions of a news article about declining purchasing power.
 
-- **Internal validity:** Threats? 
-- **External validity:** Do the results apply to 2024? To other countries? 
+- **Internal validity:** What does random assignment buy us? What do the randomization and manipulation checks add? 
+- **External validity:** Does one fictional news article stand in for real‑world exposure to populist messages? Would the results hold in 2026? In the United States? 
+- **Compare:** Which has stronger internal validity, Bos et al. or Piazza's cross‑national panel? Which has stronger external validity? 
 
 ---
 
@@ -348,9 +374,6 @@ Does the measured variable actually capture the concept it claims to measure?
 ### Good luck! Any final questions?
 
 We'll now do a quick Q&amp;A. Ask about concepts, not specific exam content.
-
-After this, use the remaining time to review your notes quietly.
- studies. 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
