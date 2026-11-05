@@ -79,7 +79,7 @@ We'll review **concepts and tools** using studies we've discussed in class.
 
 ---
 
-```{r, echo = FALSE, out.width="80%", fig.retina = 1, fig.align='center', fig.alt="Table 1 from Piazza (2023)."}
+```{r, echo = FALSE, out.width="60%", fig.retina = 1, fig.align='center', fig.alt="Table 1 from Piazza (2023)."}
 include_graphics("images/PiazzaTable.png")
 ```
 
@@ -173,6 +173,8 @@ A **confounder** is a variable that causes **both** the treatment and the outcom
 ### Practice: Confounders After Lott & Mustard
 
 From our Oct. 8 session: Lott & Mustard controlled for county fixed effects, year fixed effects, arrest rates, demographics, and income. Morral & Smart (2026) review the studies that followed and conclude that permissive concealed carry laws, on average, *increase* homicide and violent crime.
+
+---
 
 **Questions:**
 
@@ -313,6 +315,8 @@ Table 3 (Model 1): the same anti‑elitist frame changed **mobilisation** by **0
 ### Practice: Internal vs. External Validity in Bos et al.
 
 Online survey experiment in 15 countries (14 European countries plus Israel), fielded in early 2017. Quota samples on age, education, and gender; participants randomly assigned to one of four versions of a news article about declining purchasing power.
+
+---
 
 - **Internal validity:** What does random assignment buy us? What do the randomization and manipulation checks add? 
 - **External validity:** Does one fictional news article stand in for real‑world exposure to populist messages? Would the results hold in 2026? In the United States? 

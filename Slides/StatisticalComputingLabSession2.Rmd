@@ -101,6 +101,13 @@ head(rtv)
 ### Merge and Count (Tidyverse Version)
 
 ```{r, eval=TRUE}
+# Harmonize RTV country names to QOG's spellings before counting
+rtv <- rtv %>%
+  mutate(country_name = recode(country_name,
+    "Netherlands"    = "Netherlands (the)",
+    "United Kingdom" = "United Kingdom of Great Britain and Northern Ireland (the)"
+  ))
+
 # Count incidents per country‑year
 event_counts <- rtv %>%
   group_by(country_name, year) %>%
@@ -114,7 +121,7 @@ qog_merged <- left_join(qog_small, event_counts,
 qog_merged$violence_count[is.na(qog_merged$violence_count)] <- 0
 
 # Keep only countries that appear in RTV (optional)
-qog_merged <- qog_merged %>% filter(cname %in% rtv$country_name)
+qog_merged <- qog_merged %>% filter(cname %in% event_counts$country_name)
 ```
 
 ---
@@ -149,12 +156,12 @@ Does right‑wing violence affect the level of democracy?
 ### Visualize the Relationship
 
 ```{r, eval=TRUE}
-bivarplot <- ggplot(qog_merged, aes(x = violence_count, y = democracy)) +
+bivarplot <- ggplot(qog_merged, aes(x = democracy, y = violence_count)) +
   geom_point(alpha = 0.3) +
   geom_smooth(method = "lm", color = "red") +
-  labs(title = "Democracy by Right-Wing Violence",
-       x = "Number of violent incidents",
-       y = "Democracy score") +
+  labs(title = "Right-Wing Violence by Democracy",
+       y = "Number of violent incidents",
+       x = "Democracy score") +
   theme_minimal()
 ```
 
@@ -177,12 +184,12 @@ Because violence is highly skewed, we often use `log(1 + violence)`.
 qog_merged <- qog_merged %>%
   mutate(log_violence = log(1 + violence_count))
 
-logbivarplot <- ggplot(qog_merged, aes(x = log_violence, y = democracy)) +
+logbivarplot <- ggplot(qog_merged, aes(x = democracy, y = log_violence)) +
   geom_point(alpha = 0.3) +
   geom_smooth(method = "lm", color = "red") +
   labs(title = "Democracy by Logged Right-Wing Violence",
-       x = "Log(1 + violence)",
-       y = "Democracy score") +
+       y = "Log(1 + violence)",
+       x = "Democracy score") +
   theme_minimal()
 ```
 
@@ -196,22 +203,22 @@ logbivarplot
 ### Fit the Bivariate Regression
 
 ```{r, eval=TRUE}
-model1 <- lm(democracy ~ log_violence, data = qog_merged)
+model1 <- lm(log_violence ~ democracy, data = qog_merged)
 summary(model1)
 ```
 
 ---
 
 **Interpretation:**
-- Intercept: predicted democracy when violence = 0 (log = 0)
-- Slope: for a 1‑unit increase in log_violence, democracy changes by ______
+- Intercept: predicted logged violence when democracy = 0 (fully authoritarian)
+- Slope: for a 1‑unit increase in democracy, logged violence changes by ______
 - Is the slope statistically significant?
 
 ---
 ### Better Regression Table
 
 ```{r, eval=TRUE, results='asis'}
-modelsummary(list("Bivariate Regression" = model1),
+modelsummary(list("Bivariate Regression" = model1), stars = TRUE,
              output = "gt") %>%
   gt::gtsave(filename = "images\\regression_table.png")
 ```
@@ -235,7 +242,7 @@ class: inverse, center, middle
 ---
 ### The Problem of Confounding
 
-Violence might be correlated with other factors that also affect democracy, e.g., **economic development** (per capita GDP).
+Democracy might be correlated with other factors that also affect violence, e.g., **economic development** (per capita GDP).
 
 Let's add `percapitagdp` as a control.
 
@@ -246,13 +253,31 @@ Let's add `percapitagdp` as a control.
 summary(qog_merged$percapitagdp)
 ```
 
-Some missing values. We'll need to handle them. For now, `lm()` will drop rows with NA in any predictor.
+Some missing values. We'll need to handle them. For now, `lm()` will drop rows with NA in any variable in the model.
+
+---
+### Same Sample for Both Models
+
+`lm()` silently drops any row with a missing value in the outcome or a predictor. GDP is missing more often than democracy, so the multivariate model would use fewer country-years than the bivariate model.
+
+To compare coefficients fairly, we fit both models on the same complete-case sample.
+
+---
+
+```{r, eval=TRUE}
+qog_analysis <- qog_merged %>%
+  filter(!is.na(democracy), !is.na(log_violence), !is.na(percapitagdp))
+
+nrow(qog_merged)    # all country-years
+nrow(qog_analysis)  # complete cases used in both models
+```
 
 ---
 ### Fit the Multivariate Model
 
 ```{r, eval=TRUE}
-model2 <- lm(democracy ~ log_violence + I(log(percapitagdp)), data = qog_merged)
+model1 <- lm(log_violence ~ democracy, data = qog_analysis)
+model2 <- lm(log_violence ~ democracy + I(log(percapitagdp)), data = qog_analysis)
 summary(model2)
 ```
 
@@ -260,12 +285,14 @@ summary(model2)
 
 We use I(log(...)) to create the log transformation directly in the formula.
 
+We re-fit `model1` on `qog_analysis` so that any change in the `log_violence` coefficient comes from adding the control, not from dropping observations.
+
 ---
 ### Compare Models
 
 ```{r, eval=TRUE}
 modelsummary(list("Bivariate" = model1, "Multivariate" = model2),
-             statistic = "p.value", output = "gt") %>%
+             statistic = "p.value", output = "gt", stars = TRUE) %>%
   gt::gtsave(filename = "images\\regression_comparison_table.png")
 ```
 
@@ -279,7 +306,7 @@ include_graphics("images/regression_comparison_table.png")
 ---
 
 **Discuss:**
-- How did the coefficient for `log_violence` change after adding GDP?
+- How did the coefficient for `democracy` change after adding GDP?
 - What does this tell us about confounding?
 
 ---
