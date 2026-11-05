@@ -352,7 +352,7 @@ display: none;
 <h1 class="title toc-ignore">Homework 2: Regression Analysis of ICE
 Arrests and Governor’s Party</h1>
 <h4 class="author">Jaye Seawright</h4>
-<h4 class="date">Due: Nov. 7, 2026</h4>
+<h4 class="date">Due: Nov. 10, 2026</h4>
 
 </div>
 
@@ -363,10 +363,13 @@ Arrests and Governor’s Party</h1>
 Canvas</strong></p>
 <p>This assignment uses the same datasets as Homework 1:</p>
 <ul>
-<li><code>governor_data.csv</code>: Information about each state’s
-governor (party, etc.)</li>
-<li><code>ice_arrests.csv</code>: Individual ICE arrest records from
-2025–the first few months of 2026</li>
+<li><code>stategovs.csv</code> (loaded as <code>governor_data</code>):
+Information about each state’s governor (party, etc.)</li>
+<li><code>ice_arrests_2025_early_2026.zip</code> (loaded as
+<code>ice_arrests</code>): Individual ICE arrest records from January
+2025 through mid-September 2026</li>
+<li><code>statepops.csv</code> (loaded as <code>state_pops</code>):
+State population estimates (2024)</li>
 </ul>
 <p>You will investigate whether the party of a state’s governor is
 associated with the number of ICE arrests in that state, and whether
@@ -403,8 +406,16 @@ head(state_pops)</code></pre>
 <h3>Step 2: Aggregate arrests by state</h3>
 <p>We need to count how many arrests occurred in each state. Note that
 some arrests have missing state or occur outside the 50 states. We’ll
-filter to keep only arrests in the 50 states (using the
-<code>State</code> variable).</p>
+filter to keep only arrests in the 50 states, by keeping rows whose
+<code>apprehension_state</code> matches a <code>State</code> in
+<code>governor_data</code>.</p>
+<p>A note on data quality: the arrest file includes a column called
+<code>duplicate_likely</code>, which flags records that may be
+duplicates of other records (it is <code>TRUE</code> for about 11,000 of
+the roughly 400,000 rows, and missing for about 10,000 more). We keep
+all rows in this assignment, but you may want to mention possible
+duplicate records as a measurement limitation when you interpret your
+results.</p>
 <pre class="r"><code># Count arrests per state
 arrest_counts &lt;- ice_arrests %&gt;%
   filter(apprehension_state %in% governor_data$State) %&gt;%   # keep only states in governor_data
@@ -418,9 +429,16 @@ head(arrest_counts)</code></pre>
 </div>
 <div id="step-3-add-governor-party-and-state-population" class="section level3">
 <h3>Step 3: Add governor party and state population</h3>
-<p>Now we merge the arrest counts with governor party and
-population.</p>
-<pre class="r"><code># Merge
+<p>Now we merge the arrest counts with governor party and population.
+The population file stores the 2024 estimate in a column called
+<code>Population2024</code>, written with commas (for example,
+<code>&quot;39,431,263&quot;</code>), so R reads it as text. As in Homework 1, we
+first convert it into a number called <code>Population</code>.</p>
+<pre class="r"><code># Convert the 2024 population estimate from text to a number
+state_pops &lt;- state_pops %&gt;%
+  mutate(Population = parse_number(Population2024))  # strips the commas and converts to a number
+
+# Merge
 state_data &lt;- arrest_counts %&gt;%
   left_join(governor_data %&gt;% select(State, Party), by = &quot;State&quot;) %&gt;%
   left_join(state_pops %&gt;% select(State, Population), by = &quot;State&quot;)

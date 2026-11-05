@@ -18,8 +18,9 @@ library(modelsummary)
 
 This assignment uses the same datasets as Homework 1:
 
-- `governor_data.csv`: Information about each state's governor (party, etc.)
-- `ice_arrests.csv`: Individual ICE arrest records from 2025–the first few months of 2026
+- `stategovs.csv` (loaded as `governor_data`): Information about each state's governor (party, etc.)
+- `ice_arrests_2025_early_2026.zip` (loaded as `ice_arrests`): Individual ICE arrest records from January 2025 through mid-September 2026
+- `statepops.csv` (loaded as `state_pops`): State population estimates (2024)
 
 You will investigate whether the party of a state's governor is associated with the number of ICE arrests in that state, and whether that relationship holds after controlling for state population.
 
@@ -53,7 +54,9 @@ head(state_pops)
 
 ### Step 2: Aggregate arrests by state
 
-We need to count how many arrests occurred in each state. Note that some arrests have missing state or occur outside the 50 states. We'll filter to keep only arrests in the 50 states (using the `State` variable).
+We need to count how many arrests occurred in each state. Note that some arrests have missing state or occur outside the 50 states. We'll filter to keep only arrests in the 50 states, by keeping rows whose `apprehension_state` matches a `State` in `governor_data`.
+
+A note on data quality: the arrest file includes a column called `duplicate_likely`, which flags records that may be duplicates of other records (it is `TRUE` for about 11,000 of the roughly 400,000 rows, and missing for about 10,000 more). We keep all rows in this assignment, but you may want to mention possible duplicate records as a measurement limitation when you interpret your results.
 
 ```{r, eval=FALSE}
 # Count arrests per state
@@ -70,9 +73,13 @@ head(arrest_counts)
 
 ### Step 3: Add governor party and state population
 
-Now we merge the arrest counts with governor party and population.
+Now we merge the arrest counts with governor party and population. The population file stores the 2024 estimate in a column called `Population2024`, written with commas (for example, `"39,431,263"`), so R reads it as text. As in Homework 1, we first convert it into a number called `Population`.
 
 ```{r, eval=FALSE}
+# Convert the 2024 population estimate from text to a number
+state_pops <- state_pops %>%
+  mutate(Population = parse_number(Population2024))  # strips the commas and converts to a number
+
 # Merge
 state_data <- arrest_counts %>%
   left_join(governor_data %>% select(State, Party), by = "State") %>%

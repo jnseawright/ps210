@@ -1,0 +1,509 @@
+---
+title: "Lab 2 Practice Exercise: Step-by-Step Solution Key"
+author: "Jaye Seawright"
+date: "Nov. 5, 2026"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(ggplot2)
+library(modelsummary)
+
+# Helpers used only for printing numbers in the text of this key
+dollars <- function(x) scales::dollar(round(x))
+pct     <- function(x, digits = 1) paste0(round(x, digits), "%")
+```
+
+## How to Use This Key
+
+This key explains step-by-step how to complete the regression exercise from Thursday's lab. After working through it, you should have a clear picture of how to complete Homework 2; if you still need explanation, please email the professor or your TA, or raise questions in your section. Each step explains what the code does, why we write it that way, and where you have seen the same move before.
+
+After Step 5 there is a **Rehearsal for Homework 2** section. It repeats every R operation Homework 2 asks for (a binary indicator, a boxplot, a bivariate regression with a dummy variable, predicted values, adding a control, histograms, and a logged outcome) using the grants data, aggregated to one row per county. If you can follow that section, you can do Homework 2. Feel free to copy and adjust code!
+
+### When R gives you an error
+
+| Message or symptom | Usual cause |
+|---|---|
+| `could not find function "modelsummary"` | `library(modelsummary)` has not been run in this session. If R says `there is no package called 'modelsummary'`, run `install.packages("modelsummary")` once, then `library(modelsummary)`. |
+| `could not find function "%>%"` (or `"ggplot"`, `"left_join"`) | `library(tidyverse)` has not been run in this session. |
+| `object 'xyz' not found` | A typo or wrong capitalization, or an earlier line that creates the object was never run. Run the file from the top. |
+| `object 'log_arrests' not found` inside `lm()` | You created the variable but did not save it into the dataset. `state_data %>% mutate(...)` only *prints* the result; `state_data <- state_data %>% mutate(...)` *saves* it. |
+| `Column 'Population' doesn't exist` | The line that creates `Population` from `Population2024` was skipped or not run. See "Before You Start Homework 2" below. |
+| `non-numeric argument to binary operator` | You are doing arithmetic on a variable R has read as text (for example, `"39,431,263"`). Check with `class(x)`. |
+| `NaNs produced`, or `-Inf` in a logged variable | You took `log()` of zero or of a negative number. Use `log(x + 1)` for counts that can be zero. |
+| A coefficient prints as `0.000` | The variable is measured in very small units (one vote, one person). Rescale it (per 100,000 votes, per million people). See Step 4. |
+| A plot doesn't appear | You saved it with `<-` (for example, `bivarplot <- ggplot(...)`). Type the object's name on its own line to display it, and look in the **Plots** tab. |
+
+Two rules worth memorizing. First, `%>%` joins data steps and `+` joins the lines of a `ggplot()`; both go at the *end* of a line. Second, in `lm(y ~ x, data = d)` the outcome (dependent variable) goes on the **left** of `~` and the explanatory variables on the **right**. Writing them in the wrong order runs without error but answers a different question.
+
+---
+
+## Step 1: Load and Prepare the Data
+
+### 1a. Run the preparation code
+
+```{r prepare}
+# Load data
+grants <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/hrsa_grants.csv")
+counties <- read.csv("https://raw.githubusercontent.com/jnseawright/ps210/main/Data/countypres.csv")
+
+# Keep only 2025 grants
+grants_2025 <- grants %>% filter(Fiscal.Year == 2025)
+
+# Keep only Trump 2024 votes (total mode) and calculate Trump vote share
+counties_2024 <- counties %>%
+  filter(year == 2024 & party == "REPUBLICAN" & mode == "TOTAL") %>%
+  mutate(trump_share = candidatevotes / totalvotes)
+
+# Clean county names in grants dataset
+grants_2025 <- grants_2025 %>%
+  mutate(
+    county_clean = str_remove_all(County,
+                                  regex(" County| Borough| Parish| Census Area",
+                                        ignore_case = TRUE)),
+    county_clean = str_trim(county_clean),
+    county_clean = str_to_upper(county_clean)
+  )
+
+# Merge grants with election data
+grants_merged <- left_join(
+  grants_2025,
+  counties_2024,
+  by = c("State" = "state_po", "county_clean" = "county_name")
+)
+
+# Keep only relevant variables and remove rows with missing Trump share
+grants_analysis <- grants_merged %>%
+  select(Fiscal.Year, State, County, Funding, trump_share, totalvotes) %>%
+  filter(!is.na(trump_share))
+```
+
+Everything here repeats Lab 1, so see the Lab 1 key for line-by-line explanations of `filter()`, the county-name cleaning, and `left_join()`. Two new pieces:
+
+- `mutate(trump_share = candidatevotes / totalvotes)` creates the vote-share variable inside the pipeline, rather than with `$` as in Lab 1. The two forms do the same thing.
+- `select()` keeps only the listed columns, and `filter(!is.na(trump_share))` drops grants whose county did not match the election data. Regression functions drop rows with missing values automatically, but dropping them here, once, means every model below uses the same rows.
+
+> **Lab slide connection:** "Merge and Count (Tidyverse Version)."
+
+### 1b. Examine the data (Your Task)
+
+```{r examine}
+head(grants_analysis)
+nrow(grants_analysis)
+summary(grants_analysis$Funding)
+summary(grants_analysis$trump_share)
+```
+
+**Model answers**
+
+1. **Number of observations.** `grants_analysis` has `r nrow(grants_analysis)` rows. Each row is one **grant**, not one county: the grants come from `r n_distinct(paste(grants_analysis$State, grants_analysis$County))` different counties, and a large county can hold dozens of grants. Keep this in mind. Steps 2 through 4 are about the size of a typical *grant*; the Rehearsal section switches to the total funding of a *county*, which is closer to the research question as worded.
+
+2. **Ranges.** `Funding` runs from `r dollars(min(grants_analysis$Funding))` to `r dollars(max(grants_analysis$Funding))`, with a median of `r dollars(median(grants_analysis$Funding))`. `trump_share` runs from `r round(min(grants_analysis$trump_share), 3)` to `r round(max(grants_analysis$trump_share), 3)`. Notice that `trump_share` is a **proportion** between 0 and 1, not a percentage. That matters for interpreting slopes in Step 3. (The smallest "grants," at $1 and $80, are almost certainly bookkeeping entries rather than real awards. We leave them in, but they will appear as outliers in Step 2.)
+
+3. **Why `log(Funding)`?** Look at the gap between the mean and the median: the mean (`r dollars(mean(grants_analysis$Funding))`) is roughly three times the median. A few very large grants pull the mean up. A histogram shows the same thing:
+
+```{r funding-hist}
+ggplot(grants_analysis, aes(x = Funding)) +
+  geom_histogram(bins = 50) +
+  scale_x_continuous(labels = scales::dollar) +
+  labs(title = "FY2025 HRSA Grant Amounts", x = "Funding", y = "Number of Grants") +
+  theme_minimal()
+
+ggplot(grants_analysis, aes(x = log(Funding))) +
+  geom_histogram(bins = 50) +
+  labs(title = "FY2025 HRSA Grant Amounts (Logged)", x = "log(Funding)", y = "Number of Grants") +
+  theme_minimal()
+```
+
+The first histogram is a tall spike at the left with a long right tail (**right-skewed**). After logging, the distribution is roughly symmetric. With a right-skewed outcome, a regression line in dollars is driven by the handful of largest grants; on the log scale, it describes proportional differences across the typical grants. All `Funding` values are positive, so `log(Funding)` works without adding 1.
+
+> **Lab slide connection:** "Log Transformation."
+
+---
+
+## Step 2: Visualize the Relationship
+
+The template in the exercise saves the plot into an object called `bivarplot`. Saving does not display it; type `bivarplot` on its own line to see it.
+
+```{r scatter-levels}
+bivarplot <- ggplot(grants_analysis, aes(x = trump_share, y = Funding)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", color = "red") +
+  scale_y_continuous(labels = scales::dollar) +
+  labs(title = "FY2025 HRSA Grant Size by County Trump Vote Share",
+       y = "Grant Funding",
+       x = "Trump Share of the 2024 County Vote") +
+  theme_minimal()
+
+bivarplot
+```
+
+**Line by line:**
+
+- `aes(x = trump_share, y = Funding)`: the explanatory variable goes on the x-axis and the outcome on the y-axis.
+- `geom_point(alpha = 0.3)` draws semi-transparent points so that thousands of overlapping grants remain visible.
+- `geom_smooth(method = "lm")` adds the least-squares regression line, with a grey band showing its uncertainty. This is the same line that `lm()` estimates in Step 3.
+- `scale_y_continuous(labels = scales::dollar)` prints axis labels as dollars instead of scientific notation.
+
+**Interpretation.** Almost all the points are squashed against the bottom of the plot, with a few grants far above the rest. The fitted line is nearly flat, tilting slightly downward. The plot is dominated by outliers, which is the visual version of the skew we saw in Step 1. That suggests logging `Funding`:
+
+```{r scatter-log}
+logbivarplot <- ggplot(grants_analysis, aes(x = trump_share, y = log(Funding))) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "FY2025 HRSA Grant Size (Logged) by County Trump Vote Share",
+       y = "log(Grant Funding)",
+       x = "Trump Share of the 2024 County Vote") +
+  theme_minimal()
+
+logbivarplot
+```
+
+Now the points form a readable cloud, and the line tilts slightly **upward**. The few points near the bottom are the tiny bookkeeping entries noted in Step 1 (log(1) = 0). `trump_share` itself is not skewed (it is bounded between 0 and 1 and spread fairly evenly), so it does not need a transformation.
+
+Notice that the direction of the fitted line changed when we logged the outcome. That is the first lesson of this exercise: with a skewed outcome, the levels model and the logged model can answer different questions. Step 3 explains why.
+
+> **Lab slide connection:** "Visualize the Relationship" and "Log Transformation."
+
+---
+
+## Step 3: Bivariate Regression
+
+We fit the model both ways so you can see the difference. The log model is the one to interpret.
+
+```{r bivariate}
+model_levels <- lm(Funding ~ trump_share, data = grants_analysis)
+model_bivar  <- lm(log(Funding) ~ trump_share, data = grants_analysis)
+
+summary(model_bivar)
+
+modelsummary(list("Funding ($)" = model_levels, "log(Funding)" = model_bivar),
+             statistic = "p.value")
+```
+
+**How to read `lm()`.** `lm(log(Funding) ~ trump_share, data = grants_analysis)` means "regress log(Funding) on trump_share, using the dataset grants_analysis." You can transform a variable inside the formula, as with `log(Funding)` here.
+
+**How to read the `modelsummary()` table.** Each column is a model. Each pair of rows is one coefficient, with its p-value in parentheses underneath (because we asked for `statistic = "p.value"`; the default is the standard error). At the bottom, `Num.Obs.` is the number of rows used and `R2` is the share of the variation in the outcome that the model accounts for.
+
+> **Lab slide connection:** "Fit the Bivariate Regression" and "Better Regression Table."
+
+**Model answers**
+
+- **The slope and its sign.** In the log model, the coefficient on `trump_share` is `r round(coef(model_bivar)["trump_share"], 3)`, which is positive. In the levels model it is `r dollars(coef(model_levels)["trump_share"])`, which is negative. (More on that contrast below.)
+
+- **Statistical significance.** In the log model, the p-value is `r format.pval(summary(model_bivar)$coefficients["trump_share", 4], digits = 2)`, well below 0.05, so the slope is statistically distinguishable from zero. In the levels model, the p-value is `r round(summary(model_levels)$coefficients["trump_share", 4], 2)`, so we cannot rule out a slope of zero.
+
+- **Substantive meaning.** Because `trump_share` is a proportion, a one-unit change means going from 0 (Trump received no votes) to 1 (Trump received every vote). That is not a realistic comparison, so translate the slope into a smaller change:
+
+  - A **1-percentage-point** increase is a change of 0.01 in `trump_share`. Multiply the slope by 0.01: `r round(coef(model_bivar)["trump_share"], 3)` × 0.01 = `r round(coef(model_bivar)["trump_share"] * 0.01, 4)`.
+  - In a model with a logged outcome, a coefficient of *b* means the outcome is about 100 × *b* percent higher for a one-unit change (for small *b*). So grants are about `r pct(100 * coef(model_bivar)["trump_share"] * 0.01, 2)` larger for each additional percentage point of Trump vote.
+  - A **10-percentage-point** increase (0.1 in `trump_share`) corresponds to grants about `r pct(100 * (exp(coef(model_bivar)["trump_share"] * 0.1) - 1))` larger.
+
+  That is a small difference. The `R2` of `r round(summary(model_bivar)$r.squared, 3)` says the same thing: Trump vote share accounts for almost none of the variation in grant size.
+
+  For the levels model, a 1-point increase in Trump share corresponds to grants about `r dollars(abs(coef(model_levels)["trump_share"] * 0.01))` smaller, a change that is not statistically significant.
+
+**Why do the two models disagree on direction?** The levels model is pulled around by the largest grants, and those sit in a particular kind of county:
+
+```{r largest-grants}
+grants_analysis %>%
+  arrange(desc(Funding)) %>%
+  select(State, County, Funding, trump_share) %>%
+  head(10)
+```
+
+The very largest awards are concentrated in Sacramento, Albany, Austin (Travis County), Tallahassee (Leon County), Atlanta (Fulton County), and similar places. Most of these are **state capitals**, where state agencies that receive grants and then distribute money statewide have their offices, and most of these counties voted against Trump. So the levels model partly measures where state governments are headquartered. The log model, which weighs proportional differences across all grants, finds that the typical grant is slightly larger in more Trump-leaning counties.
+
+> **Common mistake:** Interpreting the `trump_share` coefficient as the effect of "a one-point increase." A one-unit change in a proportion is a 100-point change. Always check the units of the explanatory variable before translating a slope.
+
+> **Measurement note:** The `County` attached to a grant is the grantee's address, not necessarily where the money is spent. A state health department in Sacramento may spend its grant in every county in California. Keep this in mind for Step 5 and the Rehearsal.
+
+---
+
+## Step 4: Add a Control Variable
+
+### 4a. The model as written
+
+```{r control-raw}
+model_control <- lm(log(Funding) ~ trump_share + totalvotes, data = grants_analysis)
+
+modelsummary(list("Bivariate" = model_bivar, "With Population" = model_control),
+             statistic = "p.value")
+```
+
+Look at the `totalvotes` row: the coefficient prints as `0.000`. It is not zero. It is the change in log(Funding) for **one additional vote**, which is a tiny number, and `modelsummary()` rounds to three decimal places. The fix is to change the units.
+
+### 4b. Rescale the control
+
+```{r control-rescaled}
+grants_analysis <- grants_analysis %>%
+  mutate(votes_100k = totalvotes / 100000)   # votes cast, in units of 100,000
+
+model_control <- lm(log(Funding) ~ trump_share + votes_100k, data = grants_analysis)
+
+modelsummary(list("Bivariate" = model_bivar, "With Population" = model_control),
+             statistic = "p.value")
+```
+
+Rescaling changes only the units of the `votes_100k` coefficient (now: per 100,000 votes). The `trump_share` coefficient, every p-value, and `R2` are identical to 4a. Use the same move in Homework 2, where `Population` is measured in people.
+
+Also check the `Num.Obs.` row: both models use the same `r nobs(model_control)` grants. That matters, because a coefficient comparison across models is only clean when both are fit to the same rows (as discussed in the lab, when GDP was missing for some country-years). Here no rows are lost, because `totalvotes` comes from the same election row as `trump_share`.
+
+> **Lab slide connection:** "The Problem of Confounding," "Fit the Multivariate Model," and "Compare Models."
+
+### 4c. Interpret (Your Task)
+
+- **How did the `trump_share` coefficient change?** It moved from `r round(coef(model_bivar)["trump_share"], 3)` to `r round(coef(model_control)["trump_share"], 3)`, **farther from zero**. Controlling for county size made the relationship between Trump share and grant size *stronger*, not weaker.
+
+- **Is `votes_100k` statistically significant?** Its p-value is `r round(summary(model_control)$coefficients["votes_100k", 4], 3)`, so yes at the 0.05 level. Each additional 100,000 votes cast is associated with grants about `r pct(100 * coef(model_control)["votes_100k"])` larger, holding Trump share constant.
+
+- **Is county size a confounder?** Check the three conditions from Lab 1:
+
+  1. *Related to the explanatory variable?* Yes. Larger counties vote less for Trump (the correlation below is negative).
+  2. *Related to the outcome?* Yes: the `votes_100k` coefficient is positive and statistically significant.
+  3. *Not itself a result of the explanatory variable?* A county's vote share in 2024 does not plausibly change how many people live and vote there.
+
+```{r confounder-check}
+cor(grants_analysis$trump_share, grants_analysis$votes_100k)
+```
+
+  So size meets the definition, and including it changed the `trump_share` coefficient. Why did the coefficient *grow*? Size is negatively related to Trump share but positively related to grant size. In the bivariate model, those two links partly cancel: Trump-leaning counties are smaller, and smaller counties have smaller grants, which hides part of the positive association. Once we hold size constant, that offsetting pattern is removed. Controlling for a confounder can move a coefficient in **either** direction, toward zero, away from zero, or across zero, depending on how the confounder is related to the other two variables.
+
+---
+
+## Step 5: Reflect
+
+There is no single right answer to questions 1 and 3. For question 2, a strong answer says something like: in FY2025, the typical HRSA grant was slightly larger in more Trump-leaning counties, and this association grows a little once we account for county size. But the association is small, it describes grant *size* rather than how much money a county receives in total, grantee addresses cluster in state capitals, and many FY2025 grants continue awards made before the 2024 election. None of these results establishes that voting caused funding.
+
+---
+
+## Before You Start Homework 2
+
+Run the Homework 2 data-preparation steps one at a time and check each result before moving on.
+
+**The population variable.** The state population file does not contain a column called `Population`. It contains `Population2024`, written with commas (for example, `"39,431,263"`), which R reads as text. Step 3 of the homework therefore begins by creating `Population` with `parse_number(Population2024)`, as in Homework 1. If you skip that line, the merge stops with `Column 'Population' doesn't exist`.
+
+**Check the merged data.** After Step 4 of the homework, run:
+
+```{r hw2-checks, eval=FALSE}
+nrow(state_data)                 # should be 50
+summary(state_data)              # Population should be numeric, with no NAs
+class(state_data$Population)     # should be "numeric"
+state_data %>% arrange(desc(arrests)) %>% head()   # which states have the most arrests?
+```
+
+That last line is worth a look before you start Problem 1. With only 50 states, one or two very large states can drive a regression. Keep them in mind when you describe your plots and interpret your coefficients.
+
+---
+
+## Rehearsal for Homework 2
+
+Homework 2 works with **one row per state**, an outcome that is a **count or total** (arrests), and an explanatory variable that is **binary** (governor's party). Here we build the parallel dataset from the grants data: one row per county, total funding as the outcome, and a binary indicator for whether Trump won the county. Each block notes the matching homework problem.
+
+### R1. Aggregate to one row per county (≈ HW2 Step 2)
+
+```{r aggregate}
+county_data <- grants_analysis %>%
+  group_by(State, County, trump_share, totalvotes) %>%
+  summarise(grants  = n(),              # number of grants in the county
+            funding = sum(Funding),     # total dollars received
+            .groups = "drop")
+
+head(county_data)
+nrow(county_data)
+```
+
+`group_by()` sorts the grants into piles, one per county, and `summarise()` reduces each pile to one row. We include `trump_share` and `totalvotes` in `group_by()` so they are carried along (they are constant within a county). Homework 2 does exactly this with `group_by(apprehension_state)` and `summarise(arrests = n())`.
+
+One caveat: `county_data` contains only counties that received at least one grant. Counties with zero grants are missing. (Homework 2 does not have this problem: every state has some arrests.)
+
+### R2. Create a binary indicator (≈ HW2 Step 4)
+
+```{r indicator}
+county_data <- county_data %>%
+  mutate(winner = ifelse(trump_share > 0.5, "Republican", "Democratic"),
+         repub  = ifelse(winner == "Republican", 1, 0))
+
+table(county_data$winner, county_data$repub)
+```
+
+`ifelse(condition, value_if_true, value_if_false)` builds a two-category variable. We make two versions on purpose: `winner` (text) is for plots and tables, and `repub` (1 = Republican, 0 = Democratic) is for regression. The `table()` confirms that every "Republican" county has `repub = 1` and every "Democratic" county has `repub = 0`. Homework 2 already has `Party` as text and builds `repub` the same way.
+
+(*As noted in the Lab 1 key, `trump_share > 0.5` misclassifies the rare county where Trump won a plurality with under 50 percent. That is acceptable for a rehearsal.*)
+
+### R3. Boxplot by group (≈ HW2 Problem 1a)
+
+```{r boxplot}
+ggplot(county_data, aes(x = winner, y = funding, fill = winner)) +
+  geom_boxplot() +
+  scale_y_continuous(labels = scales::dollar) +
+  scale_fill_manual(values = c("Democratic" = "blue", "Republican" = "red")) +
+  labs(title = "Total FY2025 HRSA Funding per County, by 2024 Winner",
+       x = "2024 County Winner",
+       y = "Total HRSA Funding") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**How to read a boxplot.** The thick line inside each box is the **median**. The box spans the middle half of the units (the 25th to 75th percentiles). The whiskers extend to the most extreme values that are not unusually far from the box, and dots beyond the whiskers are **outliers**.
+
+**Key choices:**
+
+- Put the **text** variable (`winner`, or `Party` in Homework 2) on the x-axis. If you use the 0/1 variable `repub` instead, ggplot treats it as a number and draws a single box.
+- For a violin plot, replace `geom_boxplot()` with `geom_violin()`. A violin shows the full shape of each distribution.
+- Homework 2 has only 50 states, so it helps to show each state as a point too. Add `+ geom_jitter(width = 0.1, alpha = 0.6)` after `geom_boxplot()`; `width = 0.1` spreads the points sideways so they don't sit on top of one another.
+
+**Describing what you see.** Compare the medians, the spread of each box, and the outliers. Here the Democratic box sits higher, and the outliers on the Democratic side are much larger. Both distributions are right-skewed (long upper whiskers and many high outliers), which foreshadows R7.
+
+### R4. Bivariate regression with a dummy variable (≈ HW2 Problems 1b–1d)
+
+```{r dummy-regression}
+model_r1 <- lm(funding ~ repub, data = county_data)
+
+modelsummary(model_r1, statistic = "p.value")
+```
+
+**Interpreting a dummy-variable regression.** When the explanatory variable is 0/1, the coefficients have a simple meaning:
+
+- The **intercept** is the average outcome for the group coded 0 (Democratic-won counties): `r dollars(coef(model_r1)["(Intercept)"])`.
+- The **coefficient on `repub`** is the *difference* in averages between the group coded 1 and the group coded 0: `r dollars(coef(model_r1)["repub"])`. In plain language, Republican-won counties received, on average, about `r dollars(abs(coef(model_r1)["repub"]))` less in total HRSA funding than Democratic-won counties.
+
+**Interpreting the p-value.** The p-value for `repub` is `r format.pval(summary(model_r1)$coefficients["repub", 4], digits = 2)`. It answers this question: *if there were no difference at all between the two groups in the population, how often would we see a gap this large or larger just by chance?* A p-value below 0.05 means a gap this large would be rare under that assumption, so we call the difference statistically significant. It does **not** tell us that party caused the difference, or that the difference is large or important. In Homework 2, with only 50 states, expect larger p-values than here: smaller samples carry more uncertainty.
+
+> **Lab slide connection:** "Fit the Bivariate Regression" and "Better Regression Table."
+
+### R5. Predicted values from the regression equation (≈ HW2 Problem 1e)
+
+The fitted equation is: predicted funding = intercept + (coefficient on `repub`) × `repub`. Plug in 0 and 1:
+
+```{r predicted}
+b0 <- coef(model_r1)["(Intercept)"]
+b1 <- coef(model_r1)["repub"]
+
+b0 + b1 * 0   # predicted funding, Democratic-won county
+b0 + b1 * 1   # predicted funding, Republican-won county
+
+# The same thing with predict():
+predict(model_r1, newdata = data.frame(repub = c(0, 1)))
+
+# Check against the group averages:
+county_data %>%
+  group_by(winner) %>%
+  summarise(mean_funding = mean(funding), n_counties = n())
+```
+
+`coef()` pulls the coefficients out of a fitted model, and `["(Intercept)"]` picks one by name. "Show your work" in Homework 2 means writing out the equation with the numbers substituted, for example: predicted arrests for a Republican-governed state = *b*₀ + *b*₁ × 1.
+
+Notice that the predicted values equal the two group means exactly. That is always true for a bivariate regression on a single 0/1 variable, and it is a good way to check your arithmetic.
+
+### R6. Add a control variable (≈ HW2 Problem 2)
+
+```{r control-rehearsal}
+county_data <- county_data %>%
+  mutate(votes_100k = totalvotes / 100000)
+
+model_r2 <- lm(funding ~ repub + votes_100k, data = county_data)
+
+modelsummary(list("Bivariate" = model_r1, "With Population" = model_r2),
+             statistic = "p.value")
+```
+
+**Comparing the coefficient (Problem 2b).** The `repub` coefficient moved from `r dollars(coef(model_r1)["repub"])` to `r dollars(coef(model_r2)["repub"])`, so about `r pct(100 * (1 - coef(model_r2)["repub"] / coef(model_r1)["repub"]), 0)` of the original gap disappears once we hold county size constant. Report both the size of the change and its direction (toward zero, away from zero, or across zero). Here, most of the funding gap between Democratic- and Republican-won counties reflects the fact that Democratic-won counties are much larger:
+
+```{r size-by-party}
+county_data %>%
+  group_by(winner) %>%
+  summarise(mean_votes = mean(totalvotes))
+```
+
+**Is size a confounder (Problem 2c)?** Use the three conditions from Step 4c, with evidence for each: (1) the table just above shows size is related to party; (2) the `votes_100k` coefficient shows size is related to funding; (3) argue that party does not plausibly change population in a year or two. As Step 4 showed, adding a confounder can shrink a coefficient (as it does here), enlarge it (as it did in Step 4), or flip its sign. Describe what *your* result shows and explain why, using how the control is related to party and to the outcome.
+
+**Units in Homework 2.** `Population` is measured in people, so its coefficient will be tiny. That is fine for the homework, but you may find it easier to interpret per million people: `state_data <- state_data %>% mutate(pop_millions = Population / 1000000)`. As in Step 4b, rescaling changes only the population coefficient's units; the `repub` coefficient and all p-values stay the same.
+
+### R7. Histograms and a logged outcome (≈ HW2 Problems 3a–3b)
+
+```{r hist-rehearsal}
+ggplot(county_data, aes(x = funding)) +
+  geom_histogram(bins = 30) +
+  scale_x_continuous(labels = scales::dollar) +
+  labs(title = "Total FY2025 HRSA Funding per County", x = "Total Funding", y = "Number of Counties") +
+  theme_minimal()
+
+county_data <- county_data %>%
+  mutate(log_funding = log(funding + 1))
+
+ggplot(county_data, aes(x = log_funding)) +
+  geom_histogram(bins = 30) +
+  labs(title = "Total FY2025 HRSA Funding per County (Logged)", x = "log(Funding + 1)", y = "Number of Counties") +
+  theme_minimal()
+```
+
+**Describing a histogram's shape.** Say where most of the units sit, whether there is a long tail and in which direction, and whether there are extreme values. The first histogram is strongly right-skewed: most counties are bunched at the left, with a long tail of a few very large totals. The logged version is close to symmetric and bell-shaped.
+
+**Why `+ 1`?** `log(0)` is undefined (R returns `-Inf`), so for a count that could be zero we add 1 before logging. Here every county has positive funding, so the `+ 1` changes almost nothing; we include it to match the homework.
+
+With 50 states, Homework 2's histograms will look lumpier than these. Choose a smaller number of bins (for example, `bins = 15`) so that each bar contains several states.
+
+### R8. Regression with a logged outcome (≈ HW2 Problems 3c–3d)
+
+```{r log-rehearsal}
+model_r3 <- lm(log_funding ~ repub + votes_100k, data = county_data)
+
+modelsummary(list("Funding ($)" = model_r2, "log(Funding + 1)" = model_r3),
+             statistic = "p.value")
+```
+
+**Interpreting a 0/1 coefficient when the outcome is logged.** The coefficient on `repub` is now `r round(coef(model_r3)["repub"], 3)`. It is the difference in log funding between Republican- and Democratic-won counties of the same size. Two ways to turn it into a percentage:
+
+- **Quick approximation:** 100 × *b* percent. This works well when *b* is small (roughly between −0.2 and 0.2). A coefficient of 0.1 means about 10 percent more, as the homework's hint says.
+- **Exact calculation:** 100 × (exp(*b*) − 1) percent. Use this when *b* is larger.
+
+```{r exact-percent}
+100 * (exp(coef(model_r3)["repub"]) - 1)
+```
+
+Here the approximation says about `r pct(100 * coef(model_r3)["repub"], 0)`, but the exact figure is `r pct(100 * (exp(coef(model_r3)["repub"]) - 1), 0)`. So, holding county size constant, Republican-won counties received about `r pct(abs(100 * (exp(coef(model_r3)["repub"]) - 1)), 0)` less HRSA funding than Democratic-won counties. When your Homework 2 coefficient is larger than about 0.2 in absolute value, report the exact calculation.
+
+**How the interpretation differs from the levels model.** The levels model (`model_r2`) gives a difference in **dollars** (or, in Homework 2, in **numbers of arrests**). The logged model gives a difference in **percent**. A percentage gap treats a small state and a large state on the same footing. A dollar or arrest gap is dominated by the largest units. The two models can disagree, even on direction, as Steps 2 and 3 showed. When they do, say so and explain why.
+
+### R9. Causal reasoning (≈ HW2 Problem 4)
+
+**The four questions for causal inference** (Problem 4a), applied to the grants example:
+
+1. **Is there a relationship?** The regressions above show one: per-grant size is slightly larger in Trump-leaning counties (Steps 3–4), while total county funding is much lower in Republican-won counties, even after controlling for size (R6, R8).
+2. **Could the causation run in reverse?** Could health funding make voters more (or less) favorable to the incumbent, rather than votes affecting funding?
+3. **Is there a plausible pathway?** By what mechanism would a county's 2024 vote change FY2025 awards: agency discretion, application rates, congressional influence? Many FY2025 grants continue multi-year awards made before the 2024 election, which makes a direct pathway hard to sustain.
+4. **Are there confounders?** Population is one, and we have controlled for it. Others remain.
+
+For Homework 2, ask the same four questions about governor's party and ICE arrests.
+
+**Proposing an omitted confounder (Problem 4b).** A good answer names the variable, explains why it is related to **both** the explanatory variable and the outcome, and predicts which way controlling for it would move the coefficient. For the grants example:
+
+- **Grantee location in a state capital.** Capital counties host the state agencies that receive large grants and spend them statewide (Step 3), and many capital counties vote Democratic. Controlling for capital status would probably shrink the Democratic funding advantage.
+- **Poverty or uninsured rates.** HRSA programs target underserved populations, and poverty is related to county partisanship. The direction of the bias depends on which kinds of counties are poorer within each state.
+- **Number of eligible health centers or hospitals.** More eligible organizations means more applications, and these institutions cluster in urban, Democratic-leaning counties.
+
+---
+
+## Summary
+
+| Skill | Lab slides | This practice | Homework 2 |
+|---|---|---|---|
+| Count rows per unit | `group_by()` + `summarise(n())` | R1 | Step 2 |
+| Binary indicator | — | R2 | Step 4 |
+| Scatter plot with fitted line | "Visualize the Relationship" | Step 2 | — |
+| Boxplot by group | — | R3 | Problem 1a |
+| Bivariate regression | "Fit the Bivariate Regression" | Step 3, R4 | Problem 1b |
+| Interpret slope and p-value | "Fit the Bivariate Regression" | Step 3, R4 | Problems 1c–1d |
+| Predicted values | — | R5 | Problem 1e |
+| Regression table | "Better Regression Table" | Steps 3–4, R4–R8 | Problems 1–3 |
+| Add a control, compare coefficients | "Fit the Multivariate Model," "Compare Models" | Step 4, R6 | Problem 2 |
+| Rescale a variable | — | Step 4b, R6 | Problem 2 (optional) |
+| Histogram and log transformation | "Log Transformation" | Step 1b, R7 | Problems 3a–3b |
+| Interpret a logged outcome | — | Step 3, R8 | Problems 3c–3d |
+| Causal reasoning | "The Problem of Confounding" | Step 5, R9 | Problem 4 |
