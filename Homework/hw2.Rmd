@@ -1,7 +1,7 @@
 ---
 title: "Homework 2: Regression Analysis of ICE Arrests and Governor's Party"
 author: "Jaye Seawright"
-date: "Due: Nov. 10, 2026"
+date: "Due: Nov. 13, 2026"
 output: html_document
 ---
 

@@ -57,5 +57,5 @@
 ### Homework Assignments
 
 * [First Homework, Due Oct. 12](https://jnseawright.github.io/ps210/Homework/hw1.html)
-* [Second Homework, Due Nov. 10](https://jnseawright.github.io/ps210/Homework/hw2.html)
+* [Second Homework, Due Nov. 13](https://jnseawright.github.io/ps210/Homework/hw2.html)
 * [Third Homework, Due Nov. 25](https://jnseawright.github.io/ps210/Homework/hw3.html)
