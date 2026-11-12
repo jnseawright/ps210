@@ -329,17 +329,19 @@ So when you're designing qualitative research, think about where the most levera
 - Adding theoretical nuance and mechanism to quantitative findings
 - Opening the "black box" between cause and effect
 
-**3. Comparative case studies approximate experimental logic**
+---
+### Qualitative Methods: Key Takeaways
+
+**3. Comparative case studies try to mirror experimental logic**
 - Mill's methods provide an ideal, but perfect matching is impossible
 - Natural experiments offer stronger comparisons when nature provides the shock
-
----
-
-### Qualitative Methods: Key Takeaways
 
 **4. Process-tracing designs within cases**
 - Different kinds of designs pursue different aims
 - Theory-testing, theory-building, theory-revising, and outcome-explaining process-tracing have different goals and typically different designs
+
+---
+### Qualitative Methods: Key Takeaways
 
 **5. Case selection can help optimize our learning**
 - Typical cases at best confirm what we already know
@@ -347,6 +349,5 @@ So when you're designing qualitative research, think about where the most levera
 - Choose cases for *leverage*, not convenience
 
 **6. Qualitative methods aren't just broken quantitative research**
-- They answer questions quantitative methods can't
-- Description, mechanism, process, context all matter
+- They can provide some kind of empirical basis for forming ideas about causal pathways
 
