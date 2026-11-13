@@ -1,0 +1,198 @@
+---
+title: "Practice Final Examination"
+author: "Jaye Seawright"
+date: "Practice for the December 11 final — Fall 2026"
+output:
+  html_document:
+    df_print: paged
+  pdf_document:
+    keep_tex: false
+subtitle: Political Science 210 — Fall 2026
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(knitr)
+```
+
+\vspace{1cm}
+
+**Instructions:** This exam is **open notes but closed devices**. You may consult three pages of your own handwritten or printed notes. No laptops, phones, tablets, or any electronic devices are permitted. The figures and tables you need are printed on the following pages. **Write your answers in the spaces provided below each question.** You have two hours.
+
+The exam has 8 questions worth a total of **100 points**. Point values are shown in parentheses.
+
+If you find ambiguity in a question, adopt a reasonable reading, note your assumption briefly, and proceed.
+
+\newpage
+
+# Tables for Study 1 (Luca, Malhotra & Poliquin 2017)
+
+**Luca, M., Malhotra, D., & Poliquin, C. (2017).** Handgun Waiting Periods Reduce Gun Deaths. *Proceedings of the National Academy of Sciences*, 114(46), 12162–12165.
+
+**Background.** A *waiting period* is a mandatory delay, typically 2 to 7 days, between the purchase and delivery of a handgun. The authors assembled every change to state waiting-period laws from 1970 to 2014 and combined it with annual CDC data on deaths. They use two designs. First, they compare changes in deaths in states that adopted waiting periods with changes in states that did not, over the full 1970–2014 period. Second, they study the **Brady Act** period (1990–1998): a federal law in effect from February 1994 required background checks on handgun purchases from licensed dealers and created a 5-day waiting period, but this created **new** waiting periods in only 19 states, because some states already had one and others adopted an "instant check" system instead.
+
+In every table, the dependent variable is the **natural logarithm of deaths per 100,000 adult residents** in a state-year. All models include **state fixed effects and year fixed effects**. A coefficient of −0.186 on a logged outcome corresponds to a reduction of about 17 percent. Standard errors, in parentheses, are clustered by state. Significance: \* p < .10, \*\* p < .05, \*\*\* p < .01.
+
+**Table 1 (Luca et al.).** Effects of handgun waiting periods on homicide, 1970–2014. Models 1–2 include only the policy variables. Model 3 adds controls for alcohol consumption, poverty, income, urbanization, black population, and seven age groups; because of missing control data it covers 1977–2014.
+
+| Outcome | Variable | (1) 1970–2014 | (2) 1970–2014 | (3) 1977–2014 |
+|---|---|---|---|---|
+| All homicide | Waiting period | −0.127\*\* (0.059) | −0.137\*\* (0.059) | −0.132\*\* (0.050) |
+| | Background check | | 0.049 (0.082) | 0.025 (0.081) |
+| Gun homicide | Waiting period | −0.188\*\* (0.077) | −0.187\*\* (0.086) | −0.186\*\* (0.071) |
+| | Background check | | −0.004 (0.103) | 0.022 (0.107) |
+| Non-gun homicide | Waiting period | −0.016 (0.051) | −0.048 (0.060) | −0.035 (0.037) |
+| | Background check | | 0.153\*\* (0.076) | 0.036 (0.057) |
+
+\vspace{0.5cm}
+
+**Table 2 (Luca et al.).** Effects of handgun waiting periods on homicide during the Brady period, 1990–1998 (459 state-years). Models as in Table 1.
+
+| Outcome | Variable | (1) | (2) | (3) |
+|---|---|---|---|---|
+| All homicide | Waiting period | −0.073 (0.084) | −0.130\* (0.077) | −0.145\*\* (0.060) |
+| | Background check | | 0.091 (0.064) | 0.010 (0.053) |
+| Gun homicide | Waiting period | −0.103 (0.093) | −0.179\*\* (0.087) | −0.181\*\* (0.068) |
+| | Background check | | 0.120 (0.080) | 0.033 (0.065) |
+| Non-gun homicide | Waiting period | −0.019 (0.068) | −0.035 (0.064) | −0.072 (0.050) |
+| | Background check | | 0.025 (0.044) | −0.043 (0.039) |
+
+\newpage
+
+**Table S4 (Luca et al.).** Effect of handgun waiting periods relative to the year of adoption, 1977–2013. The model mirrors column 3 of Table 1 but replaces the single waiting-period indicator with indicators for each year before and after the waiting period was adopted.
+
+| Time relative to adoption | All homicide | Gun homicide | Non-gun homicide |
+|---|---|---|---|
+| 2 years before | −0.024 (0.047) | −0.038 (0.056) | 0.004 (0.060) |
+| 1 year before | −0.053 (0.051) | −0.076 (0.060) | −0.014 (0.052) |
+| Adoption year | −0.087 (0.054) | −0.106 (0.077) | −0.063 (0.051) |
+| 1 year after | −0.147\*\* (0.060) | −0.178\*\* (0.080) | −0.110\* (0.065) |
+| 2 years after | −0.147\*\* (0.058) | −0.176\*\* (0.082) | −0.086\* (0.043) |
+| 3 years after | −0.145\*\* (0.060) | −0.198\*\* (0.083) | −0.048 (0.053) |
+| 4+ years after | −0.129\*\* (0.053) | −0.188\*\* (0.072) | −0.021 (0.041) |
+
+\newpage
+
+# Materials for Study 2 (Myrczik et al. 2025)
+
+**Myrczik, J., Kajta, J., Buckenleib, A., Karolak, M., Liedtke, M., Mrozowicki, A., & Trappmann, V. (2025).** Becoming a Young Radical Right Activist: Biographical Pathways of the Members of Radical Right Organisations in Poland and Germany. *Current Sociology*, 73(5), 754–775.
+
+**Passage 1: Design (summary).** The study is based on **28 biographical narrative interviews**, conducted 2019–2021, with members of radical right organisations aged 19–35: 13 in Poland (members of the National Radical Camp, All-Polish Youth, and the Konfederacja party) and 15 in Germany (mostly officials of the AfD and its youth wing, Junge Alternative). Seven interviewees identified as female. The sample included a few *former* members who had left. Field access was difficult; some groups refused. Interviewees were recruited through organisations' public contact information, campaign events, organisations that support people leaving the radical right, social media, and **snowball sampling** (asking interviewees to refer others), which worked best once the researchers' credibility was established. Each interview opened with one question — *"Could you please tell the story of your life, from childhood till now?"* — followed by questions about values, networks, friends, and political attitudes. The team coded the transcripts using grounded theory (open, axial, and selective coding), compared codes across all cases and between the two countries, and used three motives from the social-movement literature — **ideology** (expressing one's views), **identity** (belonging to a group), and **instrumentality** (changing one's circumstances) — as "sensitising concepts."
+
+**Passage 2: Context (summary).** In **Poland**, the governing party (Law and Justice) had brought radical right ideas into government policy, and nationalist organisations drew on church, patriotic, and historical-reenactment milieus and on large Independence Day Marches. In **Germany**, a long-standing *cordon sanitaire* kept radical right parties out of government; the AfD entered the national parliament in 2017 (12.6% of the vote), and its youth wing was placed under observation by the domestic intelligence service in 2019.
+
+**Passage 3: Findings on family and socialization (summary).** Most interviewees in both countries reported good relationships with their parents. Polish activists described their activism as rooted in family-taught values (Catholicism, patriotism, anti-Communism), sometimes going back to grandparents. Few German activists linked their politics to family values, but most described their upbringing as "liberal-conservative" and their views as mainstream; in two cases parents were AfD members first. In both countries parents rarely objected to their children's involvement — which the authors note contrasts with earlier research on young German radical right activists who rebelled against their parents. Interviewees in both countries insisted their decision to join was their own. German activists were drawn in through demonstrations and encounters with approachable political figures, often after the 2015 "migration crisis," and through online media such as YouTube; Polish activists through church, patriotic, and football-fan networks.
+
+**Passage 4: Motives, in the interviewees' words.**
+
+*Barbara (Konfederacja, Poland):* "Well, I am acting, I believe in it. I believe that we need to get involved in defending our civilisation. I see threats. I see threats from different sides. I want to oppose ideologies that destroy families, that destroy our values that I believe in."
+
+*Igor (Poland):* "We believe that we have some kind of duty, which tells us that if you don't do it, then there can be no one who does it . . . it simply won't happen. And I have such an attitude that I don't want to regret my life."
+
+*Sandra (employee of an AfD member of parliament and Junge Alternative member, Germany):* "[P]eople who come here must accept our rules and must try to integrate and contribute something like that, otherwise it won't work, because you also endanger our internal security."
+
+*Thomas (AfD and Junge Alternative, Germany):* "If you want to achieve something, you must commit to the evil of parliamentarism or otherwise we would have conditions, which no one wants to have for good reasons."
+
+**Passage 5: The authors' conclusion (summary).** Polish activists joined mainly out of ideology and a sense of **duty to the nation**, often framed around historical injustice; German activists emphasised economic and social injustice and their own group being treated unfairly, and many quickly rose through a young party with a low barrier to entry, gaining positions, pay, and recognition. The authors propose adding a fourth motive, **individual self-realisation** — in Poland as fulfilling a citizen's duty, in Germany as a political **career** — and describe two ideal types: "anti-political intellectualism/elitism" in Poland and the "anti-establishment populist career" in Germany. They argue both reflect the normalisation of the radical right in the two countries.
+
+\newpage
+
+# Exam Questions
+
+## Study 1: Handgun Waiting Periods and Gun Deaths (35 points)
+
+**Question 1** (10 points)
+
+(a) What is the **research design** of the Luca et al. study? (Be specific – they use two related designs.) What is the **key independent variable** and what is the **dependent variable**?
+
+(b) Name **one potential confounding variable** that could bias the estimated effect of waiting periods if left uncontrolled. Explain why it would bias the estimate.
+
+\vspace{5cm}
+
+---
+
+**Question 2** (10 points)
+Look at **Table 1 (Luca et al.)**, column 3, gun homicide.
+
+(a) What is the coefficient on "Waiting period"? Interpret its magnitude in plain language.
+
+(b) Is the effect statistically significant? How can you tell?
+
+\vspace{5cm}
+
+---
+
+**Question 3** (15 points)
+The authors offer two kinds of evidence that the pattern in Table 1 reflects the effect of waiting periods.
+
+(a) Look at **Table S4 (Luca et al.)**. Before adoption (2 years before and 1 year before), are the gun-homicide estimates close to zero? Why is that important for causal identification?
+
+(b) Look at column 3 of **Tables 1 and 2**. How do the coefficients for gun and non-gun homicides compare, and why does that comparison matter for the argument that *waiting periods* (rather than some other factor) are driving the results?
+
+\vspace{6cm}
+
+---
+
+## Study 2: Becoming a Young Radical Right Activist (35 points)
+
+**Question 4** (10 points)
+Myrczik et al. use **biographical narrative interviews**, recruiting interviewees partly through **snowball sampling**.
+
+(a) What is a biographical narrative interview, and how does it differ from a standard survey question?
+
+(b) What is one advantage of snowball sampling for studying this population, and what does it mean for how far the findings can be generalized?
+
+\vspace{5cm}
+
+---
+
+**Question 5** (10 points)
+Read **Passages 3 and 5**.
+
+(a) The authors propose adding a fourth motive, **individual self-realisation**, to ideology, identity, and instrumentality. What does this added motive mean? Give an example from the passages.
+
+(b) How does this finding complicate explanations of radical right support that rely on survey data about voters (for example, explanations based on economic deprivation)?
+
+\vspace{5cm}
+
+---
+
+**Question 6** (15 points)
+Read the **interview quotations** in Passage 4.
+
+(a) What specific experiences, contexts, or relationships drew these activists into the radical right? (Be concrete — name at least two factors from the passages.)
+
+(b) What does the comparison between the Polish and German activists illustrate about the role of **national context** that a survey question about an individual's own political attitudes would miss?
+
+\vspace{6cm}
+
+---
+
+## Ethics and Integration (30 points)
+
+**Question 7** (15 points)
+
+(a) Which major social-science goals can the Luca et al. study accomplish that the Myrczik et al. study cannot, and which goals can Myrczik et al. meet more thoroughly? Give an example of each.
+
+(b) In our ethics session we read Soss et al., "The Illusion of Technique," which warns against research in which the available methods and data, rather than the substantive problem, decide which questions get asked. Choose **one** of the two studies on this exam. Is it vulnerable to that critique? Point to specific features of its design, data, or questions.
+
+\vspace{7cm}
+
+---
+
+**Question 8** (15 points)
+This question draws on our **ethics session** (IRB, informed consent, vulnerable populations, harm, deception, transparency).
+
+(a) The **Myrczik et al.** study interviewed members of radical right organisations, one of which was under observation by Germany's domestic intelligence service, about their life stories and political views. What **ethical issues** might arise in this research, and how might the researchers have addressed them?
+
+(b) The **Luca et al.** study uses state-level mortality statistics and the text of state laws, with no direct interaction with human subjects. Does this study require IRB approval? Why or why not? What **ethical obligation** do researchers have when publishing findings that could affect policy debates about gun control?
+
+\vspace{7cm}
+
+---
+
+**End of practice exam.**
+*Total points: 100.*
+
+\vspace{0.5cm}
+**Note:** On the real exam you will write your answers on the exam paper and hand it in before leaving.

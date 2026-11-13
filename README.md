@@ -14,7 +14,11 @@
 
 ### Final
 
-* Friday, Dec. 11: In-class final exam, 12:00–2:00 PM (open notes, closed devices). *(Study guide to be posted closer to the exam.)*
+* Friday, Dec. 11: In-class final exam, 12:00-2:00 PM (open notes, closed devices). *(Study guide to be posted closer to the exam.)*
+
+* [Practice final](https://jnseawright.github.io/ps210/Homework/Practice-Final-2026.html)
+
+* [Practice final answer key](https://jnseawright.github.io/ps210/Homework/Practice-Final-Answer-Key-2026.html)
 
 ### Class Materials
 
@@ -37,10 +41,10 @@
 * [Thursday, Nov. 5: Statistical Computing Lab II](https://jnseawright.github.io/ps210/Slides/StatisticalComputingLabSession2.html#1): Introduction to R for basic regression. *(Hands-on lab.)* [Practice exercises](https://jnseawright.github.io/ps210/Slides/Lab2Practice.html#1) [Practice exercises answer key and HW prep](https://jnseawright.github.io/ps210/Slides/Lab2Practice_SolutionKey.html#1)
 * [Tuesday, Nov. 10: Machine Learning Concepts (Lecture & Demo)](https://jnseawright.github.io/ps210/Slides/MachineLearning.html#1). **Due: Second Homework.**
 * [Thursday, Nov. 12: The Qualitative Comparative Method](https://jnseawright.github.io/ps210/Slides/qualitative.html#1)
-* [Tuesday, Nov. 17: Applied Qualitative Methods](https://jnseawright.github.io/ps210/Slides/qualitativeexamples.html#1). *Readings:* Gibson, Edward L. "Boundary Control: Subnational Authoritarianism in Democratic Countries." *World Politics* 58, no. 1 (2005): 101–132. [https://doi.org/10.1353/wp.2006.0018](https://doi.org/10.1353/wp.2006.0018). Thurston, Chloe N. "Policy Feedback in the Public–Private Welfare State: Advocacy Groups and Access to Government Homeownership Programs, 1934–1954." *Studies in American Political Development* 29, no. 2 (2015): 250–267. Gerzso, Thalia. "Judicial Resistance During Electoral Disputes: Evidence from Kenya." *Electoral Studies* 85 (2023). [https://doi.org/10.1016/j.electstud.2023.102653](https://doi.org/10.1016/j.electstud.2023.102653).
-* [Thursday, Nov. 19: Applied Text Methods, LLMs, and AI in Social Science](https://jnseawright.github.io/ps210/Slides/TextasData.html#1). *Reading:* Rossiter, Erin L. "Measuring Agenda Setting in Interactive Political Communication." *American Journal of Political Science* 66 (April 2022): 337–51.
-* [Tuesday, Nov. 24: Ethics and Normative Concerns in Political Science](https://jnseawright.github.io/ps210/Slides/ethics.html#1). *Readings:* American Political Science Association (2022), *A Guide to Professional Ethics in Political Science* (3rd ed.), Chs. I–III; Soss, Joe, et al. "The Illusion of Technique: How Method-Driven Research Leads Welfare Scholarship Astray." *Social Science Quarterly* 87 (Dec. 2006): 798–807 (reflection prompt on final exam). *Recommended:* Lupia, Arthur, and Colin Elman. "Openness in Political Science: Data Access and Research Transparency." *PS: Political Science & Politics* 47 (Jan. 2014): 19–42. **Third Homework due Wednesday, Nov. 25.**
-* **No class:** Thursday, Nov. 26 (Thanksgiving break). WCAS Reading Period Nov. 27–Dec. 4 (no classes).
+* [Tuesday, Nov. 17: Applied Qualitative Methods](https://jnseawright.github.io/ps210/Slides/qualitativeexamples.html#1). *Readings:* Gibson, Edward L. "Boundary Control: Subnational Authoritarianism in Democratic Countries." *World Politics* 58, no. 1 (2005): 101-132. [https://doi.org/10.1353/wp.2006.0018](https://doi.org/10.1353/wp.2006.0018). Thurston, Chloe N. "Policy Feedback in the Public-Private Welfare State: Advocacy Groups and Access to Government Homeownership Programs, 1934-1954." [Direct Journal Link.](https://www.cambridge.org/core/journals/studies-in-american-political-development/article/policy-feedback-in-the-publicprivate-welfare-state-advocacy-groups-and-access-to-government-homeownership-programs-19341954/64862AB286ACB0C300C92CFE5AFF91F2) *Studies in American Political Development* 29, no. 2 (2015): 250-267. Gerzso, Thalia. "Judicial Resistance During Electoral Disputes: Evidence from Kenya." *Electoral Studies* 85 (2023). [https://doi.org/10.1016/j.electstud.2023.102653](https://doi.org/10.1016/j.electstud.2023.102653).
+* [Thursday, Nov. 19: Applied Text Methods, LLMs, and AI in Social Science](https://jnseawright.github.io/ps210/Slides/TextasData.html#1). *Reading:* Rossiter, Erin L. "Measuring Agenda Setting in Interactive Political Communication." *American Journal of Political Science* 66 (April 2022): 337-51.
+* [Tuesday, Nov. 24: Ethics and Normative Concerns in Political Science](https://jnseawright.github.io/ps210/Slides/ethics.html#1). *Readings:* American Political Science Association (2022), *A Guide to Professional Ethics in Political Science* (3rd ed.), Chs. I-III; Soss, Joe, et al. "The Illusion of Technique: How Method-Driven Research Leads Welfare Scholarship Astray." *Social Science Quarterly* 87 (Dec. 2006): 798-807 (reflection prompt on final exam). *Recommended:* Lupia, Arthur, and Colin Elman. "Openness in Political Science: Data Access and Research Transparency." *PS: Political Science & Politics* 47 (Jan. 2014): 19-42. **Third Homework due Wednesday, Nov. 25.**
+* **No class:** Thursday, Nov. 26 (Thanksgiving break). WCAS Reading Period Nov. 27-Dec. 4 (no classes).
 
 ### [Data](https://github.com/jnseawright/ps210/tree/main/Data)
 
@@ -50,8 +54,6 @@
 
 * [Textbook: Jean Clipperton et al. 2022, Empirical Methods in Political Science: An Introduction](https://nulib-oer.github.io/empirical-methods-polisci/)
 * Jaye Seawright: Office 2001 Sheridan Road, Room 3203, 3-5pm Mondays, email j-seawright@northwestern.edu
-* [Practice Final](https://jnseawright.github.io/ps210/Homework/Practice-Final.html)
-* [Practice Final Rubric](https://jnseawright.github.io/ps210/Homework/practice-final-rubric.html)
 
 
 ### Homework Assignments

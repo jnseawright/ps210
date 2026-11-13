@@ -1,0 +1,281 @@
+---
+title: "Practice Final — Answer Key"
+author: "Jaye Seawright"
+date: "Fall 2026"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+**Total: 100 points.**
+The point distribution mirrors the real final exactly. Every question has two parts.
+
+| Section | Questions | Points |
+|---|---|---|
+| Study 1 | Q1 10, Q2 10, Q3 15 | 35 |
+| Study 2 | Q4 10, Q5 10, Q6 15 | 35 |
+| Ethics and Integration | Q7 15, Q8 15 | 30 |
+
+All table values below come from the retyped tables in the practice exam. A useful rule of thumb for logged outcomes: a coefficient *b* corresponds to a change of about (e^*b* − 1) × 100 percent, so −0.186 is about −17%.
+
+**Grading principles used on the real exam:**
+
+- Substance over form: bullets and fragments are fine.
+- Read charitably.
+- Round up when torn between two scores.
+- Any relevant, on-topic attempt at a sub-item earns at least 1 point.
+- An early misreading is penalized once, not repeatedly.
+
+---
+
+# Study 1: Luca, Malhotra & Poliquin (35 points)
+
+## Question 1 (10 points)
+
+**(a) Designs and variables — 6 points**
+
+The study uses two related designs:
+
+- a **difference-in-differences panel design** using every change to state waiting-period laws from 1970 to 2014, with **state and year fixed effects**;
+- a **natural experiment** from the **Brady Act** (1990–1998), which imposed new waiting periods on 19 states for reasons outside the states' own choices.
+
+The key independent variable is **whether a state has a handgun waiting period** in a given year. The dependent variable is **homicides (or gun deaths) per 100,000 adult residents**, logged, by state-year.
+
+- Describes both designs. *3 points* — award 2 of 3 for only one, or for a generic "difference-in-differences."
+- Identifies the waiting-period law as the independent variable. *2 points*
+- Identifies homicide per 100,000 as the dependent variable. *1 point*
+
+**(b) One confounder — 4 points**
+
+The fixed effects already absorb stable differences between states and national trends. A confounder must therefore **change within a state at about the same time as the law** and also affect homicide. Strong candidates:
+
+- a **spike in gun violence** that prompts the law. Homicides would then fall anyway (regression to the mean), making waiting periods look effective.
+- **other gun laws** passed in the same package;
+- changes in **policing**;
+- the local timing of the **crack epidemic**;
+- a **political shift**;
+- **economic changes**, partly controlled in Model 3.
+
+Scoring:
+
+- Names a plausible variable. *1 point*
+- Explains its link to waiting-period adoption. *1 point*
+- Explains its link to homicide. *1 point*
+- Explains why fixed effects do not remove it, or why the Brady design helps. *1 point*
+
+A student who identifies the "laws follow violence spikes" problem has spotted the sharpest threat. This is a form of reverse causation, and it is the one the Brady natural experiment addresses. Award full marks.
+
+---
+
+## Question 2 (10 points)
+
+**(a) Coefficient and magnitude — 6 points**
+
+The coefficient is **−0.186**. Because the outcome is logged, waiting periods are associated with about a **17% reduction in gun homicides** (e^−0.186^ − 1 ≈ −0.17). The comparison is within states over time, relative to other states, holding the controls constant.
+
+- Reports the coefficient. *1 point*
+- Interprets it as a percentage reduction (about 17–19%). *3 points* — award 1 of 3 for "reduces gun homicides by 0.186" with no units.
+- Mentions the comparison (within states, relative to other states) or the controls. *2 points*
+
+**(b) Statistical significance — 4 points**
+
+**Yes**, at the .05 level, for any of these reasons:
+
+- it has two stars;
+- the coefficient-to-SE ratio is about 2.6, above 1.96;
+- the 95% interval (about −0.33 to −0.05) excludes zero.
+
+Scoring:
+
+- Says significant. *2 points*
+- Explains how. *2 points*
+
+A student who adds that the Brady-period estimate in Table 2 (−0.181) is nearly identical, and that agreement across designs strengthens the causal claim, deserves praise but no extra points.
+
+---
+
+## Question 3 (15 points)
+
+**(a) Before adoption — 7 points**
+
+**Yes**, broadly: the estimates are −0.038 and −0.076, both well short of significance. This supports the **parallel-trends assumption**: before the law, adopting states were not already on a different path. A drop after adoption is therefore more plausibly due to the law than to a trend already under way.
+
+- Reads the pre-adoption estimates correctly (near zero / not significant). *3 points*
+- Explains the link to causal identification (parallel trends; no pre-existing decline). *4 points*
+
+A student who notices that −0.076 one year before adoption is about 40% of the later effect, and asks whether laws followed a decline already under way, has done the best available work here. Award full marks either way.
+
+**(b) Gun vs. non-gun — 8 points**
+
+| | Gun homicide | Non-gun homicide |
+|---|---|---|
+| Table 1, column 3 | −0.186\*\* | −0.035 (not significant) |
+| Table 2, column 3 | −0.181\*\* | −0.072 (not significant) |
+
+The reduction is concentrated in gun homicides. A waiting period should work only through **access to guns**. If some other change coinciding with adoption explained the results, such as better policing or a general decline in violence, non-gun homicides should fall too. Their absence works as a **placebo test**, and it also suggests no substitution toward other weapons.
+
+- Reports both pairs, or their direction and significance, and observes the pattern. *4 points*
+- Explains the placebo / alternative-explanation logic. *4 points*
+
+A caveat earns praise: non-gun estimates are negative, not zero; or, in Table S4, non-gun homicides also dip one to two years after adoption.
+
+---
+
+# Study 2: Myrczik et al. (35 points)
+
+## Question 4 (10 points)
+
+**(a) Biographical narrative interviews — 5 points**
+
+The interview opens with an invitation to **tell one's whole life story** ("from childhood till now"). It then follows up on values, networks, friends, and politics. Interviewees narrate in their own words and order, which reveals **sequences, turning points, and meanings**. A survey asks standardized, closed-ended questions at one point in time.
+
+- Describes the method. *2 points*
+- Contrasts it with a survey question. *3 points*
+
+**(b) Snowball sampling — 5 points**
+
+**Advantage:** radical right activists are a hard-to-reach, distrustful population. Referrals build trust and access where cold contacts failed; some groups refused outright.
+
+**Limitations:** the sample is non-random and clustered in interviewees' networks. It is weighted toward people willing to talk to academics, so the most radical may be missing. With only 28 interviews, the findings support claims about **which pathways exist**, not **how common** each one is.
+
+- Gives an advantage for this population. *2 points*
+- Explains the limit on generalization. *3 points*
+
+---
+
+## Question 5 (10 points)
+
+**(a) Individual self-realisation — 6 points**
+
+The added motive is **activism as a way to fulfil oneself**, and it takes a different form in each country:
+
+- **In Poland**, it means being a responsible citizen doing one's duty to the nation. Igor says, "I don't want to regret my life."
+- **In Germany**, it means a **political career**. A young party with a low barrier to entry offered positions, pay, and recognition. Thomas says, "If you want to achieve something, you must commit to the evil of parliamentarism."
+
+Scoring:
+
+- Explains the motive. *3 points*
+- Gives an accurate example. *3 points*
+
+**(b) Complicating survey-based explanations — 4 points**
+
+Voter surveys explain support by individual attributes such as deprivation or authoritarianism. Three things complicate that picture:
+
+- **Activists are not voters.** Their motives include careers and duty.
+- **Some motives arise after joining**, which a one-time survey cannot place in sequence.
+- **Organizational opportunity** is not an individual attitude at all.
+
+Scoring:
+
+- Identifies a complication. *2 points*
+- Explains why. *2 points*
+
+---
+
+## Question 6 (15 points)
+
+**(a) Drivers — 8 points**
+
+Accurate factors include:
+
+- perceived threats to the nation, family, and values (Barbara);
+- a sense of duty (Igor);
+- anti-immigration concerns about security and integration (Sandra);
+- the strategic choice to work through parliamentary politics (Thomas);
+- from Passage 3: family values; church, patriotic, and football-fan networks in Poland; demonstrations, approachable politicians, the 2015 "migration crisis," and YouTube in Germany.
+
+Scoring:
+
+- Each accurate, concrete factor. *3 points each, up to 6*
+- Links a factor to the country context, or notes that the quotations are the activists' own self-presentation. *2 points*
+
+**(b) National context — 7 points**
+
+Similar nationalist beliefs lead to **different motives and forms of activism** depending on the political opportunity structure:
+
+- In **Poland**, nationalist ideas are part of mainstream politics, so activism is framed as duty.
+- In **Germany**, a *cordon sanitaire* and a newly successful AfD made the party a career ladder.
+
+An individual-attitude survey item would record similar views in both countries and miss that the same attitude turns into action differently depending on context.
+
+- Explains that context shapes how attitudes become activism. *3 points*
+- Uses a specific Poland–Germany contrast. *3 points*
+- Explains what a survey item would miss. *1 point*
+
+A student who notes that the samples differ by organization type has done the best available work here. Most German interviewees were party officials; most Polish interviewees were in non-electoral groups. So the country contrast may partly be an organization contrast.
+
+---
+
+# Ethics and Integration (30 points)
+
+## Question 7 (15 points)
+
+**(a) Social-science goals — 8 points**
+
+**Luca et al. do better on:**
+
+- **causal inference** about a policy effect;
+- precise **magnitudes**;
+- **generalization** across all states over 45 years;
+- **prediction for policy** (about 750 homicides avoided per year).
+
+**Myrczik et al. do better on:**
+
+- **mechanisms and motives**;
+- **process and sequence**;
+- **meaning**;
+- **description** of a hard-to-reach population;
+- **theory building** (a new motive and two ideal types).
+
+Scoring:
+
+- A goal Luca et al. meet better, with reasoning. *3 points*
+- A goal Myrczik et al. meet better, with reasoning. *3 points*
+- Concrete examples from both studies. *2 points*
+
+**(b) Soss et al. — 7 points**
+
+Soss et al. argue that when available techniques and data drive the choice of questions, research narrows to what the tools can measure. They call for **problem-driven** research that chooses methods to fit the question. Either study and either verdict can earn full credit:
+
+- **Luca et al., vulnerable:** state-year mortality counts and law changes define the question. The study says nothing about how buyers experience delays or how laws are enforced.
+- **Luca et al., less vulnerable:** the policy question comes first, and the authors use two designs and several checks to answer it.
+- **Myrczik et al., vulnerable:** access shaped the sample (who would talk), and the method yields self-presentations.
+- **Myrczik et al., less vulnerable:** the authors start from a substantive gap (activists rather than voters) and choose a method suited to it.
+
+Scoring:
+
+- States a clear judgment about one study. *1 point*
+- Ties it accurately to the method-driven vs. problem-driven argument. *3 points*
+- Supports it with specific features of the study. *3 points*
+
+A student who notes that the critique is about question selection, so qualitative studies can be method-driven too, has done the best available work here.
+
+---
+
+## Question 8 (15 points)
+
+**(a) Myrczik et al. — 8 points**
+
+Issues include:
+
+- informed consent that is honest about the purpose, since deception to gain access would be a serious problem;
+- **confidentiality and identifiability**: many German interviewees are high-ranking or elected officials, so pseudonyms alone may not protect them, and disclosure could bring legal or professional harm;
+- any **duty to report** planned violence;
+- **researcher well-being**: the authors describe the "emotional labour" involved and used joint seminars for support;
+- the risk of **amplifying** extremist views;
+- **former members** who may face retaliation.
+
+Safeguards: ethics review, clear consent, altered identifying details, secure storage, team debriefing, and careful choice of which quotations to publish.
+
+- At least two distinct issues. *5 points* (3 for one)
+- At least one concrete safeguard. *3 points*
+
+**(b) Luca et al. — 7 points**
+
+The project is **research**, but it uses **aggregate state-level mortality counts** and **public laws**. There is no interaction with people and no identifiable private information, so under the federal definition it is **not human-subjects research** and does not require IRB review. Also accept "file for a formal determination," which many universities require.
+
+Obligations: report robustness honestly (the suicide result weakens in some specifications), avoid overclaiming in policy extrapolations, and be transparent about data and coding.
+
+- A defensible IRB conclusion. *2 points*
+- Justification using the research / human-subjects / identifiability logic. *3 points*
+- At least one ethical obligation. *2 points*
