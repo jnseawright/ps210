@@ -14,7 +14,9 @@
 
 ### Final
 
-* Friday, Dec. 11: In-class final exam, 12:00-2:00 PM (open notes, closed devices). *(Study guide to be posted closer to the exam.)*
+* Friday, Dec. 11: In-class final exam, 12:00-2:00 PM (open notes, closed devices). 
+
+* [Review guide](https://jnseawright.github.io/ps210/Slides/FinalReview.html)
 
 * [Practice final](https://jnseawright.github.io/ps210/Homework/Practice-Final-2026.html)
 
