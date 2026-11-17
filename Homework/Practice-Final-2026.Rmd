@@ -44,19 +44,6 @@ In every table, the dependent variable is the **natural logarithm of deaths per 
 | Non-gun homicide | Waiting period | −0.016 (0.051) | −0.048 (0.060) | −0.035 (0.037) |
 | | Background check | | 0.153\*\* (0.076) | 0.036 (0.057) |
 
-\vspace{0.5cm}
-
-**Table 2 (Luca et al.).** Effects of handgun waiting periods on homicide during the Brady period, 1990–1998 (459 state-years). Models as in Table 1.
-
-| Outcome | Variable | (1) | (2) | (3) |
-|---|---|---|---|---|
-| All homicide | Waiting period | −0.073 (0.084) | −0.130\* (0.077) | −0.145\*\* (0.060) |
-| | Background check | | 0.091 (0.064) | 0.010 (0.053) |
-| Gun homicide | Waiting period | −0.103 (0.093) | −0.179\*\* (0.087) | −0.181\*\* (0.068) |
-| | Background check | | 0.120 (0.080) | 0.033 (0.065) |
-| Non-gun homicide | Waiting period | −0.019 (0.068) | −0.035 (0.064) | −0.072 (0.050) |
-| | Background check | | 0.025 (0.044) | −0.043 (0.039) |
-
 \newpage
 
 **Table S4 (Luca et al.).** Effect of handgun waiting periods relative to the year of adoption, 1977–2013. The model mirrors column 3 of Table 1 but replaces the single waiting-period indicator with indicators for each year before and after the waiting period was adopted.
@@ -103,7 +90,7 @@ In every table, the dependent variable is the **natural logarithm of deaths per 
 
 **Question 1** (10 points)
 
-(a) What is the **research design** of the Luca et al. study? (Be specific – they use two related designs.) What is the **key independent variable** and what is the **dependent variable**?
+(a) What is the research design of the Luca et al. study? (They use two related designs; please name at least one.) What is the **key independent variable** and what is the **dependent variable**?
 
 (b) Name **one potential confounding variable** that could bias the estimated effect of waiting periods if left uncontrolled. Explain why it would bias the estimate.
 
@@ -114,7 +101,7 @@ In every table, the dependent variable is the **natural logarithm of deaths per 
 **Question 2** (10 points)
 Look at **Table 1 (Luca et al.)**, column 3, gun homicide.
 
-(a) What is the coefficient on "Waiting period"? Interpret its magnitude in plain language.
+(a) What is the coefficient on "Waiting period"? This variable equals 1 in state-years when a handgun waiting period was in effect and 0 otherwise, and the dependent variable is logged. Interpret the meaning of the coefficient as clearly as you can.
 
 (b) Is the effect statistically significant? How can you tell?
 
@@ -123,11 +110,8 @@ Look at **Table 1 (Luca et al.)**, column 3, gun homicide.
 ---
 
 **Question 3** (15 points)
-The authors offer two kinds of evidence that the pattern in Table 1 reflects the effect of waiting periods.
 
-(a) Look at **Table S4 (Luca et al.)**. Before adoption (2 years before and 1 year before), are the gun-homicide estimates close to zero? Why is that important for causal identification?
-
-(b) Look at column 3 of **Tables 1 and 2**. How do the coefficients for gun and non-gun homicides compare, and why does that comparison matter for the argument that *waiting periods* (rather than some other factor) are driving the results?
+Look at **Table S4 (Luca et al.)**, which shows estimates for each year before and after a waiting period was adopted. Before adoption (2 years before and 1 year before), are the gun-homicide estimates close to zero? Why is that important for causal identification?
 
 \vspace{6cm}
 
@@ -136,9 +120,9 @@ The authors offer two kinds of evidence that the pattern in Table 1 reflects the
 ## Study 2: Becoming a Young Radical Right Activist (35 points)
 
 **Question 4** (10 points)
-Myrczik et al. use **biographical narrative interviews**, recruiting interviewees partly through **snowball sampling**.
+Myrczik et al. use **biographical narrative interviews**, which are similar to the kind of in-depth interview we talked about with respect to qualitative methods, and recruited interviewees partly through **snowball sampling**.
 
-(a) What is a biographical narrative interview, and how does it differ from a standard survey question?
+(a) What is an in-depth interview, and how does it differ from a standard survey question?
 
 (b) What is one advantage of snowball sampling for studying this population, and what does it mean for how far the findings can be generalized?
 
@@ -149,9 +133,7 @@ Myrczik et al. use **biographical narrative interviews**, recruiting interviewee
 **Question 5** (10 points)
 Read **Passages 3 and 5**.
 
-(a) The authors propose adding a fourth motive, **individual self-realisation**, to ideology, identity, and instrumentality. What does this added motive mean? Give an example from the passages.
-
-(b) How does this finding complicate explanations of radical right support that rely on survey data about voters (for example, explanations based on economic deprivation)?
+The authors propose adding a fourth motive, **individual self-realisation**, to ideology, identity, and instrumentality. What does this added motive mean? Give an example from the passages. Does this finding complicate explanations of radical right support that rely on survey data about voters (for example, explanations based on economic deprivation)?
 
 \vspace{5cm}
 
@@ -160,9 +142,7 @@ Read **Passages 3 and 5**.
 **Question 6** (15 points)
 Read the **interview quotations** in Passage 4.
 
-(a) What specific experiences, contexts, or relationships drew these activists into the radical right? (Be concrete — name at least two factors from the passages.)
-
-(b) What does the comparison between the Polish and German activists illustrate about the role of **national context** that a survey question about an individual's own political attitudes would miss?
+What specific experiences, contexts, or relationships drew these activists into the radical right? (Be concrete — name at least two factors from the passages.) Do these shape our understanding of where young people's radical right activism comes from?
 
 \vspace{6cm}
 
@@ -174,7 +154,7 @@ Read the **interview quotations** in Passage 4.
 
 (a) Which major social-science goals can the Luca et al. study accomplish that the Myrczik et al. study cannot, and which goals can Myrczik et al. meet more thoroughly? Give an example of each.
 
-(b) In our ethics session we read Soss et al., "The Illusion of Technique," which warns against research in which the available methods and data, rather than the substantive problem, decide which questions get asked. Choose **one** of the two studies on this exam. Is it vulnerable to that critique? Point to specific features of its design, data, or questions.
+(b) In our ethics session we read Soss et al., "The Illusion of Technique," which warns against research in which the available methods and data, rather than the substantive problem, decide which questions get asked. Choose one of the two studies on this exam. Is it vulnerable to that critique? Point to specific features of its design, data, or questions.
 
 \vspace{7cm}
 
@@ -183,7 +163,7 @@ Read the **interview quotations** in Passage 4.
 **Question 8** (15 points)
 This question draws on our **ethics session** (IRB, informed consent, vulnerable populations, harm, deception, transparency).
 
-(a) The **Myrczik et al.** study interviewed members of radical right organisations, one of which was under observation by Germany's domestic intelligence service, about their life stories and political views. What **ethical issues** might arise in this research, and how might the researchers have addressed them?
+(a) The **Myrczik et al.** study interviewed members of radical right organisations, one of which was under observation by Germany's domestic intelligence service, about their life stories and political views. What ethical issues might arise in this research, and how might the researchers have addressed them?
 
 (b) The **Luca et al.** study uses state-level mortality statistics and the text of state laws, with no direct interaction with human subjects. Does this study require IRB approval? Why or why not? What **ethical obligation** do researchers have when publishing findings that could affect policy debates about gun control?
 

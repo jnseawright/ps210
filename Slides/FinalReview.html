@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Final Exam Review</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jaye Seawright" />
+    <script src="FinalReview_files/header-attrs-2.30/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Final Exam Review
+]
+.subtitle[
+## Empirical Methods
+]
+.author[
+### <large>Jaye Seawright</large>
+]
+.institute[
+### <small>Northwestern Political Science</small>
+]
+.date[
+### Posted for reading period — Final exam Friday, Dec. 11, 12:00–2:00 PM
+]
+
+---
+
+class: center, middle
+
+&lt;style type="text/css"&gt;
+pre {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 200px;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+### How to Use This Guide
+
+This is a **study guide**, not a lecture. Unlike the slides from class, it is meant to stand on its own.
+
+Every practice question is followed by an answer on the next slide. **Try the question before you advance.** Reading the answer first feels productive and teaches very little.
+
+Work alongside the **practice final**, which mirrors the real exam's format and point distribution exactly.
+
+---
+### The Exam
+
+**Friday, December 11, 12:00–2:00 PM. In class.**
+
+- **Eight questions, 100 points, two hours.**
+- **Open notes, closed devices** — you may bring **three pages** of your own handwritten or printed notes. Nothing electronic.
+- The tables and passages you need are **printed on the exam**. You are not asked to remember studies.
+- If a question seems ambiguous, it is not a trick. Adopt a reasonable reading, say what you assumed, and proceed.
+
+---
+### The Shape of the Exam
+
+| Section | Questions | Points |
+|---|---|---|
+| **Study 1** — a quantitative study, with tables | Q1–Q3 | 35 |
+| **Study 2** — a qualitative study, with passages | Q4–Q6 | 35 |
+| **Ethics and Integration** | Q7–Q8 | 30 |
+
+The pattern: read a quantitative study well, read a qualitative study well, then say what each kind of research can and cannot do — and what responsibilities come with doing it.
+
+---
+### What Goes on Your Three Pages
+
+Three pages is tight. Spend them on things you **reconstruct slowly**, not things you know cold.
+
+---
+
+Worth the space:
+
+- The **four questions** for causal inference.
+- The **significance checks**: stars, coefficient ÷ standard error ≈ 2, confidence interval excluding zero.
+- A short list of **what each method is good for** — the comparison table later in this guide.
+- The **IRB test**: is it research, are there human subjects, is the information identifiable?
+
+---
+
+Not worth the space: study names, dates, and author lists. The exam prints what you need.
+
+---
+class: center, middle
+
+# Part I — The Framework
+
+*Briefly. This is midterm material, and it still underpins everything.*
+
+---
+### Descriptive vs. Causal Inference
+
+- **Descriptive:** What is the level, distribution, or pattern? *"States with waiting periods have fewer gun homicides."*
+- **Causal:** Does X cause Y? *"Waiting periods reduce gun homicides."*
+
+Causal claims require a **counterfactual** — what would have happened otherwise — and ruling out alternatives.
+
+Most of what goes wrong in social science is a descriptive finding dressed as a causal one.
+
+---
+### The Four Questions
+
+| # | Question |
+|---|----------|
+| 1 | Is there a relationship between the treatment and the outcome? |
+| 2 | Could the outcome cause the treatment? *(reverse causation)* |
+| 3 | Is there evidence of a causal pathway? *(mechanism)* |
+| 4 | Have confounding variables been ruled out? |
+
+Your default structure whenever you are asked to evaluate a causal claim.
+
+---
+### Confounding, and What Controls Do
+
+A **confounder** is related to **both** the treatment and the outcome. Both links are required — a variable tied to only one is not a confounder.
+
+**Controlling** means holding it constant, usually by including it in a regression.
+
+**Omitted variable bias:** leaving out a relevant variable makes your estimates wrong, usually **too large**. Your variable gets credit for work another variable was doing.
+
+---
+### Internal and External Validity
+
+- **Internal validity:** did the treatment really cause the change *in the cases studied*?
+- **External validity:** do the findings generalize beyond those cases?
+
+These trade off. A lab experiment buys internal validity at the cost of external; a broad observational study often does the reverse.
+
+Construct validity — does the study measure the concept you actually care about? — **depends on the researcher**, in every design.
+
+---
+class: center, middle
+
+# Part II — Reading a Quantitative Study
+
+*Study 1 on the exam. Worth 35 points.*
+
+---
+### Difference-in-Differences with Fixed Effects
+
+Many policy studies compare **states that adopted a law** with **states that did not**, before and after adoption.
+
+- **State fixed effects** are control variables that are the state's name, and that absorb everything about a state that **does not change over time** — culture, geography, stable institutions.
+- **Year fixed effects** similarly absorb anything affecting **all states in the same year** — national crime trends, recessions.
+
+---
+
+What survives: anything that **changes within a state at around the time the law changes**. That is where confounding now lives.
+
+---
+### Practice: Confounding Under Fixed Effects
+
+A study finds that handgun waiting periods reduce gun homicides, using state and year fixed effects.
+
+Name a confounder that would **survive** those fixed effects, and explain why it would bias the estimate.
+
+*Try it before advancing.*
+
+---
+### Practice: Confounding Under Fixed Effects — Answer
+
+The sharpest answer: **a spike in gun violence that prompted the law.**
+
+- **Link to the treatment:** legislatures pass gun laws after highly visible violence.
+- **Link to the outcome:** an unusual spike tends to fall back toward normal on its own — regression to the mean.
+- **Why fixed effects miss it:** the spike is a *change within* a state at the time of adoption, precisely what fixed effects do not absorb.
+
+---
+### Practice: Confounding Under Fixed Effects — Answer
+
+So the law would look effective even if it did nothing. This is a form of **reverse causation**, and it is exactly what a natural experiment like the Brady Act helps address — the timing came from federal law, not from each state's own conditions.
+
+Other good answers: other gun laws in the same package, policing changes, the local timing of the crack epidemic, economic shifts.
+
+---
+### Logged Outcomes
+
+When the dependent variable is **logged** to get rid of skewness, coefficients are approximately **proportional**, not absolute.
+
+A coefficient *b* corresponds to a change of about **(e^*b*^ − 1) × 100 percent**. For small values the shortcut "multiply by 10 to see a 10% change" or "multiply by 100 to see a change from 0 to 1" is close enough. It drifts as coefficients grow.
+
+---
+### Practice: Interpreting a Coefficient
+
+A model reports a coefficient of **−0.186** on a 0/1 indicator for whether a state had a waiting period. The outcome is logged gun homicides per 100,000 adults. The model includes state and year fixed effects.
+
+Interpret this.
+
+*Try it before advancing.*
+
+---
+### Practice: Interpreting a Coefficient — Answer
+
+**State-years with a waiting period have about 19 percent fewer gun homicides** than they would otherwise — −0.186 * 100 ≈ −19.
+
+---
+
+Three things the best answer adds:
+
+- The variable is **0/1**, so this compares having the law to not having it — not a one-unit increase in some continuous measure.
+- Because of the fixed effects control variables, the comparison is **within states over time, relative to other states**.
+- It holds the model's controls constant.
+
+Saying "reduces gun homicides by 0.186" with no units gets you part of the way and no further. We want to understand the meaning.
+
+---
+### Significance, Three Ways
+
+You can establish statistical significance from a table in any of three ways. Use whichever the table supports.
+
+1. **Stars.** Check the legend — conventions differ. One star often means p &lt; .10, not .05.
+2. **Coefficient ÷ standard error.** A ratio above about **1.96** means significance at the .05 level. For −0.186 with a standard error of 0.071, the ratio is about 2.6.
+3. **Confidence interval.** Coefficient ± about 2 standard errors. Here roughly −0.33 to −0.05, which excludes zero.
+
+---
+
+All three agree. Showing one is enough; knowing all three protects you when a table is sparse.
+
+---
+### Event Studies and Parallel Trends
+
+A difference-in-differences design assumes that, absent the law, adopting and non-adopting states **would have followed parallel paths**. That assumption is not directly testable — but its shadow is.
+
+An **event study** replaces one treatment indicator with separate estimates for each year **before and after** adoption.
+
+- **Before adoption, estimates should be near zero.** Nothing had happened yet.
+- **After adoption, estimates should move** — and stay moved, if the effect is real.
+
+---
+### Practice: Pre-Trends
+
+An event study reports these estimates for gun homicide, relative to the year a waiting period was adopted:
+
+| Timing | Estimate |
+|---|---|
+| 2 years before | −0.038 (0.056) |
+| 1 year before | −0.076 (0.060) |
+| 1 year after | −0.178\*\* (0.080) |
+| 3 years after | −0.198\*\* (0.083) |
+| 4+ years after | −0.188\*\* (0.072) |
+
+Are the pre-adoption estimates close to zero? Why does that matter?
+
+*Try it before advancing.*
+
+---
+### Practice: Pre-Trends — Answer
+
+**Yes, broadly.** Both pre-adoption estimates are small and not significant — no stars, and each is smaller than its own standard error or close to it.
+
+**Why it matters:** this is the evidence for **parallel trends**. Before the law, adopting states were not already on a different path. So the large, persistent drop afterward — about −0.18 to −0.20 from one year on — is more plausibly caused by the law than by a decline already under way.
+
+---
+
+**What a non-zero pre-period would have meant:** that adopting states were already changing before the law, which would point to laws passed in response to a trend, anticipation effects, or a spurious pattern.
+
+A sharper observation: **−0.076 one year before is about 40 percent of the later effect.** It is not significant, but it is not nothing, and asking whether laws followed a decline already beginning is exactly the right worry.
+
+---
+class: center, middle
+
+# Part III — Reading a Qualitative Study
+
+*Study 2 on the exam. Also worth 35 points.*
+
+---
+### In-Depth Interviews
+
+An **in-depth interview** invites a person to talk at length, in their own words and their own order. A **biographical narrative** interview is one version: it opens by asking for a whole life story, then follows up.
+
+---
+### In-Depth Interviews
+
+**How it differs from a survey question:**
+
+| Survey | In-depth interview |
+|---|---|
+| Standardized wording for everyone | Follows the interviewee |
+| Closed-ended, pre-set options | Open-ended, unanticipated answers |
+| One moment in time | Sequence, turning points, change |
+| Measures *how much* | Reveals *how* and *why* |
+| Comparable across thousands | Deep on a few |
+
+---
+### Sampling Hard-to-Reach Populations
+
+**Snowball sampling** asks interviewees to refer others.
+
+**The advantage:** some populations will not talk to strangers. Referral transfers trust. When a researcher's credibility is established, access opens where cold contact failed.
+
+---
+### Sampling Hard-to-Reach Populations
+
+**The cost:** the sample is **non-random and clustered in interviewees' own networks**. It over-represents people willing to talk to academics — so the most extreme or most secretive may be missing entirely.
+
+**What that means for claims:** a snowball sample supports claims about **which pathways exist**. It does not support claims about **how common** each one is.
+
+---
+### Practice: Snowball Sampling
+
+Researchers interviewed 28 members of radical right organisations in Poland and Germany, recruited partly by referral. Some organisations refused access outright.
+
+Give one advantage of snowball sampling here, and say what it means for how far the findings generalize.
+
+*Try it before advancing.*
+
+---
+### Practice: Snowball Sampling — Answer
+
+**Advantage:** this is a distrustful, hard-to-reach population that had reason to be wary of researchers — one organisation was under intelligence-service observation. Referrals from people who had already been interviewed transferred credibility and opened doors that direct approaches did not.
+
+---
+### Practice: Snowball Sampling — Answer
+
+**Generalization:** the sample is non-random and clustered in the networks of those who agreed to talk. It is weighted toward activists comfortable speaking to academics, so the most radical are likely absent. With 28 interviews, the study can say **these pathways into activism exist and look like this.** It cannot say not **this share of activists follows each pathway**.
+
+That distinction is the whole answer. A study of 28 people is not a small survey; it is a different kind of claim.
+
+---
+### Coding Qualitative Data
+
+**Grounded theory coding** proceeds in stages — open coding to generate categories, then axial and selective coding to organize and focus them — comparing codes across cases.
+
+**Sensitising concepts** are prior ideas from the literature used to orient the analysis without dictating the result. In the radical right study, three motives from social-movement research — **ideology**, **identity**, and **instrumentality** — played that role.
+
+---
+### Reading Quotations as Evidence
+
+When an exam prints interview quotations, you are being asked to do three things:
+
+1. **Name concrete factors.** Not "grievance" but *perceived threat to the nation*, *a sense of duty*, *anti-immigration concern about security*, *the chance of a political career*.
+2. **Connect them to context.** The same beliefs produce duty-driven activism where nationalism runs through church and patriotic networks, and career-driven activism where a young party offers positions and pay.
+
+---
+### Coding Qualitative Data
+
+3. **Remember what a quotation is.** These are **self-presentations** (how activists explain themselves to a researcher), which may not be the causal truth about why they joined.
+
+---
+### Practice: Reading Quotations
+
+*Barbara (Poland):* "I believe that we need to get involved in defending our civilisation. I see threats... I want to oppose ideologies that destroy families."
+
+*Thomas (Germany):* "If you want to achieve something, you must commit to the evil of parliamentarism."
+
+Name two concrete factors drawing these activists in. What do they tell you about where such activism comes from?
+
+*Try it before advancing.*
+
+---
+### Practice: Reading Quotations — Answer
+
+**Factors:** perceived threat to nation, family, and values (Barbara); a strategic decision to work through electoral politics for the sake of achieving something (Thomas). From the surrounding material you could add family-taught values, church and patriotic networks, demonstrations and approachable politicians, the 2015 migration crisis, and online media.
+
+---
+### Practice: Reading Quotations — Answer
+
+**What it implies:** activism is not a single moment of conversion or a simple product of grievance. It grows out of family, networks, critical events, and above all **the political opportunities each country offers**. The same nationalist convictions become a *duty* where activism runs through non-electoral movements, and a *career* where a young party has a low barrier to entry.
+
+---
+### Practice: Reading Quotations — Answer
+
+The best available observation: the two national samples differ by **organisation type** — mostly party officials in Germany, mostly non-electoral groups in Poland. So part of the country contrast may really be an organisation contrast.
+
+---
+class: center, middle
+
+# Part IV — Integration and Ethics
+
+*Q7 and Q8. Worth 30 points together.*
+
+---
+### What Each Kind of Study Is For
+
+| | Quantitative, large-N | Qualitative, small-N |
+|---|---|---|
+| Causal effect of a policy | **Strong** | Weak |
+| Magnitude and precision | **Strong** | Weak |
+| Generalization | **Strong** | Weak |
+| Mechanism — *how* it works | Weak | **Strong** |
+
+---
+### What Each Kind of Study Is For
+
+| | Quantitative, large-N | Qualitative, small-N |
+|---|---|---|
+| Process and sequence | Weak | **Strong** |
+| Meaning, as actors understand it | Weak | **Strong** |
+| Describing a hidden population | Weak | **Strong** |
+| Building new theory | Weak | **Strong** |
+
+Neither column is better. They answer different questions — which is the point of the integration question.
+
+---
+### Practice: Integration
+
+One study estimates the effect of waiting periods on gun homicide across all states from 1970 to 2014. Another interviews 28 radical right activists in two countries.
+
+Name one goal each study meets better than the other, with an example.
+
+*Try it before advancing.*
+
+---
+### Practice: Integration — Answer
+
+**The quantitative study does better on causal inference about a policy.** It can say waiting periods reduce gun homicides by about 17 percent, attach a confidence interval, and support it with an event study showing no pre-trend. It can also generalize (45 years, every state) and translate into policy terms, such as homicides avoided per year.
+
+---
+### Practice: Integration — Answer
+
+**The qualitative study does better on mechanism and meaning.** It can say *how* someone becomes an activist, i.e., through family values, church or football networks, a demonstration, a YouTube video, and what the activism *means* to them. It describes a population no survey reaches, and it built new theory: a fourth motive and two ideal types.
+
+Neither could do the other's job. The waiting-period study cannot say how buyers experience a delay; the interview study cannot say how common anything is.
+
+---
+### The Illusion of Technique
+
+Soss and colleagues warn against research in which the **available methods and data decide which questions get asked** — rather than the substantive problem deciding which methods to use.
+
+They call for **problem-driven** rather than **method-driven** research.
+
+The critique is about **question selection**. That means qualitative work is just as vulnerable as quantitative work. A method is not made innocent by being interpretive.
+
+---
+### Practice: Applying Soss
+
+Take either study — the waiting-period analysis or the activist interviews. Is it vulnerable to the method-driven critique? Point to specific features.
+
+*Try it before advancing.*
+
+---
+### Practice: Applying Soss — Answer
+
+Either study, and either verdict, can be argued well. What matters is tying it to **question selection**.
+
+- **Waiting periods, vulnerable:** the available data — state-year mortality counts and law texts — define the question. The study is silent on how delays are experienced, whether laws are enforced, or who is deterred.
+- **Waiting periods, not vulnerable:** the policy question came first, and the authors brought two designs and several robustness checks to answer it.
+
+---
+### Practice: Applying Soss — Answer
+
+- **Interviews, vulnerable:** access shaped the sample. The question became "what do activists who will talk to us say?" And narrative methods yield self-presentations.
+- **Interviews, not vulnerable:** the authors began from a substantive gap — activists rather than voters — and chose a method fitted to it.
+
+The strongest answers notice that the critique cuts both ways.
+
+---
+### IRB: When Does It Apply?
+
+Three questions, in order:
+
+1. **Is it research?** A systematic investigation designed to produce generalizable knowledge.
+2. **Are there human subjects?** Living individuals the researcher interacts with, or about whom identifiable private information is obtained.
+3. **Is the information identifiable?** Aggregate statistics about populations are not.
+
+---
+### IRB: When Does It Apply?
+
+**Interviews:** yes on all three. Review required.
+
+**State-level mortality counts and public law texts:** research, but no interaction and no identifiable private information. Generally **not human-subjects research**. Many universities still want a formal determination on file.
+
+---
+### Practice: Ethics in Interview Research
+
+Researchers conduct life-story interviews with members of radical right organisations, including a group under observation by domestic intelligence, and including some high-ranking party officials.
+
+What ethical issues arise, and how would you address them?
+
+*Try it before advancing.*
+
+---
+### Practice: Ethics in Interview Research — Answer
+
+**Issues:**
+
+- **Honest consent.** Gaining access by misrepresenting the project would be a serious violation, even though it might be the only way in.
+- **Confidentiality and identifiability.** Many German interviewees were elected or high-ranking. A pseudonym does not protect someone whose position identifies them, and exposure could bring legal or professional harm.
+- **Duty to report** if an interviewee discloses planned violence.
+
+---
+### Practice: Ethics in Interview Research — Answer
+
+**Issues:**
+
+- **Researcher well-being** — the authors describe the emotional labour, and used joint seminars for support.
+- **Amplification.** Publishing extremist views at length can serve as a platform.
+- **Former members**, who may face retaliation from those they left.
+
+**Safeguards:** ethics review, clear and honest consent, altering identifying details, secure storage, team debriefing, and deliberate care about which quotations are published.
+
+---
+### Ethics Beyond Approval
+
+The APSA principles are explicit that researchers **cannot outsource ethical judgment**. IRB approval and legal compliance are a **floor, not a ceiling**.
+
+**When your findings bear on policy**, further obligations follow:
+
+- Report robustness honestly, including the specifications where results weaken.
+- Avoid overclaiming when extrapolating — projected lives saved are estimates, not counts.
+- Be transparent about data, coding decisions, and the choices that could have gone otherwise.
+
+**Transparency in practice:** replication data and code, pre-registration, disclosed funding, materials shared for review.
+
+---
+class: center, middle
+
+# Part V — Also Covered This Term
+
+*Less likely on the exam, but part of your notes.*
+
+---
+### Machine Learning, Briefly
+
+**What it is for:** prediction and forecasting; complex description; and tools inside causal inference — LASSO for variable selection, random forests for heterogeneous treatment effects.
+
+**Regression vs. machine learning:** regression estimates an **interpretable** relationship you specify; machine learning learns flexible structure to **predict** well out of sample. Regression for explanation, machine learning for prediction.
+
+**Methods you saw:** LOESS, CART, random forests.
+
+---
+### Text as Data, Briefly
+
+| Approach | What it does | Main weakness |
+|---|---|---|
+| **Dictionary** | Count words in set categories | Misses context |
+| **Topic models** | Find latent themes, unsupervised | Needs interpretation; unstable |
+| **Embeddings** | Words as vectors in semantic space | Needs huge corpora; opaque |
+| **LLMs** | Classify using pretrained models | Cost, validation, bias |
+
+**Validation is the point.** Hold out a test set, report precision and recall, check performance across subgroups. A method that cannot be validated cannot be trusted, however sophisticated.
+
+---
+class: center, middle
+
+# Part VI — Strategy
+
+---
+### Budgeting Two Hours
+
+Eight questions, 120 minutes, 100 points. Points are a better guide than question count.
+
+- **Read everything first — five minutes.** The ethics and integration questions refer back to both studies, so you want the whole exam in your head.
+- Roughly **a minute a point**, leaving about 20 minutes spare.
+- **The 15-point questions** — Q3, Q6, Q7, Q8 — carry 60 of the 100 points between them. Do not let a 10-pointer eat their time.
+- **Leave ten minutes to reread.**
+
+---
+### What Earns Credit
+
+From the grading principles: **substance over form**. Bullets and fragments are fine. An honest attempt at any sub-part earns something.
+
+- **Name the concept.** If you mean parallel trends, say parallel trends.
+- **Apply it to the study in front of you**, with specifics from the printed tables or passages.
+- **Take a position** — then say what would change your mind.
+- **Distinguish description from causation**, every time.
+- When asked whether something is a problem, **answer**, then qualify.
+
+A misreading early on is penalized once, not repeatedly. If you realize you went wrong, say so and continue — don't restart.
+
+---
+### Good Luck
+
+The course has been about one question in many guises: **how do we know whether a claim about politics is true?**
+
+Every method here is an answer to a version of that question, and every one has limits. Knowing the limits is the skill — and it is most of what this exam asks you to show.
+
+Office hours Mondays 3–5, 2001 Sheridan Road Room 3203, and by arrangement before the exam.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
